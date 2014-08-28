@@ -1,0 +1,31 @@
+.tile > .tile-content .highlight-footer {
+    height: 30%;
+    overflow: hidden;
+    padding-top: 10%;
+    position: relative;
+    width: 100%;
+}
+
+.row_1_of_3 .tile > .tile-content .highlight-footer {
+    height: 30%;
+    overflow: hidden;
+    padding-top: 2%;
+    width: 100%;
+}
+
+.tile > .tile-content .result-row > .result-col {
+    float: left;
+    width: 40%;
+    margin-left: 5%;
+    margin-right: 0;
+}
+
+.tile > .tile-content .result-row > .with-right-border {
+}
+
+.tile.simple-percentage-tile  .result-col * {
+    white-space: nowrap;
+    width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}

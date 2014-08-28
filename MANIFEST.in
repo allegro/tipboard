@@ -1,0 +1,6 @@
+include README.rst CHANGES.rst LICENSE.rst requirements.txt
+recursive-include tipboard/static *
+recursive-include tipboard/templates *
+recursive-include tipboard/tiles *
+recursive-include tipboard/defaults *
+recursive-include tipboard/extras *

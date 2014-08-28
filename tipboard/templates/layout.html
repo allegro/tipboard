@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+
+{% block page_title %}{{ details['page_title'] }}{% end %}
+
+{% block head %}
+  {% for file in tiles_css %}
+      <link href="{{ static_url(file) }}" rel="stylesheet" media="screen">
+  {% end %}
+  {% for file in tiles_js %}
+      <script src="{{ static_url(file) }}"></script>
+  {% end %}
+{% end %}
+
+{% block put_body %}
+
+<body>
+
+  {% for rows in layout %}
+    {% for row in rows.keys() %}
+      {# ROWS #}
+      <div class="row {{ row }}">
+        {% for item in rows[row] %}
+        {# COLS #}
+        {% set col=item.keys().pop() %}
+        <div class="col {{ col }}">
+          {% for tile in item.values().pop() %}
+            {# TILE #}
+            {% module Template(
+              tile_path(tile['tile_template']),
+              tile_id=tile['tile_id'],
+              title=tile['title'],
+              timeout=tile.get('timeout', ''),
+            ) %}
+            <input id='{{tile['tile_id']}}-lastModified' type="hidden"
+              name="modified" value="">
+            <input id='{{tile['tile_id']}}-timeout' type="hidden"
+            name="timeout" value="{{tile.get('timeout', '')}}">
+          {% end %}
+        </div>
+        {% end %}
+      </div>
+    {% end %}
+  {% end %}
+
+</body>
+
+{% end %}
+
+

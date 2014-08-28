@@ -1,0 +1,46 @@
+.overflow-proof {
+    /*
+    testing class, it's a candidate to be used in each tile type
+     */
+    overflow: hidden;
+}
+.tile.fancy-listing .fancy-listing-item {
+    height: 10%;
+    margin: 0 0 1%;
+    overflow: hidden;
+    width: 100%;
+}
+
+.tile.fancy-listing .fancy-listing-item:first-child {
+    /*
+    this element is cloned by js
+    */
+    display: none;
+}
+
+.tile.fancy-listing .fancy-listing-item .float-wrapper{
+    float: left;
+    height: 100%;
+    overflow: hidden;
+    width: 30%;
+}
+
+.tile.fancy-listing .fancy-listing-label {
+    font-weight: bold;
+    color: white;
+}
+
+.tile.fancy-listing .fancy-listing-label-inside {
+    font-weight: 900;
+    font-size: 1.5em;
+}
+
+.tile.fancy-listing .fancy-listing-def {
+    float: right;
+    width: 68%;
+}
+
+.tile.fancy-listing .fancy-listing-term {
+    font-size: 1.5em;
+    white-space: nowrap;
+}

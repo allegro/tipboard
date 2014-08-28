@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="dashboard">
+    <head>
+        <meta charset="utf-8">
+        <title>{% block page_title %}Dashboard{% end %}</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        {% for file in tipboard_css %}
+            <link href="{{ static_url(file) }}" rel="stylesheet" media="screen">
+        {% end %}
+        {% for file in tipboard_js %}
+            <script src="{{ static_url(file) }}"></script>
+        {% end %}
+
+        <!--[if lt IE 9]>
+            <script src="{{ static_url("js/lib/html5shiv.js") }}"></script>
+            <script src="{{ static_url("js/lib/jqplot/excanvas.min.js") }}"></script>
+        <![endif]-->
+
+        {% block head %} {% end %}
+    </head>
+    {% block put_body %} <body></body> {% end %}
+</html>

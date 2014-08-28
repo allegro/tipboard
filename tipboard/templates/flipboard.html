@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block page_title %}{{ page_title }}{% end %}
+
+{% block put_body %}
+
+<body class="flipboard">
+
+  <div class="error-wrapper">
+    <p class="error-message"></p>
+  </div>
+
+  <iframe src="" data-fliptime-interval="{{flipboard_interval}}" >
+    <p>Your browser does not support iframes.</p>
+  </iframe>
+
+</body>
+
+{% end %}
+
+
