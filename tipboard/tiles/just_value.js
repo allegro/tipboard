@@ -20,7 +20,7 @@ JustValue = {
     setJustValueColor: function(tileId, meta) {
         // DEPRECATED function, Tipboard.DisplayUtils.applyHighlighterConfig
         var color = meta['just-value-color'];
-        if (color !== void 0) {
+        if (typeof(color) !== 'undefined') {
             color = Tipboard.DisplayUtils.replaceFromPalette(color);
             var dst = $('#' + tileId + '-just-value').parent();
             $(dst).css('background-color', color);

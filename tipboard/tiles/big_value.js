@@ -21,7 +21,7 @@ BigValueTile = {
     setBigValueColor: function(tileId, meta) {
         // DEPRECATED function, Tipboard.DisplayUtils.applyHighlighterConfig
         var color = meta['big_value_color'];
-        if (color !== void 0) {
+        if (typeof(color) !== 'undefined') {
             color = Tipboard.DisplayUtils.replaceFromPalette(color)
             var tile = Tipboard.Dashboard.id2node(tileId);
             var bigValue = $(tile).find('#' + tileId + '-big-value')[0]

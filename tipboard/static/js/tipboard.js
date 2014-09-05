@@ -40,7 +40,7 @@ RendererFactory.prototype.rendererName2renderObj = {
 RendererFactory.prototype.createRenderer = function (rendererName) {
     var lower = rendererName.toLowerCase();
     var rendererClass = RendererFactory.prototype.rendererName2renderObj[lower];
-    if (rendererClass === void 0) {
+    if (typeof(rendererClass) === 'undefined') {
         throw new RendererFactory.prototype.UnknownRenderer(rendererName);
     }
     return rendererClass;
@@ -413,7 +413,7 @@ var renderersSwapper = new RenderersSwapper();
                     return false; // break
                 }
             });
-            if (typeof nextFlipIdx !== void 0) {
+            if (typeof(nextFlipIdx) !== 'undefined') {
                 var tileToFlip = containerFlips[nextFlipIdx];
                 $(tileToFlip).addClass("flippedforward");
             }
@@ -517,7 +517,7 @@ var renderersSwapper = new RenderersSwapper();
         },
 
         init: function() {
-            if ((this.websocket !== void 0) && !(this.websocket.readyState === WebSocket.CLOSED || this.websocket.readyState === WebSocket.CLOSING)) {
+            if ((typeof(this.websocket) !== 'undefined') && !(this.websocket.readyState === WebSocket.CLOSED || this.websocket.readyState === WebSocket.CLOSING)) {
                 console.log("Closing outdated Web socket.");
                 this.websocket.close();
                 return; // the rest will be handled in onClose()
@@ -604,7 +604,7 @@ var renderersSwapper = new RenderersSwapper();
         var tile = Tipboard.Dashboard.id2node(tileId);
         $.each(keysToUse, function(idx, key) {
             var value = dataToPut[key];
-            if (value === void 0) {
+            if (typeof(value) === 'undefined') {
                 var msg = 'WARN: No key "' + key + '" in data'
                 console.log(msg, dataToPut);
             } else {
