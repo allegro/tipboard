@@ -40,7 +40,7 @@ RendererFactory.prototype.rendererName2renderObj = {
 RendererFactory.prototype.createRenderer = function (rendererName) {
     var lower = rendererName.toLowerCase();
     var rendererClass = RendererFactory.prototype.rendererName2renderObj[lower];
-    if (rendererClass === undefined) {
+    if (rendererClass === void 0) {
         throw new RendererFactory.prototype.UnknownRenderer(rendererName);
     }
     return rendererClass;
@@ -183,11 +183,11 @@ var renderersSwapper = new RenderersSwapper();
         getPalette: function(colors) {
             // DEPRECATED, use paletteAsList instead
             var palette = [];
-            for (var name in colors) {
+            $.each(colors, function(name) {
                 if (['black', 'white', 'tile_background'].indexOf(name) < 0) {
                     palette.push(colors[name]);
                 }
-            }
+            });
             return palette;
         },
 
@@ -413,7 +413,7 @@ var renderersSwapper = new RenderersSwapper();
                     return false; // break
                 }
             });
-            if (typeof nextFlipIdx !== undefined) {
+            if (typeof nextFlipIdx !== void 0) {
                 var tileToFlip = containerFlips[nextFlipIdx];
                 $(tileToFlip).addClass("flippedforward");
             }
