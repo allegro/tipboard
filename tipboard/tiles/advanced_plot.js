@@ -28,7 +28,7 @@
         var renderersSwapper = new RenderersSwapper();
         renderersSwapper.swap(newMeta);
         AdvancedPlotTile.rescaleContainers(tile);
-        AdvancedPlotTile.buildChart(tileId, data.plotData, newMeta);
+        AdvancedPlotTile.buildChart(tileId, data.plot_data, newMeta);
     }
 
     Tipboard.Dashboard.registerUpdateFunction('advanced_plot', updateTileAdvancedPlot);
