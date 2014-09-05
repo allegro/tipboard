@@ -9,13 +9,13 @@ below (see section :ref:`installation`).
 Default configuration
 ---------------------
 
-Tipboard launched after installation present a basic, empty layout – empty
-tiles in 2 lines with 4 columns each. If you want to modify them, create a
-"clean" config, where your changes will be introduced. Use the command::
+First thing that you need to do after successfull installation is to create an
+empty config that will provide a base for your customizations. Type in this
+command::
 
   (tb-env)$ tipboard create_project <name_of_project>
 
-It will create the ``~/.tipboard`` dir with the following content:
+It will create ``~/.tipboard`` directory with the following content:
 
 * ``settings-local.yaml`` file that defines the layout of tiles on the
   dashboard you are creating;
@@ -35,14 +35,16 @@ It will create the ``~/.tipboard`` dir with the following content:
 Launching Tipboard app
 ----------------------
 
-After you have logged in to your machine, you may launch Tipboard with the
-command::
+Having default config in place, you may launch Tipboard with the command::
 
   (tb-env)$ tipboard runserver [<host>] [<port>]
 
 ...where ``host`` and ``port`` parameters are optional (by default these are
 ``localhost`` and ``7272``; if you want the application to listen on all the
 network interfaces, set ``host`` to ``0.0.0.0``).
+
+You can now point your web browser to ``http://localhost:7272`` - you should
+see a basic, empty layout with tiles in 2 lines of 4 columns each.
 
 Customising tile layout
 -----------------------
@@ -137,7 +139,7 @@ One of the most useful functions is defining tiles to rotate. In a single
 container (i.e. in one of the fields indicated by ``col_X_of_Y`` and
 ``row_X_of_Y``), you may define a few tiles to be displayed in this location as
 items rotating at intervals defined in the configuration (similar to ads
-rotating on bus/tram stops, so-called *citylights*). To achieve that:
+rotating on bus/tram stops, so-called citylights). To achieve that:
 
 * add the ``flip-time-xx`` class to a container, where ``xx`` is rotation
   interval in seconds;
@@ -239,3 +241,8 @@ this behavior and rotate only certain dashboards, just add another parameter
 taken into account, e.g.::
 
   FLIPBOARD_SEQUENCE = ['my_first_dashboard', 'my_third_dashboard']
+
+.. note::
+
+   Every change in ``settings-local.py`` file requires restart of the
+   application.
