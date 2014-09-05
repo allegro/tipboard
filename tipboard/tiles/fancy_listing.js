@@ -4,7 +4,7 @@
 function updateTileFancyListing(tileId, data, config, tipboard) {
     var tile = Tipboard.Dashboard.id2node(tileId);
     var nodeToClone = FancyListing.initContainer(tile);
-    if (nodeToClone === void 0) {
+    if (typeof(nodeToClone) === 'undefined') {
         return false;
     }
     FancyListing.populateItems(tile, nodeToClone, data);
@@ -20,7 +20,7 @@ Tipboard.Dashboard.registerUpdateFunction('fancy_listing', updateTileFancyListin
 FancyListing = {
     initContainer: function(tile) {
         var nodeToClone = $(tile).find('.fancy-listing-item')[0];
-        if (nodeToClone === void 0) {
+        if (typeof(nodeToClone) === 'undefined') {
             console.log('ABORTING - no node to clone');
             return false;
         }
