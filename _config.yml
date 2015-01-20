@@ -1,0 +1,8 @@
+# Site settings
+title: Tipboard
+email:
+description:
+baseurl: "/tipboard"
+
+# Build settings
+markdown: kramdown
