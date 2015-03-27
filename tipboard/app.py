@@ -249,7 +249,7 @@ class FlipboardHandler(tornado.web.RequestHandler, SentryMixin):
             'flipboard.html',
             page_title=flipboard.get_flipboard_title(),
             tipboard_css=settings.TIPBOARD_CSS_STYLES,
-            tipboard_js=['js/lib/jquery.js', 'js/flipboard.js'],
+            tipboard_js=['js/lib/jquery.js', 'js/flipboard.js', 'js/lib/require.js'],
             flipboard_interval=settings.FLIPBOARD_INTERVAL,
         )
 
