@@ -1,0 +1,12 @@
+# To use docker-compose add `REDIS_HOST = 'redis'` to your settings-local.py
+tipboard:
+    image: tipboard
+    links:
+        - redis
+    volumes:
+        - .tipboard/:/root/.tipboard
+    ports:
+        - "7272:7272"
+    command: /opt/tipboard/bin/tipboard runserver 0.0.0.0 7272
+redis:
+  image: redis
