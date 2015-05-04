@@ -122,12 +122,13 @@ def create_project(project_name):
     if not os.access(os.path.expanduser("~"), os.W_OK):
         print('Your home directory is not writable. Aborting.')
         return
-    if not os.path.isdir(user_config_dir):
-        _create_project_dir(project_name)
-        _create_local_settings(project_name)
-        print('Configuration files created in: %s' % user_config_dir)
-    else:
-        print('Configuration directory ~/.tipboard already exist. Aborting.')
+    # if not os.path.isdir(user_config_dir):
+    # if not os.path.exists(user_config_dir):
+    _create_project_dir(project_name)
+    _create_local_settings(project_name)
+    print('Configuration files created in: %s' % user_config_dir)
+    # else:
+    #     print('Configuration directory ~/.tipboard already exist. Aborting.')
 
 
 def runserver(address=None, port=None):
