@@ -1,0 +1,37 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+
+<dom-module id='tiles-feeder'></dom-module>
+<script>
+(function() {
+    Polymer({
+        is: "tiles-feeder",
+        properties: {
+            socketUrl: String
+        },
+        ws: null,
+        ready: function() {
+            this.ws = new WebSocket(this.socketUrl);
+            this.ws.onopen = function (event) {
+                console.log('websocket:onopen');
+                this.send("update");
+            };
+            this.ws.onmessage = function(event) {
+                console.log("websocket:onmessage");
+                var messageData = JSON.parse(event.data);
+                var tileId = '#' + messageData['tile-id'];
+                var tile = document.querySelector(tileId)
+                if (tile !== null) {
+                    console.log('updating: ' + tileId + ' with data:', messageData);
+                    tile.update(messageData['tile-data'], messageData['modified']);
+                } else {
+                    console.log('No tile found: ' + tileId);
+                }
+            };
+            this.ws.onclose = function (event) {
+                console.log('websocket:onclose');
+                this.ws = null;
+            };
+        }
+    });
+})();
+</script>

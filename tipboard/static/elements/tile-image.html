@@ -1,0 +1,43 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="../bower_components/iron-image/iron-image.html">
+<link rel="import" href="tile-layout.html">
+<link rel="import" href="tile-header.html">
+<link rel="import" href="tile-body.html">
+
+<dom-module id='tile-image'>
+    <style>
+        :host {
+            background: white;
+            display: block;
+            height: 100%;
+            width: 100%;
+            float: left;
+        }
+        #img {
+            background-color: #25282d;
+            display: block;
+            margin: 0 auto;
+            max-height: 100%;
+            max-width: 100%;
+        }
+    </style>
+    <template>
+        <tile-layout>
+            <tile-header>tile-image</tile-header>
+            <tile-body class='horizontal center-justified layout center'>
+                <iron-image id='img' preload fade></iron-image>
+            </tile-body>
+        </tile-layout>
+    </template>
+</dom-module>
+<script>
+(function() {
+    Polymer({
+        is: 'tile-image',
+        update: function(data) {
+            this.querySelector('tile-header').innerHTML = data['header'];
+            this.$.img.setAttribute('src', data['imageSrc']);
+        },
+    });
+})();
+</script>

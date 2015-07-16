@@ -1,0 +1,56 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<script src="../bower_components/Chart.js/Chart.js"></script>
+
+<dom-module id='chart-plotter'>
+    <style>
+        :host {
+            display: block;
+            height: 100%;
+        }
+        canvas {
+            height: 100%;
+            width: 100%;
+        }
+    </style>
+    <template>
+        <canvas id="chart"></canvas>
+    </template>
+</dom-module>
+<script>
+(function() {
+    Polymer({
+        is: 'chart-plotter',
+        createChart: function(chartData, chartType) {
+            var ctx = this.$.chart.getContext("2d");
+            chartObj = new Chart(ctx);
+var chartData2 = {
+    labels: ["Eating", "Drinking", "Sleeping", "Designing", "Coding", "Cycling", "Running"],
+    datasets: [
+        {
+            label: "My First dataset",
+            fillColor: "rgba(220,220,220,0.2)",
+            strokeColor: "rgba(220,220,220,1)",
+            pointColor: "rgba(220,220,220,1)",
+            pointStrokeColor: "#fff",
+            pointHighlightFill: "#fff",
+            pointHighlightStroke: "rgba(220,220,220,1)",
+            data: [65, 59, 90, 81, 56, 55, 40]
+        },
+        {
+            label: "My Second dataset",
+            fillColor: "rgba(151,187,205,0.2)",
+            strokeColor: "rgba(151,187,205,1)",
+            pointColor: "rgba(151,187,205,1)",
+            pointStrokeColor: "#fff",
+            pointHighlightFill: "#fff",
+            pointHighlightStroke: "rgba(151,187,205,1)",
+            data: [28, 48, 40, 19, 96, 27, 100]
+        }
+    ]
+};
+            chartObj[chartType](chartData);
+        },
+    });
+})();
+</script>
+

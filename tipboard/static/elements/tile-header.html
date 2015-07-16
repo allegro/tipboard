@@ -1,0 +1,25 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+
+<dom-module id='tile-header'>
+    <style>
+        :host {
+            display: block;
+            font-size: 3rem;
+            text-align: center;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            width: 100%;
+        }
+    </style>
+    <template>
+        <content></content>
+    </template>
+</dom-module>
+<script>
+(function() {
+    Polymer({
+        is: 'tile-header'
+    })
+})();
+</script>

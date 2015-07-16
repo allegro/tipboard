@@ -1,0 +1,22 @@
+{
+  "name": "static",
+  "version": "1.4.0",
+  "authors": [
+    "pylabs@allegrogroup.com"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "polymer": "Polymer/polymer#^1.0.0",
+    "iron-flex-layout": "polymerelements/iron-flex-layout#^1.0.0",
+    "Chart.js": "~1.0.2",
+    "iron-selector": "PolymerElements/iron-selector#^1.0.0",
+    "iron-image": "PolymerElements/iron-image#^1.0.0"
+  }
+}

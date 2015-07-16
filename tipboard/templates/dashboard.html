@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Dashboard</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="/static/css/reset.css" rel="stylesheet" media="screen">
+    <link href="/static/css/layout.css" rel="stylesheet" media="screen">
+    <script src="/static/bower_components/webcomponentsjs/webcomponents-lite.js"></script>
+    <link rel="import" href="/static/elements/elements.html">
+</head>
+<body class='fullbleed'>
+    <dashboard-root>
+        <tiles-feeder socket-url='ws://localhost:7272/communication/websocket'></tiles-feeder>
+        <tiles-row>
+            <chart-tile id="chart-tile1"> </chart-tile>
+            <chart-tile id="chart-tile2"> </chart-tile>
+            <chart-tile id="chart-tile3"> </chart-tile>
+            <chart-tile id="chart-tile4"> </chart-tile>
+        </tiles-row>
+        <tiles-row>
+            <tile-image id="tile-image1"> </tile-image>
+            <tiles-rotor flip-time='1000'>
+                <tile-image id="rotated1"> </tile-image>
+                <tile-image id="rotated2"> </tile-image>
+            </tiles-rotor>
+            <tile-blank id=""> </tile-blank>
+            <tile-blank id=""> </tile-blank>
+        </tiles-row>
+    </dashboard-root>
+</body>
+</html>

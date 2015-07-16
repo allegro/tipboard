@@ -1,0 +1,26 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+
+<dom-module id='dashboard-root'>
+    <style>
+        :host {
+            display: block;
+            height: 100%;
+        }
+    </style>
+    <template>
+        <content></content>
+    </template>
+</dom-module>
+<script>
+(function() {
+    Polymer({
+        is: 'dashboard-root',
+        ready: function() {
+            var rows = this.querySelectorAll('tiles-row');
+            for (var i = 0; i < rows.length; i++) {
+                rows[i].style.height = 100/rows.length + '%';
+            }
+        }
+    });
+})();
+</script>

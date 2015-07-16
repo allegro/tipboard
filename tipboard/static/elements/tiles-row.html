@@ -1,0 +1,25 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+
+<dom-module id='tiles-row'>
+    <style>
+        :host {
+            display: block;
+        }
+    </style>
+    <template>
+        <content></content>
+    </template>
+</dom-module>
+<script>
+(function() {
+    Polymer({
+        is: 'tiles-row',
+        ready: function() {
+            var tiles = this.children;
+            for (var i = 0; i < tiles.length; i++) {
+                tiles[i].style.width = 100/tiles.length + '%';
+            }
+        }
+    });
+})();
+</script>

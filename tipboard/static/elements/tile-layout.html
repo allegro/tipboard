@@ -1,0 +1,31 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+
+<dom-module id='tile-layout'>
+    <style>
+        :host {
+            display:block;
+            height: 100%;
+            background-color: #25282d;
+            color: #fff;
+        }
+        :host ::content tile-header {
+            display: block;
+            height: 15%;
+        }
+        :host ::content tile-body {
+            display: block;
+            height: 85%;
+        }
+    </style>
+    <template>
+        <content select='tile-header'></content>
+        <content select='tile-body'></content>
+    </template>
+</dom-module>
+<script>
+(function() {
+    Polymer({
+        is: 'tile-layout'
+    });
+})();
+</script>

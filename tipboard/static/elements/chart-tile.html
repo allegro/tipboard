@@ -1,0 +1,37 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="tile-layout.html">
+<link rel="import" href="tile-header.html">
+<link rel="import" href="tile-body.html">
+<link rel="import" href="chart-plotter.html">
+
+<dom-module id='chart-tile'>
+    <style>
+        :host {
+            display: block;
+            height: 100%;
+            width: 100%;
+            float: left;
+        }
+    </style>
+    <template>
+        <tile-layout>
+            <tile-header>chart-tile</tile-header>
+            <tile-body>
+                <chart-plotter id='chart'></chart-plotter>
+            </tile-body>
+        </tile-layout>
+    </template>
+</dom-module>
+<script>
+(function() {
+    Polymer({
+        is: 'chart-tile',
+        update: function(data) {
+                this.querySelector('tile-header').innerHTML = data['header'];
+                this.$.chart.createChart(
+                    data['chartData'], data['chartType']
+                );
+        }
+    });
+})();
+</script>

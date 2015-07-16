@@ -1,0 +1,4 @@
+tipboard.egg-info/
+/.idea/*
+*.pyc
+*.swp

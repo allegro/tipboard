@@ -1,0 +1,53 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="../bower_components/iron-selector/iron-selector.html">
+
+
+<dom-module id='tiles-rotor'>
+    <style>
+        :host {
+            background: purple;
+            display: block;
+            height: 100%;
+            float:left;
+        }
+        iron-selector ::content > * {
+            background: black;
+            display: none;
+        }
+        iron-selector ::content *.iron-selected {
+            background: yellow;
+            display: inline-block;
+        }
+
+    </style>
+    <template>
+        <iron-selector id='selector' selected="2">
+            <content></content>
+        </iron-selector>
+    </template>
+</dom-module>
+<script>
+(function() {
+    Polymer({
+        is: 'tiles-rotor',
+        properties: {
+            flipTime: {
+                type: Number,
+                // in milisec.
+                value: 5 * 1000
+            }
+        },
+        rotate: function() {
+                console.log('rotating');
+                this.$.selector.selectNext();
+                this.debounce('rotate', this.rotate, this.flipTime);
+        },
+        ready: function() {
+            // set last item to flip to first item
+            this.$.selector.select(this.$.selector.items.length - 1);
+            this.rotate();
+        }
+
+    });
+})();
+</script>
