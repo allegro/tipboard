@@ -22,7 +22,7 @@ where:
 
 Example::
 
-  curl http://localhot:7272/api/v0.1/<api_key>/push
+  curl http://localhost:7272/api/v0.1/<api_key>/push
        -X POST
        -d "tile=text"
        -d "key=mytext"
