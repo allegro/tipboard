@@ -52,7 +52,7 @@ where:
 .. describe:: ticks
 
    List of elements defining x-axis; each such element is a list of form ``[k,
-   v]`` where ``k`` is an oridinal number designating position of such tick and
+   v]`` where ``k`` is an ordinal number designating position of such tick and
    ``v`` is a string which will be displayed in that place.
 
 Example::
@@ -65,4 +65,4 @@ Example::
 
    If ``series_list`` contains more than one object (which is the case 99% of
    the time), each one of them should have ``series`` list of the same length -
-   and this lenght should be equal to the number of ``ticks``.
+   and this length should be equal to the number of ``ticks``.

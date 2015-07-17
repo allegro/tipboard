@@ -9,7 +9,7 @@ below (see section :ref:`installation`).
 Default configuration
 ---------------------
 
-First thing that you need to do after successfull installation is to create an
+First thing that you need to do after a successful installation is to create an
 empty config that will provide a base for your customizations. Type in this
 command::
 

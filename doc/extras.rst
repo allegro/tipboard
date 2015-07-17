@@ -39,7 +39,7 @@ Tested with JIRA 6.1.x.
 
 Simple Python script targeted to novice users serving as an example how to glue
 together three steps: fetching data, processing it and then sending it to the
-tile. See comments in the source code for further explaination.
+tile. See comments in the source code for further explanation.
 
 
 ``fabfile.py``
