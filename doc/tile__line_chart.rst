@@ -7,7 +7,7 @@
 **Description**
 
 Line-chart using `jqPlot <http://www.jqplot.com/>`_ library. Allows to display
-arbitrary number of plots on single chart, with automatical generation of trend
+arbitrary number of plots on single chart, with automatic generation of trend
 lines for them (which is turned on by default).
 
 **Content**

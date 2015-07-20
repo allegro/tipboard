@@ -8,7 +8,7 @@
 
 This tile is a more sophisticated version of ``listing`` tile offering colored
 labels and centering options. Each entry is an object containing three keys:
-``label``, ``text`` and ``description``. Threrefore, ``data`` (i.e. content) is
+``label``, ``text`` and ``description``. Therefore, ``data`` (i.e. content) is
 just a list of such objects.
 
 **Content**
