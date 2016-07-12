@@ -82,6 +82,7 @@ table {
 .row_3_of_3 { height: 100%; }
 .row_2_of_3 { height: 66.6666%; }
 .row_1_of_3 { height: 33.3333%; }
+.row_1_of_1 { height: 100%; }
 .row_2_of_2 { height: 100%; }
 .row_1_of_2 { height: 50%; }
 .col_15_of_5 { width: 30%; }
