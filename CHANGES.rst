@@ -1,6 +1,24 @@
 Change Log
 ----------
 
+1.4.1
+~~~~~
+
+Released on November 16, 2016.
+
+* Fixes for tiles: 'advanced_plot', 'simple_percentage' and 'text-tile'.
+
+* Fix for tile keys cache.
+
+* Added support for RequireJS.
+
+* Make use of simplify.js to make charts (in e.g. 'line_chart' tile) more readable.
+
+* Fix for 'Target dimension not set' error when layout 'row_1_of_1' is used.
+
+* Minor fixes, improvements, cleanups etc.
+
+
 1.4.0
 ~~~~~
 
