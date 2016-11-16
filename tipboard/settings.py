@@ -104,6 +104,7 @@ TIPBOARD_CSS_STYLES = [
 ]
 TIPBOARD_JAVASCRIPTS = [
     'js/lib/jquery.js',
+    'js/lib/simplify.js',
     'js/lib/jquery.fullscreen.js',
     'js/lib/jqplot/jquery.jqplot.js',
     'js/lib/jqplot/plugins/jqplot.trendline.js',

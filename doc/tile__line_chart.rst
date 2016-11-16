@@ -7,7 +7,7 @@
 **Description**
 
 Line-chart using `jqPlot <http://www.jqplot.com/>`_ library. Allows to display
-arbitrary number of plots on single chart, with automatical generation of trend
+arbitrary number of plots on single chart, with automatic generation of trend
 lines for them (which is turned on by default).
 
 **Content**
@@ -52,7 +52,7 @@ Example::
 
 ::
 
-  value = {<jqplot_config>}
+  value = {<jqplot_config>, simplify: <simplify_config>}
 
 where:
 
@@ -73,6 +73,24 @@ Example::
 
 -- this will set up the grid (in white color), black background and will turn
 off shadow effects as well as borders.
+
+simplify_config
+
+::
+
+    simplify_config = {
+        tolerancy: 10,
+        data_points_limit: 50, // we will TRY to achieve lower number of data points than this
+        max_simplifying_steps: 5,
+        simplify_step_multiplicator: 1.5
+        };
+
+Each option is self-describing. This feature tries to optimize dataset to achieve points count lower than `data_points_limit`. If simplify_config is not set, there won't be any simplify process at all (you will just have your raw data displayed).
+
+::
+
+    curl -X POST http://127.0.0.1:7272/api/v0.1/dev_key/tileconfig/test_line
+         -d 'value={"simplify": {"tolerancy": 2}}'
 
 .. note::
 

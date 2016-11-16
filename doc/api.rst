@@ -43,7 +43,7 @@ Current API version: **v0.1**
 .. note::
 
    In 99% of cases, probably only ``push`` and ``tileconfig`` will be of
-   interest to you.
+   interest to you (and maybe ``tiledata`` too).
 
 
 .. http:post:: /api/(api_version)/(api_key)/push
@@ -126,7 +126,9 @@ Current API version: **v0.1**
 
 .. http:get:: /api/(api_version)/(api_key)/tiledata/(tile_id)
 
-   Retrieves data belonging to the tile specified by `tile_id`. May be useful for diagnostics.
+   Retrieves data belonging to the tile specified by `tile_id`. May be useful
+   in cases when you need to re-fetch some parts of your data (e.g. when
+   updating your team's stats) or just for diagnostics.
 
    :param api_version: version of API to be used
    :param api_key: your API key

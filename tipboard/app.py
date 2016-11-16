@@ -118,21 +118,26 @@ class DashboardSocketHandler(tornado.websocket.WebSocketHandler, RedisMixin,
             self.pubsub.disconnect()
         self.getter.disconnect()
 
+
     @tornado.gen.engine
     def on_message(self, message):
         log.info('Message received: %s.', message)
         if message != 'update':
             return
+        stale_keys = set()
         for tile_id in self.cache:
             log.debug('Putting data for tile: {}'.format(tile_id))
             raw = yield tornado.gen.Task(self.getter.get, tile_id)
             if not raw:
                 log.warn('No data in key %s on Redis.', tile_id)
-                del self.cache[tile_id]
+                stale_keys.add(tile_id)
                 continue
             data = json.loads(raw)
             data['tipboard'] = self.tipboard_helpers
             self.write_message(data)
+        if stale_keys:
+            self.cache.difference_update(stale_keys)
+
 
     @tornado.gen.engine
     def on_publish(self, msg):
@@ -244,7 +249,7 @@ class FlipboardHandler(tornado.web.RequestHandler, SentryMixin):
             'flipboard.html',
             page_title=flipboard.get_flipboard_title(),
             tipboard_css=settings.TIPBOARD_CSS_STYLES,
-            tipboard_js=['js/lib/jquery.js', 'js/flipboard.js'],
+            tipboard_js=['js/lib/jquery.js', 'js/flipboard.js', 'js/lib/require.js'],
             flipboard_interval=settings.FLIPBOARD_INTERVAL,
         )
 

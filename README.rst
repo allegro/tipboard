@@ -2,6 +2,8 @@
 Tipboard
 ========
 
+|docs|
+
 Introduction
 ------------
 
@@ -81,4 +83,9 @@ License
 
 Tipboard is licensed under the `Apache License, v2.0 <http://tipboard.readthedocs.org/en/latest/license.html>`_.
 
-Copyright (c) 2013-2014 `Allegro Group <http://allegrogroup.com>`_.
+Copyright (c) 2013-2015 `Allegro Group <http://allegrogroup.com>`_.
+
+.. |docs| image:: https://readthedocs.org/projects/tipboard/badge/?version=latest
+    :alt: Documentation Status
+    :scale: 100%
+    :target: https://readthedocs.org/projects/tipboard/
