@@ -524,7 +524,7 @@ var renderersSwapper = new RenderersSwapper();
             }
             console.log("Initializing a new Web socket manager.");
             this.websocket = new WebSocket(
-                "ws://" + window.location.host + "/communication/websocket"
+                "wss://" + window.location.host + "/communication/websocket"
             );
             this.websocket.onopen = function(evt) {
                 Tipboard.WebSocketManager.onOpen(evt);
