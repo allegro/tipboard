@@ -47,7 +47,7 @@ master_doc = 'index'
 
 # General information about the project.
 project = u'Tipboard'
-copyright = u'2013-2015, Allegro Group'
+copyright = u'2013-2017, Allegro Group'
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
