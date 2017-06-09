@@ -46,7 +46,7 @@ network interfaces, set ``host`` to ``0.0.0.0``).
 You can now point your web browser to ``http://localhost:7272`` - you should
 see a basic, empty layout with tiles in 2 lines of 4 columns each.
 
-Customising tile layout
+Customizing tile layout
 -----------------------
 
 As mentioned previously, the layout of tiles in a dashboard is defined by
@@ -92,7 +92,7 @@ where:
 
 .. describe:: row_X_of_Y
 
-   Defines a row hight; a sum of Xs should equal Y.
+   Defines a row height; a sum of Xs should equal Y.
 
 .. describe:: col_X_of_Y
 
@@ -181,7 +181,7 @@ divided into 3 columns)::
 
 ...its corresponding configuration file should look as follows (for brevity, I
 will present only the ``layout`` section, skipping the ``tile_template``,
-``title_id``, etc.)::
+``tile_id``, etc.)::
 
   layout:
       row_1_of_2:

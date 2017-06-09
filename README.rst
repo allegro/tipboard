@@ -73,7 +73,7 @@ To verify your installation, launch this command::
 If you see the message ``Listening on port...`` instead of any errors, it means
 that installation was successful and you may now
 `configure <http://tipboard.readthedocs.org/en/latest/configuration.html>`_
-your newly installed Tipboard's instance. You may also point your favourite
+your newly installed Tipboard instance. You may also point your favorite
 web browser to ``http://localhost:7272`` to see the current state of your
 dashboard.
 

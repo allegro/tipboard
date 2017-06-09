@@ -28,7 +28,7 @@ characters starting with ``API_KEY``, e.g.::
   API_KEY = 'e2c3275d0e1a4bc0da360dd225d74a43'
 
 If you can't see any such string, just add the key manually (it doesn't have
-to be as long and hard to memorise as the one above, though).
+to be as long and hard to memorize as the one above, though).
 
 .. note::
 
