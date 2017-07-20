@@ -14,6 +14,7 @@ import os
 # Redis serwer configuration
 REDIS_HOST = 'localhost'
 REDIS_PORT = 6379
+REDIS_PASSWORD = None
 REDIS_DB = 4
 
 DEBUG = False
@@ -62,16 +63,19 @@ except IOError:
 REDIS = dict(
     host=REDIS_HOST,
     port=REDIS_PORT,
+    password=REDIS_PASSWORD,
     db=REDIS_DB,
 )
 REDIS_ASYNC = dict(
     host=REDIS_HOST,
     port=REDIS_PORT,
+    password=REDIS_PASSWORD,
     selected_db=REDIS_DB,
 )
 REDIS_SYNC = dict(
     host=REDIS_HOST,
     port=REDIS_PORT,
+    password=REDIS_PASSWORD,
     db=REDIS_DB,
 )
 
