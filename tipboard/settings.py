@@ -11,7 +11,7 @@ import os
 ##############################################################################
 # Stuff that can be / should be overridden in local settings
 
-# Redis serwer configuration
+# Redis server configuration
 REDIS_HOST = 'localhost'
 REDIS_PORT = 6379
 REDIS_PASSWORD = None
