@@ -26,7 +26,7 @@ Here you will find `some examples <http://www.jqplot.com/deploy/dist/examples/>`
   "data" = {
       "title": "<tile>",
       "description": "<description>",
-      "plotData": "<data>"
+      "plot_data": "<data>"
   }
 
 where:
@@ -35,7 +35,7 @@ where:
 
    Title and description (subtitle) for the tile.
 
-.. describe:: plotData
+.. describe:: plot_data
 
    Data that will be fed directly to your plot. Its form depends on the
    specific type of plot that you are going to use - see jqPlot's documentation
@@ -50,7 +50,7 @@ from the top)::
        -d "tile=advanced_plot"
        -d "key=<tile_id>"
        -d 'data={"title": "Metric Tons per Year", "description": "",
-                 "plotData": [[[2,1], [4,2], [6,3], [3,4]],
+                 "plot_data": [[[2,1], [4,2], [6,3], [3,4]],
                                [[5,1], [1,2], [3,3], [4,4]],
                                [[4,1], [7,2], [1,3], [2,4]]]}'
 
