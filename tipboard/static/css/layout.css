@@ -65,6 +65,12 @@ table {
     */
 }
 
+.col_6_of_6 { width: 100%; }
+.col_5_of_6 { width: 83.3333334%; }
+.col_4_of_6 { width: 66.6666667%; }
+.col_3_of_6 { width: 50%; }
+.col_2_of_6 { width: 33.3333%; }
+.col_1_of_6 { width: 16.6666667%; }
 .col_5_of_5 { width: 100%; }
 .col_4_of_5 { width: 80%; }
 .col_3_of_5 { width: 60%; }
@@ -79,12 +85,17 @@ table {
 .col_1_of_3 { width: 33.3333%; }
 .col_1_of_2 { width: 50%; }
 .col_1_of_1 { width: 100%; }
+
+.row_4_of_4 { height: 100%; }
+.row_3_of_4 { height: 75%; }
+.row_2_of_4 { height: 50%; }
+.row_1_of_4 { height: 25%; }
 .row_3_of_3 { height: 100%; }
 .row_2_of_3 { height: 66.6666%; }
 .row_1_of_3 { height: 33.3333%; }
-.row_1_of_1 { height: 100%; }
 .row_2_of_2 { height: 100%; }
 .row_1_of_2 { height: 50%; }
+.row_1_of_1 { height: 100%; }
 .col_15_of_5 { width: 30%; }
 .w80 { width: 80%; }
 
