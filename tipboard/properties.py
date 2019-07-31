@@ -13,7 +13,7 @@ debug = conf['DEBUG']
 VERSION = conf["VERSION"]
 SITE_ENV = conf["SITE_ENV"]
 LOCAL = conf['LOCAL']
-CDN_URL = conf['CDN_URL']
+CDN_URL = conf['CDN_URL'] #if you are in production and need a CDN for media and static file
 
 REDIS_HOST = conf['REDIS_HOST']
 REDIS_PORT = conf['REDIS_PORT']
