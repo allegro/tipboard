@@ -14,12 +14,9 @@
                     {% for keyCol, valueCol in col.items %}
                         <div class="col {{ keyCol }}">
                             {% for colData in valueCol %}
-
-                                    {{ colData.tile_id|template_tile:colData }}
-
-{#                                {{ colData.tile_id|template_tile:colData.tile_template }}#}
-                            <input id='{{ colData.tile_id }}-lastModified' type="hidden" name="modified" value="">
-                            <input id='{{ colData.tile_id }}-timeout' type="hidden" name="timeout" value="">
+                                {{ colData.tile_id|template_tile:colData }} <!-- get Template from tile in template filter-->
+                                <input id='{{ colData.tile_id }}-lastModified' type="hidden" name="modified" value="">
+                                <input id='{{ colData.tile_id }}-timeout' type="hidden" name="timeout" value="">
                             {% endfor %}
                         </div>
 

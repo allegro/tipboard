@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 from tipboard.cache import getCache
-from tipboard.properties import *
-from tipboard.utils import getRedisPrefix
+from tipboard.properties import COLORS, JS_LOG_LEVEL
+from tipboard.utils import getRedisPrefix, getTimeStr
 from channels.generic.websocket import WebsocketConsumer
 from asgiref.sync import async_to_sync
 

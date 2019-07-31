@@ -1,17 +1,17 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
+
+from django.http import JsonResponse
 from django.shortcuts import render
-from tipboard.properties import *
-from tipboard.flipboard import Flipboard
-from django.shortcuts import render
-from django.http import JsonResponse, Http404
+
 from tipboard.cache import getCache
-from tipboard.properties import *
-from tipboard.parser import process_layout_config
 from tipboard.flipboard import Flipboard
-from tipboard.utils import _tile_path, _verify_statics, getTimeStr
+from tipboard.parser import process_layout_config
+from tipboard.properties import *
+from tipboard.utils import tile_path, getTimeStr
 
 cache = getCache()
+
 
 def flipboardHandler(request):
     print(f"{getTimeStr()} (+) flipboardHandler/", flush=True)
@@ -24,6 +24,7 @@ def flipboardHandler(request):
 #    data['tipboard_js'].remove('js/tipboard.js')
     return render(request, 'flipboard.html', data)
 
+
 def getDashboardsPaths(request):
     print(f"{getTimeStr()} GET /getDashboardsPaths", flush=True)
     paths = Flipboard().get_paths()
@@ -35,9 +36,9 @@ def dashboardRendererHandler(request, layout_name='layout_config'):
     try:
         config = process_layout_config(layout_name)
         tiles_js = ["tiles/" + '.'.join((name, 'js')) for name in config['tiles_names']]
-        #tiles_js = filter(_verify_statics, tiles_js)
+        #tiles_js = filter(_verify_statics, tiles_js) #TODO fix the verify_statics in utils.py
         tiles_css = ["tiles/" + '.'.join((name, 'css')) for name in config['tiles_names']]
-        #tiles_css = filter(_verify_statics, tiles_css)
+        #tiles_css = filter(_verify_statics, tiles_css) #TODO fix the verify_statics in utils.py
         data = {
             "details": config['details'],
             "layout": config['layout'],
@@ -45,7 +46,7 @@ def dashboardRendererHandler(request, layout_name='layout_config'):
             "tipboard_js": TIPBOARD_JAVASCRIPTS,
             "tiles_css": tiles_css,
             "tiles_js": tiles_js,
-            "tile_path": _tile_path
+            "tile_path": tile_path
         }
     except FileNotFoundError as e:
         print(f"{getTimeStr()}: (+)Config file:{layout_name} not found", flush=True)

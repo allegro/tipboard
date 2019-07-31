@@ -1,5 +1,4 @@
 import json, os
-from tipboard.utils import getTimeStr
 
 dir_path = os.path.dirname(os.path.realpath(__file__))
 conf = json.load(open(dir_path + '/Config/properties.json'))
@@ -54,7 +53,7 @@ try:
     exec (compile(open(os.path.join('tipboard/Config', 'settings-local.py'), "rb").read(),
                   os.path.join('tipboard/Config', 'settings-local.py'), "exec"))
 except IOError:
-    print(f"{getTimeStr()} (-) Error settings-local.py not found", flush=True)
+    print(f" (-) Error settings-local.py not found", flush=True)
 
 # Determine which layout config should be used
 user_config_dir = 'tipboard/Config'

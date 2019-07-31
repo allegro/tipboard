@@ -1,9 +1,10 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
-import django.http, redis, pytz, time
-from datetime import datetime, timedelta
-from tipboard.properties import *
+import time, os, json
+from datetime import datetime
+from tipboard.properties import PROJECT_NAME, TIPBOARD_PATH
 from tipboard.parser import get_tiles_configs
+
 
 def validate_post_request(post_field, allowed_fields):
     """
@@ -51,8 +52,10 @@ def validate_with_json(jsoned_data):
 def getRedisPrefix(tile_id="*"):
     return f'{PROJECT_NAME}:tile:{tile_id}'
 
+
 def getTimeStr():
     return datetime.now().strftime("%Hh%M")
+
 
 def getIsoTime():
     localtime = datetime.now().strftime("%Y-%m-%dT%H:%M:%S")
@@ -61,7 +64,7 @@ def getIsoTime():
     return iso_time
 
 
-def _verify_statics(static_file):
+def verify_statics(static_file):
     user_tiles_path = os.path.join(
         '.tipboard', '.tipboard/custom_tiles'
     )
@@ -74,7 +77,7 @@ def _verify_statics(static_file):
     return found
 
 
-def _tile_path(tile_name):
+def tile_path(tile_name):
     """
     Searches for tile's html file (in user's 'custom_tiles' folder,
     and then in app's 'tiles' folder) and returns full path of

@@ -1,5 +1,5 @@
 import os
-from tipboard.properties import *
+from tipboard.properties import SUPER_SECRET_KEY, debug, REDIS_HOST, REDIS_PORT
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = SUPER_SECRET_KEY
