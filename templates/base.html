@@ -1,0 +1,27 @@
+{% load static from staticfiles %}
+<!DOCTYPE html>
+<html >
+    <head>
+        <meta charset="utf-8">
+        <title>{% block page_title %}Dashboard{% endblock %}</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+{#        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">#}
+
+        {% for file in tipboard_css %}
+            <link href="{% static file %}" rel="stylesheet" media="screen">
+        {% endfor %}
+        {% for file in tipboard_js %}
+            <script src="{% static file %}"></script>
+        {% endfor %}
+        {% for file in tiles_css %}
+             <link href="{% static file %}" rel="stylesheet" media="screen">
+         {% endfor %}
+         {% for file in tiles_js %}
+             <script src="{% static file %}"></script>
+         {% endfor %}
+
+        {% block head %} {% endblock %}
+    </head>
+    {% block put_body %} {% endblock %}
+</html>

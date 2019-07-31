@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% load static from staticfiles %}
+{% load template_filter %}
+
+{% block put_body %}
+<body style="background-image:url({% static "lm.png" %});background-repeat: no-repeat;;background-position: center;background-size: 65%">
+
+    {% for rows in layout %}
+        {% for row, value in rows.items %}
+
+            <div class="row {{ row }}">
+                {% for col in value %}
+
+                    {% for keyCol, valueCol in col.items %}
+                        <div class="col {{ keyCol }}">
+                            {% for colData in valueCol %}
+
+                                    {{ colData.tile_id|template_tile:colData }}
+
+{#                                {{ colData.tile_id|template_tile:colData.tile_template }}#}
+                            <input id='{{ colData.tile_id }}-lastModified' type="hidden" name="modified" value="">
+                            <input id='{{ colData.tile_id }}-timeout' type="hidden" name="timeout" value="">
+                            {% endfor %}
+                        </div>
+
+                    {% endfor %}
+
+                {% endfor %}
+            </div>
+        {% endfor %}
+
+    {% endfor %}
+{% endblock %}
+
+
