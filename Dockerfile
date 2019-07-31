@@ -12,7 +12,7 @@ ADD static ./static
 ADD ./tipboard ./tipboard
 
 ADD ./templates ./templates
-ADD ../../TipboardProject/tipboard/webserver ./webserver
+ADD ./webserver ./webserver
 ADD ./manage.py ./manage.py
 
 ADD requirements.txt .
