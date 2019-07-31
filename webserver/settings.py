@@ -102,7 +102,6 @@ CHANNEL_LAYERS = {
         'BACKEND': 'channels_redis.core.RedisChannelLayer',
         'CONFIG': {
             'hosts': [(REDIS_HOST, REDIS_PORT)],
-            'prefix': "lkfjezojezfezfj"
         },
     }
 }
