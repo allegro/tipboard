@@ -484,7 +484,6 @@ var renderersSwapper = new RenderersSwapper();
 
     Tipboard.WebSocketManager = {
         onOpen: function(evt) {
-            console.log("Web socket opened.");
         },
 
         onClose: function(evt) {

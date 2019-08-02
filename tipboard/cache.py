@@ -20,10 +20,9 @@ class MyCache:
             self.redis = self.setup_redis()
             self.redis.time()
             self.isRedisConnected = True
-            print(f"{getTimeStr()} (+) Initializing cache from redis server", flush=True)
+            print(f"{getTimeStr()} (+) Initializing cache from redis server with {len(self.listOfTilesCached())} key", flush=True)
             self.clientsWS = list()
-        except Exception as e:
-            print(f"{getTimeStr()} (-) Not Initializing cache from redis server -> {e}", flush=True)
+        except:
             self.isRedisConnected = False
         pass
 
@@ -35,6 +34,7 @@ class MyCache:
         return False
 
     def get(self, tile_id):
+        print(f"cache.get({tile_id})", flush=True)
         prefix = tile_id
         if self.redis.exists(prefix):
             return json.dumps(self.redis.get(prefix))
@@ -61,3 +61,4 @@ class MyCache:
         for key in self.redis.keys(getRedisPrefix()):
             listOfTiles.append(key)
         return listOfTiles
+

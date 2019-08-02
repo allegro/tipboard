@@ -1,10 +1,11 @@
 # -*- coding: utf-8 -*-
+from __future__ import unicode_literals
 import json
-from channels.generic.websocket import WebsocketConsumer
-from asgiref.sync import async_to_sync
 from tipboard.cache import getCache
 from tipboard.properties import COLORS, JS_LOG_LEVEL
 from tipboard.utils import getRedisPrefix, getTimeStr
+from channels.generic.websocket import WebsocketConsumer
+from asgiref.sync import async_to_sync
 
 cache = getCache()
 tipboard_helpers = {
@@ -18,16 +19,21 @@ class ChatConsumer(WebsocketConsumer):
     subscription."""
 
     def connect(self):
+        #self.channel_name = "events"
         async_to_sync(self.channel_layer.group_add)("event", self.channel_name)
         print(f"{getTimeStr()} (+) WS: New client with channel:{self.channel_name}", flush=True)
         self.accept()
+        for tile_id in cache.listOfTilesCached():
+            self.update_tile_receive(tile_id=tile_id)
 
     def disconnect(self, close_code):
         print(f"{getTimeStr()} (+) WS: client with channel:{self.channel_name} disconnected", flush=True)
         async_to_sync(self.channel_layer.group_discard)("event", self.channel_name)
 
     def receive(self, text_data, **kwargs):
-        for tile_id in cache.listOfTilesCached:
+        #If msg is receive, client wants the full list of tiles
+        print(f"{getTimeStr()} (+) WS: sending tiles to :{self.channel_name}", flush=True)
+        for tile_id in cache.listOfTilesCached():
             self.update_tile_receive(tile_id=tile_id)
 
     def update_tile_receive(self, tile_id):
