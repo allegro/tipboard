@@ -25,58 +25,64 @@ A detailed, technical documentation for Tipboard can be found
 Quick start
 -----------
 
-Requirements
-~~~~~~~~~~~~
 
-Assuming Ubuntu or similar Linux distribution, some required packages need
-to be installed first::
-
-  $ sudo apt-get install python-dev python-virtualenv redis-server
-
-Virtual environment
+Execution by python
 ~~~~~~~~~~~~~~~~~~~
 
-Continue by creating a virtual environment that will help you conveniently
-separate your instance from what you already have installed in the system
-(let's say we will name it "tb-env")::
+Install requirements
+  $ sudo apt-get install python-dev python-virtualenv redis-server
 
-  $ virtualenv tb-env
+Install with python dependencies on virtual env::
 
-Activate the created virtual environment with the following command::
+  $ virtualenv tb-env                       # create virtual env
+  $ source tb-env/bin/activate              # activate virtual env
+  $ (tb-env)$ install -r requirements.txt   # install python lib
+  $ (tb-env)$ tipboard create_project my_test_dashboard
+  $ (tb-env)$ python manage.py runserver    # start webserver
 
-  $ source tb-env/bin/activate
+Install with python dependencies on system::
 
-Installation with pip
-~~~~~~~~~~~~~~~~~~~~~
+  $ pip install -r requirements.txt
+  $ python manage.py runserver
 
-After creating and activating virtualenv, install the latest (current) version
-of Tipboard package available on `pypi <https://pypi.python.org/pypi>`_
-("Python Package Index") with the following command::
+Execution by docker
+~~~~~~~~~~~~~~~~~~~
 
-  (tb-env)$ pip install tipboard
+It's a non-root bitnami python3.7 image, contening a redis-server and the tipboard application
 
-Next, you need to create a configuration template for your dashboard - let's
-say we will call it 'my_test_dashboard'::
+From docker hub::
 
-  (tb-env)$ tipboard create_project my_test_dashboard
+  $ docker pull themaux/tipboard
+  $ docker run -p 8080:8080 themaux/tipboard
 
-This command will create ``.tipboard`` directory in your home dir and will
-fill it with default settings for your dashboard.
+From local source::
+
+  $ docker build -t tipboard:local .
+  $ docker run -p 8080:8080 tipboard:local
+
+If you want to externalise the redis-server you want to::
+
+    - In Dockerfile, comment line 3 `RUN apt-get update && apt-get install redis-server -y`
+    - In entrypoint.sh, comment line 2 `nohup redis-server &`
+    - Change the value *REDIS_HOST* & *REDIS_PASSWORD* in the tipboard/Config/properties.json
+
+Execution on openshift
+~~~~~~~~~~~~~~~~~~~~~~
+
+I need to finish the helm template first and the exemple /!\
+
+to deploy with oc::
+
+    rm -Rvf manifests/*
+    helm dependency update
+    helm template --values ./values/op.yaml --name tipboard  --output-dir ./manifests .
+
 
 Verification
 ~~~~~~~~~~~~
 
-To verify your installation, launch this command::
-
-  (tb-env)$ tipboard runserver
-
-If you see the message ``Listening on port...`` instead of any errors, it means
-that installation was successful and you may now
-`configure <http://tipboard.readthedocs.org/en/latest/configuration.html>`_
-your newly installed Tipboard instance. You may also point your favorite
-web browser to ``http://localhost:7272`` to see the current state of your
+Go to  your favorite web browser to ``http://0.0.0.0:8080`` to see the current state of your
 dashboard.
-
 
 License
 -------
