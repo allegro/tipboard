@@ -2,7 +2,7 @@
 Tipboard
 ========
 
-|docs|
+|docker modebuild| |docker build|  |docker stars|  |docs|
 
 Introduction
 ------------
@@ -95,3 +95,19 @@ Copyright (c) 2013-2017 `Allegro Group <http://allegrogroup.com>`_.
     :alt: Documentation Status
     :scale: 100%
     :target: https://readthedocs.org/projects/tipboard/
+
+.. |docker stars| image:: https://img.shields.io/docker/stars/themaux/tipboard
+    :alt: Docker stars
+    :scale: 100%
+    :target: https://readthedocs.org/projects/tipboard/
+
+.. |docker modebuild| image:: https://img.shields.io/docker/cloud/automated/themaux/tipboard
+    :alt: Docker stars
+    :scale: 100%
+    :target: https://readthedocs.org/projects/tipboard/
+
+.. |docker build| image:: https://img.shields.io/docker/cloud/build/themaux/tipboard.svg
+    :alt: Docker stars
+    :scale: 100%
+    :target: https://readthedocs.org/projects/tipboard/
+
