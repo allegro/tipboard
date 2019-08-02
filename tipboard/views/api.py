@@ -1,8 +1,10 @@
 # -*- coding: utf-8 -*-
-from __future__ import unicode_literals
+import json
 from django.http import JsonResponse, HttpResponseBadRequest, HttpResponse, HttpResponseServerError, Http404
-from tipboard.utils import *
+from tipboard.properties import PROJECT_NAME, LAYOUT_CONFIG, REDIS_DB
 from tipboard.cache import getCache
+from tipboard.utils import getRedisPrefix, getTimeStr, getIsoTime
+
 
 cache = getCache()
 redis = cache.redis

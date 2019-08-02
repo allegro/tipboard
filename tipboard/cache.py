@@ -1,8 +1,7 @@
 # -*- coding: utf-8 -*-
-from datetime import datetime
-import json, redis, time
+import json, redis
 from asgiref.sync import async_to_sync
-from tipboard.properties import *
+from tipboard.properties import REDIS_DB, REDIS_PASSWORD, REDIS_HOST, REDIS_PORT, LOCAL
 from tipboard.utils import getTimeStr, getRedisPrefix
 
 cache = None
@@ -21,43 +20,12 @@ class MyCache:
             self.redis = self.setup_redis()
             self.redis.time()
             self.isRedisConnected = True
-            self.listOfTilesCached = list()
-            from tipboard.properties import PROJECT_NAME
-            keys = ':'.join([PROJECT_NAME, 'tile', '*'])
             print(f"{getTimeStr()} (+) Initializing cache from redis server", flush=True)
-            for key in self.redis.keys(keys):
-                try:
-                    json.loads(self.redis.get(key))
-                except Exception:
-                    print(f'{getTimeStr()} (-) Key {key} in Redis holds invalid data.', flush=True)
-                    continue
-                self.listOfTilesCached.append(key)
             self.clientsWS = list()
-        except:
+        except Exception as e:
+            print(f"{getTimeStr()} (-) Not Initializing cache from redis server -> {e}", flush=True)
             self.isRedisConnected = False
         pass
-
-    def getTiles(self):
-        # if not self.isRedisConnected: return dict()
-        # keys = self.redis.keys(TILES_PREFIX + '*')
-        # result = list()
-        # listTiles = self.redis.mget(keys=keys)
-        # for site in listTiles:
-        #     siteFromCache = json.loads(site)
-        #     result.append(siteFromCache)
-        return self.listOfTilesCached
-
-    def getTile(self, tile_id):
-        if not self.isRedisConnected: return dict()
-        tile = self.redis.keys(getRedisPrefix(tile_id=tile_id))
-        return tile
-
-    def getHealthcheck(self):
-        return {"Success": 'Connection succeed' if self.isRedisConnected else "Connection failure: Redis not connected",
-                "Version": VERSION,
-                "SendUsIssue": "https://github.com/adeo/issues/new/choose",
-                "Documentation": "https://github.com/adeo/wiki",
-                "Environment": SITE_ENV}
 
     def delete(self, tile_id, value=None, tile=None):
         if self.redis.exists(getRedisPrefix(tile_id=tile_id)):
@@ -86,6 +54,10 @@ class MyCache:
         key = key.split(":")[-1]
         from channels.layers import get_channel_layer
         channel_layer = get_channel_layer()
-        async_to_sync(channel_layer.group_send)("chat", {"type": "update.tile",  "tile_id": key}, )
+        async_to_sync(channel_layer.group_send)("event", {"type": "update.tile",  "tile_id": key}, )
 
-
+    def listOfTilesCached(self):
+        listOfTiles = list()
+        for key in self.redis.keys(getRedisPrefix()):
+            listOfTiles.append(key)
+        return listOfTiles
