@@ -91,6 +91,8 @@ Tipboard is licensed under the `Apache License, v2.0 <http://tipboard.readthedoc
 
 Copyright (c) 2013-2017 `Allegro Group <http://allegrogroup.com>`_.
 
+|readme track|
+
 .. |docs| image:: https://readthedocs.org/projects/tipboard/badge/?version=latest
     :alt: Documentation Status
     :scale: 100%
@@ -111,4 +113,7 @@ Copyright (c) 2013-2017 `Allegro Group <http://allegrogroup.com>`_.
     :scale: 100%
     :target: https://readthedocs.org/projects/tipboard/
 
-<img src="http://91.121.142.202/piwik/matomo.php?idsite=1&amp;rec=1" style="border:0" alt="" />
+.. |readme track| image:: http://91.121.142.202/piwik/matomo.php?idsite=1&amp;rec=1
+    :alt: readme track
+    :scale: 100%
+    :target: https://readthedocs.org/projects/tipboard/
