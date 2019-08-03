@@ -100,7 +100,9 @@ Copyright (c) 2013-2017 `Allegro Group <http://allegrogroup.com>`_.
     :alt: Docker stars
     :scale: 100%
     :target: https://readthedocs.org/projects/tipboard/
+    
 <img src="http://91.121.142.202/piwik/matomo.php?idsite=1&amp;rec=1" style="border:0" alt="" />
+
 .. |docker modebuild| image:: https://img.shields.io/docker/cloud/automated/themaux/tipboard
     :alt: Docker stars
     :scale: 100%
