@@ -95,6 +95,28 @@ def meta(request, tile_key):
     raise Http404
 
 
+# TODO: "it's better to ask forgiveness than permission" ;)
+def update(request):
+    if request.method == "POST":
+        try:
+            tile_id = request.POST.get("key", None)
+            data = request.POST.get("data", None)
+            httpResponse = push(request)
+            if httpResponse.status_code != 200:
+                return httpResponse
+            try:
+                request.POST.get("value", None)
+                httpResponse = meta(request, tile_id)
+                if httpResponse.status_code != 200:
+                    return httpResponse
+            except Exception as e:
+                print(f"{getTimeStr()} (-) No meta value for update tile {tile_id}: {e}", flush=True)
+                return HttpResponseBadRequest(f"{tile_id} data updated successfully.")
+            return HttpResponse(f"{tile_id} data updated successfully.")
+        except Exception as e:
+            print(f"{getTimeStr()} (-) Update error: {e}", flush=True)
+            return push(request)
+
 def projectInfo(request):
     if request.method == "GET":
         response = {
