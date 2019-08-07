@@ -25,7 +25,7 @@ Quick start
 
 ### Execution by python
 
-Some required packages need to be present, and python3.7 is required now
+Some required packages need to be present, and python3.7 is required now  
 `  $ sudo apt-get install python-dev python-virtualenv redis-server`
 
 <details>
