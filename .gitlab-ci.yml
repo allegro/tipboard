@@ -18,4 +18,5 @@ build:
   script:
     - docker build -t docker.pkg.github.com/the-maux/tipboard/tipboard:latest-gitlab .
     - docker push docker.pkg.github.com/the-maux/tipboard/tipboard:latest-gitlab
+    - docker tag docker.pkg.github.com/the-maux/tipboard/tipboard:latest-gitlab themaux/tipboard:latest-gitlab
     - docker push themaux/tipboard:latest-gitlab
