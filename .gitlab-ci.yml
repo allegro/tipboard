@@ -1,18 +1,21 @@
+image: docker:latest
+
+services:
+  - docker:dind
+
 stages:
-  - docker-image
+- build
 
-include:
-  - project: "gitlab-ci-lib"
-    file: "Docker.gitlab-ci.yml"
+variables:
+  IMAGE_TAG: docker.pkg.github.com/the-maux/tipboard/tipboard:latest-gitlab
 
-docker-image-dev:
-  extends: .docker-image
-  variables:
-    DOCKER_HUB_URL: ${DOCKER_HUB_DEV_URL}
+before_script:
+  - docker login -u the-maux -p "$CI_GITHUB_PACKAGE" docker.pkg.github.com
+  - docker login -u themaux -p "$CI_DOCKER_HUB" docker.io
 
-docker-image-release:
-  extends: .docker-image
-  variables:
-    DOCKER_HUB_URL: ${DOCKER_HUB_RELEASE_URL}
-  only:
-    - tags
+build:
+  stage: build
+  script:
+    - docker build -t docker.pkg.github.com/the-maux/tipboard/tipboard:latest-gitlab .
+    - docker push docker.pkg.github.com/the-maux/tipboard/tipboard:latest-gitlab
+    - docker push themaux/tipboard:latest-gitlab
