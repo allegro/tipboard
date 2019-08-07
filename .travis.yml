@@ -1,15 +1,8 @@
 language: python
 python:
-  - "2.7"
+  - "3.7"
 # command to install dependencies, e.g. pip install -r requirements.txt --use-mirrors
 install:
-    - pip install flake8 --use-mirrors
-    - pip install . --use-mirrors
-before_script:
-    - flake8 --statistics tipboard
-# command to run tests, e.g. python setup.py test
+    - pip install -r requirements.txt
 script:
-    - tipboard test test_config_parser
-    - tipboard test test_console_commands
-    - tipboard test test_rest_api.TestRestApi.test_01_api_key
-    - tipboard test test_rest_api.TestRestApi.test_02_info_resource
+    - python3.7 manage.py test
