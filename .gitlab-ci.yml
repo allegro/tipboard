@@ -1,0 +1,22 @@
+image: docker:latest
+
+services:
+  - docker:dind
+
+stages:
+- build
+
+variables:
+  IMAGE_TAG: docker.pkg.github.com/the-maux/tipboard/tipboard:latest-gitlab
+
+before_script:
+  - docker login -u the-maux -p ${CI_GITHUB_PACKAGE} docker.pkg.github.com
+  - docker login -u themaux -p ${CI_DOCKER_HUB} docker.io
+
+build:
+  stage: build
+  script:
+    - docker build -t docker.pkg.github.com/the-maux/tipboard/tipboard:latest-gitlab .
+    - docker push docker.pkg.github.com/the-maux/tipboard/tipboard:latest-gitlab
+    - docker tag docker.pkg.github.com/the-maux/tipboard/tipboard:latest-gitlab themaux/tipboard:latest-gitlab
+    - docker push themaux/tipboard:latest-gitlab

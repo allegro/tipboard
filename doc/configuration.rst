@@ -46,7 +46,7 @@ network interfaces, set ``host`` to ``0.0.0.0``).
 You can now point your web browser to ``http://localhost:7272`` - you should
 see a basic, empty layout with tiles in 2 lines of 4 columns each.
 
-Customising tile layout
+Customizing tile layout
 -----------------------
 
 As mentioned previously, the layout of tiles in a dashboard is defined by
@@ -81,7 +81,7 @@ where:
    being it is only ‘page_title’; depending on his needs, the users add other
    elements.
 
-.. describe:: page_tile
+.. describe:: page_title
 
    A section that defines the title of a page to appear in the web browser
    after entering the dashboard.
@@ -92,11 +92,11 @@ where:
 
 .. describe:: row_X_of_Y
 
-   Defines a row hight; a sum of Xs should equal Y.
+   Defines a row height; a sum of Xs should equal Y.
 
 .. describe:: col_X_of_Y
 
-   Similar to above but concerns a column width in a given row.
+   Similar to above but concerns a column width in a given row. Y is the total number of columns. X is the number of columns used by a particular tile. e.g. ``col_1_of_4`` describes a one column wide tile in a four column layout. ``col_3_of_4`` describes a three column wide tile in a four column layout.
 
 .. describe:: tile_template
 
@@ -181,7 +181,7 @@ divided into 3 columns)::
 
 ...its corresponding configuration file should look as follows (for brevity, I
 will present only the ``layout`` section, skipping the ``tile_template``,
-``title_id``, etc.)::
+``tile_id``, etc.)::
 
   layout:
       row_1_of_2:
@@ -193,6 +193,39 @@ will present only the ``layout`` section, skipping the ``tile_template``,
           col_1_of_3:
           col_1_of_3:
           col_1_of_3:
+          
+
+Advanced layout
+~~~~~~~~~~~~~
+
+Suppose we want a single tile to take up multiple columns, as shown below::
+
+  +-------+--------+--------+-------+
+  |       |        |                |
+  |       |        |                |
+  |       |        |                |
+  |       |        |                |
+  +-------+--+-----+----+---+-------+
+  |          |          |           |
+  |          |          |           |
+  |          |          |           |
+  |          |          |           |
+  +----------+----------+-----------+
+
+...its corresponding configuration file should look as follows (for brevity, I
+will present only the ``layout`` section, skipping the ``tile_template``,
+``tile_id``, etc.)::
+
+  layout:
+      row_1_of_2:
+          col_1_of_4:
+          col_1_of_4:
+          col_2_of_4:
+      row_1_of_2:
+          col_1_of_3:
+          col_1_of_3:
+          col_1_of_3:
+
 
 Multiple dashboards per application's instance
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

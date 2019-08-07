@@ -8,7 +8,7 @@ name that corresponds with the tile name – e.g. with the ``pie_chart`` tile
 these are ``pie_chart.html``, ``pie_chart.css`` and ``pie_chart.js`` files
 respectively.
 
-Customising tiles
+Customizing tiles
 -----------------
 
 If you want to modify a tile (e.g. change a CSS attribute, which obviously
@@ -20,7 +20,7 @@ according to your needs.
 
 Files in your ``custom_tiles`` folder take precedence over those shipped by
 default with the application and thus you can easily replace desired elements
-(e.g. if you want to change the text colour, just copy and edit the ``.css``
+(e.g. if you want to change the text color, just copy and edit the ``.css``
 file – without touching ``.html`` and ``.js`` files). We plan to introduce a
 command simplifying this process in the future.
 
@@ -28,7 +28,7 @@ Color palette
 -------------
 
 Color palette used by Tipboard's tiles is defined as shown in the table below.
-To retain consistency, we strongly suggest sticking to them while customising
+To retain consistency, we strongly suggest sticking to them while customizing
 tiles.
 
 +-------------+---------------------+

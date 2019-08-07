@@ -1,0 +1,19 @@
+{{- if .Values.HostDomain }}
+apiVersion: v1
+kind: Route
+metadata:
+  name: {{ .Values.app }}
+  labels:
+    app: {{ .Values.app }}
+spec:
+  host: {{ .Values.HostDomain }}
+  port:
+    targetPort: 8080
+  to:
+    kind: Service
+    name: {{ .Values.app }}
+    weight: null
+  tls:
+    insecureEdgeTerminationPolicy: Redirect
+    termination: edge
+{{- end}}

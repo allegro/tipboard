@@ -6,11 +6,9 @@ from __future__ import division
 from __future__ import print_function
 from __future__ import unicode_literals
 
-import glob
-import os
-import yaml
+import glob, os, yaml
 
-from tipboard import settings
+from tipboard import properties
 
 
 class WrongSumOfRows(Exception):
@@ -18,28 +16,28 @@ class WrongSumOfRows(Exception):
 
 
 def _get_tiles_dict(col):
-    return col.values().pop()
+    return list(col.values())[0]
 
 
-def _get_cols(rows):
+def get_cols(rows):
     #TODO: validation col_1_of_4
     cols = []
-    for col in rows.values()[0]:
+    for col in list(rows.values())[0]:
         cols.append(col)
     return cols
 
 
-def _get_rows(layout):
+def get_rows(layout):
     """Validates and returns number of rows."""
     rows_data = []
     rows_class = []
     for row in layout:
         rows_data.append(row)
-        rows_class.append(row.keys().pop())
+        rows_class.append(list(row.keys()))
     rows_count = 0
     sum_of_rows = []
     for row_class in rows_class:
-        splited_class = row_class.split('_')  # ex: row_1_of_2
+        splited_class = row_class[0].split('_')  # ex: row_1_of_2
         row = splited_class[1]
         of_rows = int(splited_class[3])
         if rows_count == 0:
@@ -54,10 +52,10 @@ def _get_rows(layout):
     return rows_data
 
 
-def _find_tiles_names(layout):
+def find_tiles_names(layout):
     name_list, key_list = [], []
-    for row in _get_rows(layout):
-        for col in _get_cols(row):
+    for row in get_rows(layout):
+        for col in get_cols(row):
             for tile_dict in _get_tiles_dict(col):
                 name = tile_dict['tile_template']
                 key = tile_dict['tile_id']
@@ -71,10 +69,10 @@ def _find_tiles_names(layout):
 def get_config_files_names():
     """
     Return all configs files' names (without '.yaml' ext.) from user space
-    (~/.tipboard/)
+    (.tipboard/)
     """
     configs_names = []
-    configs_dir = os.path.join(settings._user_config_dir, '*.yaml')
+    configs_dir = os.path.join(properties.user_config_dir, '*.yaml')
     for config_path in glob.glob(configs_dir):
         filename = os.path.basename(config_path)
         head, ext = os.path.splitext(filename)
@@ -87,7 +85,7 @@ def config_file_name2path(config_name):
     Return file path to *config_name* (eg. 'layout_config')
     """
     path = os.path.join(
-        settings._user_config_dir, '.'.join([config_name, 'yaml'])
+        properties.user_config_dir, ''.join([config_name])
     )
     return path
 
@@ -108,10 +106,16 @@ def get_tiles_configs():
     return tiles_configs
 
 
-def process_layout_config(layout_name):
+def process_layout_config(layout_name='layout_config'):
     config_path = config_file_name2path(layout_name)
-    with open(config_path, 'r') as layout_config:
-        config = yaml.load(layout_config)
+    try:
+        with open(config_path, 'r') as layout_config:
+            config = yaml.load(layout_config)
+    except FileNotFoundError:
+        if ".yaml" not in config_path:
+            config_path += ".yaml"
+        with open(config_path, 'r') as layout_config:
+            config = yaml.load(layout_config)
     layout = config['layout']
-    config['tiles_names'], config['tiles_keys'] = _find_tiles_names(layout)
+    config['tiles_names'], config['tiles_keys'] = find_tiles_names(layout)
     return config

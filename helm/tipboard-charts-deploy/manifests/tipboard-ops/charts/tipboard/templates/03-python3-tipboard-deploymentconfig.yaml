@@ -1,0 +1,45 @@
+---
+# Source: tipboard-ops/charts/tipboard/templates/03-python3-tipboard-deploymentconfig.yaml
+apiVersion: v1
+kind: DeploymentConfig
+metadata:
+  name: tipboard
+  labels:
+    app: tipboard
+spec:
+  replicas: 1
+  selector:
+    app: tipboard
+  template:
+    metadata:
+      labels:
+        app: tipboard
+    spec:
+      imagePullSecrets:
+        - name: dockerconfigjson-secret
+      containers:
+        - image: "themaux/tipboard:latest"
+          imagePullPolicy: "Always"
+          name: tipboard
+          ports:
+            - containerPort: 8080
+              protocol: TCP
+          env:
+          readinessProbe:
+          resources:
+            requests:
+              cpu: "500m"
+              memory: "1G"
+            limits:
+              cpu: "2"
+              memory: "2G"
+          volumeMounts:
+            - mountPath: "/home/app/tipboard/Config"
+              name: "tipboard-configmap"
+              readOnly: true
+      restartPolicy: Always
+      volumes:
+        - name: "tipboard-configmap"
+          configMap:
+            defaultMode: 420
+            name: "tipboard-configmap"

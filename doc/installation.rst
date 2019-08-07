@@ -34,7 +34,7 @@ using ``nginx`` or ``apache``).
 .. note::
 
    Although configuration of reverse proxy is out of scope of this manual, we
-   would like to emphasise that Tipboard use Web Sockets – a relatively new
+   would like to emphasize that Tipboard uses Web Sockets – a relatively new
    mechanism – and thus you should ensure a server in a version that will
    support it (e.g. ``nginx`` >= 1.3.13 or ``apache2`` >= 2.4.6). By default
    Ubuntu 12.04 offers older versions – you may then use backports.

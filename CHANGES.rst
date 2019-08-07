@@ -1,6 +1,54 @@
 Change Log
 ----------
 
+1.5.0
+~~~~~
+
+* Migrate Python2.7 to Python3.7 and upgrading all python library
+    * Removed libraries:
+        * mock==1.0.1
+        * requests==1.2.3
+        * six>=1.4.1
+        * tornado-redis==2.4.2
+        * tornado==3.0.1
+        * docopt==0.6.1
+        * raven==3.5.2
+        * Sphinx==1.2.2
+        * sphinxcontrib-httpdomain==1.3.0
+
+    * Added libraries:
+        * django>=2.2.1
+        * django-prometheus>=1.0.15
+        * django-cors-headers>=3.0.1
+        * channels>=2.2.0
+        * channels_redis>=2.4.0
+        * asgiref>=3.1.4
+
+* Using Django2.0 over tornado now
+    * Updating tornado template tiles-.html to template django, moving them in templates directory
+    * Using channels_redis.core.RedisChannelLayer over tornadoredis
+    * Using channels.generic.websocket over tornado.websocket.WebSocketHandler
+    * Using static files from django behavior over tornado.web.StaticFileHandler
+    * Moving tornado url routing behavior to the django behavior
+    * removing duplicate inner function to a single file utils.py
+    * reworking of the file redis_utils.py to a cache.py
+    * Config for ASGI_APPLICATION
+
+* Moving the .tipboard directory to ./tipboard/Config/ to make it compatible with bitnami/python
+
+* Adding dockerfile support
+    * Using bitnami image in order to be cloud ready
+    * Using non root image
+
+
+* Adding .gitlab-ci to CI with gitlab
+
+* Adding .travis.yml to CI with github
+
+* Minor fixes, improvements, cleanups etc.
+
+
+
 1.4.1
 ~~~~~
 
