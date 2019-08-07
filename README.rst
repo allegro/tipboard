@@ -66,23 +66,27 @@ If you want to externalise the redis-server you want to::
     - In entrypoint.sh, comment line 2 `nohup redis-server &`
     - Change the value *REDIS_HOST* & *REDIS_PASSWORD* in the tipboard/Config/properties.json
 
-Execution on openshift
+Execution on cloud
 ~~~~~~~~~~~~~~~~~~~~~~
 
 I need to finish the helm template first and the exemple /!\
 
-to deploy with oc::
+To deploy on openshift::
 
-    rm -Rvf manifests/*
-    helm dependency update
-    helm template --values ./values/op.yaml --name tipboard  --output-dir ./manifests .
+   # From docker hub with helm template
+   $  mkdir manifests
+   $  helm dependency update                                                                # Download Helm template
+   $  helm template --values tipboard_helm.yaml --name tipboard  --output-dir ./manifests . # Build deployment manifest
+   $  oc apply -R -f ./manifests                                                            # execute manifest on cluster
+   
+To deploy with aws::
+   
+   $ # From sources git source 
+   $ eb init -p docker tipboard-aws
+   $ eb create --single
+   $ eb status
+   $ eb open
 
-
-Verification
-~~~~~~~~~~~~
-
-Go to  your favorite web browser to ``http://0.0.0.0:8080`` to see the current state of your
-dashboard.
 
 License
 -------
