@@ -1,6 +1,6 @@
 Tipboard
 ========
-
+[![Build Status](https://travis-ci.com/the-maux/tipboard.svg?branch=develop)](https://travis-ci.com/the-maux/tipboard)
 ![docker modebuild](https://img.shields.io/docker/cloud/automated/themaux/tipboard)
 ![docker build](https://img.shields.io/docker/cloud/build/themaux/tipboard.svg)
 ![docker stars](https://img.shields.io/docker/stars/themaux/tipboard)
