@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: tipboard-configmap
+  labels:
+    app: tipboard
+data:
+  layout_config.yaml: |
+{{ .Files.Get "tipboard/layout_config.yaml" | indent 4 }}
+  settings-local.py: |
+{{ .Files.Get "tipboard/settings-local.py" | indent 4 }}

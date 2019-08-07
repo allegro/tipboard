@@ -71,22 +71,37 @@ Execution on cloud
 
 I need to finish the helm template first and the exemple /!\
 
-To deploy on openshift::
+To deploy on kubernets cluster::
 
-   # From docker hub with helm template
-   $  mkdir manifests
-   $  helm dependency update                                                                # Download Helm template
-   $  helm template --values tipboard_helm.yaml --name tipboard  --output-dir ./manifests . # Build deployment manifest
-   $  oc apply -R -f ./manifests                                                            # execute manifest on cluster
+   # Build helm package
+   $ helm package ./helm/tipboard-charts-template/python3-tipboard --save=false -d ./helm/charts/tipboard-charts-deploy
+   # Build deployment helm template
+   $ mkdir manifests
+   $ helm template --values tipboard_helm.yaml --name tipboard  --output-dir ./manifests .
+   # Deploy manifest
+   $ oc apply -R -f ./manifests || helm install --name tipboard MY_PATH_ENVIRONMENT
    
-To deploy with aws::
+To deploy on aws::
    
-   $ # From sources git source 
+   # From sources git source
    $ eb init -p docker tipboard-aws
    $ eb create --single
    $ eb status
    $ eb open
 
+To deploy on openshift::
+
+   # From docker hub
+   $ oc new-app themaux/tipboard
+   # Update the config_layout.yaml
+   $ oc apply -f ./helm/tipboard-charts-deploy/manifests/tipboard-ops/charts/config/templates/tipboard-configmap.yaml
+
+To deploy on azure::
+
+   # From docker hub
+   $ oc new-app themaux/tipboard
+   # Update the config_layout.yaml
+   $ oc apply -f ./helm/tipboard-charts-deploy/manifests/tipboard-ops/charts/config/templates/tipboard-configmap.yaml
 
 License
 -------

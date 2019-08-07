@@ -1,0 +1,4 @@
+apiVersion: v1
+description: A Helm chart for tipboard with python3.7
+name: python3-tipboard
+version: 0.0.1
