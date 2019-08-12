@@ -6,6 +6,9 @@ workflows:
       - deploy:
           requires:
             - test_commit
+          filters:
+            branches:
+              only: develop
 jobs:
   test_commit:
     docker:
