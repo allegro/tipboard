@@ -54,7 +54,7 @@ jobs:
           command: |
             python3 -m venv venv
             . venv/bin/activate
-            make dev
+            pip install -r ci_requirements.txt
       - save_cache:
           key: v1-dependencies-{{ checksum "requirements.txt" }}
           paths:
@@ -68,10 +68,9 @@ jobs:
       - run:
           name: create packages
           command: |
-            make package
+            python setup.py sdist
       - run:
           name: upload to pypi
           command: |
             . venv/bin/activate
-            python setup.py sdist
             twine upload dist/*
