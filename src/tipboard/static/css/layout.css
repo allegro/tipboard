@@ -1,0 +1,551 @@
+/*  ---------------------------------------------------------------------------------------------------------
+
+    Project:    Tipboard
+    Author:     ...
+    Date:       2013/11/28
+
+------------------------------------------------------------------------------------------------------------- */
+
+html, body {
+    height: 100%;
+    font-size: 75.5%;
+}
+
+body {
+    background: #fff;
+    color: #388E3C;
+    font-family:'misolight',"Trebuchet MS", Arial, sans-serif;
+    min-width: 1024px;
+    width: 100%;
+    min-height: 768px;
+    -webkit-font-smoothing: antialiased;
+}
+
+h2 {
+    font-size: 2.3rem;
+    font-weight: bold;
+    text-align: center;
+    line-height: 1.2em;
+    margin-bottom: 0.5em;
+    color: #FFFFFF;
+}
+
+h3 {
+    font-size: 1.33em;
+    color: #FFFFFF;
+    text-align: center;
+    -webkit-font-smoothing: antialiased;
+}
+
+table {
+    font-size: 1.6rem;
+}
+
+/*  ---------------------------------------------------------------------------------------------------------
+    LAYOUT
+------------------------------------------------------------------------------------------------------------- */
+
+.row {
+    clear: both;
+    opacity: 0.98;
+}
+
+.row:before, .row:after {
+    content:"";
+    display: table;
+}
+
+.row:after {
+    clear: both;
+}
+
+.col {
+    display: block;
+    float: left;
+    height: 100%;
+    position: relative;
+    /* 3d animation broken in firefox
+    perspective: 600px;
+    -webkit-perspective: 600px;
+    */
+}
+
+.col_5_of_5 { width: 100%; }
+.col_4_of_5 { width: 80%; }
+.col_3_of_5 { width: 60%; }
+.col_2_of_5 { width: 40%; }
+.col_1_of_5 { width: 20%; }
+.col_4_of_4 { width: 100%; }
+.col_3_of_4 { width: 75%; }
+.col_2_of_4 { width: 50%; }
+.col_1_of_4 { width: 25%; }
+.col_3_of_3 { width: 100%; }
+.col_2_of_3 { width: 66.6666%; }
+.col_1_of_3 { width: 33.3333%; }
+.col_1_of_2 { width: 50%; }
+.col_1_of_1 { width: 100%; }
+.row_3_of_3 { height: 100%; }
+.row_2_of_3 { height: 66.6666%; }
+.row_1_of_3 { height: 33.3333%; }
+.row_1_of_1 { height: 100%; }
+.row_2_of_2 { height: 100%; }
+.row_1_of_2 { height: 50%; }
+.col_15_of_5 { width: 30%; }
+.w80 { width: 80%; }
+
+/*  ---------------------------------------------------------------------------------------------------------
+    COMPONENTS
+------------------------------------------------------------------------------------------------------------- */
+
+.tile {
+    border-radius: 2%;
+    overflow: hidden;
+    background-color: #25282d;
+    width: 98%;
+    height: 98%;
+    position: absolute;
+    top: 2%;
+    left: 2%;
+}
+
+.tile > .tile-header {
+    height: 36px;
+    line-height: 36px;
+    text-transform: full-width;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+    padding: 0 10px;
+    margin: 0 0 10px 0;
+}
+
+.tile > .tile-header h3 {
+    overflow: hidden;
+    width: 99%;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-size: 1.6rem;
+}
+
+.tile > .tile-header > .flip-tile-counter {
+    float: left;
+}
+
+.tile > .tile-header > .tile-counter {
+    font-size: 1.6rem;
+    float: right;
+    color:#666;
+}
+
+.tile > .tile-content {
+    padding: 0 10px;
+}
+
+.row_1_of_3 .tile > .tile-content > h2 {
+    font-size: 2.5rem;
+    margin-bottom: 0;
+    padding-bottom: 1%;
+}
+.tile > .tile-content > h2.fixed-height{
+    height: 10%;
+    margin-bottom: 0;
+    padding-bottom: 6%;
+}
+.row_1_of_3 .tile > .tile-content > h2.fixed-height{
+    font-size: 2.5rem;
+    height: 10%;
+    margin-bottom: 0;
+    padding-bottom: 2%;
+}
+
+.tile > .tile-content > h3.fixed-height{
+    height: 8%;
+    margin-bottom: 0;
+}
+
+.row_1_of_3 .tile > .tile-content > h3.fixed-height{
+    height: 7%;
+    margin-bottom: 0;
+}
+
+.tile > .tile-content .result {
+    font-size: 1.8rem;
+    margin-bottom: 0.25em;
+    color: #dcedc8;
+}
+
+.tile > .tile-content .label {
+    text-transform: uppercase;
+    color: #dcedc8;
+}
+
+.tile > .tile-content .with-arrow-result {
+    line-height: 1.6em;
+}
+
+.tile > .tile-content .big-result {
+    font-size: 4rem;
+    font-weight: normal;
+}
+
+.tile > .tile-content .small-padding {
+    margin-bottom: 0;
+    line-height: 1em;
+}
+
+.tile > .tile-content .medium-result {
+    font-size: 2.5rem;
+}
+
+.tile > .tile-content .highlighted-result.big-result {
+    font-size: 10rem;
+    margin-bottom: 20px;
+}
+
+.tile > .tile-content .highlighted-result {
+    display: block;
+    width: 100%;
+    text-align: center;
+}
+
+.tile > .tile-content .highlighted-red {
+    background-color: #8a1f11;
+}
+
+.tile > .tile-content .highlighted-green {
+    background-color: #66c95d;
+}
+
+.tile > .tile-content .float-right {
+    float: right;
+}
+
+.tile > .tile-content .mb-1em {
+    margin-bottom: 1em;
+}
+
+.tile > .tile-content > .result-row {
+    clear: both;
+    width: 100%;
+}
+
+.tile > .tile-content > .result-row > .result-col {
+    float: left;
+    width: 45%;
+}
+
+.tile > .tile-content > .result-row > .with-right-border {
+    border-right: 2px solid #313232;
+    margin-right: 10px;
+}
+
+.text-container {
+    font-size: 2.6rem;
+}
+
+.arrow {
+    display: block;
+    width: 0;
+    height: 0;
+    float: left;
+    margin-right: 10px;
+    border-style: solid;
+}
+
+.arrow-up {
+    border-width: 0 22.5px 35px 22.5px;
+    border-color: transparent transparent #5da400 transparent;
+}
+
+.arrow-down {
+    border-width: 35px 22.5px 0 22.5px;
+    border-color: #8a1f11 transparent transparent transparent;
+}
+.centerbox {
+    /* basic styling */
+    height: 100%;
+    width: 100%;
+
+    /* flexbox, por favor */
+    display: -webkit-box;
+    -webkit-box-orient: horizontal;
+    -webkit-box-pack: center;
+    -webkit-box-align: center;
+
+    display: -moz-box;
+    -moz-box-orient: horizontal;
+    -moz-box-pack: center;
+    -moz-box-align: center;
+
+    display: box;
+    box-orient: horizontal;
+    box-pack: center;
+    box-align: center;
+}
+
+.highlighter-tile > .tile-content > h3 {
+    padding-bottom: 4%;
+}
+
+.highlighter-tile > .tile-content > .big-value-container {
+    margin-bottom: 0;
+    height: 40%;
+    width: 100%;
+
+    /* Internet Explorer 10 */
+    display:-ms-flexbox;
+    -ms-flex-pack:center;
+    -ms-flex-align:center;
+
+    /* Firefox */
+    display:-moz-box;
+    -moz-box-pack:center;
+    -moz-box-align:center;
+
+    /* Safari, Opera, and Chrome */
+    display:-webkit-box;
+    -webkit-box-pack:center;
+    -webkit-box-align:center;
+
+    /* W3C */
+    display:box;
+    box-pack:center;
+    box-align:center;
+}
+
+.highlighter-tile .big-value-container > span {
+    font-size: 10.0rem;
+}
+
+.error-wrapper {
+  display: -webkit-flex;
+  display: -moz-flex;
+  display: -ms-flex;
+  display: flex;
+  width: 100%;
+  height: 100%;
+  -webkit-flex-direction: column;
+  -moz-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  justify-content: center;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.4);
+}
+
+.error-message {
+    padding: 1em;
+    text-align:  center;
+    color: #fff;
+    font-family: 'Roboto Slab',serif;
+    font-size: 20px;
+}
+
+.exception-message {
+    white-space: normal !important;
+    font-size: 3.2rem;
+    color: #DC5945;
+}
+
+.row_1_of_3 .highlighter-tile .big-value-container > span {
+    font-size: 7.9rem;
+}
+
+.round-legend .jqplot-table-legend {
+    padding-right: 5px;
+}
+
+.round-legend span.jqplot-data-label {
+    font-size: 1.7em;
+}
+
+.round-legend .jqplot-table-legend-swatch {
+    -moz-border-radius: 50%;
+    border-radius: 50%;
+}
+/*  ---------------------------------------------------------------------------------------------------------
+    TILES
+------------------------------------------------------------------------------------------------------------- */
+
+
+
+@keyframes fading-background-color {
+    100% {
+        background-color: transparent;
+    }
+}
+
+@-webkit-keyframes fading-background-color {
+    100% {
+        background-color: transparent;
+    }
+}
+
+.fading-background-color {
+    animation-name: fading-background-color;
+    animation-duration: 1s;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+
+    -webkit-animation-name: fading-background-color;
+    -webkit-animation-duration: 1s;
+    -webkit-animation-iteration-count: infinite;
+    -webkit-animation-direction: alternate;
+}
+
+
+
+
+/*  ---------------------------------------------------------------------------------------------------------
+    FLIP
+------------------------------------------------------------------------------------------------------------- */
+
+@keyframes flip {
+    0% {
+        transform: rotateX(90deg);
+    }
+    100% {
+        transform: rotateX(0deg);
+    }
+}
+
+@-webkit-keyframes flip {
+    0% {
+        -webkit-transform: rotateX(90deg);
+    }
+    100% {
+        -webkit-transform: rotateX(0deg);
+    }
+}
+
+.flippable {
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0;
+}
+
+.flippedforward {
+    opacity: 1;
+    display: block;
+    animation-name: flip;
+    animation-duration: 1s;
+    animation-iteration-count: 1;
+    -webkit-animation-name: flip;
+    -webkit-animation-duration: 1s;
+    -webkit-animation-iteration-count: 1;
+}
+
+/*  ---------------------------------------------------------------------------------------------------------
+    FLIPBOARD
+------------------------------------------------------------------------------------------------------------- */
+body.flipboard {
+    overflow: hidden;
+}
+
+iframe {
+    height: 100%;
+    width: 100%;
+    border: 0;
+}
+
+@keyframes fadeIn-anim {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+@-webkit-keyframes fadeIn-anim {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+
+.fadeIn {
+    opacity: 1;
+    animation-name: fadeIn-anim;
+    animation-duration: 1s;
+    animation-iteration-count: 1;
+    animation-timing-function: linear;
+    -webkit-animation-name: fadeIn-anim;
+    -webkit-animation-duration: 1s;
+    -webkit-animation-iteration-count: 1;
+    -webkit-animation-timing-function: linear;
+}
+
+
+/*  ---------------------------------------------------------------------------------------------------------
+    MEDIA QUERIES
+------------------------------------------------------------------------------------------------------------- */
+
+@media only screen and (max-width: 1024px) {
+    body {
+    }
+    .tile > .tile-header h3 {}
+    .tile > .tile-content .title {}
+    .tile > .tile-content .subtitle {}
+    .tile > .tile-content .big-result {}
+
+}
+@media only screen and (min-width: 1025px) and (max-width: 1260px) {
+    body {
+    }
+}
+
+/*  ---------------------------------------------------------------------------------------------------------
+    ASSETS
+------------------------------------------------------------------------------------------------------------- */
+
+@font-face {
+    font-family: 'misolight';
+    src: url('/src/staticatic/fonts/miso-light-webfont.eot');
+    src: url('/src/staticatic/fonts/miso-light-webfont.eot?#iefix') format('embedded-opentype'),
+         url('/src/staticatic/fonts/miso-light-webfont.woff') format('woff'),
+         url('/src/staticatic/fonts/miso-light-webfont.ttf') format('truetype'),
+         url('/src/staticatic/fonts/miso-light-webfont.svg#misolight') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+@font-face {
+    font-family: 'misoregular';
+    src: url('/src/staticatic/fonts/miso-webfont.eot');
+    src: url('/src/staticatic/fonts/miso-webfont.eot?#iefix') format('embedded-opentype'),
+         url('/src/staticatic/fonts/miso-webfont.woff') format('woff'),
+         url('/src/staticatic/fonts/miso-webfont.ttf') format('truetype'),
+         url('/src/staticatic/fonts/miso-webfont.svg#misoregular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+.jqplot-point-label {
+  color: white;
+  font: 14px/1 'misolight',"Trebuchet MS", Arial, sans-serif;
+}
+
+.jqplot-data-label {
+  color: white;
+  font: 14px/1 'misolight',"Trebuchet MS", Arial, sans-serif;
+}
+
+.jqplot-table-legend {
+    font: 14px/1 'misolight',"Trebuchet MS", Arial, sans-serif;
+    text-transform: uppercase;
+    background: #25282D;
+}
+
+div.jqplot-table-legend-swatch-outline {
+    border: 0 none;
+}
+
+.jqplot-axis {
+    font: 14px/1 'misolight',"Trebuchet MS", Arial, sans-serif;
+}

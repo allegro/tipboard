@@ -7,18 +7,11 @@ RUN mkdir /home/app && chown 1001 /home/app
 USER 1001
 WORKDIR /app
 
-#Do we really have to put this on CDN ? :(
-ADD static ./static
-
-#You can override config in ./tipboard/Config/*
-ADD ./tipboard ./tipboard
-
-ADD ./templates ./templates
-ADD ./webserver ./webserver
-ADD ./manage.py ./manage.py
-ADD ./entrypoint.sh ./entrypoint.sh
-
+ADD src/tipboard src/tipboard
+ADD src/manage.py src/manage.py
 ADD requirements.txt .
+ADD entrypoint.sh entrypoint.sh
+
 RUN pip install --user -r requirements.txt
 
 EXPOSE 8080

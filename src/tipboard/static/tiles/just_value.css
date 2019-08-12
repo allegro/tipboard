@@ -1,0 +1,39 @@
+.tile.just-value-tile > .tile-content {
+    overflow: hidden;
+    white-space: nowrap;
+}
+.tile.just-value-tile > .tile-content > .just-value-div {
+    height: 60%;
+    width: 100%;
+
+    /* Internet Explorer 10 */
+    display:-ms-flexbox;
+    -ms-flex-pack:center;
+    -ms-flex-align:center;
+    /* Firefox */
+    display:-moz-box;
+    -moz-box-pack:center;
+    -moz-box-align:center;
+    /* Safari, Opera, and Chrome */
+    display:-webkit-box;
+    -webkit-box-pack:center;
+    -webkit-box-align:center;
+    /* W3C */
+    display:box;
+    box-pack:center;
+    box-align:center;
+}
+
+.tile.just-value-tile > .tile-content > .just-value-div > .just-value {
+    font-size: 2.0em;
+    overflow: hidden;
+    text-align: center;
+    white-space: nowrap;
+}
+
+.row_1_of_3 .tile.just-value-tile > .tile-content > .just-value-div > .just-value {
+    font-size: 12.0rem;
+    overflow: hidden;
+    text-align: center;
+    white-space: nowrap;
+}

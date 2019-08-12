@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% load static from staticfiles %}
+{% load template_filter %}
+
+{% block put_body %}
+<body style="background-color: #1c1d1f;">
+
+    {% for rows in layout %}
+        {% for row, value in rows.items %}
+
+            <div class="row {{ row }}">
+                {% for col in value %}
+
+                    {% for keyCol, valueCol in col.items %}
+                        <div class="col {{ keyCol }}">
+                            {% for colData in valueCol %}
+                                {{ colData.tile_id|template_tile:colData }} <!-- get Template from tile in template filter-->
+                                <input id='{{ colData.tile_id }}-lastModified' type="hidden" name="modified" value="">
+                                <input id='{{ colData.tile_id }}-timeout' type="hidden" name="timeout" value="">
+                            {% endfor %}
+                        </div>
+
+                    {% endfor %}
+
+                {% endfor %}
+            </div>
+        {% endfor %}
+
+    {% endfor %}
+{% endblock %}
+
+

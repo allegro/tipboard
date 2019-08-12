@@ -1,0 +1,18 @@
+{
+  "TIPBOARD_TOKEN": "abd581219b534c21be6a3ebe7ae96fda",
+  "TIPBOARD_URL": "http://0.0.0.0:8080",
+  "API_VERSION": "v0.1",
+  "PROJECT_NAME": "tipboard-python3",
+
+  "CDN_URL": "",
+  "SITE_ENV": "preprod",
+  "REDIS_HOST": "0.0.0.0",
+  "REDIS_PASSWORD": null,
+  "REDIS_PORT": 6379,
+  "REDIS_DB": 4,
+  "SUPER_SECRET_KEY": "8ukir02c$==m07u2icw)#0e7e9=2k2!iiapwga%qgcb*#z#mcf",
+  "VERSION": "0.1",
+  "DEBUG": true,
+  "LOCAL": true,
+  "LOG": true
+}

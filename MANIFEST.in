@@ -1,0 +1,7 @@
+
+include README.md
+include LICENSE.rst
+include requirements.txt
+recursive-include src/tipboard/static *
+recursive-include src/tipboard/templates *
+

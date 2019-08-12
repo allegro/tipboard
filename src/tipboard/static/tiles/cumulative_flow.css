@@ -1,0 +1,18 @@
+.tile > .tile-content > .cumulative-flow-chart {
+    width: 70%;
+    float: left;
+}
+
+.tile > .tile-content > .plot-labels {
+    padding-left: 10px;
+    margin-left: 70%;
+    overflow: hidden;
+}
+
+.tile > .tile-content > .plot-labels h2 {
+    font-size: 2.8rem;
+}
+
+.tile > .tile-content > .plot-labels .medium-result {
+    font-size: 2rem;
+}

@@ -1,0 +1,40 @@
+.tile.big_value_tile > .tile-content > .highlight-footer {
+    clear: both;
+    height: 30%;
+    overflow: hidden;
+    padding-top: 10%;
+    width: 100%;
+}
+
+.row_1_of_3 .tile.big_value_tile > .tile-content .highlight-footer {
+    height: 30%;
+    overflow: hidden;
+    padding-top: 3%;
+    width: 100%;
+}
+
+.tile.big_value_tile > .tile-content > .result-row > .result-col {
+    float: left;
+    width: 45%;
+    height: 15%;
+}
+
+.tile.big_value_tile > .tile-content > .result-row > .result-half-col {
+    float: left;
+    width: 45%;
+}
+
+.tile.big_value_tile > .tile-content > .result-row > .result-half-col {
+    margin-left: 5%;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.tile.big_value_tile > .tile-content > .result-row > .result-half-col > .result {
+    font-size: 2.0rem;
+    height: 15%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width: 100%;
+}
