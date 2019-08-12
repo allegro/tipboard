@@ -18,7 +18,7 @@ with open(HERE / 'requirements.txt') as requirements:
 
 setup(
     name="tipboard2.0",
-    version="1.0.4",
+    version="1.0.5",
     description="Tipboard - a flexible solution for creating your dashboards.",
     long_description=README,
     long_description_content_type="text/markdown",
