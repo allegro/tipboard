@@ -5,4 +5,4 @@ python:
 install:
     - pip install -r requirements.txt
 script:
-    - python3.7 manage.py test
+    - python3.7 src/manage.py test
