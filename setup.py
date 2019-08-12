@@ -18,7 +18,7 @@ with open(HERE / 'requirements.txt') as requirements:
 
 setup(
     name="tipboard2.0",
-    version="1.0.0",
+    version="1.0.1",
     description="Tipboard - a flexible solution for creating your dashboards.",
     long_description=README,
     long_description_content_type="text/markdown",
@@ -31,7 +31,7 @@ setup(
     install_requires=required,
     entry_points={
         'console_scripts': [
-            'tipboard = src.manage:bypassme',
+            'tipboard = src.manage:main_as_pkg',
         ],
     },
 )
