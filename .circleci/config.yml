@@ -54,6 +54,7 @@ jobs:
           command: |
             python3 -m venv venv
             . venv/bin/activate
+            pip install -r requirements.txt
       - save_cache:
           key: v1-dependencies-{{ checksum "requirements.txt" }}
           paths:
