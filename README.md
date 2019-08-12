@@ -1,10 +1,20 @@
 Tipboard
 ========
-[![Build Status](https://travis-ci.com/the-maux/tipboard.svg?branch=develop)](https://travis-ci.com/the-maux/tipboard)
-![docker modebuild](https://img.shields.io/docker/cloud/automated/themaux/tipboard)
-![docker build](https://img.shields.io/docker/cloud/build/themaux/tipboard.svg)
-![docker stars](https://img.shields.io/docker/stars/themaux/tipboard)
-![docs](https://readthedocs.org/projects/tipboard/badge/?version=latest)
+
+![docs](https://readthedocs.org/projects/tipboard/badge/?version=latest) ![redhat python37:rhel7](https://img.shields.io/badge/redhat-python37:rhel7-brightgreen.svg) ![bitnami python:3.7](https://img.shields.io/badge/bitnami-python:3.7-brightgreen.svg) ![django 2.0](https://img.shields.io/badge/django-2.0-brightgreen.svg)
+
+|    /     | C.I      |  C.D     |  Release |
+| -------- | -------- | -------- | -------- |
+| Gitlab   | [![Gitlab Build status](https://gitlab.com/the-maux/tipboard/badges/develop/pipeline.svg)](https://gitlab.com/the-maux/tipboard/commits/develop)     | ![pipeline success](https://img.shields.io/badge/pipeline-success-brightgreen.svg)     | ![docker_hub gitlab:1.0.0](https://img.shields.io/badge/docker_hub-gitlab:1.0.0-blue.svg)    |
+| Azure    | [![Travis Build Status](https://travis-ci.com/the-maux/tipboard.svg?branch=develop)](https://travis-ci.com/the-maux/tipboard)     | ![pipeline success](https://img.shields.io/badge/pipeline-success-brightgreen.svg)    | ![docker_hub azure:1.0.0](https://img.shields.io/badge/docker_hub-azure:1.0.0-blue.svg)    |
+| AWS      | [![CircleCI](https://circleci.com/gh/the-maux/tipboard/tree/master.svg?style=svg)](https://circleci.com/gh/the-maux/tipboard/tree/master)    | [![Gitlab Build status](https://gitlab.com/the-maux/tipboard/badges/develop/pipeline.svg)](https://gitlab.com/the-maux/tipboard/commits/develop)     | ![docker_hub aws:1.0.0](https://img.shields.io/badge/docker_hub-aws:1.0.0-blue.svg) |
+| Openshift     | [![Travis Build Status](https://travis-ci.com/the-maux/tipboard.svg?branch=develop)](https://travis-ci.com/the-maux/tipboard)     | ![deploy success](https://img.shields.io/badge/deploy-success-brightgreen.svg)     |![helm tipboard:1.0.0](https://img.shields.io/badge/helm-tipboard:1.0.0-blue.svg)     |
+| Travis     | [![Travis Build Status](https://travis-ci.com/the-maux/tipboard.svg?branch=develop)](https://travis-ci.com/the-maux/tipboard)    |     |       |
+| Docker     | ![Docker build](https://img.shields.io/docker/cloud/build/themaux/tipboard.svg)     |  | ![docker stars](https://img.shields.io/docker/stars/themaux/tipboard)     |
+| Pypi  3   | [![Travis Build Status](https://travis-ci.com/the-maux/tipboard.svg?branch=develop)](https://travis-ci.com/the-maux/tipboard)  |  [![Travis Build Status](https://travis-ci.com/the-maux/tipboard.svg?branch=develop)](https://travis-ci.com/the-maux/tipboard)     | [![PyPI version](https://badge.fury.io/py/tipboard2.svg)](https://badge.fury.io/py/tipboard2) ![Python >=3.7](https://img.shields.io/badge/Python->=3.7-brightgreen.svg)|
+| Pypi 2    | [![Gitlab Build status](https://gitlab.com/the-maux/tipboard/badges/develop/pipeline.svg)](https://gitlab.com/the-maux/tipboard/commits/develop)     |  [![Gitlab Build status](https://gitlab.com/the-maux/tipboard/badges/develop/pipeline.svg)](https://gitlab.com/the-maux/tipboard/commits/develop)     | [![PyPI version](https://badge.fury.io/py/tipboard.svg)](https://badge.fury.io/py/tipboard) ![Python 2.7](https://img.shields.io/badge/Python-2.7-red.svg)
+|
+
 
 Introduction
 ------------

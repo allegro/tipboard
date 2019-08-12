@@ -9,6 +9,7 @@ API_KEY = conf['TIPBOARD_TOKEN']
 PROJECT_NAME = conf['PROJECT_NAME']
 SUPER_SECRET_KEY = conf["SUPER_SECRET_KEY"]
 debug = conf['DEBUG']
+LOG = conf['LOG']
 VERSION = conf["VERSION"]
 SITE_ENV = conf["SITE_ENV"]
 LOCAL = conf['LOCAL']
@@ -18,6 +19,9 @@ REDIS_HOST = conf['REDIS_HOST']
 REDIS_PORT = conf['REDIS_PORT']
 REDIS_PASSWORD = conf['REDIS_PASSWORD']
 REDIS_DB = conf['REDIS_DB']
+
+# Location of Tipboard sources
+TIPBOARD_PATH = os.path.dirname(__file__)
 
 # Javascript log level ('1' for 'standard', '2' for 'debug')
 JS_LOG_LEVEL = 2
@@ -41,31 +45,7 @@ FLIPBOARD_INTERVAL = 0
 # file name(s) of EXISTING layouts without extension, eg. ['layout_config']
 FLIPBOARD_SEQUENCE = []
 
-# We are using Sentry for catching/aggregating errors
-SENTRY_DSN = ''
 
-##############################################################################
-# Settings below should not be changed directly by user
-
-# Load local settings (.tipboard/local_settings.py)
-
-try:
-    exec (compile(open(os.path.join('tipboard/Config', 'settings-local.py'), "rb").read(),
-                  os.path.join('tipboard/Config', 'settings-local.py'), "exec"))
-except IOError:
-    print(f" (-) Error settings-local.py not found", flush=True)
-
-# Determine which layout config should be used
-user_config_dir = 'tipboard/Config'
-_user_layout_config = os.path.join(user_config_dir, 'layout_config.yaml')
-# Location of Tipboard sources
-TIPBOARD_PATH = os.path.dirname(__file__)
-
-# Tiles' paths which should be examined in given order (i.e. user's --> app's)
-TILES_PATHS = [
-    os.path.join('.tipboard', '.tipboard/custom_tiles'),
-    os.path.join(TIPBOARD_PATH, 'tiles'),
-]
 TIPBOARD_CSS_STYLES = [
     'css/reset.css',
     'css/jquery.jqplot.css',
@@ -108,11 +88,16 @@ TIPBOARD_JAVASCRIPTS = [
     'js/tipboard.js',
 ]
 
-_fallback_layout_config = os.path.join(
-    TIPBOARD_PATH, 'defaults/Config/layout_config.yaml'
-)
-if not os.path.exists(_user_layout_config):
-    LAYOUT_CONFIG = _fallback_layout_config
-else:
-    LAYOUT_CONFIG = _user_layout_config
+FROM_PIP = 'src.'
+#FROM_PIP = ''
+
+#Tu dois faire la diff des path quand
+# * dans pip
+# * dans docker
+# * dans bash
+
+# Determine which layout config should be used
+user_config_dir = dir_path + '/Config/'
+
+LAYOUT_CONFIG = os.path.join(user_config_dir, 'layout_config.yaml')
 

@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 import json
 from django.http import JsonResponse, HttpResponseBadRequest, HttpResponse, HttpResponseServerError, Http404
-from tipboard.properties import PROJECT_NAME, LAYOUT_CONFIG, REDIS_DB
-from tipboard.cache import getCache
-from tipboard.utils import getRedisPrefix, getTimeStr, getIsoTime
+from src.tipboard.app.properties import PROJECT_NAME, LAYOUT_CONFIG, REDIS_DB, LOG
+from src.tipboard.app.cache import getCache
+from src.tipboard.app.utils import getRedisPrefix, getTimeStr, getIsoTime
 
 cache = getCache()
 redis = cache.redis
@@ -56,7 +56,8 @@ def push(request):
                 return HttpResponseBadRequest(f"Missing data")
             tilePrefix = getRedisPrefix(tile_id)
             if not redis.exists(tilePrefix):
-                print(f"{getTimeStr()}: (+) {tile_id} not found in cache, creating tile {tile_template}", flush=True)
+                if LOG:
+                    print(f"{getTimeStr()}: (+) {tile_id} not found in cache, creating tile {tile_template}", flush=True)
                 return createTile(tile_id=tile_id, value=data, tile_template=tile_template)
             cachedTile = json.loads(redis.get(tilePrefix))
             cachedTile['data'] = json.loads(data)
@@ -83,7 +84,8 @@ def meta(request, tile_key):
                 return HttpResponseBadRequest("Bad data")
             tilePrefix = getRedisPrefix(tile_key)
             if not redis.exists(tilePrefix):
-                print(f"{getTimeStr()}: (+) {tile_key} is not present in cache", flush=True)
+                if LOG:
+                    print(f"{getTimeStr()}: (+) {tile_key} is not present in cache", flush=True)
                 return HttpResponseBadRequest(f"{tile_key} is not present in cache")
             cachedTile = json.loads(redis.get(tilePrefix))
             cachedTile['meta']['big_value_color'] = value['big_value_color']
@@ -110,11 +112,13 @@ def update(request):
                 if httpResponse.status_code != 200:
                     return httpResponse
             except Exception as e:
-                print(f"{getTimeStr()} (-) No meta value for update tile {tile_id}: {e}", flush=True)
+                if LOG:
+                    print(f"{getTimeStr()} (-) No meta value for update tile {tile_id}: {e}", flush=True)
                 return HttpResponseBadRequest(f"{tile_id} data updated successfully.")
             return HttpResponse(f"{tile_id} data updated successfully.")
         except Exception as e:
-            print(f"{getTimeStr()} (-) Update error: {e}", flush=True)
+            if LOG:
+                print(f"{getTimeStr()} (-) Update error: {e}", flush=True)
             return push(request)
 
 def projectInfo(request):

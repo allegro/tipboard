@@ -504,11 +504,11 @@ iframe {
 
 @font-face {
     font-family: 'misolight';
-    src: url('/static/fonts/miso-light-webfont.eot');
-    src: url('/static/fonts/miso-light-webfont.eot?#iefix') format('embedded-opentype'),
-         url('/static/fonts/miso-light-webfont.woff') format('woff'),
-         url('/static/fonts/miso-light-webfont.ttf') format('truetype'),
-         url('/static/fonts/miso-light-webfont.svg#misolight') format('svg');
+    src: url('/src/staticatic/fonts/miso-light-webfont.eot');
+    src: url('/src/staticatic/fonts/miso-light-webfont.eot?#iefix') format('embedded-opentype'),
+         url('/src/staticatic/fonts/miso-light-webfont.woff') format('woff'),
+         url('/src/staticatic/fonts/miso-light-webfont.ttf') format('truetype'),
+         url('/src/staticatic/fonts/miso-light-webfont.svg#misolight') format('svg');
     font-weight: normal;
     font-style: normal;
 
@@ -516,11 +516,11 @@ iframe {
 
 @font-face {
     font-family: 'misoregular';
-    src: url('/static/fonts/miso-webfont.eot');
-    src: url('/static/fonts/miso-webfont.eot?#iefix') format('embedded-opentype'),
-         url('/static/fonts/miso-webfont.woff') format('woff'),
-         url('/static/fonts/miso-webfont.ttf') format('truetype'),
-         url('/static/fonts/miso-webfont.svg#misoregular') format('svg');
+    src: url('/src/staticatic/fonts/miso-webfont.eot');
+    src: url('/src/staticatic/fonts/miso-webfont.eot?#iefix') format('embedded-opentype'),
+         url('/src/staticatic/fonts/miso-webfont.woff') format('woff'),
+         url('/src/staticatic/fonts/miso-webfont.ttf') format('truetype'),
+         url('/src/staticatic/fonts/miso-webfont.svg#misoregular') format('svg');
     font-weight: normal;
     font-style: normal;
 

@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 import json, redis
 from asgiref.sync import async_to_sync
-from tipboard.properties import REDIS_DB, REDIS_PASSWORD, REDIS_HOST, REDIS_PORT, LOCAL
-from tipboard.utils import getTimeStr, getRedisPrefix
+from src.tipboard.app.properties import REDIS_DB, REDIS_PASSWORD, REDIS_HOST, REDIS_PORT, LOCAL, LOG
+from src.tipboard.app.utils import getTimeStr, getRedisPrefix
 
 cache = None
 
@@ -20,7 +20,8 @@ class MyCache:
             self.redis = self.setup_redis()
             self.redis.time()
             self.isRedisConnected = True
-            print(f"{getTimeStr()} (+) Initializing cache from redis server with {len(self.listOfTilesCached())} key", flush=True)
+            if LOG:
+                print(f"{getTimeStr()} (+) Initializing cache from redis server with {len(self.listOfTilesCached())} key", flush=True)
             self.clientsWS = list()
         except:
             self.isRedisConnected = False
@@ -30,15 +31,18 @@ class MyCache:
         if self.redis.exists(getRedisPrefix(tile_id=tile_id)):
             self.redis.delete(getRedisPrefix(tile_id=tile_id))
             return True
-        print(f"{getTimeStr()}(-) tile: {tile_id} not found in redis", flush=True)
+        if LOG:
+            print(f"{getTimeStr()}(-) tile: {tile_id} not found in redis", flush=True)
         return False
 
     def get(self, tile_id):
-        print(f"cache.get({tile_id})", flush=True)
+        if LOG:
+            print(f"cache.get({tile_id})", flush=True)
         prefix = tile_id
         if self.redis.exists(prefix):
             return json.dumps(self.redis.get(prefix))
-        print(f"{getTimeStr()} (-) tile: {prefix} not found in redis", flush=True)
+        if LOG:
+            print(f"{getTimeStr()} (-) tile: {prefix} not found in redis", flush=True)
         return None
 
     def setup_redis(self):
@@ -50,7 +54,8 @@ class MyCache:
 
     def set(self, key, dumped_value):
         self.redis.set(key, dumped_value)
-        print(f"{getTimeStr()} (+) Redis save and publish: {key}", flush=True)
+        if LOG:
+            print(f"{getTimeStr()} (+) Redis save and publish: {key}", flush=True)
         key = key.split(":")[-1]
         from channels.layers import get_channel_layer
         channel_layer = get_channel_layer()

@@ -1,11 +1,10 @@
 from django.conf import settings
 from django.conf.urls.static import static
 from django.views.generic.base import RedirectView
-from django.views.generic.base import RedirectView
 from django.conf.urls import url
-from tipboard.properties import *
-from tipboard.views.api import push, projectInfo,  tile, meta, update#, deleteTile, getTile
-from tipboard.views.dashboard import dashboardRendererHandler, getDashboardsPaths, flipboardHandler
+from src.tipboard.app.properties import *
+from src.tipboard.app.views.api import push, projectInfo,  tile, meta, update#, deleteTile, getTile
+from src.tipboard.app.views.dashboard import dashboardRendererHandler, getDashboardsPaths, flipboardHandler
 
 
 favicon_view = RedirectView.as_view(url="/static/" + 'favicon.ico', permanent=True)

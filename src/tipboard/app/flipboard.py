@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
-from tipboard.utils import getTimeStr
-from tipboard.properties import *
-from tipboard.parser import get_config_files_names, process_layout_config
+from src.tipboard.app.utils import getTimeStr
+from src.tipboard.app.properties import *
+from src.tipboard.app.parser import get_config_files_names, process_layout_config
 
 class Flipboard(object):
 
@@ -34,7 +34,8 @@ class Flipboard(object):
                 msg = 'config {} has no key: details/page_title'.format(
                     config_names[0]
                 )
-                print(f"{getTimeStr()} (+) {msg}", flush=True)
+                if LOG:
+                    print(f"{getTimeStr()} (+) {msg}", flush=True)
         elif len(config_names) > 1:
             # TODO: put here more suitable title?
             title = 'Flipboard Mode'
@@ -47,7 +48,7 @@ class Flipboard(object):
             config_names = get_config_files_names()
             if not any(config_names):
 
-                raise Exception('No config (.yaml) file found in .tipboard/')
+                raise Exception('No config (.yaml) file found in ./tipboard/app/Config/layout_config.yaml')
         return config_names
 
     def _config_names2paths(self, config_names):

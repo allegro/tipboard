@@ -2,11 +2,10 @@
 """Django's command-line utility for administrative tasks."""
 import os
 import sys
-import json
 
-def main():
+
+def startDjango():
     sys.path.insert(0, os.getcwd())  # Import project to PYTHONPATH
-    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'webserver.settings')
     try:
         from django.core.management import execute_from_command_line
     except ImportError as exc:
@@ -18,5 +17,18 @@ def main():
     execute_from_command_line(sys.argv)
 
 
+def main():
+    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'tipboard.webserver.settings')
+    startDjango()
+
+
+# to become a pacakage and go to pypi :)
+def main_as_pkg():
+    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'src.tipboard.webserver.settings')
+    startDjango()
+
+
 if __name__ == '__main__':
     main()
+
+

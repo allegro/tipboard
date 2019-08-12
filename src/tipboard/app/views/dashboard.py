@@ -4,17 +4,18 @@ from __future__ import unicode_literals
 from django.http import JsonResponse
 from django.shortcuts import render
 
-from tipboard.cache import getCache
-from tipboard.flipboard import Flipboard
-from tipboard.parser import process_layout_config
-from tipboard.properties import *
-from tipboard.utils import tile_path, getTimeStr
+from src.tipboard.app.cache import getCache
+from src.tipboard.app.flipboard import Flipboard
+from src.tipboard.app.parser import process_layout_config
+from src.tipboard.app.properties import *
+from src.tipboard.app.utils import tile_path, getTimeStr
 
 cache = getCache()
 
 
 def flipboardHandler(request):
-    print(f"{getTimeStr()} (+) flipboardHandler/", flush=True)
+    if LOG:
+        print(f"{getTimeStr()} (+) flipboardHandler/", flush=True)
     data = {
         "page_title": Flipboard().get_flipboard_title(),
         "tipboard_css": TIPBOARD_CSS_STYLES,
@@ -26,13 +27,15 @@ def flipboardHandler(request):
 
 
 def getDashboardsPaths(request):
-    print(f"{getTimeStr()} GET /getDashboardsPaths", flush=True)
+    if LOG:
+        print(f"{getTimeStr()} GET /getDashboardsPaths", flush=True)
     paths = Flipboard().get_paths()
     return JsonResponse({'paths': paths}, safe=False)
 
 
 def dashboardRendererHandler(request, layout_name='layout_config'):
-    print(f"{getTimeStr()} GET dashboardRendererHandler /([a-zA-Z0-9_-]*)", flush=True)
+    if LOG:
+        print(f"{getTimeStr()} GET dashboardRendererHandler /([a-zA-Z0-9_-]*)", flush=True)
     try:
         config = process_layout_config(layout_name)
         tiles_js = ["tiles/" + '.'.join((name, 'js')) for name in config['tiles_names']]
@@ -49,7 +52,8 @@ def dashboardRendererHandler(request, layout_name='layout_config'):
             "tile_path": tile_path
         }
     except FileNotFoundError as e:
-        print(f"{getTimeStr()}: (+)Config file:{layout_name} not found", flush=True)
+        if LOG:
+            print(f"{getTimeStr()}: (+)Config file:{layout_name} not found", flush=True)
         msg = '<br>'.join([
             '<div style="color: red">',
             f'No config file found for dashboard: {layout_name}',

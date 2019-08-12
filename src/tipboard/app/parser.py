@@ -8,7 +8,7 @@ from __future__ import unicode_literals
 
 import glob, os, yaml
 
-from tipboard import properties
+from src.tipboard.app import properties
 
 
 class WrongSumOfRows(Exception):

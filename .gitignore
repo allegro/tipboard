@@ -2,7 +2,7 @@ tipboard.egg-info/
 /.idea/*
 *.pyc
 *.swp
-
+*/__pycache__/
 # Elastic Beanstalk Files
 .elasticbeanstalk/*
 !.elasticbeanstalk/*.cfg.yml

@@ -2,8 +2,8 @@
 from __future__ import unicode_literals
 import time, os, json
 from datetime import datetime
-from tipboard.properties import PROJECT_NAME, TIPBOARD_PATH
-from tipboard.parser import get_tiles_configs
+from src.tipboard.app.properties import PROJECT_NAME, TIPBOARD_PATH, LOG
+from src.tipboard.app.parser import get_tiles_configs
 
 
 def validate_post_request(post_field, allowed_fields):
@@ -44,7 +44,8 @@ def validate_with_json(jsoned_data):
     try:
         json.loads(jsoned_data)
     except ValueError:
-        print(f'{getTimeStr()} (-) invalid json data: {repr(jsoned_data)}', flush=True)
+        if LOG:
+            print(f'{getTimeStr()} (-) invalid json data: {repr(jsoned_data)}', flush=True)
         error_msg = 'Invalid JSON data.\n'
     return error_msg
 

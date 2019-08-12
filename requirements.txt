@@ -7,3 +7,4 @@ asgiref
 PyYAML
 redis
 piwikapi
+twine

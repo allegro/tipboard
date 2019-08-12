@@ -13,5 +13,6 @@
   "SUPER_SECRET_KEY": "8ukir02c$==m07u2icw)#0e7e9=2k2!iiapwga%qgcb*#z#mcf",
   "VERSION": "0.1",
   "DEBUG": true,
-  "LOCAL": true
+  "LOCAL": true,
+  "LOG": true
 }
