@@ -3,9 +3,6 @@ workflows:
   build_and_deploy:
     jobs:
       - test_commit:
-          filters:
-            tags:
-              only: *
       - deploy:
           requires:
             - test_commit
