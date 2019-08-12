@@ -5,7 +5,7 @@ workflows:
       - test_commit:
           filters:
             tags:
-              only: *
+              only: /*/
       - deploy:
           requires:
             - test_commit
