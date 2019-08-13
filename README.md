@@ -111,7 +111,7 @@ $ eb open
 ```shell
 # From docker hub
 $ oc new-app themaux/tipboard
-# Update the config_layout.yaml
+# Update the config_layout.yaml  & properties.json
 $ oc apply -f ./helm/tipboard-charts-deploy/manifests/tipboard-ops/charts/config/templates/tipboard-configmap.yaml
 ```
 </details>
@@ -120,15 +120,23 @@ $ oc apply -f ./helm/tipboard-charts-deploy/manifests/tipboard-ops/charts/config
     <summary><b>Deploy on Azure</b></summary>
   
 ```shell
-# From docker hub
-$ oc new-app themaux/tipboard
-# Update the config_layout.yaml
-$ oc apply -f ./helm/tipboard-charts-deploy/manifests/tipboard-ops/charts/config/templates/tipboard-configmap.yaml
 ```
 </details>
 
 <details>
-    <summary><b>Deploy on clusters kubernets</b></summary>
+    <summary><b>Deploy on GCP</b></summary>
+
+```shell
+# Go to GCP cloud shell
+$ git clone https://github.com/the-maux/tipboard.git
+$ gcloud app deploy
+# Connect throw your instance with SSH (or scp the right files :D)
+# Update the config_layout.yaml & properties.json
+```
+</details>
+
+<details>
+    <summary><b>Deploy on clusters kubernets with helm</b></summary>
   
 ```shell
 # Build helm package
