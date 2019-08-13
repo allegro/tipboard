@@ -15,10 +15,11 @@ print(README)
 with open(HERE / 'requirements.txt') as requirements:
     required = requirements.read().splitlines()
 
+from src import __version__
 
 setup(
     name="tipboard2.0",
-    version="1.0.5",
+    version=__version__,
     description="Tipboard - a flexible solution for creating your dashboards.",
     long_description=README,
     long_description_content_type="text/markdown",
