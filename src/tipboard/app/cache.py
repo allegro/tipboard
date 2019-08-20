@@ -1,8 +1,9 @@
 # -*- coding: utf-8 -*-
 import json, redis
 from asgiref.sync import async_to_sync
+from src.tipboard.app.applicationconfig import getRedisPrefix, getIsoTime
 from src.tipboard.app.properties import REDIS_DB, REDIS_PASSWORD, REDIS_HOST, REDIS_PORT, LOCAL, LOG
-from src.tipboard.app.utils import getTimeStr, getRedisPrefix
+from src.tipboard.app.utils import getTimeStr
 
 cache = None
 
@@ -67,3 +68,16 @@ class MyCache:
             listOfTiles.append(key)
         return listOfTiles
 
+    def createTile(tile_id, value, tile_template):
+        try:
+            dumped_value = json.dumps(dict(
+                id=tile_id,
+                tile_template=tile_template,
+                data=json.loads(value),
+                meta={},
+                modified=getIsoTime(),
+            ))
+            cache.set(getRedisPrefix(tile_id), dumped_value)
+            return True
+        except:
+            return False
