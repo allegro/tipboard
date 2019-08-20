@@ -1,4 +1,5 @@
-# Tipboard
+
+# Tipboard :bar_chart: :chart_with_upwards_trend:
 
  [![][14]][13] [![][11]][13] ![](https://img.shields.io/github/downloads/the-maux/tipboard/total)
 ![bitnami python:3.7](https://img.shields.io/badge/bitnami-python:3.7-brightgreen.svg) ![bitnami redis](https://img.shields.io/badge/bitnami-redis:5.0-brightgreen.svg) ![django](https://img.shields.io/badge/django-2.0-brightgreen.svg)  
@@ -22,7 +23,7 @@ A detailed, technical documentation for Tipboard can be found
 
 ## Quick start
 
-### 1. Execution by python
+### 1. Execution by python :snake:
 
 Some required packages need to be present, and python3.7 is required now  
 `  $ sudo apt-get install python-dev python-virtualenv redis-server`
@@ -49,7 +50,7 @@ $ python manage.py runserver
 ```
 </details>
 
-### 2. Execution by docker
+### 2. Execution by docker :whale:
 
 It's a non-root bitnami/python3.7 image
 
@@ -80,7 +81,7 @@ $ docker run -p 8080:8080 themaux/tipboard
 
 
 
-### 3. Execution on cloud
+### 3. Execution on cloud :cloud:
 
 <details>
     <summary><b>Deploy on AWS</b></summary>
@@ -142,7 +143,7 @@ $ oc apply -R -f ./manifests || helm install --name tipboard MY_PATH_ENVIRONMENT
 ---
 
 
-### C.I
+### C.I :hammer:
 
 |  Registry  |         Runner       |       Release     |
 | --------   | -------------------- | ----------------- |
@@ -174,7 +175,7 @@ $ oc apply -R -f ./manifests || helm install --name tipboard MY_PATH_ENVIRONMENT
 
 
 
-### C.D
+### C.D :tada:
 
 |   Registry    |         Pipeline       |      HowTo     |
 | ------------- | -------------------- | ----------------- |
