@@ -151,7 +151,10 @@ $ oc apply -R -f ./manifests || helm install --name tipboard MY_PATH_ENVIRONMENT
 | pypi       |  [![CircleCI][1]][2] | [![][9]][10]  |
 | Github     |  [![Gitlab][17]][4]   | [![Gitlab][3]][4]  |
 | DockerHUB  |  [![][15]][13]       | [![][16]][13] |
+| AWS Code   |  [![][33]][13]       |  |
 | Helm       |  [![Gitlab][7]][8]   | [![Gitlab][7]][8]   |
+
+
 
 [1]: https://travis-ci.com/the-maux/tipboard.svg?branch=develop
 [2]: https://travis-ci.com/the-maux/tipboard
@@ -170,7 +173,7 @@ $ oc apply -R -f ./manifests || helm install --name tipboard MY_PATH_ENVIRONMENT
 [15]: https://img.shields.io/docker/cloud/automated/themaux/tipboard
 [16]: https://img.shields.io/docker/cloud/build/themaux/tipboard
 [17]: https://gitlab.com/the-maux/tipboard/badges/master/pipeline.svg
-
+[33]: https://codebuild.eu-west-3.amazonaws.com/badges?uuid=eyJlbmNyeXB0ZWREYXRhIjoiOXBBZTVtMk5nMmJFcG9vVFlGUVh3cHNoWUFoWXlCVjNjNkd1RE9ZWGtpVlBpazBLaHFKaFpsdXRuamdTc1d4ckNuTSttZnNoNzkwZHNyRUZrbndaaGdvPSIsIml2UGFyYW1ldGVyU3BlYyI6IjNHTnRyekcvWER0Wk1uRW4iLCJtYXRlcmlhbFNldFNlcmlhbCI6MX0%3D&branch=master
 
 
 
