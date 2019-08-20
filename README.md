@@ -1,19 +1,10 @@
 Tipboard
 ========
 
-![docs](https://readthedocs.org/projects/tipboard/badge/?version=latest) ![redhat python37:rhel7](https://img.shields.io/badge/redhat-python37:rhel7-brightgreen.svg) ![bitnami python:3.7](https://img.shields.io/badge/bitnami-python:3.7-brightgreen.svg) ![django 2.0](https://img.shields.io/badge/django-2.0-brightgreen.svg)
+ [![][14]][13] [![][11]][13] ![](https://img.shields.io/github/downloads/the-maux/tipboard/total)
+![bitnami python:3.7](https://img.shields.io/badge/bitnami-python:3.7-brightgreen.svg) ![bitnami redis](https://img.shields.io/badge/bitnami-redis:5.0-brightgreen.svg) ![django](https://img.shields.io/badge/django-2.0-brightgreen.svg)  
 
-|    /     | C.I      |  C.D     |  Release |
-| -------- | -------- | -------- | -------- |
-| Gitlab   | [![Gitlab Build status](https://gitlab.com/the-maux/tipboard/badges/develop/pipeline.svg)](https://gitlab.com/the-maux/tipboard/commits/develop)     | ![pipeline success](https://img.shields.io/badge/pipeline-success-brightgreen.svg)     | ![docker_hub gitlab:1.0.0](https://img.shields.io/badge/docker_hub-gitlab:1.0.0-blue.svg)    |
-| Azure    | [![Travis Build Status](https://travis-ci.com/the-maux/tipboard.svg?branch=develop)](https://travis-ci.com/the-maux/tipboard)     | ![pipeline success](https://img.shields.io/badge/pipeline-success-brightgreen.svg)    | ![docker_hub azure:1.0.0](https://img.shields.io/badge/docker_hub-azure:1.0.0-blue.svg)    |
-| AWS      | [![CircleCI](https://circleci.com/gh/the-maux/tipboard/tree/master.svg?style=svg)](https://circleci.com/gh/the-maux/tipboard/tree/master)    | [![Gitlab Build status](https://gitlab.com/the-maux/tipboard/badges/develop/pipeline.svg)](https://gitlab.com/the-maux/tipboard/commits/develop)     | ![docker_hub aws:1.0.0](https://img.shields.io/badge/docker_hub-aws:1.0.0-blue.svg) |
-| Openshift     | [![Travis Build Status](https://travis-ci.com/the-maux/tipboard.svg?branch=develop)](https://travis-ci.com/the-maux/tipboard)     | ![deploy success](https://img.shields.io/badge/deploy-success-brightgreen.svg)     |![helm tipboard:1.0.0](https://img.shields.io/badge/helm-tipboard:1.0.0-blue.svg)     |
-| Travis     | [![Travis Build Status](https://travis-ci.com/the-maux/tipboard.svg?branch=develop)](https://travis-ci.com/the-maux/tipboard)    |     |       |
-| Docker     | ![Docker build](https://img.shields.io/docker/cloud/build/themaux/tipboard.svg)     |  | ![docker stars](https://img.shields.io/docker/stars/themaux/tipboard)     |
-| Pypi  3   | [![Travis Build Status](https://travis-ci.com/the-maux/tipboard.svg?branch=develop)](https://travis-ci.com/the-maux/tipboard)  |  [![Travis Build Status](https://travis-ci.com/the-maux/tipboard.svg?branch=develop)](https://travis-ci.com/the-maux/tipboard)     | [![PyPI version](https://badge.fury.io/py/tipboard2.svg)](https://badge.fury.io/py/tipboard2) ![Python >=3.7](https://img.shields.io/badge/Python->=3.7-brightgreen.svg)|
-| Pypi 2    | [![Gitlab Build status](https://gitlab.com/the-maux/tipboard/badges/develop/pipeline.svg)](https://gitlab.com/the-maux/tipboard/commits/develop)     |  [![Gitlab Build status](https://gitlab.com/the-maux/tipboard/badges/develop/pipeline.svg)](https://gitlab.com/the-maux/tipboard/commits/develop)     | [![PyPI version](https://badge.fury.io/py/tipboard.svg)](https://badge.fury.io/py/tipboard) ![Python 2.7](https://img.shields.io/badge/Python-2.7-red.svg)
-|
+---
 
 
 Introduction
@@ -29,6 +20,10 @@ in your office), it is optimized for larger screens.
 
 A detailed, technical documentation for Tipboard can be found
 [here](http://tipboard.readthedocs.org/en/latest/).
+
+
+
+---
 
 Quick start
 -----------
@@ -111,7 +106,7 @@ $ eb open
 ```shell
 # From docker hub
 $ oc new-app themaux/tipboard
-# Update the config_layout.yaml
+# Update the config_layout.yaml  & properties.json
 $ oc apply -f ./helm/tipboard-charts-deploy/manifests/tipboard-ops/charts/config/templates/tipboard-configmap.yaml
 ```
 </details>
@@ -120,15 +115,23 @@ $ oc apply -f ./helm/tipboard-charts-deploy/manifests/tipboard-ops/charts/config
     <summary><b>Deploy on Azure</b></summary>
   
 ```shell
-# From docker hub
-$ oc new-app themaux/tipboard
-# Update the config_layout.yaml
-$ oc apply -f ./helm/tipboard-charts-deploy/manifests/tipboard-ops/charts/config/templates/tipboard-configmap.yaml
 ```
 </details>
 
 <details>
-    <summary><b>Deploy on clusters kubernets</b></summary>
+    <summary><b>Deploy on GCP</b></summary>
+
+```shell
+# Go to GCP cloud shell
+$ git clone https://github.com/the-maux/tipboard.git
+$ gcloud app deploy
+# Connect throw your instance with SSH (or scp the right files :D)
+# Update the config_layout.yaml & properties.json
+```
+</details>
+
+<details>
+    <summary><b>Deploy on clusters kubernets with helm</b></summary>
   
 ```shell
 # Build helm package
@@ -142,6 +145,65 @@ $ oc apply -R -f ./manifests || helm install --name tipboard MY_PATH_ENVIRONMENT
 </details>
 
 
+---
+
+
+#### C.I
+
+|  Registry  |         Runner       |       Release     |
+| --------   | -------------------- | ----------------- |
+| Docs       | ![docs](https://readthedocs.org/projects/tipboard/badge/?version=latest) | [here](https://readthedocs.org/projects/tipboard/badge/?version=latest)    |
+| pypi       |  [![CircleCI][1]][2] | [![][9]][10]  |
+| Github     |  [![Gitlab][17]][4]   | [![Gitlab][3]][4]  |
+| DockerHUB  |  [![][15]][13]       | [![][16]][13] |
+| Helm       |  [![Gitlab][7]][8]   | [![Gitlab][7]][8]   |
+
+[1]: https://travis-ci.com/the-maux/tipboard.svg?branch=develop
+[2]: https://travis-ci.com/the-maux/tipboard
+[3]: https://img.shields.io/github/v/release/the-maux/tipboard
+[4]: https://github.com/the-maux/tipboard/packages
+[5]: https://img.shields.io/badge/pipeline-todo-orange
+[6]: https://gitlab.com/the-maux/tipboard/commits/develop
+[7]: https://img.shields.io/badge/pipeline-todo-orange
+[8]: https://gitlab.com/the-maux/tipboard/commits/develop
+[9]: https://badge.fury.io/py/tipboard2.svg
+[10]: https://pypi.org/project/tipboard2.0/
+[11]: https://img.shields.io/docker/stars/themaux/tipboard
+[12]: https://pypi.org/project/tipboard2.0/
+[13]: https://hub.docker.com/r/themaux/tipboard
+[14]: https://img.shields.io/docker/pulls/themaux/tipboard
+[15]: https://img.shields.io/docker/cloud/automated/themaux/tipboard
+[16]: https://img.shields.io/docker/cloud/build/themaux/tipboard
+[17]: https://gitlab.com/the-maux/tipboard/badges/master/pipeline.svg
+
+
+
+
+
+#### C.D
+
+|   Registry    |         Pipeline       |      HowTo     |
+| ------------- | -------------------- | ----------------- |
+| Azure         |  [![CircleCI][31]][32] | [![2.0.x][29]][30]  |
+| Aws           |  [![GircleCI][19]][20]   |  [![2.0.x][21]][22] |
+| GCP           |  [![CircleCI][23]][24]   |  [![2.0.x][25]][26] |
+| Openshift/k8s |  [![Gitlab][27]][28]   |        Soon       |
+
+[18]: https://img.shields.io/badge/pipeline-todo-orange
+[19]: https://circleci.com/gh/the-maux/tipboard/tree/master.svg?style=svg
+[20]: https://circleci.com/gh/the-maux/tipboard/tree/master
+[21]: https://img.shields.io/badge/pipeline-todo-orange
+[22]: https://img.shields.io/badge/pipeline-todo-orange
+[23]: https://circleci.com/gh/the-maux/tipboard/tree/master.svg?style=svg
+[24]: https://img.shields.io/badge/pipeline-todo-orange
+[25]: https://img.shields.io/badge/pipeline-todo-orange
+[26]: https://img.shields.io/badge/pipeline-todo-orange
+[27]: https://img.shields.io/badge/pipeline-todo-orange
+[28]: https://img.shields.io/badge/pipeline-todo-orange
+[29]: https://img.shields.io/badge/pipeline-todo-orange
+[30]: https://img.shields.io/badge/pipeline-todo-orange
+[31]: https://img.shields.io/badge/pipeline-todo-orange
+[32]: https://img.shields.io/badge/pipeline-todo-orange
 
 License
 -------
@@ -149,3 +211,4 @@ License
 Tipboard is licensed under the [Apache License, v2.0](http://tipboard.readthedocs.org/en/latest/license.html).
 
 Copyright (c) 2013-2017 [Allegro Group](http://allegrogroup.com).
+
