@@ -21,7 +21,7 @@ build_img:
 test:
   stage: test
   script:
-    - docker run --entrypoint src/manage.py tipboard:latest-gitlab test
+    - docker run --entrypoint src/manage.py tipboard:untested test
     - docker tag tipboard:untested tipboard:dev
 
 ci_github_dev:
