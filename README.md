@@ -1,7 +1,8 @@
 
 # Tipboard :bar_chart: :snake: :whale: :cloud:
 
- [![][14]][13] [![][11]][13] [![](https://img.shields.io/pypi/dm/tipboard.svg)][9]![][9]  ![](https://img.shields.io/github/downloads/the-maux/tipboard/total)  ![](https://img.shields.io/pypi/l/tipboard2.0.svg) 
+ [![][14]][13] [![](https://img.shields.io/pypi/dm/tipboard.svg)][9]![][9]  ![](https://img.shields.io/github/downloads/the-maux/tipboard/total)  ![](https://img.shields.io/pypi/l/tipboard2.0.svg)
+ [![Maintainability](https://api.codeclimate.com/v1/badges/d8974fc0be8e2b0d4c88/maintainability)](https://codeclimate.com/github/the-maux/tipboard/maintainability) [![Test Coverage](https://api.codeclimate.com/v1/badges/d8974fc0be8e2b0d4c88/test_coverage)](https://codeclimate.com/github/the-maux/tipboard/test_coverage)
 
 
 ## Introduction
