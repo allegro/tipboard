@@ -1,23 +1,10 @@
-Tipboard
-========
 
-![docs](https://readthedocs.org/projects/tipboard/badge/?version=latest) ![redhat python37:rhel7](https://img.shields.io/badge/redhat-python37:rhel7-brightgreen.svg) ![bitnami python:3.7](https://img.shields.io/badge/bitnami-python:3.7-brightgreen.svg) ![django 2.0](https://img.shields.io/badge/django-2.0-brightgreen.svg)
+# Tipboard :bar_chart: :snake: :whale: :cloud:
 
-|    /     | C.I      |  C.D     |  Release |
-| -------- | -------- | -------- | -------- |
-| Gitlab   | [![Gitlab Build status](https://gitlab.com/the-maux/tipboard/badges/develop/pipeline.svg)](https://gitlab.com/the-maux/tipboard/commits/develop)     | ![pipeline success](https://img.shields.io/badge/pipeline-success-brightgreen.svg)     | ![docker_hub gitlab:1.0.0](https://img.shields.io/badge/docker_hub-gitlab:1.0.0-blue.svg)    |
-| Azure    | [![Travis Build Status](https://travis-ci.com/the-maux/tipboard.svg?branch=develop)](https://travis-ci.com/the-maux/tipboard)     | ![pipeline success](https://img.shields.io/badge/pipeline-success-brightgreen.svg)    | ![docker_hub azure:1.0.0](https://img.shields.io/badge/docker_hub-azure:1.0.0-blue.svg)    |
-| AWS      | [![CircleCI](https://circleci.com/gh/the-maux/tipboard/tree/master.svg?style=svg)](https://circleci.com/gh/the-maux/tipboard/tree/master)    | [![Gitlab Build status](https://gitlab.com/the-maux/tipboard/badges/develop/pipeline.svg)](https://gitlab.com/the-maux/tipboard/commits/develop)     | ![docker_hub aws:1.0.0](https://img.shields.io/badge/docker_hub-aws:1.0.0-blue.svg) |
-| Openshift     | [![Travis Build Status](https://travis-ci.com/the-maux/tipboard.svg?branch=develop)](https://travis-ci.com/the-maux/tipboard)     | ![deploy success](https://img.shields.io/badge/deploy-success-brightgreen.svg)     |![helm tipboard:1.0.0](https://img.shields.io/badge/helm-tipboard:1.0.0-blue.svg)     |
-| Travis     | [![Travis Build Status](https://travis-ci.com/the-maux/tipboard.svg?branch=develop)](https://travis-ci.com/the-maux/tipboard)    |     |       |
-| Docker     | ![Docker build](https://img.shields.io/docker/cloud/build/themaux/tipboard.svg)     |  | ![docker stars](https://img.shields.io/docker/stars/themaux/tipboard)     |
-| Pypi  3   | [![Travis Build Status](https://travis-ci.com/the-maux/tipboard.svg?branch=develop)](https://travis-ci.com/the-maux/tipboard)  |  [![Travis Build Status](https://travis-ci.com/the-maux/tipboard.svg?branch=develop)](https://travis-ci.com/the-maux/tipboard)     | [![PyPI version](https://badge.fury.io/py/tipboard2.svg)](https://badge.fury.io/py/tipboard2) ![Python >=3.7](https://img.shields.io/badge/Python->=3.7-brightgreen.svg)|
-| Pypi 2    | [![Gitlab Build status](https://gitlab.com/the-maux/tipboard/badges/develop/pipeline.svg)](https://gitlab.com/the-maux/tipboard/commits/develop)     |  [![Gitlab Build status](https://gitlab.com/the-maux/tipboard/badges/develop/pipeline.svg)](https://gitlab.com/the-maux/tipboard/commits/develop)     | [![PyPI version](https://badge.fury.io/py/tipboard.svg)](https://badge.fury.io/py/tipboard) ![Python 2.7](https://img.shields.io/badge/Python-2.7-red.svg)
-|
+ [![][14]][13] [![][11]][13] [![](https://img.shields.io/pypi/dm/tipboard.svg)][9]![][9]  ![](https://img.shields.io/github/downloads/the-maux/tipboard/total)  ![](https://img.shields.io/pypi/l/tipboard2.0.svg) 
 
 
-Introduction
-------------
+## Introduction
 
 Tipboard is a system for creating dashboards, written in JavaScript and Python.
 Its widgets ('tiles' in Tipboard's terminology) are completely
@@ -30,10 +17,67 @@ in your office), it is optimized for larger screens.
 A detailed, technical documentation for Tipboard can be found
 [here](http://tipboard.readthedocs.org/en/latest/).
 
-Quick start
------------
+#### Continuous.Integration
+| :hammer:   |    Runner / Release      |  
+| --------   | --------------------- |
+| Docs       | ![docs][34] |
+| pypi       | [![CircleCI][1]][2] ![][9]  | 
+| Github     | [![Gitlab][17]][4] [![Gitlab][3]][4]   |
+| DockerHUB  | [![][15]][13] [![][16]][13]        | 
+| AWS Code   | [![][33]][13]      |
+| AzureBuild | [![][36]][13]         |
+| Helm       | [![Gitlab][7]][8]     |
 
-### Execution by python
+[1]: https://travis-ci.com/the-maux/tipboard.svg?branch=develop
+[2]: https://travis-ci.com/the-maux/tipboard
+[3]: https://img.shields.io/github/v/release/the-maux/tipboard
+[4]: https://github.com/the-maux/tipboard/packages
+[5]: https://img.shields.io/badge/pipeline-todo-orange
+[6]: https://gitlab.com/the-maux/tipboard/commits/develop
+[7]: https://img.shields.io/badge/pipeline-todo-orange
+[8]: https://gitlab.com/the-maux/tipboard/commits/develop
+[9]: https://badge.fury.io/py/tipboard2.0.svg
+[10]: https://pypi.org/project/tipboard2.0/
+[11]: https://img.shields.io/docker/stars/themaux/tipboard
+[12]: https://pypi.org/project/tipboard2.0/
+[13]: https://hub.docker.com/r/themaux/tipboard
+[14]: https://img.shields.io/docker/pulls/themaux/tipboard
+[15]: https://img.shields.io/docker/cloud/automated/themaux/tipboard
+[16]: https://img.shields.io/docker/cloud/build/themaux/tipboard
+[17]: https://gitlab.com/the-maux/tipboard/badges/master/pipeline.svg
+[33]: https://codebuild.eu-west-3.amazonaws.com/badges?uuid=eyJlbmNyeXB0ZWREYXRhIjoiOXBBZTVtMk5nMmJFcG9vVFlGUVh3cHNoWUFoWXlCVjNjNkd1RE9ZWGtpVlBpazBLaHFKaFpsdXRuamdTc1d4ckNuTSttZnNoNzkwZHNyRUZrbndaaGdvPSIsIml2UGFyYW1ldGVyU3BlYyI6IjNHTnRyekcvWER0Wk1uRW4iLCJtYXRlcmlhbFNldFNlcmlhbCI6MX0%3D&branch=master
+[34]: https://readthedocs.org/projects/tipboard/badge/?version=latest
+[35]: https://readthedocs.org/projects/tipboard/badge/?version=latest
+[36]: https://dev.azure.com/maximerenaud/tipboard/_apis/build/status/the-maux.tipboard?branchName=master
+
+
+#### Continuous.Deployment
+| cloud :cloud: |                     URL / CD-Pipeline                |
+| ------------- | ---------------------------------------------------- | 
+| Azure         | [![][22]][31] [![AzurePipeline][31]][31]             |
+| Aws           | [35.181.91.193][21] [![GircleCI][19]][20]            | 
+| GCP           | [tipboard-gcp.appspot.com][29] [![CircleCI][23]][24] | 
+| Openshift/k8s | [![Gitlab][27]][28] [![Gitlab][27]][28]              | 
+
+[18]: https://img.shields.io/badge/pipeline-todo-orange
+[19]: https://circleci.com/gh/the-maux/tipboard/tree/master.svg?style=svg
+[20]: https://circleci.com/gh/the-maux/tipboard/tree/master
+[21]: http://35.181.91.193
+[22]: https://img.shields.io/badge/pipeline-todo-orange
+[23]: https://circleci.com/gh/the-maux/tipboard/tree/master.svg?style=svg
+[24]: https://img.shields.io/badge/pipeline-todo-orange
+[25]: https://img.shields.io/badge/pipeline-todo-orange
+[26]: https://img.shields.io/badge/pipeline-todo-orange
+[27]: https://img.shields.io/badge/pipeline-todo-orange
+[28]: https://img.shields.io/badge/pipeline-todo-orange
+[29]: https://tipboard-gcp.appspot.com/
+[30]: https://img.shields.io/badge/pipeline-todo-orange
+[31]: https://dev.azure.com/maximerenaud/tipboard/_apis/build/status/tipboard?branchName=master
+[32]: https://img.shields.io/badge/pipeline-todo-orange
+
+## Quick start
+
+### 1. Execution by python :snake:
 
 Some required packages need to be present, and python3.7 is required now  
 `  $ sudo apt-get install python-dev python-virtualenv redis-server`
@@ -60,7 +104,7 @@ $ python manage.py runserver
 ```
 </details>
 
-### Execution by docker
+### 2. Execution by docker :whale:
 
 It's a non-root bitnami/python3.7 image
 
@@ -91,7 +135,7 @@ $ docker run -p 8080:8080 themaux/tipboard
 
 
 
-### Execution on cloud
+### 3. Execution on cloud :cloud: 
 
 <details>
     <summary><b>Deploy on AWS</b></summary>
@@ -150,6 +194,7 @@ $ oc apply -R -f ./manifests || helm install --name tipboard MY_PATH_ENVIRONMENT
 </details>
 
 
+---
 
 License
 -------
@@ -157,3 +202,4 @@ License
 Tipboard is licensed under the [Apache License, v2.0](http://tipboard.readthedocs.org/en/latest/license.html).
 
 Copyright (c) 2013-2017 [Allegro Group](http://allegrogroup.com).
+

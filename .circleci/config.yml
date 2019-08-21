@@ -3,12 +3,12 @@ workflows:
   build_and_deploy:
     jobs:
       - test_commit
-      - deploy:
+      - deploy_pypi:
           requires:
             - test_commit
           filters:
             branches:
-              only: develop
+              only: circle-ci/pypi
 jobs:
   test_commit:
     docker:
@@ -45,7 +45,7 @@ jobs:
           path: test-reports
           destination: test-reports
 
-  deploy:
+  deploy_pypi:
     docker:
       - image: circleci/python:3.7
     steps:

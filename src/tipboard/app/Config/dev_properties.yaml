@@ -1,0 +1,78 @@
+details:
+    page_title: Mobilite Healthboard
+layout:
+    - row_1_of_2:
+        - col_1_of_4 flip-time-5:
+            - tile_template: big_value
+              tile_id: bv_wt6000
+              title: WT6000 MCO
+              classes:
+
+            - tile_template: big_value
+              tile_id: bv_tc8000
+              title: TC8000 MCO
+              classes:
+
+            - tile_template: big_value
+              tile_id: bv_TC5X
+              title: TC5X MCO
+              classes:
+
+            - tile_template: big_value
+              tile_id: bv_bluebird
+              title: EF500(R) MCO
+              classes:
+
+        - col_1_of_4:
+            - tile_template: simple_percentage
+              tile_id: sp_ttc
+              title: Wifi Quality
+              classes:
+
+        - col_1_of_4 flip-time-10:
+            - tile_template: big_value
+              tile_id: bv_proxy
+              title: Proxy Incidents
+              classes:
+
+            - tile_template: big_value
+              tile_id: bv_agent
+              title: MCO Incidents
+              classes:
+
+            - tile_template: big_value
+              tile_id: bv_storage
+              title: Storage Incidents
+              classes:
+
+        - col_1_of_4:
+            - tile_template: big_value
+              tile_id: bv_soti_connected_devices
+              title: MDM Infos
+              classes:
+
+    - row_1_of_2:
+        - col_1_of_4:
+            - tile_template: bar_chart
+              tile_id: ooc_soti
+              title: Out of contact
+              classes:
+
+        - col_1_of_4:
+            - tile_template: simple_percentage
+              tile_id: sp_coverage
+              title: Analytics
+              classes:
+
+        - col_1_of_4:
+            - tile_template: pie_chart
+              tile_id: total_model_devices
+              title: Type of devices
+              classes:
+
+        - col_1_of_4:
+            - tile_template: norm_chart
+              tile_id: lc_clients
+              title: Day Comparaison
+              classes:
+

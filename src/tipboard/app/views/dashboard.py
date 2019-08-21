@@ -1,14 +1,13 @@
 # -*- coding: utf-8 -*-
-from __future__ import unicode_literals
 
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponse
 from django.shortcuts import render
 
 from src.tipboard.app.cache import getCache
 from src.tipboard.app.flipboard import Flipboard
 from src.tipboard.app.parser import process_layout_config
 from src.tipboard.app.properties import *
-from src.tipboard.app.utils import tile_path, getTimeStr
+from src.tipboard.app.utils import getTimeStr
 
 cache = getCache()
 
@@ -39,9 +38,8 @@ def dashboardRendererHandler(request, layout_name='layout_config'):
     try:
         config = process_layout_config(layout_name)
         tiles_js = ["tiles/" + '.'.join((name, 'js')) for name in config['tiles_names']]
-        #tiles_js = filter(_verify_statics, tiles_js) #TODO fix the verify_statics in utils.py
         tiles_css = ["tiles/" + '.'.join((name, 'css')) for name in config['tiles_names']]
-        #tiles_css = filter(_verify_statics, tiles_css) #TODO fix the verify_statics in utils.py
+        #tiles_js = filter(_verify_statics, tiles_js) #TODO fix the verify_statics for js/css in utils.py
         data = {
             "details": config['details'],
             "layout": config['layout'],
@@ -49,7 +47,6 @@ def dashboardRendererHandler(request, layout_name='layout_config'):
             "tipboard_js": TIPBOARD_JAVASCRIPTS,
             "tiles_css": tiles_css,
             "tiles_js": tiles_js,
-            "tile_path": tile_path
         }
     except FileNotFoundError as e:
         if LOG:
@@ -60,7 +57,7 @@ def dashboardRendererHandler(request, layout_name='layout_config'):
             f'Make sure that file: "{e.filename}" exists.',
             '</div>',
         ])
-        return render(request, 'layout.html', msg)
+        return HttpResponse(msg, status=404)
     return render(request, 'layout.html', data)
 
 

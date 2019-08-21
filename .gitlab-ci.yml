@@ -5,18 +5,42 @@ services:
 
 stages:
 - build
+- test
+- integration
+- deploy
 
 variables:
   IMAGE_TAG: docker.pkg.github.com/the-maux/tipboard/tipboard:latest-gitlab
 
-before_script:
-  - docker login -u the-maux -p ${CI_GITHUB_PACKAGE} docker.pkg.github.com
-  - docker login -u themaux -p ${CI_DOCKER_HUB} docker.io
-
-build:
+build_img:
   stage: build
   script:
-    - docker build -t docker.pkg.github.com/the-maux/tipboard/tipboard:latest-gitlab .
-    - docker push docker.pkg.github.com/the-maux/tipboard/tipboard:latest-gitlab
-    - docker tag docker.pkg.github.com/the-maux/tipboard/tipboard:latest-gitlab themaux/tipboard:latest-gitlab
-    - docker push themaux/tipboard:latest-gitlab
+    - docker build -t tipboard:untested .
+
+test:
+  stage: test
+  script:
+    - docker build -t tipboard:untested .
+    - docker run --entrypoint src/manage.py tipboard:untested test
+
+ci_github_dev:
+  stage: integration
+  only: ['develop']
+  script:
+    - docker login -u themaux -p ${CI_GITHUB_PACKAGE} docker.pkg.github.com
+    - docker build -t docker.pkg.github.com/the-maux/tipboard/tipboard:dev .
+    - docker push docker.pkg.github.com/the-maux/tipboard/tipboard:dev
+
+ci_github_master:
+  stage: integration
+  only: ['master']
+  script:
+    - docker login -u themaux -p ${CI_GITHUB_PACKAGE} docker.pkg.github.com
+    - docker build -t docker.pkg.github.com/the-maux/tipboard/tipboard:latest .
+    - docker push docker.pkg.github.com/the-maux/tipboard/tipboard:latest
+
+deploy_aws:
+  stage: deploy
+  only: ['gitlab-cd/aws']
+  script:
+    - docker run --entrypoint src/manage.py tipboard:latest test
