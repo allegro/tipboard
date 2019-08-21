@@ -20,7 +20,7 @@ build_img:
 test:
   stage: test
   script:
-    - docker run --entrypoint src/manage.py themaux/tipboard-docker:latest test
+    - docker run --entrypoint src/manage.py tipboard:latest-gitlab test
 
 integration_github:
   stage: integration
@@ -28,7 +28,7 @@ integration_github:
     - docker login -u themaux -p ${CI_DOCKER_HUB} docker.io
     - docker tag tipboard:latest-gitlab docker.pkg.github.com/the-maux/tipboard/tipboard:latest-gitlab
     - docker push docker.pkg.github.com/the-maux/tipboard/tipboard:latest-gitlab
-  only: ['master', 'develop']
+  only: ['gitlab-ci/github', 'master/ci']
 
 integration_docker:
   stage: integration
@@ -37,14 +37,35 @@ integration_docker:
     - docker tag tipboard:latest-gitlab themaux/tipboard:latest-gitlab
     - docker push themaux/tipboard:latest-gitlab
 
-  only: ['master', 'develop']
+  only: ['gitlab-ci/docker', 'master/ci']
 
-deploy_pypi:
+integration_pypi:
   image: python:3.6-alpine
-  stage: deploy
+  stage: integration
   variables:
     TWINE_USERNAME: $PYPI_USERNAME
     TWINE_PASSWORD: $PYPI_PASSWORD
   script:
-   - twine upload dist/*
-  only: ['master', 'develop']
+    - twine upload dist/*
+  only: ['gitlab-ci/pypi', 'master/ci']
+
+deploy_aws:
+  stage: integration
+  script:
+    - docker run --entrypoint src/manage.py tipboard:latest-gitlab test
+
+  only: ['gitlab-cd/aws', 'master/cd']
+
+deploy_azure:
+  stage: integration
+  script:
+    - docker run --entrypoint src/manage.py tipboard:latest-gitlab test
+
+  only: ['gitlab-cd/azure', 'master/cd']
+
+deploy_openshift:
+  stage: integration
+  script:
+    - docker run --entrypoint src/manage.py tipboard:latest-gitlab test
+
+  only: ['gitlab-cd/openshift', 'master/cd']
