@@ -1,8 +1,7 @@
 
 # Tipboard :bar_chart: :snake: :whale: :cloud:
 
- [![][14]][13] [![][11]][13] [![](https://img.shields.io/pypi/dm/tipboard.svg)][9] ![](https://img.shields.io/github/downloads/the-maux/tipboard/total)
- ![][9]  ![](https://img.shields.io/pypi/l/tipboard2.0.svg) ![django](https://img.shields.io/badge/django-2.0-brightgreen.svg)  
+ [![][14]][13] [![][11]][13] [![](https://img.shields.io/pypi/dm/tipboard.svg)][9]![][9]  ![](https://img.shields.io/github/downloads/the-maux/tipboard/total)  ![](https://img.shields.io/pypi/l/tipboard2.0.svg) 
 
 
 ## Introduction
