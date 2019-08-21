@@ -7,7 +7,6 @@ stages:
 - build
 - test
 - integration
-- pkg_release
 - deploy
 
 variables:
@@ -20,30 +19,29 @@ build_img:
 
 test:
   stage: test
+  only: ['feat/bootstrap']
   script:
     - docker build -t tipboard:untested .
     - docker run --entrypoint src/manage.py tipboard:untested test
-  only: ['feat/bootstrap']
 
 ci_github_dev:
   stage: integration
+  only: ['develop']
   script:
     - docker login -u themaux -p ${CI_GITHUB_PACKAGE} docker.pkg.github.com
     - docker build -t docker.pkg.github.com/the-maux/tipboard/tipboard:dev .
     - docker push docker.pkg.github.com/the-maux/tipboard/tipboard:dev
-  only: ['develop']
 
 ci_github_master:
-  stage: pkg_release
+  stage: integration
+  only: ['master']
   script:
     - docker login -u themaux -p ${CI_GITHUB_PACKAGE} docker.pkg.github.com
-      - docker build -t docker.pkg.github.com/the-maux/tipboard/tipboard:latest .
-      - docker push docker.pkg.github.com/the-maux/tipboard/tipboard:latest
-  only: ['master']
+    - docker build -t docker.pkg.github.com/the-maux/tipboard/tipboard:latest .
+    - docker push docker.pkg.github.com/the-maux/tipboard/tipboard:latest
 
 deploy_aws:
-  stage: integration
+  stage: deploy
+  only: ['gitlab-cd/aws']
   script:
     - docker run --entrypoint src/manage.py tipboard:latest test
-
-  only: ['gitlab-cd/aws']
