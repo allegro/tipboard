@@ -1,8 +1,8 @@
 
 # Tipboard :bar_chart: :snake: :whale: :cloud:
 
- [![][14]][13] [![][11]][13] ![](https://img.shields.io/github/downloads/the-maux/tipboard/total)
-![bitnami python:3.7](https://img.shields.io/badge/bitnami-python:3.7-brightgreen.svg) ![bitnami redis](https://img.shields.io/badge/bitnami-redis:5.0-brightgreen.svg) ![django](https://img.shields.io/badge/django-2.0-brightgreen.svg)  
+ [![][14]][13] [![][11]][13] [![](https://img.shields.io/pypi/dm/tipboard.svg)][9] ![](https://img.shields.io/github/downloads/the-maux/tipboard/total)
+ ![][9]  ![](https://img.shields.io/pypi/l/tipboard2.0.svg) ![django](https://img.shields.io/badge/django-2.0-brightgreen.svg)  
 
 
 ## Introduction
@@ -22,7 +22,7 @@ A detailed, technical documentation for Tipboard can be found
 | :hammer:   |    Runner / Release      |  
 | --------   | --------------------- |
 | Docs       | ![docs][34] |
-| pypi       | [![CircleCI][1]][2] [![][9]][10]  | 
+| pypi       | [![CircleCI][1]][2] ![][9]  | 
 | Github     | [![Gitlab][17]][4] [![Gitlab][3]][4]   |
 | DockerHUB  | [![][15]][13] [![][16]][13]        | 
 | AWS Code   | [![][33]][13]      |
@@ -37,7 +37,7 @@ A detailed, technical documentation for Tipboard can be found
 [6]: https://gitlab.com/the-maux/tipboard/commits/develop
 [7]: https://img.shields.io/badge/pipeline-todo-orange
 [8]: https://gitlab.com/the-maux/tipboard/commits/develop
-[9]: https://badge.fury.io/py/tipboard2.svg
+[9]: https://badge.fury.io/py/tipboard2.0.svg
 [10]: https://pypi.org/project/tipboard2.0/
 [11]: https://img.shields.io/docker/stars/themaux/tipboard
 [12]: https://pypi.org/project/tipboard2.0/
