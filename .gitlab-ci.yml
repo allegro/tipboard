@@ -5,18 +5,46 @@ services:
 
 stages:
 - build
+- test
+- integration
+- deploy
 
 variables:
   IMAGE_TAG: docker.pkg.github.com/the-maux/tipboard/tipboard:latest-gitlab
 
-before_script:
-  - docker login -u the-maux -p ${CI_GITHUB_PACKAGE} docker.pkg.github.com
-  - docker login -u themaux -p ${CI_DOCKER_HUB} docker.io
-
-build:
+build_img:
   stage: build
   script:
-    - docker build -t docker.pkg.github.com/the-maux/tipboard/tipboard:latest-gitlab .
+    - docker build -t tipboard:latest-gitlab .
+
+test:
+  stage: test
+  script:
+    - docker run --entrypoint src/manage.py themaux/tipboard-docker:latest test
+
+integration_github:
+  stage: integration
+  script:
+    - docker login -u themaux -p ${CI_DOCKER_HUB} docker.io
+    - docker tag tipboard:latest-gitlab docker.pkg.github.com/the-maux/tipboard/tipboard:latest-gitlab
     - docker push docker.pkg.github.com/the-maux/tipboard/tipboard:latest-gitlab
-    - docker tag docker.pkg.github.com/the-maux/tipboard/tipboard:latest-gitlab themaux/tipboard:latest-gitlab
+  only: ['master', 'develop']
+
+integration_docker:
+  stage: integration
+  script:
+    - docker login -u the-maux -p ${CI_GITHUB_PACKAGE} docker.pkg.github.com
+    - docker tag tipboard:latest-gitlab themaux/tipboard:latest-gitlab
     - docker push themaux/tipboard:latest-gitlab
+
+  only: ['master', 'develop']
+
+deploy_pypi:
+  image: python:3.6-alpine
+  stage: deploy
+  variables:
+    TWINE_USERNAME: $PYPI_USERNAME
+    TWINE_PASSWORD: $PYPI_PASSWORD
+  script:
+   - twine upload dist/*
+  only: ['master', 'develop']

@@ -1,6 +1,7 @@
 #### Required:
-* [ ] Remove API_TOKEN from GET variable
-* [ ] when TOKEN_API is not correct, return 401 not 404 #31
+* [x] Remove API_TOKEN from GET variable
+* [x] when TOKEN_API is not correct, return 401 not 404 #31
+* [ ] publish sensors exemple
 * [ ] CD AWS
 * [ ] CD Openshift
 * [ ] Made a dev Wiki
@@ -14,7 +15,6 @@
 * [ ] Propose real docker img with/without redis
 * [ ] publish a public tipboard to show build CI/CD stats of project
 * [ ] made issue #32 possible
-* [ ] publish sensors exemple
 * [ ] Update the user doc for /update
 * [ ] Review the code
 * [ ] Fix Badge status in Readme.md
@@ -24,7 +24,7 @@
 
 * Deploy to Azure
 * Use Chart.js over Jqplat
-* Eazy way to secure django with authentification view
+* Eazy way to secure dashboard with authentification view
 * Add matomo iframe widget as tile :D
 * Propose an interactive/GUI way to build your custom_layout !
 
