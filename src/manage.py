@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-"""Django's command-line utility for administrative tasks."""
 import os, sys
 
 
@@ -26,7 +25,7 @@ def show_help():
     return 0
 
 
-def main(argv, argc):#don't you miss the old fashion way, the fabulous main in C :D.    I do
+def main(argc, argv):#don't you miss the old fashion way, the fabulous main in C :D.    I do
     if argc == 1:
         return startDjango()
     elif argc == 2:
@@ -47,4 +46,4 @@ def main_as_pkg():
 
 
 if __name__ == '__main__':
-    main(sys.argv, len(sys.argv))
+    main(len(sys.argv), sys.argv)

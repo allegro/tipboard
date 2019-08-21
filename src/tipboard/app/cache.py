@@ -68,7 +68,7 @@ class MyCache:
             listOfTiles.append(key)
         return listOfTiles
 
-    def createTile(tile_id, value, tile_template):
+    def createTile(self, tile_id, value, tile_template):
         try:
             dumped_value = json.dumps(dict(
                 id=tile_id,

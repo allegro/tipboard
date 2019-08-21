@@ -590,9 +590,7 @@ var renderersSwapper = new RenderersSwapper();
         return id;
     };
 
-    Tipboard.Dashboard.setDataByKeys = function(
-        tileId, dataToPut, keysToUse
-    ) {
+    Tipboard.Dashboard.setDataByKeys = function(tileId, dataToPut, keysToUse) {
         /*
         *keysToUse*: list of keys, or string 'all', if 'all' then all keys
             used from *dataToPut*

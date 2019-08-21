@@ -23,7 +23,7 @@
 #### Optional
 
 * Deploy to Azure
-* Use Chart.js over Jqploat
+* Use Chart.js over Jqplat
 * Eazy way to secure django with authentification view
 * Add matomo iframe widget as tile :D
 * Propose an interactive/GUI way to build your custom_layout !

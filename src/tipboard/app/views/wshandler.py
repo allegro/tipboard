@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
-from __future__ import unicode_literals
 import json
+from src.tipboard.app.applicationconfig import getRedisPrefix
 from src.tipboard.app.cache import getCache
 from src.tipboard.app.properties import COLORS, JS_LOG_LEVEL, LOG
-from src.tipboard.app.utils import getRedisPrefix, getTimeStr
+from src.tipboard.app.utils import getTimeStr
 from channels.generic.websocket import WebsocketConsumer
 from asgiref.sync import async_to_sync
 
