@@ -19,7 +19,6 @@ build_img:
 
 test:
   stage: test
-  only: ['feat/bootstrap']
   script:
     - docker build -t tipboard:untested .
     - docker run --entrypoint src/manage.py tipboard:untested test
