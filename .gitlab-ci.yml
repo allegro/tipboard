@@ -30,15 +30,15 @@ integration_github:
     - docker push docker.pkg.github.com/the-maux/tipboard/tipboard:latest-gitlab
   only: ['gitlab-ci/github-pkg']
 
-integration_pypi:
-  image: python:3.6-alpine
-  stage: integration
-  variables:
-    TWINE_USERNAME: $PYPI_USERNAME
-    TWINE_PASSWORD: $PYPI_PASSWORD
-  script:
-    - twine upload dist/*
-  only: ['gitlab-ci/pypi']
+#integration_pypi:
+#  image: python:3.6-alpine
+#  stage: integration
+#  variables:
+#    TWINE_USERNAME: $PYPI_USERNAME
+#    TWINE_PASSWORD: $PYPI_PASSWORD
+#  script:
+#    - twine upload dist/*
+#  only: ['gitlab-ci/pypi']
 
 deploy_aws:
   stage: integration
