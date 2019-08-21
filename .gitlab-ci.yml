@@ -7,6 +7,7 @@ stages:
 - build
 - test
 - integration
+- pkg_release
 - deploy
 
 variables:
@@ -15,48 +16,33 @@ variables:
 build_img:
   stage: build
   script:
-    - docker build -t tipboard:latest-gitlab .
+    - docker build -t tipboard:untested .
 
 test:
   stage: test
   script:
     - docker run --entrypoint src/manage.py tipboard:latest-gitlab test
+    - docker tag tipboard:untested tipboard:dev
 
-integration_github:
+ci_github_dev:
   stage: integration
   script:
     - docker login -u themaux -p ${CI_DOCKER_HUB} docker.io
-    - docker tag tipboard:latest-gitlab docker.pkg.github.com/the-maux/tipboard/tipboard:latest-gitlab
-    - docker push docker.pkg.github.com/the-maux/tipboard/tipboard:latest-gitlab
-  only: ['gitlab-ci/github-pkg']
+    - docker tag tipboard:dev docker.pkg.github.com/the-maux/tipboard/tipboard:dev
+    - docker push docker.pkg.github.com/the-maux/tipboard/tipboard:dev
+  only: ['develop']
 
-#integration_pypi:
-#  image: python:3.6-alpine
-#  stage: integration
-#  variables:
-#    TWINE_USERNAME: $PYPI_USERNAME
-#    TWINE_PASSWORD: $PYPI_PASSWORD
-#  script:
-#    - twine upload dist/*
-#  only: ['gitlab-ci/pypi']
+ci_github_master:
+  stage: pkg_release
+  script:
+    - docker login -u themaux -p ${CI_DOCKER_HUB} docker.io
+    - docker tag tipboard:dev docker.pkg.github.com/the-maux/tipboard/tipboard:latest
+    - docker push docker.pkg.github.com/the-maux/tipboard/tipboard:latest
+  only: ['master']
 
 deploy_aws:
   stage: integration
   script:
-    - docker run --entrypoint src/manage.py tipboard:latest-gitlab test
+    - docker run --entrypoint src/manage.py tipboard:latest test
 
   only: ['gitlab-cd/aws']
-
-#deploy_azure:
-#  stage: integration
-#  script:
-#    - docker run --entrypoint src/manage.py tipboard:latest-gitlab test
-#
-#  only: ['gitlab-cd/azure', 'master/cd']
-#
-#deploy_openshift:
-#  stage: integration
-#  script:
-#    - docker run --entrypoint src/manage.py tipboard:latest-gitlab test
-#
-#  only: ['gitlab-cd/openshift', 'master/cd']
