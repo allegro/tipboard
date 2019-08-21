@@ -21,23 +21,24 @@ build_img:
 test:
   stage: test
   script:
+    - docker build -t tipboard:untested .
     - docker run --entrypoint src/manage.py tipboard:untested test
-    - docker tag tipboard:untested tipboard:dev
+  only: ['feat/bootstrap']
 
 ci_github_dev:
   stage: integration
   script:
-    - docker login -u themaux -p ${CI_DOCKER_HUB} docker.io
-    - docker tag tipboard:dev docker.pkg.github.com/the-maux/tipboard/tipboard:dev
+    - docker login -u themaux -p ${CI_GITHUB_PACKAGE} docker.pkg.github.com
+    - docker build -t docker.pkg.github.com/the-maux/tipboard/tipboard:dev .
     - docker push docker.pkg.github.com/the-maux/tipboard/tipboard:dev
   only: ['develop']
 
 ci_github_master:
   stage: pkg_release
   script:
-    - docker login -u themaux -p ${CI_DOCKER_HUB} docker.io
-    - docker tag tipboard:dev docker.pkg.github.com/the-maux/tipboard/tipboard:latest
-    - docker push docker.pkg.github.com/the-maux/tipboard/tipboard:latest
+    - docker login -u themaux -p ${CI_GITHUB_PACKAGE} docker.pkg.github.com
+      - docker build -t docker.pkg.github.com/the-maux/tipboard/tipboard:latest .
+      - docker push docker.pkg.github.com/the-maux/tipboard/tipboard:latest
   only: ['master']
 
 deploy_aws:
