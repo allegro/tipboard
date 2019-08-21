@@ -1,10 +1,8 @@
 
-# Tipboard :bar_chart: :chart_with_upwards_trend:
+# Tipboard :bar_chart: :snake: :whale: :cloud:
 
  [![][14]][13] [![][11]][13] ![](https://img.shields.io/github/downloads/the-maux/tipboard/total)
 ![bitnami python:3.7](https://img.shields.io/badge/bitnami-python:3.7-brightgreen.svg) ![bitnami redis](https://img.shields.io/badge/bitnami-redis:5.0-brightgreen.svg) ![django](https://img.shields.io/badge/django-2.0-brightgreen.svg)  
-
----
 
 
 ## Introduction
@@ -20,6 +18,63 @@ in your office), it is optimized for larger screens.
 A detailed, technical documentation for Tipboard can be found
 [here](http://tipboard.readthedocs.org/en/latest/).
 
+#### Continuous.Integration
+| :hammer:   |    Runner / Release      |  
+| --------   | --------------------- |
+| Docs       | ![docs][34] |
+| pypi       | [![CircleCI][1]][2] [![][9]][10]  | 
+| Github     | [![Gitlab][17]][4] [![Gitlab][3]][4]   |
+| DockerHUB  | [![][15]][13] [![][16]][13]        | 
+| AWS Code   | [![][33]][13]      |
+| AzureBuild | [![][36]][13]         |
+| Helm       | [![Gitlab][7]][8]     |
+
+[1]: https://travis-ci.com/the-maux/tipboard.svg?branch=develop
+[2]: https://travis-ci.com/the-maux/tipboard
+[3]: https://img.shields.io/github/v/release/the-maux/tipboard
+[4]: https://github.com/the-maux/tipboard/packages
+[5]: https://img.shields.io/badge/pipeline-todo-orange
+[6]: https://gitlab.com/the-maux/tipboard/commits/develop
+[7]: https://img.shields.io/badge/pipeline-todo-orange
+[8]: https://gitlab.com/the-maux/tipboard/commits/develop
+[9]: https://badge.fury.io/py/tipboard2.svg
+[10]: https://pypi.org/project/tipboard2.0/
+[11]: https://img.shields.io/docker/stars/themaux/tipboard
+[12]: https://pypi.org/project/tipboard2.0/
+[13]: https://hub.docker.com/r/themaux/tipboard
+[14]: https://img.shields.io/docker/pulls/themaux/tipboard
+[15]: https://img.shields.io/docker/cloud/automated/themaux/tipboard
+[16]: https://img.shields.io/docker/cloud/build/themaux/tipboard
+[17]: https://gitlab.com/the-maux/tipboard/badges/master/pipeline.svg
+[33]: https://codebuild.eu-west-3.amazonaws.com/badges?uuid=eyJlbmNyeXB0ZWREYXRhIjoiOXBBZTVtMk5nMmJFcG9vVFlGUVh3cHNoWUFoWXlCVjNjNkd1RE9ZWGtpVlBpazBLaHFKaFpsdXRuamdTc1d4ckNuTSttZnNoNzkwZHNyRUZrbndaaGdvPSIsIml2UGFyYW1ldGVyU3BlYyI6IjNHTnRyekcvWER0Wk1uRW4iLCJtYXRlcmlhbFNldFNlcmlhbCI6MX0%3D&branch=master
+[34]: https://readthedocs.org/projects/tipboard/badge/?version=latest
+[35]: https://readthedocs.org/projects/tipboard/badge/?version=latest
+[36]: https://dev.azure.com/maximerenaud/tipboard/_apis/build/status/the-maux.tipboard?branchName=master
+
+
+#### Continuous.Deployment
+| cloud :cloud: |                     URL / CD-Pipeline                |
+| ------------- | ---------------------------------------------------- | 
+| Azure         | [![][22]][31] [![AzurePipeline][31]][31]             |
+| Aws           | [35.181.91.193][21] [![GircleCI][19]][20]            | 
+| GCP           | [tipboard-gcp.appspot.com][29] [![CircleCI][23]][24] | 
+| Openshift/k8s | [![Gitlab][27]][28] [![Gitlab][27]][28]              | 
+
+[18]: https://img.shields.io/badge/pipeline-todo-orange
+[19]: https://circleci.com/gh/the-maux/tipboard/tree/master.svg?style=svg
+[20]: https://circleci.com/gh/the-maux/tipboard/tree/master
+[21]: http://35.181.91.193
+[22]: https://img.shields.io/badge/pipeline-todo-orange
+[23]: https://circleci.com/gh/the-maux/tipboard/tree/master.svg?style=svg
+[24]: https://img.shields.io/badge/pipeline-todo-orange
+[25]: https://img.shields.io/badge/pipeline-todo-orange
+[26]: https://img.shields.io/badge/pipeline-todo-orange
+[27]: https://img.shields.io/badge/pipeline-todo-orange
+[28]: https://img.shields.io/badge/pipeline-todo-orange
+[29]: https://tipboard-gcp.appspot.com/
+[30]: https://img.shields.io/badge/pipeline-todo-orange
+[31]: https://dev.azure.com/maximerenaud/tipboard/_apis/build/status/tipboard?branchName=master
+[32]: https://img.shields.io/badge/pipeline-todo-orange
 
 ## Quick start
 
@@ -81,7 +136,7 @@ $ docker run -p 8080:8080 themaux/tipboard
 
 
 
-### 3. Execution on cloud :cloud:
+### 3. Execution on cloud :cloud: 
 
 <details>
     <summary><b>Deploy on AWS</b></summary>
@@ -141,67 +196,6 @@ $ oc apply -R -f ./manifests || helm install --name tipboard MY_PATH_ENVIRONMENT
 
 
 ---
-
-
-### C.I :hammer:
-
-|  Registry  |         Runner       |       Release     |
-| --------   | -------------------- | ----------------- |
-| Docs       | ![docs](https://readthedocs.org/projects/tipboard/badge/?version=latest) | [here](https://readthedocs.org/projects/tipboard/badge/?version=latest)    |
-| pypi       |  [![CircleCI][1]][2] | [![][9]][10]  |
-| Github     |  [![Gitlab][17]][4]   | [![Gitlab][3]][4]  |
-| DockerHUB  |  [![][15]][13]       | [![][16]][13] |
-| AWS Code   |  [![][33]][13]       |  |
-| Helm       |  [![Gitlab][7]][8]   | [![Gitlab][7]][8]   |
-
-
-
-[1]: https://travis-ci.com/the-maux/tipboard.svg?branch=develop
-[2]: https://travis-ci.com/the-maux/tipboard
-[3]: https://img.shields.io/github/v/release/the-maux/tipboard
-[4]: https://github.com/the-maux/tipboard/packages
-[5]: https://img.shields.io/badge/pipeline-todo-orange
-[6]: https://gitlab.com/the-maux/tipboard/commits/develop
-[7]: https://img.shields.io/badge/pipeline-todo-orange
-[8]: https://gitlab.com/the-maux/tipboard/commits/develop
-[9]: https://badge.fury.io/py/tipboard2.svg
-[10]: https://pypi.org/project/tipboard2.0/
-[11]: https://img.shields.io/docker/stars/themaux/tipboard
-[12]: https://pypi.org/project/tipboard2.0/
-[13]: https://hub.docker.com/r/themaux/tipboard
-[14]: https://img.shields.io/docker/pulls/themaux/tipboard
-[15]: https://img.shields.io/docker/cloud/automated/themaux/tipboard
-[16]: https://img.shields.io/docker/cloud/build/themaux/tipboard
-[17]: https://gitlab.com/the-maux/tipboard/badges/master/pipeline.svg
-[33]: https://codebuild.eu-west-3.amazonaws.com/badges?uuid=eyJlbmNyeXB0ZWREYXRhIjoiOXBBZTVtMk5nMmJFcG9vVFlGUVh3cHNoWUFoWXlCVjNjNkd1RE9ZWGtpVlBpazBLaHFKaFpsdXRuamdTc1d4ckNuTSttZnNoNzkwZHNyRUZrbndaaGdvPSIsIml2UGFyYW1ldGVyU3BlYyI6IjNHTnRyekcvWER0Wk1uRW4iLCJtYXRlcmlhbFNldFNlcmlhbCI6MX0%3D&branch=master
-
-
-
-
-### C.D :tada:
-
-|   Registry    |         Pipeline       |      HowTo     |
-| ------------- | -------------------- | ----------------- |
-| Azure         |  [![CircleCI][31]][32] | [![2.0.x][29]][30]  |
-| Aws           |  [![GircleCI][19]][20]   |  [![2.0.x][21]][22] |
-| GCP           |  [![CircleCI][23]][24]   |  [![2.0.x][25]][26] |
-| Openshift/k8s |  [![Gitlab][27]][28]   |        Soon       |
-
-[18]: https://img.shields.io/badge/pipeline-todo-orange
-[19]: https://circleci.com/gh/the-maux/tipboard/tree/master.svg?style=svg
-[20]: https://circleci.com/gh/the-maux/tipboard/tree/master
-[21]: https://img.shields.io/badge/pipeline-todo-orange
-[22]: https://img.shields.io/badge/pipeline-todo-orange
-[23]: https://circleci.com/gh/the-maux/tipboard/tree/master.svg?style=svg
-[24]: https://img.shields.io/badge/pipeline-todo-orange
-[25]: https://img.shields.io/badge/pipeline-todo-orange
-[26]: https://img.shields.io/badge/pipeline-todo-orange
-[27]: https://img.shields.io/badge/pipeline-todo-orange
-[28]: https://img.shields.io/badge/pipeline-todo-orange
-[29]: https://img.shields.io/badge/pipeline-todo-orange
-[30]: https://img.shields.io/badge/pipeline-todo-orange
-[31]: https://img.shields.io/badge/pipeline-todo-orange
-[32]: https://img.shields.io/badge/pipeline-todo-orange
 
 License
 -------
