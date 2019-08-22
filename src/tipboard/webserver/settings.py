@@ -1,9 +1,9 @@
 import os
-from src.tipboard.app.properties import SUPER_SECRET_KEY, debug, REDIS_HOST, REDIS_PORT, FROM_PIP
+from src.tipboard.app.properties import SUPER_SECRET_KEY, DEBUG, REDIS_HOST, REDIS_PORT, FROM_PIP
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = SUPER_SECRET_KEY
-DEBUG = debug
+DEBUG = DEBUG
 ALLOWED_HOSTS = ['*']
 
 print("LOADING:-> " +  FROM_PIP + 'tipboard.app.Config')

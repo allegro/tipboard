@@ -3,7 +3,7 @@ import json
 from django.http import JsonResponse, HttpResponseBadRequest, HttpResponse
 from django.http import HttpResponseServerError, Http404
 from src.tipboard.app.applicationconfig import getRedisPrefix, getIsoTime
-from src.tipboard.app.properties import PROJECT_NAME, LAYOUT_CONFIG, REDIS_DB, LOG, debug
+from src.tipboard.app.properties import PROJECT_NAME, LAYOUT_CONFIG, REDIS_DB, LOG, DEBUG
 from src.tipboard.app.cache import getCache
 from src.tipboard.app.utils import getTimeStr, checkAccessToken
 
@@ -136,28 +136,28 @@ def projectInfo(request):
 
 
 def tile_unsecured(request, tile_key):
-    if not debug:
+    if not DEBUG:
         raise Http404
     else:
         return tile(request=request, tile_key=tile_key, unsecured=True)
 
 
 def push_unsecured(request):
-    if not debug:
+    if not DEBUG:
         raise Http404
     else:
         return push(request=request, unsecured=True)
 
 
 def meta_unsecured(request, tile_key):
-    if not debug:
+    if not DEBUG:
         raise Http404
     else:
         return meta(request=request, tile_key=tile_key, unsecured=True)
 
 
 def update_unsecured(request):
-    if not debug:
+    if not DEBUG:
         raise Http404
     else:
         return update(request=request, unsecured=True)

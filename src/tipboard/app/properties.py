@@ -8,11 +8,12 @@ API_VERSION = conf['API_VERSION']
 API_KEY = conf['TIPBOARD_TOKEN']
 PROJECT_NAME = conf['PROJECT_NAME']
 SUPER_SECRET_KEY = conf["SUPER_SECRET_KEY"]
-debug = conf['DEBUG']
+DEBUG = conf['DEBUG']
 LOG = conf['LOG']
 VERSION = conf["VERSION"]
 SITE_ENV = conf["SITE_ENV"]
 LOCAL = conf['LOCAL']
+TIPBOARD_URL = conf['TIPBOARD_URL']
 CDN_URL = conf['CDN_URL'] #if you are in production and need a CDN for media and static file
 
 REDIS_HOST = conf['REDIS_HOST']

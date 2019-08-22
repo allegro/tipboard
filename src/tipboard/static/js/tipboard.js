@@ -1,7 +1,9 @@
-/*jslint browser: true, devel: true, evil: true*/
-/*global WebSocket: false, Tipboard: false*/
-
+/**
+ * Render Factory to deliver Jqplot object regarding the tile needs
+ * @constructor
+ */
 function RendererFactory() { }
+// Define a dict to list all chart available in jqplot
 RendererFactory.prototype.rendererName2renderObj = {
     // core renderer
     "axistickrenderer": $.jqplot.AxisTickRenderer,
@@ -37,6 +39,7 @@ RendererFactory.prototype.rendererName2renderObj = {
     "pyramidgridrenderer": $.jqplot.PyramidGridRenderer,
     "pyramidrenderer": $.jqplot.PyramidRenderer
 };
+// Define a ptr to function, based on rendererName2renderObj, if undefined throw UnknownRenderer
 RendererFactory.prototype.createRenderer = function (rendererName) {
     var lower = rendererName.toLowerCase();
     var rendererClass = RendererFactory.prototype.rendererName2renderObj[lower];
@@ -45,6 +48,7 @@ RendererFactory.prototype.createRenderer = function (rendererName) {
     }
     return rendererClass;
 };
+// Definition of the Exception UnknownRenderer
 var UnknownRenderer = function (rendererName) {
     this.name = "UnknownRederer";
     this.message = "Renderer: '" + rendererName + "' not found";
@@ -123,6 +127,25 @@ RenderersSwapper.prototype.swap = function (config) {
     return config;
 };
 
+var renderersSwapper = new RenderersSwapper();
+//---------------------------------------------------------------------------------------------------------
+
+
+// Define TimeoutBadFormat exceptions definition
+var TimeoutBadFormat = function (timeout) {
+    this.name = "TimeoutBadFormat";
+    this.message = "Timeout consists non-digits: '" + timeout + "'";
+};
+TimeoutBadFormat.prototype = new Error();
+TimeoutBadFormat.prototype.constructor = TimeoutBadFormat;
+// Define UnknownUpdateFunction exceptions definition
+var UnknownUpdateFunction = function (tileType) {
+    this.name = "UnknownUpdateFunction";
+    this.message = "Couldn't find update function for: " + tileType;
+};
+UnknownUpdateFunction.prototype = new Error();
+UnknownUpdateFunction.prototype.constructor = UnknownUpdateFunction;
+
 function getFlipTime(node) {
     // TODO: make it Tipboard.Dashboard member
     var classStr = $(node).attr('class');
@@ -138,34 +161,139 @@ function getFlipTime(node) {
     return flipTime;
 }
 
-function verboseLog(level, msg) {
-    /*
-    This function is: DEPRECATED.
+//TODO: tu devras ajouter tout les nouveaux .js(ceux couper) là ou tu a import tipboard.js
 
-    Available levels:
-    1: silent
-    2: debug
-    */
-    var threshold = 2;
-    if (level > threshold) {
-        console.log(msg);
-    }
+/**
+ *
+ * @returns WebSocketManager
+ */
+function initWebsocketManager() {
+    return {
+        onOpen: function(evt) {
+        },
+
+        onClose: function(evt) {
+            console.log("Web socket closed. Restarting...");
+            this.websocket = void 0;
+            setTimeout(Tipboard.WebSocketManager.init.bind(this), 1000);
+        },
+
+        onMessage: function(evt) {
+            var tileData = JSON.parse(evt.data);
+            console.log("Web socket received data: ", tileData);
+            // FIXME: pass colors in more suitable place
+            Tipboard.DisplayUtils.palette = $.extend(
+                true, this.palette, tileData.tipboard.color
+            );
+            var tileId = Tipboard.Dashboard.escapeId(tileData.id);
+            Tipboard.Dashboard.updateTile(
+                tileId,
+                tileData.tile_template,
+                tileData.data,
+                tileData.meta,
+                tileData.tipboard,
+                tileData.modified
+            );
+        },
+
+        onError: function(evt) {
+            console.log("WebSocket error: " + evt.data);
+        },
+
+        init: function() {
+            if ((typeof(this.websocket) !== 'undefined') && !(this.websocket.readyState === WebSocket.CLOSED || this.websocket.readyState === WebSocket.CLOSING)) {
+                console.log("Closing outdated Web socket.");
+                this.websocket.close();
+                return; // the rest will be handled in onClose()
+            }
+            console.log("Initializing a new Web socket manager.");
+
+            var protocol = window.location.protocol === "https:" ? "wss://" : "ws://";
+
+            this.websocket = new WebSocket(
+                protocol + window.location.host + "/communication/websocket"
+            );
+            this.websocket.onopen = function(evt) {
+                Tipboard.WebSocketManager.onOpen(evt);
+            };
+            this.websocket.onclose = function(evt) {
+                Tipboard.WebSocketManager.onClose(evt);
+            };
+            this.websocket.onmessage = function(evt) {
+                Tipboard.WebSocketManager.onMessage(evt);
+            };
+            this.websocket.onerror = function(evt) {
+                Tipboard.WebSocketManager.onError(evt);
+            };
+        }
+    };
 }
 
-var renderersSwapper = new RenderersSwapper();
 
-(function($) {
-    'use strict';
+/**
+ *
+ * @returns
+ */
+function initTileDisplayDecorator() {
+    return {
+        fitTile: function(tile) {
+            Tipboard.DisplayUtils.expandLastChild(tile);
+        },
+        highlightResult: function(tile) {
+            $(tile).find('.highlighted-result [data-source-key]').each(function() {
+                var elementValue = parseInt($(this).html(), 10);
+                var parentContainer = $(this).parent('.highlighted-result');
+                var threshold = $(this).attr('data-threshold');
+                var isOK = false;
+                var thresholdFloat = parseFloat(threshold, 10);
+                if (!isNaN(thresholdFloat)) {
+                    isOK = elementValue > thresholdFloat;
+                } else {
+                    try {
+                        isOK = eval(threshold);
+                    } catch (TypeError) {
+                        isOK = elementValue > 50;
+                    }
+                }
+                if (isOK) {
+                    Tipboard.DisplayUtils.highlightAsOk(parentContainer);
+                } else {
+                    Tipboard.DisplayUtils.highlightAsFail(parentContainer);
+                }
+            });
+        },
 
-    if (!window.console) {
-        window.console = {
-            log: function() {}
-        };
-    }
+        drawArrow: function(tile) {
+            $(tile).find('.with-arrow-result [data-source-key]').each(function() {
+                var elementValue = parseInt($(this).html(), 10);
+                var parentContainer = $(this).parent('.with-arrow-result');
+                var arrowContainer = $(parentContainer).find('span.arrow');
+                if (elementValue < 0) {
+                    Tipboard.DisplayUtils.arrowDown(arrowContainer);
+                } else {
+                    Tipboard.DisplayUtils.arrowUp(arrowContainer);
+                }
+            });
+        },
 
-    window.Tipboard = {};
+        runAllDecorators: function(tile) {
+            var item = void 0;
+            for (item in Tipboard.TileDisplayDecorator) {
+                if (typeof Tipboard.TileDisplayDecorator[item] === "function" && item !== "runAllDecorators") {
+                    Tipboard.TileDisplayDecorator[item](tile);
+                }
+            }
+        }
+    };
+}
 
-    Tipboard.DisplayUtils = {
+
+/**
+ *
+ * @returns
+ */
+function initConfDisplayUtils() {
+    return {
 
         pallet: {
             'black':            '#000000',
@@ -224,9 +352,7 @@ var renderersSwapper = new RenderersSwapper();
 
         expandLastChild: function(container) {
             /*
-            Autogrow height of node *body* in *container* node respecting of *header*
-            height.
-
+            Autogrow height of node *body* in *container* node respecting of *header* height.
             container:
                 item1
                 [..]
@@ -429,143 +555,15 @@ var renderersSwapper = new RenderersSwapper();
             };
             http.send();
         }
-    };
+    };;
+}
 
-    Tipboard.TileDisplayDecorator = {
-        fitTile: function(tile) {
-            Tipboard.DisplayUtils.expandLastChild(tile);
-        },
-        highlightResult: function(tile) {
-            $(tile).find('.highlighted-result [data-source-key]').each(function() {
-                var elementValue = parseInt($(this).html(), 10);
-                var parentContainer = $(this).parent('.highlighted-result');
-                var threshold = $(this).attr('data-threshold');
-                var isOK = false;
-                var thresholdFloat = parseFloat(threshold, 10);
-                if (!isNaN(thresholdFloat)) {
-                    isOK = elementValue > thresholdFloat;
-                } else {
-                    try {
-                        isOK = eval(threshold);
-                    } catch (TypeError) {
-                        isOK = elementValue > 50;
-                    }
-                }
-                if (isOK) {
-                    Tipboard.DisplayUtils.highlightAsOk(parentContainer);
-                } else {
-                    Tipboard.DisplayUtils.highlightAsFail(parentContainer);
-                }
-            });
-        },
 
-        drawArrow: function(tile) {
-            $(tile).find('.with-arrow-result [data-source-key]').each(function() {
-                var elementValue = parseInt($(this).html(), 10);
-                var parentContainer = $(this).parent('.with-arrow-result');
-                var arrowContainer = $(parentContainer).find('span.arrow');
-                if (elementValue < 0) {
-                    Tipboard.DisplayUtils.arrowDown(arrowContainer);
-                } else {
-                    Tipboard.DisplayUtils.arrowUp(arrowContainer);
-                }
-            });
-        },
-
-        runAllDecorators: function(tile) {
-            var item = void 0;
-            for (item in Tipboard.TileDisplayDecorator) {
-                if (typeof Tipboard.TileDisplayDecorator[item] === "function" && item !== "runAllDecorators") {
-                    Tipboard.TileDisplayDecorator[item](tile);
-                }
-            }
-        }
-    };
-
-    Tipboard.WebSocketManager = {
-        onOpen: function(evt) {
-        },
-
-        onClose: function(evt) {
-            console.log("Web socket closed. Restarting...");
-            this.websocket = void 0;
-            setTimeout(Tipboard.WebSocketManager.init.bind(this), 1000);
-        },
-
-        onMessage: function(evt) {
-            var tileData = JSON.parse(evt.data);
-            console.log("Web socket received data: ", tileData);
-            // FIXME: pass colors in more suitable place
-            Tipboard.DisplayUtils.palette = $.extend(
-                true, this.palette, tileData.tipboard.color
-            );
-            var tileId = Tipboard.Dashboard.escapeId(tileData.id);
-            Tipboard.Dashboard.updateTile(
-                tileId,
-                tileData.tile_template,
-                tileData.data,
-                tileData.meta,
-                tileData.tipboard,
-                tileData.modified
-            );
-        },
-
-        onError: function(evt) {
-            console.log("WebSocket error: " + evt.data);
-        },
-
-        init: function() {
-            if ((typeof(this.websocket) !== 'undefined') && !(this.websocket.readyState === WebSocket.CLOSED || this.websocket.readyState === WebSocket.CLOSING)) {
-                console.log("Closing outdated Web socket.");
-                this.websocket.close();
-                return; // the rest will be handled in onClose()
-            }
-            console.log("Initializing a new Web socket manager.");
-
-            var protocol = window.location.protocol === "https:" ? "wss://" : "ws://";
-
-            this.websocket = new WebSocket(
-                protocol + window.location.host + "/communication/websocket"
-            );
-            this.websocket.onopen = function(evt) {
-                Tipboard.WebSocketManager.onOpen(evt);
-            };
-            this.websocket.onclose = function(evt) {
-                Tipboard.WebSocketManager.onClose(evt);
-            };
-            this.websocket.onmessage = function(evt) {
-                Tipboard.WebSocketManager.onMessage(evt);
-            };
-            this.websocket.onerror = function(evt) {
-                Tipboard.WebSocketManager.onError(evt);
-            };
-        }
-    };
-
-    Tipboard.Dashboard = {
-        webSocketResetInterval: 900000,
-        flipIds: [],
-        updateFunctions: {},
-        chartsIds: {},
-    };
-
-    // exceptions definition
-    var TimeoutBadFormat = function (timeout) {
-        this.name = "TimeoutBadFormat";
-        this.message = "Timeout consists non-digits: '" + timeout + "'";
-    };
-    TimeoutBadFormat.prototype = new Error();
-    TimeoutBadFormat.prototype.constructor = TimeoutBadFormat;
-    Tipboard.Dashboard.TimeoutBadFormat = TimeoutBadFormat;
-
-    var UnknownUpdateFunction = function (tileType) {
-        this.name = "UnknownUpdateFunction";
-        this.message = "Couldn't find update function for: " + tileType;
-    };
-    UnknownUpdateFunction.prototype = new Error();
-    UnknownUpdateFunction.prototype.constructor = UnknownUpdateFunction;
-    Tipboard.Dashboard.UnknownUpdateFunction = UnknownUpdateFunction;
-
+/**
+ *
+ * @param Tipboard
+ */
+function initDashboard(Tipboard) {
     Tipboard.Dashboard.id2node = function(id) {
         var tile = $('#' + id)[0];
         return tile;
@@ -619,9 +617,7 @@ var renderersSwapper = new RenderersSwapper();
         });
     };
 
-    Tipboard.Dashboard.updateTile = function(
-        tileId, tileType, data, meta, tipboard, lastMod
-    ) {
+    Tipboard.Dashboard.updateTile = function(tileId, tileType, data, meta, tipboard, lastMod) {
         console.log('Update tile: ', tileId);
         var tile = Tipboard.Dashboard.id2node(tileId);
         // destroy old graph
@@ -728,6 +724,39 @@ var renderersSwapper = new RenderersSwapper();
         }
     };
 
+}
+
+
+/**
+ *  Main function of tipboard.js
+ *  Define the Palette object used for custom color
+ *  Define the WebsocketClient connection (how to update tile by websocket)
+ *  Define the Dashboard object behavior (flip time, register tiles func, etc)
+ *  Define the $(document).ready(function()
+ */
+(function($)  {
+    'use strict';
+
+    if (!window.console) {// wtf is that ?
+        window.console = {
+            log: function() {}
+        };
+    }
+
+    window.Tipboard = {};
+    Tipboard.Dashboard = {
+        webSocketResetInterval: 900000,
+        flipIds: [],
+        updateFunctions: {},
+        chartsIds: {},
+    };
+    Tipboard.Dashboard.TimeoutBadFormat = TimeoutBadFormat;
+    Tipboard.Dashboard.UnknownUpdateFunction = UnknownUpdateFunction;
+    Tipboard.DisplayUtils = initConfDisplayUtils();
+    Tipboard.TileDisplayDecorator = initTileDisplayDecorator();
+    Tipboard.WebSocketManager = initWebsocketManager();
+    initDashboard(Tipboard);
+
     $(document).ready(function() {
         console.log('Tipboard starting');
         $.jqplot.config.enablePlugins = true;
@@ -737,10 +766,8 @@ var renderersSwapper = new RenderersSwapper();
         });
         // websocket management
         Tipboard.WebSocketManager.init();
-        setInterval(
-            Tipboard.WebSocketManager.init.bind(Tipboard.WebSocketManager),
-            Tipboard.Dashboard.webSocketResetInterval
-        );
+        setInterval(Tipboard.WebSocketManager.init.bind(Tipboard.WebSocketManager),
+                        Tipboard.Dashboard.webSocketResetInterval);
         // flipping tiles
         var flipContainers = $('div[class*="flip-time-"]');
         $.each(flipContainers, function(idx, flippingContainer) {

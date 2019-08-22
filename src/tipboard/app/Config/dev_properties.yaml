@@ -1,78 +1,73 @@
 details:
-    page_title: Mobilite Healthboard
+    page_title: Tipboard exemple
 layout:
     - row_1_of_2:
         - col_1_of_4 flip-time-5:
-            - tile_template: big_value
-              tile_id: bv_wt6000
-              title: WT6000 MCO
+            - tile_template: text
+              tile_id: txt_ex
+              title: text exemple
               classes:
 
-            - tile_template: big_value
-              tile_id: bv_tc8000
-              title: TC8000 MCO
+            - tile_template: pie_chart
+              tile_id: pie_ex
+              title: pie_chart exemple
               classes:
 
-            - tile_template: big_value
-              tile_id: bv_TC5X
-              title: TC5X MCO
+        - col_1_of_4  flip-time-10:
+            - tile_template: line_chart
+              tile_id: line_ex
+              title: line_chart exemple
               classes:
 
-            - tile_template: big_value
-              tile_id: bv_bluebird
-              title: EF500(R) MCO
-              classes:
-
-        - col_1_of_4:
-            - tile_template: simple_percentage
-              tile_id: sp_ttc
-              title: Wifi Quality
+            - tile_template: cumulative_flow
+              tile_id: cf_ex
+              title: cumul_flow exemple
               classes:
 
         - col_1_of_4 flip-time-10:
-            - tile_template: big_value
-              tile_id: bv_proxy
-              title: Proxy Incidents
+            - tile_template: simple_percentage
+              tile_id: sp_ex
+              title: simple_percentage exemple
               classes:
 
-            - tile_template: big_value
-              tile_id: bv_agent
-              title: MCO Incidents
-              classes:
-
-            - tile_template: big_value
-              tile_id: bv_storage
-              title: Storage Incidents
+            - tile_template: listing
+              tile_id: listing_ex
+              title: listing  exemple
               classes:
 
         - col_1_of_4:
-            - tile_template: big_value
-              tile_id: bv_soti_connected_devices
-              title: MDM Infos
+            - tile_template: bar_chart
+              tile_id: bar_ex
+              title: bar_chart exemple
               classes:
 
     - row_1_of_2:
         - col_1_of_4:
-            - tile_template: bar_chart
-              tile_id: ooc_soti
-              title: Out of contact
+            - tile_template: fancy_listing
+              tile_id: fancy_ex
+              title: fancyListing exemple
+              classes:
+
+            - tile_template: big_value
+              tile_id: bv_ex
+              title: big_value exemple
               classes:
 
         - col_1_of_4:
-            - tile_template: simple_percentage
-              tile_id: sp_coverage
-              title: Analytics
-              classes:
-
-        - col_1_of_4:
-            - tile_template: pie_chart
-              tile_id: total_model_devices
-              title: Type of devices
+            - tile_template: just_value
+              tile_id: jv_ex
+              title: just_value exemple
               classes:
 
         - col_1_of_4:
             - tile_template: norm_chart
-              tile_id: lc_clients
-              title: Day Comparaison
+              tile_id: norm_ex
+              title: normchart exemple
+              classes:
+
+        - col_1_of_4:
+            - tile_template: empty
+              tile_id: empty_ex
+              title: empty exemple
               classes:
 

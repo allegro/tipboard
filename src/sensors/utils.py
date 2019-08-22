@@ -9,9 +9,9 @@ def end(title, start_time):
     m = str(duration / 60)[:str(duration / 60).index(".")]
     s = str(duration % 60)[:str(duration % 60).index(".")]
     if m == 0:
-        print(f"{getTimeStr()}-{title}: execupted script in {s} seconds", flush=True)
+        print(f"{getTimeStr()}-{title}: executed script in {s} seconds", flush=True)
     else:
-        print(f"{getTimeStr()}-{title}: execupted script in {m}:{s}", flush=True)
+        print(f"{getTimeStr()}-{title}: executed script in {m}:{s}", flush=True)
 
 
 def getTimeStr():

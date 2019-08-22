@@ -3,21 +3,17 @@ import datetime, json, requests, time
 from src.tipboard.app.properties import TIPBOARD_URL
 from src.sensors.utils import getTimeStr, end, sendBVColor
 
-NAME_OF_SENSORS = "GET"
-TILE_TEMPLATE = ""
-TILE_ID = "big_value"
+NAME_OF_SENSORS = "simple_percentage"
+TILE_TEMPLATE = "simple_percentage"
+TILE_ID = "sp_ex"
 
 def executeScriptToGetData():
     """ Simulate some actions for text tile exemple"""
-    return {
-        "title": f"Nbr AP connected",
-        "description": f"{getTimeStr()} Mist wifi information",
-        "big-value": f"39/42",
-        "lower-left-label": "Offline AP:",
-        "upper-left-label": "Offline AP:",
-        "upper-right-label": f"AP42 " + f"& AP37",
-        "lower-right-label": f"AP24 " + f"& AP03"
-    }
+    return {"title": "My title",
+            "subtitle": "My subtitle",
+            "big_value": "100%",
+            "left_label":  "smaller label 1", "left_value": "50%",
+            "right_label": "smaller label 2", "right_value": "25%"}
 
 
 def sendDataToTipboard(data=None, tile_template=None, tile_id=""):
@@ -29,8 +25,8 @@ def sendDataToTipboard(data=None, tile_template=None, tile_id=""):
     res = requests.post(TIPBOARD_URL + "/push", data=configTile)
     print(f"{res} -> {tile_id}: {res.text}", flush=True)
 
-def sonde1():
+def sonde5():
     start_time = time.time()
     data = executeScriptToGetData()
     sendDataToTipboard(data, tile_template=TILE_TEMPLATE, tile_id=TILE_ID)
-    end(title=f"sonde1 -> {TILE_ID}", start_time=start_time)
+    end(title=f"sensors5 -> {TILE_ID}", start_time=start_time)
