@@ -35,28 +35,33 @@ layout:
               title: listing  exemple
               classes:
 
-        - col_1_of_4:
+        - col_1_of_4  flip-time-10:
             - tile_template: bar_chart
               tile_id: bar_ex
               title: bar_chart exemple
               classes:
 
-    - row_1_of_2:
-        - col_1_of_4:
             - tile_template: fancy_listing
               tile_id: fancy_ex
               title: fancyListing exemple
               classes:
 
-            - tile_template: big_value
-              tile_id: bv_ex
-              title: big_value exemple
+    - row_1_of_2:
+        - col_1_of_4:
+            - tile_template: line_chartjs
+              tile_id: line_charjs_ex
+              title: line_charjs
               classes:
 
-        - col_1_of_4:
+        - col_1_of_4 flip-time-10:
             - tile_template: just_value
               tile_id: jv_ex
               title: just_value exemple
+              classes:
+
+            - tile_template: big_value
+              tile_id: bv_ex
+              title: big_value exemple
               classes:
 
         - col_1_of_4:
@@ -71,3 +76,13 @@ layout:
               title: empty exemple
               classes:
 
+
+#il faut ajouter une tile line_chartjs
+#ajouter le .js dans l'import html
+#verifier qu'il a bien été download
+#qu'il a bien registeNewFonction
+#essayer de lui envoyer de la data
+#ensuite faut essayer de voir un console log avec la data
+#
+#
+#Si ca marche pasfait une autre tile sans la lib jqplot

@@ -11,6 +11,7 @@ function updateTileText(id, data, meta, tipboard) {
     var nodeWithText = containers[0];
     $(nodeWithText).html(data['text']);
 
+
     var textSelector = '#' + id + ' .text-container';
     if (meta.font_size) {
         $(textSelector).css("font-size", meta.font_size);

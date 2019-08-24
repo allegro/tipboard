@@ -34,12 +34,13 @@ def getDashboardsPaths(request):
 
 def dashboardRendererHandler(request, layout_name='layout_config'):
     if LOG:
-        print(f"{getTimeStr()} GET dashboardRendererHandler /([a-zA-Z0-9_-]*)", flush=True)
+        print(f"{getTimeStr()} GET dashboardRendererHandler /{layout_name}", flush=True)
     try:
         config = process_layout_config(layout_name)
         tiles_js = ["tiles/" + '.'.join((name, 'js')) for name in config['tiles_names']]
         tiles_css = ["tiles/" + '.'.join((name, 'css')) for name in config['tiles_names']]
         #tiles_js = filter(_verify_statics, tiles_js) #TODO fix the verify_statics for js/css in utils.py
+        print(f"Yaml loaded tilesjs: {tiles_js}")
         data = {
             "details": config['details'],
             "layout": config['layout'],

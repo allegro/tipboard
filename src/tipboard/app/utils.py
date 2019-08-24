@@ -2,6 +2,7 @@
 from datetime import datetime
 from src.tipboard.app.properties import API_KEY
 
+
 def getTimeStr():
     return datetime.now().strftime("%Hh%M")
 
@@ -25,3 +26,4 @@ def checkAccessToken(method='GET', request=None, unsecured=False):
             return True
     print(f"{getTimeStr()} (-) Access Token error: {key}")
     return False
+

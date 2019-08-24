@@ -85,7 +85,7 @@ def config_file_name2path(config_name):
 
 def get_tiles_configs():
     """
-    Return dict with both tiles' keys and ids from all available configs
+    Return dict with tiles keys and ids from all available configs
     """
     tiles_configs = {
         'tiles_keys': set(),

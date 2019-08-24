@@ -13,7 +13,7 @@ def executeScriptToGetData():
              ["27.09", 190240], ["28.09", 125272], ["29.09", 3685]]
     line2 = [["23.09", 3685], ["24.09", 125272], ["25.09", 190240], ["26.09", 229639],
              ["27.09", 240933], ["28.09", 260630], ["29.09", 108326]]
-    return {"subtitle": "",
+    return {"subtitle": "averages from last week",
                "description": "Sales in our dept",
                "series_list": [line1, line2]}
 

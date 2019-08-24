@@ -2,7 +2,9 @@
  * Render Factory to deliver Jqplot object regarding the tile needs
  * @constructor
  */
-function RendererFactory() { }
+function RendererFactory() {
+}
+
 // Define a dict to list all chart available in jqplot
 RendererFactory.prototype.rendererName2renderObj = {
     // core renderer
@@ -43,7 +45,7 @@ RendererFactory.prototype.rendererName2renderObj = {
 RendererFactory.prototype.createRenderer = function (rendererName) {
     var lower = rendererName.toLowerCase();
     var rendererClass = RendererFactory.prototype.rendererName2renderObj[lower];
-    if (typeof(rendererClass) === 'undefined') {
+    if (typeof (rendererClass) === 'undefined') {
         throw new RendererFactory.prototype.UnknownRenderer(rendererName);
     }
     return rendererClass;
@@ -57,8 +59,10 @@ UnknownRenderer.prototype = new Error();
 UnknownRenderer.prototype.constructor = UnknownRenderer;
 RendererFactory.prototype.UnknownRenderer = UnknownRenderer;
 
-function RenderersSwapper() { }
-RenderersSwapper.prototype.insertRendererClasses = function(obj, keys) {
+function RenderersSwapper() {
+}
+
+RenderersSwapper.prototype.insertRendererClasses = function (obj, keys) {
     $.each(keys, function (idx, key) {
         var rendererName, rendererClass;
         rendererName = null;
@@ -107,7 +111,7 @@ RenderersSwapper.prototype.swap = function (config) {
     $.each(simple, function (key, rendererTypes) {
         if (config[key]) {
             config[key] = RenderersSwapper.prototype.insertRendererClasses(
-              config[key], rendererTypes
+                config[key], rendererTypes
             );
         }
     });
@@ -119,7 +123,7 @@ RenderersSwapper.prototype.swap = function (config) {
         if (config[key]) {
             $.each(config[key], function (subkey, values) {
                 config[key][subkey] = RenderersSwapper.prototype.insertRendererClasses(
-                  config[key][subkey], rendererTypes
+                    config[key][subkey], rendererTypes
                 );
             });
         }
@@ -150,7 +154,7 @@ function getFlipTime(node) {
     // TODO: make it Tipboard.Dashboard member
     var classStr = $(node).attr('class');
     var flipTime = 20000;
-    $.each(classStr.split(' '), function(idx, val) {
+    $.each(classStr.split(' '), function (idx, val) {
         var groups = /flip-time-(\d+)/.exec(val);
         if (Boolean(groups) && groups.length > 1) {
             flipTime = groups[1];
@@ -169,16 +173,14 @@ function getFlipTime(node) {
  */
 function initWebsocketManager() {
     return {
-        onOpen: function(evt) {
-        },
 
-        onClose: function(evt) {
+        onClose: function (evt) {
             console.log("Web socket closed. Restarting...");
-            this.websocket = void 0;
+          //  this.websocket = void 0;
             setTimeout(Tipboard.WebSocketManager.init.bind(this), 1000);
         },
 
-        onMessage: function(evt) {
+        onMessage: function (evt) {
             var tileData = JSON.parse(evt.data);
             console.log("Web socket received data: ", tileData);
             // FIXME: pass colors in more suitable place
@@ -192,37 +194,30 @@ function initWebsocketManager() {
                 tileData.data,
                 tileData.meta,
                 tileData.tipboard,
-                tileData.modified
-            );
+                tileData.modified);
         },
 
-        onError: function(evt) {
+        onError: function (evt) {
             console.log("WebSocket error: " + evt.data);
         },
 
-        init: function() {
-            if ((typeof(this.websocket) !== 'undefined') && !(this.websocket.readyState === WebSocket.CLOSED || this.websocket.readyState === WebSocket.CLOSING)) {
-                console.log("Closing outdated Web socket.");
-                this.websocket.close();
-                return; // the rest will be handled in onClose()
-            }
+        init: function () {
             console.log("Initializing a new Web socket manager.");
 
             var protocol = window.location.protocol === "https:" ? "wss://" : "ws://";
 
-            this.websocket = new WebSocket(
-                protocol + window.location.host + "/communication/websocket"
-            );
-            this.websocket.onopen = function(evt) {
-                Tipboard.WebSocketManager.onOpen(evt);
+            var websocket = new WebSocket(protocol + window.location.host + "/communication/websocket");
+            websocket.onopen = function (evt) {
+                websocket.send("first_connection:" + window.location.pathname);
+                console.log("Websocket: " + "first_connection:" + window.location.href)
             };
-            this.websocket.onclose = function(evt) {
+            websocket.onclose = function (evt) {
                 Tipboard.WebSocketManager.onClose(evt);
             };
-            this.websocket.onmessage = function(evt) {
+            websocket.onmessage = function (evt) {
                 Tipboard.WebSocketManager.onMessage(evt);
             };
-            this.websocket.onerror = function(evt) {
+            websocket.onerror = function (evt) {
                 Tipboard.WebSocketManager.onError(evt);
             };
         }
@@ -236,11 +231,11 @@ function initWebsocketManager() {
  */
 function initTileDisplayDecorator() {
     return {
-        fitTile: function(tile) {
+        fitTile: function (tile) {
             Tipboard.DisplayUtils.expandLastChild(tile);
         },
-        highlightResult: function(tile) {
-            $(tile).find('.highlighted-result [data-source-key]').each(function() {
+        highlightResult: function (tile) {
+            $(tile).find('.highlighted-result [data-source-key]').each(function () {
                 var elementValue = parseInt($(this).html(), 10);
                 var parentContainer = $(this).parent('.highlighted-result');
                 var threshold = $(this).attr('data-threshold');
@@ -263,8 +258,8 @@ function initTileDisplayDecorator() {
             });
         },
 
-        drawArrow: function(tile) {
-            $(tile).find('.with-arrow-result [data-source-key]').each(function() {
+        drawArrow: function (tile) {
+            $(tile).find('.with-arrow-result [data-source-key]').each(function () {
                 var elementValue = parseInt($(this).html(), 10);
                 var parentContainer = $(this).parent('.with-arrow-result');
                 var arrowContainer = $(parentContainer).find('span.arrow');
@@ -276,7 +271,7 @@ function initTileDisplayDecorator() {
             });
         },
 
-        runAllDecorators: function(tile) {
+        runAllDecorators: function (tile) {
             var item = void 0;
             for (item in Tipboard.TileDisplayDecorator) {
                 if (typeof Tipboard.TileDisplayDecorator[item] === "function" && item !== "runAllDecorators") {
@@ -296,22 +291,22 @@ function initConfDisplayUtils() {
     return {
 
         pallet: {
-            'black':            '#000000',
-            'white':            '#FFFFFF',
-            'tile_background':  '#25282d',
-            'red':              '#DC5945',
-            'yellow':           '#FF9618',
-            'green':            '#94C140',
-            'blue':             '#12B0C5',
-            'violet':           '#9C4274',
-            'orange':           '#EC663C',
-            'naval':            '#54C5C0',
+            'black': '#000000',
+            'white': '#FFFFFF',
+            'tile_background': '#25282d',
+            'red': '#DC5945',
+            'yellow': '#FF9618',
+            'green': '#94C140',
+            'blue': '#12B0C5',
+            'violet': '#9C4274',
+            'orange': '#EC663C',
+            'naval': '#54C5C0',
         },
 
-        getPalette: function(colors) {
+        getPalette: function (colors) {
             // DEPRECATED, use paletteAsList instead
             var palette = [];
-            $.each(colors, function(name) {
+            $.each(colors, function (name) {
                 if (['black', 'white', 'tile_background'].indexOf(name) < 0) {
                     palette.push(colors[name]);
                 }
@@ -319,9 +314,9 @@ function initConfDisplayUtils() {
             return palette;
         },
 
-        paletteAsList: function() {
+        paletteAsList: function () {
             var paletteList = [];
-            $.each(Tipboard.DisplayUtils.palette, function(name, value) {
+            $.each(Tipboard.DisplayUtils.palette, function (name, value) {
                 if (['black', 'white', 'tile_background'].indexOf(name) < 0) {
                     paletteList.push(value);
                 }
@@ -329,8 +324,8 @@ function initConfDisplayUtils() {
             return paletteList;
         },
 
-        replaceFromPalette: function(color) {
-            $.each(this.palette, function(colorName, colorValue) {
+        replaceFromPalette: function (color) {
+            $.each(this.palette, function (colorName, colorValue) {
                 if (color === colorName) {
                     color = colorValue;
                     return false;
@@ -339,18 +334,18 @@ function initConfDisplayUtils() {
             return color;
         },
 
-        paletteAsSeriesColors: function() {
-          var seriesColors = [];
-          $.each(
-              Tipboard.DisplayUtils.getPalette(Tipboard.DisplayUtils.palette),
-              function(idx, color) {
-                  seriesColors.push({'color': color});
-              }
-          );
-          return seriesColors;
+        paletteAsSeriesColors: function () {
+            var seriesColors = [];
+            $.each(
+                Tipboard.DisplayUtils.getPalette(Tipboard.DisplayUtils.palette),
+                function (idx, color) {
+                    seriesColors.push({'color': color});
+                }
+            );
+            return seriesColors;
         },
 
-        expandLastChild: function(container) {
+        expandLastChild: function (container) {
             /*
             Autogrow height of node *body* in *container* node respecting of *header* height.
             container:
@@ -360,7 +355,7 @@ function initConfDisplayUtils() {
             */
             var siblingsHeight = 0;
             var len = $(container).children().length;
-            $.each($(container).children(), function(index, element) {
+            $.each($(container).children(), function (index, element) {
                 if (index == len - 1) {
                     return false;
                 }
@@ -377,30 +372,30 @@ function initConfDisplayUtils() {
         },
 
         showTileData: function (tile) {
-          $.each(['.tile-content'], function(idx, klass) {
-            var node = $(tile).find(klass);
-            if (node.length > 1) {
-              $(node[1]).remove();
-              $(node[0]).show();
-            }
-          });
+            $.each(['.tile-content'], function (idx, klass) {
+                var node = $(tile).find(klass);
+                if (node.length > 1) {
+                    $(node[1]).remove();
+                    $(node[0]).show();
+                }
+            });
         },
         showExcMsg: function (tile, msg) {
-          $.each(['.tile-content'], function(idx, klass) {
-            var nodes = $(tile).find(klass);
-            if (nodes.length === 1) {
-              var cloned = $(nodes).clone();
-              $(nodes).hide();
-              $(cloned).insertAfter(nodes);
-              $(cloned).addClass('exception-message');
-              $(cloned).show();
-            } else {
-              $(nodes[0]).hide();
-              $(nodes[1]).show();
-            }
-            nodes = $(tile).find('.tile-content');
-            $(nodes[1]).html(msg);
-          });
+            $.each(['.tile-content'], function (idx, klass) {
+                var nodes = $(tile).find(klass);
+                if (nodes.length === 1) {
+                    var cloned = $(nodes).clone();
+                    $(nodes).hide();
+                    $(cloned).insertAfter(nodes);
+                    $(cloned).addClass('exception-message');
+                    $(cloned).show();
+                } else {
+                    $(nodes[0]).hide();
+                    $(nodes[1]).show();
+                }
+                nodes = $(tile).find('.tile-content');
+                $(nodes[1]).html(msg);
+            });
         },
 
         createGraph: function (tileId, plotData, config) {
@@ -438,27 +433,27 @@ function initConfDisplayUtils() {
             highlighterNode.before(highlighterNode.clone(true)).remove();
         },
 
-        highlightAsOk: function(element) {
+        highlightAsOk: function (element) {
             $(element).addClass('highlighted-green');
             $(element).removeClass('highlighted-red');
         },
 
-        highlightAsFail: function(element) {
+        highlightAsFail: function (element) {
             $(element).removeClass('highlighted-green');
             $(element).addClass('highlighted-red');
         },
 
-        arrowUp: function(element) {
+        arrowUp: function (element) {
             $(element).addClass('arrow-up');
             $(element).removeClass('arrow-down');
         },
 
-        arrowDown: function(element) {
+        arrowDown: function (element) {
             $(element).removeClass('arrow-up');
             $(element).addClass('arrow-down');
         },
 
-        changeFontSize: function() {
+        changeFontSize: function () {
             var windowHeight = $(window).height();
             if (windowHeight > $(window).width()) {
                 windowHeight = $(window).width();
@@ -473,9 +468,9 @@ function initConfDisplayUtils() {
             console.log('Changed font size to ' + newFontSize + '.');
         },
 
-        makeTilesMargins: function() {
+        makeTilesMargins: function () {
             console.log('Updating tile sizes.');
-            $('.tile').each(function() {
+            $('.tile').each(function () {
                 var tileWidth = $(this).parent().width() - 20;
                 var tileHeight = $(this).parent().height() - 20;
                 $(this).css({
@@ -487,9 +482,9 @@ function initConfDisplayUtils() {
             });
         },
 
-        changeChartsSize: function() {
+        changeChartsSize: function () {
             console.log('Updating chart sizes.');
-            $('.chart').each(function() {
+            $('.chart').each(function () {
                 var tileHeaderHeight = $(this).parents('.tile').find('.tile-header').height();
                 var tileContentHeight = 32;
 
@@ -500,6 +495,7 @@ function initConfDisplayUtils() {
                         tileContentHeight += $(this).height();
                     }
                 }
+
                 if (!$(this).hasClass('chart-only')) {
                     $(this).parents('.tile').find('.tile-content .result').each(increaseContentHeight);
                     $(this).parents('.tile').find('.tile-content h2').each(increaseContentHeight);
@@ -512,18 +508,18 @@ function initConfDisplayUtils() {
                 var tileId = $(this).parents('div.tile').attr('id');
                 var plot = Tipboard.Dashboard.chartsIds[tileId];
                 if (Boolean(plot)) {
-                    plot.replot( { resetAxes: true } );
+                    plot.replot({resetAxes: true});
                 }
             });
         },
 
-        resizeWindowEvent: function() {
+        resizeWindowEvent: function () {
             this.makeTilesMargins();
             this.changeFontSize();
             this.changeChartsSize();
         },
 
-        flipFlippablesIn: function(container) {
+        flipFlippablesIn: function (container) {
             /*
              * pass class *flippedforward* to next node with class
              * *flippable* within *container*, if last element then wrap it
@@ -532,30 +528,31 @@ function initConfDisplayUtils() {
              */
             var nextFlipIdx;
             var containerFlips = $(container).find('.flippable');
-            $(containerFlips).each(function(index, tile) {
+            $(containerFlips).each(function (index, tile) {
                 if ($(tile).hasClass("flippedforward")) {
                     nextFlipIdx = (index + 1) % containerFlips.length;
                     $(tile).removeClass("flippedforward");
                     return false; // break
                 }
             });
-            if (typeof(nextFlipIdx) !== 'undefined') {
+            if (typeof (nextFlipIdx) !== 'undefined') {
                 var tileToFlip = containerFlips[nextFlipIdx];
                 $(tileToFlip).addClass("flippedforward");
             }
         },
 
-        reloadPage: function() {
+        reloadPage: function () {
             var http = new XMLHttpRequest();
             http.open('HEAD', window.location.href);
-            http.onreadystatechange = function() {
+            http.onreadystatechange = function () {
                 if (this.readyState === this.DONE && this.status === 200) {
                     window.location.reload();
                 }
             };
             http.send();
         }
-    };;
+    };
+    ;
 }
 
 
@@ -564,16 +561,16 @@ function initConfDisplayUtils() {
  * @param Tipboard
  */
 function initDashboard(Tipboard) {
-    Tipboard.Dashboard.id2node = function(id) {
+    Tipboard.Dashboard.id2node = function (id) {
         var tile = $('#' + id)[0];
         return tile;
     };
 
-    Tipboard.Dashboard.tile2id = function(tileNode) {
+    Tipboard.Dashboard.tile2id = function (tileNode) {
         return $(tileNode).attr('id');
     };
 
-    Tipboard.Dashboard.escapeId = function(id) {
+    Tipboard.Dashboard.escapeId = function (id) {
         /*
         the Tipboard application allows user to use eg. '.' in tiles' ids
         jquery requires such chars to be escaped
@@ -581,27 +578,27 @@ function initDashboard(Tipboard) {
         // XXX: backslash MUST BE FIRST, otherwise this convertions is
         // broken (escaping chars which meant to be escapers)
         var charsToEscape = "\\!\"#$%&'()*+,./:;<=>?@[]^`{|}~";
-        for(var i=0; i<charsToEscape.length; i++) {
+        for (var i = 0; i < charsToEscape.length; i++) {
             var _char = charsToEscape[i];
             id = id.replace(_char, '\\' + _char);
         }
         return id;
     };
 
-    Tipboard.Dashboard.setDataByKeys = function(tileId, dataToPut, keysToUse) {
+    Tipboard.Dashboard.setDataByKeys = function (tileId, dataToPut, keysToUse) {
         /*
         *keysToUse*: list of keys, or string 'all', if 'all' then all keys
             used from *dataToPut*
         */
         if (keysToUse === 'all') {
             var allKeys = [];
-            for(var k in dataToPut) allKeys.push(k);
+            for (var k in dataToPut) allKeys.push(k);
             keysToUse = allKeys;
         }
         var tile = Tipboard.Dashboard.id2node(tileId);
-        $.each(keysToUse, function(idx, key) {
+        $.each(keysToUse, function (idx, key) {
             var value = dataToPut[key];
-            if (typeof(value) === 'undefined') {
+            if (typeof (value) === 'undefined') {
                 var msg = 'WARN: No key "' + key + '" in data'
                 console.log(msg, dataToPut);
             } else {
@@ -617,7 +614,7 @@ function initDashboard(Tipboard) {
         });
     };
 
-    Tipboard.Dashboard.updateTile = function(tileId, tileType, data, meta, tipboard, lastMod) {
+    Tipboard.Dashboard.updateTile = function (tileId, tileType, data, meta, tipboard, lastMod) {
         console.log('Update tile: ', tileId);
         var tile = Tipboard.Dashboard.id2node(tileId);
         // destroy old graph
@@ -641,7 +638,7 @@ function initDashboard(Tipboard) {
         }
     };
 
-    Tipboard.Dashboard.getUpdateFunction = function(tileType) {
+    Tipboard.Dashboard.getUpdateFunction = function (tileType) {
         var fn = this.updateFunctions[tileType];
         if (typeof fn !== 'function') {
             throw new Tipboard.Dashboard.UnknownUpdateFunction(tileType);
@@ -649,17 +646,17 @@ function initDashboard(Tipboard) {
         return fn;
     };
 
-    Tipboard.Dashboard.registerUpdateFunction = function(name, fn) {
+    Tipboard.Dashboard.registerUpdateFunction = function (name, fn) {
         console.log("registeringUpdateFonction:" + name);
         this.updateFunctions[name] = fn;
     };
 
-    Tipboard.Dashboard.isTileRenderedSuccessful = function(tile) {
+    Tipboard.Dashboard.isTileRenderedSuccessful = function (tile) {
         var suc = $(tile).find('.exception-message').length === 0 ? true : false;
         return suc;
     };
 
-    Tipboard.Dashboard.isValidDatetimeFormat = function(dateString) {
+    Tipboard.Dashboard.isValidDatetimeFormat = function (dateString) {
         // valid dateString should be in ISO-8601 format, e.g.:
         // "2014-01-10T15:27:34+02:00"
         var regex = /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}[+-]\d{2}:\d{2}$/;
@@ -667,7 +664,7 @@ function initDashboard(Tipboard) {
         return valid;
     };
 
-    Tipboard.Dashboard.isDataExpired = function(lastMod, timeout) {
+    Tipboard.Dashboard.isDataExpired = function (lastMod, timeout) {
         var reason = "";
         if (timeout === "") {
             // backward compability, no timeout then skip checking
@@ -685,7 +682,7 @@ function initDashboard(Tipboard) {
             if (Tipboard.Dashboard.isValidDatetimeFormat(lastMod)) {
                 var now = new Date();
                 var lastDateTime = new Date(lastMod);
-                var dataAge = (now - lastDateTime)/1000;  // dataAge is in seconds
+                var dataAge = (now - lastDateTime) / 1000;  // dataAge is in seconds
                 if (dataAge >= timeout) {
                     reason = "Tile's data EXPIRED.";
                 }
@@ -701,8 +698,8 @@ function initDashboard(Tipboard) {
         return reason;
     };
 
-    Tipboard.Dashboard.autoAddFlipClasses = function(flippingContainer) {
-        $.each($(flippingContainer).find('.tile'), function(idx, elem) {
+    Tipboard.Dashboard.autoAddFlipClasses = function (flippingContainer) {
+        $.each($(flippingContainer).find('.tile'), function (idx, elem) {
             if (idx === 0) {
                 $(elem).addClass('flippedforward');
             }
@@ -710,10 +707,10 @@ function initDashboard(Tipboard) {
         });
     };
 
-    Tipboard.Dashboard.addTilesCounter = function(col) {
+    Tipboard.Dashboard.addTilesCounter = function (col) {
         var tilesTotal = $(col).children('div.tile').length;
         if (tilesTotal > 1) {
-            $.each($(col).children('div'), function(tileIdx, tile) {
+            $.each($(col).children('div'), function (tileIdx, tile) {
                 var container = $(tile).find('.tile-header');
                 var title = $(container).children()[0];
                 $(title).addClass('flip-tile-counter');
@@ -734,12 +731,13 @@ function initDashboard(Tipboard) {
  *  Define the Dashboard object behavior (flip time, register tiles func, etc)
  *  Define the $(document).ready(function()
  */
-(function($)  {
+(function ($) {
     'use strict';
 
     if (!window.console) {// wtf is that ?
         window.console = {
-            log: function() {}
+            log: function () {
+            }
         };
     }
 
@@ -757,30 +755,30 @@ function initDashboard(Tipboard) {
     Tipboard.WebSocketManager = initWebsocketManager();
     initDashboard(Tipboard);
 
-    $(document).ready(function() {
+    $(document).ready(function () {
         console.log('Tipboard starting');
         $.jqplot.config.enablePlugins = true;
         // resize events
-        $(window).bind("resize fullscreen-off", function() {
+        $(window).bind("resize fullscreen-off", function () {
             Tipboard.DisplayUtils.resizeWindowEvent();
         });
         // websocket management
         Tipboard.WebSocketManager.init();
         setInterval(Tipboard.WebSocketManager.init.bind(Tipboard.WebSocketManager),
-                        Tipboard.Dashboard.webSocketResetInterval);
+            Tipboard.Dashboard.webSocketResetInterval);
         // flipping tiles
         var flipContainers = $('div[class*="flip-time-"]');
-        $.each(flipContainers, function(idx, flippingContainer) {
+        $.each(flipContainers, function (idx, flippingContainer) {
             Tipboard.Dashboard.autoAddFlipClasses(flippingContainer);
             var flipInterval = getFlipTime(flippingContainer);
-            var flipIntervalId = setInterval(function() {
+            var flipIntervalId = setInterval(function () {
                 Tipboard.DisplayUtils.flipFlippablesIn(flippingContainer);
             }, flipInterval);
             Tipboard.Dashboard.flipIds.push(flipIntervalId);
         });
-        $.each($("body > div"), function(rowIdx, row) {
+        $.each($("body > div"), function (rowIdx, row) {
             // show tiles number (like: 1/3)
-            $.each($(row).children('div'), function(colIdx, col) {
+            $.each($(row).children('div'), function (colIdx, col) {
                 Tipboard.Dashboard.addTilesCounter(col);
             });
         });
@@ -788,9 +786,9 @@ function initDashboard(Tipboard) {
         setInterval(Tipboard.DisplayUtils.reloadPage, 3600000);
 
         // check if all tiles have fresh data
-        setInterval(function() {
+        setInterval(function () {
             var tiles = $('.tile');
-            $.each(tiles, function(idx, tile) {
+            $.each(tiles, function (idx, tile) {
                 if (Tipboard.Dashboard.isTileRenderedSuccessful(tile)) {
                     var tileId = Tipboard.Dashboard.tile2id(tile);
                     var lastMod = $('#' + tileId + '-lastModified').val();
