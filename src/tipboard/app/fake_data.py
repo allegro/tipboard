@@ -5,12 +5,20 @@ def getFakeText(tile_id, template_name):
 
 def getFakePieChart(tile_id, template_name):
     return {
+          "tile_template": template_name,
+          "meta": {
+            "big_value_color": "#4CAF50",
+            "fading_background": False
+          },
+          "data": {
             "title": "My title",
             "pie_data": [["Pie 1", 25],
                          ["Pie 2", 25],
                          ["Pie 3", 50]]
+            },
+          "modified": "2019-08-01T15:17:01+02:00",
+          "id": tile_id
         }
-
 
 def getFakeLineChart(tile_id, template_name):
     return {
@@ -94,19 +102,14 @@ def getFakeNormChart(tile_id, template_name):
     pass
 
 
-ALLOWED_TILES = ["text", "pie_chart", "line_chart", "cumulative_flow", "simple_percentage", "listing", "bar_chart",
-                 "norm_chart", "fancy_listing", "big_value", "just_value", "advanced_plot", "empty",  # jqplot
-
-                 "line_chartjs"]  # chartjs
-
 def buildFakeDataFromTemplate(tile_id, template_name):
     print(f"Building fake data for {tile_id} as template: {template_name}")
     data = dict()
     if template_name == "text":
-       data = getFakeText()
-    elif template_name == "pie_chart":
+       data = getFakeText(tile_id, template_name)
+    elif template_name == "pie_chart" or template_name == "pie_chartjs":
        data = getFakePieChart(tile_id, template_name)
-    elif template_name == "line_chart":
+    elif template_name == "line_chart" or template_name == "line_chartjs":
         data = getFakeLineChart(tile_id, template_name)
     elif template_name == "cumulative_flow":
         data = getFakeCumulFlow(tile_id, template_name)
@@ -128,8 +131,6 @@ def buildFakeDataFromTemplate(tile_id, template_name):
         data = getFakeAdvancedPlot(tile_id, template_name)
     elif template_name == "empty":
         pass
-    elif template_name == "line_chartjs":
-        data = getFakeLineChart(tile_id, template_name)
     else:# TODO: need to be handle for all type of tiles
         data = {
             "tile_template": template_name,

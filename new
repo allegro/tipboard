@@ -1,0 +1,220 @@
+Web socket closed. Restarting... tipboard.js:176:21
+Flipboard starting: flipboard.js:50:17
+loading layout:/dev_properties,/layout_config flipboard.js:55:25
+registeringUpdateFonction:pie_chart tipboard.js:653:17
+registeringUpdateFonction:line_chart tipboard.js:653:17
+registeringUpdateFonction:cumulative_flow tipboard.js:653:17
+registeringUpdateFonction:simple_percentage tipboard.js:653:17
+The script from “http://0.0.0.0:8081/static/tiles/empty.js” was loaded even though its MIME type (“text/html”) is not a valid JavaScript MIME type.
+dev_properties
+registeringUpdateFonction:listing tipboard.js:653:17
+registeringUpdateFonction:bar_chart tipboard.js:653:17
+The script from “http://0.0.0.0:8081/static/tiles/empty.js” was loaded even though its MIME type (“text/html”) is not a valid JavaScript MIME type.
+dev_properties
+Loading failed for the <script> with source “http://0.0.0.0:8081/static/tiles/empty.js”. dev_properties:127:1
+registeringUpdateFonction:fancy_listing tipboard.js:653:17
+registeringUpdateFonction:big_value tipboard.js:653:17
+registeringUpdateFonction:just_value tipboard.js:653:17
+registeringUpdateFonction:norm_chart tipboard.js:653:17
+Tipboard starting tipboard.js:761:17
+Initializing a new Web socket manager. tipboard.js:209:21
+Updating tile sizes. tipboard.js:477:21
+Updating chart sizes. tipboard.js:491:21
+Web socket received data:
+> Object { id: "bv_ex", tile_template: "big_value", data: {…}, meta: {}, modified: "2019-08-23T00:25:07+02:00", tipboard: {…} }
+tipboard.js:183:21
+Update tile:  bv_ex tipboard.js:621:17
+Web socket received data:
+> Object { id: "bv_TC5X", tile_template: "big_value", data: {…}, meta: {}, modified: "2019-08-21T19:39:17+02:00", tipboard: {…} }
+tipboard.js:183:21
+Update tile:  bv_TC5X tipboard.js:621:17
+WARN: Not found node with id: #bv_TC5X-title tipboard.js:612:29
+WARN: Not found node with id: #bv_TC5X-description tipboard.js:612:29
+WARN: Not found node with id: #bv_TC5X-big-value tipboard.js:612:29
+WARN: Not found node with id: #bv_TC5X-lower-left-label tipboard.js:612:29
+WARN: Not found node with id: #bv_TC5X-upper-left-label tipboard.js:612:29
+WARN: Not found node with id: #bv_TC5X-upper-right-label tipboard.js:612:29
+WARN: Not found node with id: #bv_TC5X-lower-right-label tipboard.js:612:29
+expanding stopped - container has no elements tipboard.js:370:25
+Web socket received data:
+> Object { id: "lc_clients_store", tile_template: "norm_chart", data: {…}, meta: {}, modified: "2019-08-21T19:54:21+02:00", tipboard: {…} }
+tipboard.js:183:21
+Update tile:  lc_clients_store tipboard.js:621:17
+WARN: Not found node with id: #lc_clients_store-title tipboard.js:612:29
+WARN: Not found node with id: #lc_clients_store-description tipboard.js:612:29
+expanding stopped - container has no elements 2 tipboard.js:370:25
+ERROR:  lc_clients_store Error: No plot target specified tipboard.js:634:21
+Web socket received data:
+Object { id: "bv_agent", tile_template: "big_value", data: {…}, meta: {}, modified: "2019-08-21T19:53:20+02:00", tipboard: {…} }
+tipboard.js:183:21
+Update tile:  bv_agent tipboard.js:621:17
+WARN: Not found node with id: #bv_agent-title tipboard.js:612:29
+WARN: Not found node with id: #bv_agent-description tipboard.js:612:29
+WARN: Not found node with id: #bv_agent-big-value tipboard.js:612:29
+WARN: Not found node with id: #bv_agent-upper-left-label tipboard.js:612:29
+WARN: Not found node with id: #bv_agent-upper-right-label tipboard.js:612:29
+WARN: Not found node with id: #bv_agent-lower-left-label tipboard.js:612:29
+WARN: Not found node with id: #bv_agent-lower-right-value tipboard.js:612:29
+expanding stopped - container has no elements tipboard.js:370:25
+Web socket received data:
+Object { id: "lc_clients_warehouse", tile_template: "norm_chart", data: {…}, meta: {}, modified: "2019-08-21T19:50:21+02:00", tipboard: {…} }
+tipboard.js:183:21
+Update tile:  lc_clients_warehouse tipboard.js:621:17
+WARN: Not found node with id: #lc_clients_warehouse-title tipboard.js:612:29
+WARN: Not found node with id: #lc_clients_warehouse-description tipboard.js:612:29
+expanding stopped - container has no elements 2 tipboard.js:370:25
+ERROR:  lc_clients_warehouse Error: No plot target specified tipboard.js:634:21
+Web socket received data:
+Object { id: "line_ex", tile_template: "line_chart", data: {…}, meta: {}, modified: "2019-08-23T00:25:07+02:00", tipboard: {…} }
+tipboard.js:183:21
+Update tile:  line_ex tipboard.js:621:17
+Web socket received data:
+Object { id: "ap_ex", tile_template: "advanced_plot", data: {…}, meta: {}, modified: "2019-08-23T00:25:07+02:00", tipboard: {…} }
+tipboard.js:183:21
+Update tile:  ap_ex tipboard.js:621:17
+ERROR:  ap_ex UnknownUpdateFunction: Couldn't find update function for: advanced_plot tipboard.js:634:21
+Web socket received data:
+Object { id: "sp_roaming", tile_template: "big_value", data: {…}, meta: {…}, modified: "2019-08-02T19:52:28+02:00", tipboard: {…} }
+tipboard.js:183:21
+Update tile:  sp_roaming tipboard.js:621:17
+WARN: Not found node with id: #sp_roaming-title tipboard.js:612:29
+WARN: Not found node with id: #sp_roaming-description tipboard.js:612:29
+WARN: Not found node with id: #sp_roaming-big-value tipboard.js:612:29
+WARN: Not found node with id: #sp_roaming-upper-left-label tipboard.js:612:29
+WARN: Not found node with id: #sp_roaming-upper-right-label tipboard.js:612:29
+WARN: Not found node with id: #sp_roaming-lower-left-label tipboard.js:612:29
+WARN: Not found node with id: #sp_roaming-lower-right-value tipboard.js:612:29
+expanding stopped - container has no elements tipboard.js:370:25
+Web socket received data:
+Object { id: "txt_ex", tile_template: "text", data: {…}, meta: {}, modified: "2019-08-23T00:25:07+02:00", tipboard: {…} }
+tipboard.js:183:21
+Update tile:  txt_ex tipboard.js:621:17
+Web socket received data:
+Object { id: "bv_storage", tile_template: "big_value", data: {…}, meta: {}, modified: "2019-08-21T19:52:20+02:00", tipboard: {…} }
+tipboard.js:183:21
+Update tile:  bv_storage tipboard.js:621:17
+WARN: Not found node with id: #bv_storage-title tipboard.js:612:29
+WARN: Not found node with id: #bv_storage-description tipboard.js:612:29
+WARN: Not found node with id: #bv_storage-big-value tipboard.js:612:29
+WARN: Not found node with id: #bv_storage-upper-left-label tipboard.js:612:29
+WARN: Not found node with id: #bv_storage-upper-right-label tipboard.js:612:29
+WARN: Not found node with id: #bv_storage-lower-left-label tipboard.js:612:29
+WARN: Not found node with id: #bv_storage-lower-right-value tipboard.js:612:29
+expanding stopped - container has no elements tipboard.js:370:25
+Web socket received data:
+Object { id: "listing_ex", tile_template: "listing", data: {…}, meta: {}, modified: "2019-08-23T00:25:07+02:00", tipboard: {…} }
+tipboard.js:183:21
+Update tile:  listing_ex tipboard.js:621:17
+Web socket received data:
+Object { id: "bv_tc8000", tile_template: "big_value", data: {…}, meta: {}, modified: "2019-08-21T19:39:08+02:00", tipboard: {…} }
+tipboard.js:183:21
+Update tile:  bv_tc8000 tipboard.js:621:17
+WARN: Not found node with id: #bv_tc8000-title tipboard.js:612:29
+WARN: Not found node with id: #bv_tc8000-description tipboard.js:612:29
+WARN: Not found node with id: #bv_tc8000-big-value tipboard.js:612:29
+WARN: Not found node with id: #bv_tc8000-lower-left-label tipboard.js:612:29
+WARN: Not found node with id: #bv_tc8000-upper-left-label tipboard.js:612:29
+WARN: Not found node with id: #bv_tc8000-upper-right-label tipboard.js:612:29
+WARN: Not found node with id: #bv_tc8000-lower-right-label tipboard.js:612:29
+expanding stopped - container has no elements tipboard.js:370:25
+Web socket received data:
+Object { id: "total_model_devices", tile_template: "pie_chart", data: {…}, meta: {}, modified: "2019-08-21T19:40:17+02:00", tipboard: {…} }
+tipboard.js:183:21
+Update tile:  total_model_devices tipboard.js:621:17
+WARN: Not found node with id: #total_model_devices-title tipboard.js:612:29
+WARN: No key "description" in data
+Object { title: "12255 devices", pie_data: (5) […] }
+tipboard.js:606:25
+expanding stopped - container has no elements 2 tipboard.js:370:25
+ERROR:  total_model_devices Error: No plot target specified tipboard.js:634:21
+Web socket received data:
+Object { id: "sp_analy_warehouse", tile_template: "simple_percentage", data: {…}, meta: {}, modified: "2019-08-21T19:45:20+02:00", tipboard: {…} }
+tipboard.js:183:21
+Update tile:  sp_analy_warehouse tipboard.js:621:17
+WARN: Not found node with id: #sp_analy_warehouse-title tipboard.js:612:29
+WARN: Not found node with id: #sp_analy_warehouse-big_value tipboard.js:612:29
+WARN: Not found node with id: #sp_analy_warehouse-subtitle tipboard.js:612:29
+WARN: Not found node with id: #sp_analy_warehouse-right_value tipboard.js:612:29
+WARN: Not found node with id: #sp_analy_warehouse-right_label tipboard.js:612:29
+WARN: Not found node with id: #sp_analy_warehouse-left_label tipboard.js:612:29
+WARN: Not found node with id: #sp_analy_warehouse-left_value tipboard.js:612:29
+expanding stopped - container has no elements 2 tipboard.js:370:25
+Web socket received data:
+Object { id: "bv_soti_stats", tile_template: "big_value", data: {…}, meta: {}, modified: "2019-08-21T19:54:20+02:00", tipboard: {…} }
+tipboard.js:183:21
+Update tile:  bv_soti_stats tipboard.js:621:17
+WARN: Not found node with id: #bv_soti_stats-title tipboard.js:612:29
+WARN: Not found node with id: #bv_soti_stats-description tipboard.js:612:29
+WARN: Not found node with id: #bv_soti_stats-big-value tipboard.js:612:29
+WARN: Not found node with id: #bv_soti_stats-upper-left-label tipboard.js:612:29
+WARN: Not found node with id: #bv_soti_stats-upper-left-value tipboard.js:612:29
+WARN: Not found node with id: #bv_soti_stats-lower-left-label tipboard.js:612:29
+WARN: Not found node with id: #bv_soti_stats-lower-left-value tipboard.js:612:29
+WARN: Not found node with id: #bv_soti_stats-upper-right-label tipboard.js:612:29
+WARN: Not found node with id: #bv_soti_stats-upper-right-value tipboard.js:612:29
+WARN: Not found node with id: #bv_soti_stats-lower-right-label tipboard.js:612:29
+WARN: Not found node with id: #bv_soti_stats-lower-right-value tipboard.js:612:29
+expanding stopped - container has no elements tipboard.js:370:25
+Web socket received data:
+Object { id: "jv_ex", tile_template: "just_value", data: {…}, meta: {}, modified: "2019-08-23T00:25:07+02:00", tipboard: {…} }
+tipboard.js:183:21
+Update tile:  jv_ex tipboard.js:621:17
+Web socket received data:
+Object { id: "bv_bluebird", tile_template: "big_value", data: {…}, meta: {}, modified: "2019-08-21T19:39:30+02:00", tipboard: {…} }
+tipboard.js:183:21
+Update tile:  bv_bluebird tipboard.js:621:17
+WARN: Not found node with id: #bv_bluebird-title tipboard.js:612:29
+WARN: Not found node with id: #bv_bluebird-description tipboard.js:612:29
+WARN: Not found node with id: #bv_bluebird-big-value tipboard.js:612:29
+WARN: Not found node with id: #bv_bluebird-lower-left-label tipboard.js:612:29
+WARN: Not found node with id: #bv_bluebird-upper-left-label tipboard.js:612:29
+WARN: Not found node with id: #bv_bluebird-upper-right-label tipboard.js:612:29
+WARN: Not found node with id: #bv_bluebird-lower-right-label tipboard.js:612:29
+expanding stopped - container has no elements tipboard.js:370:25
+Web socket received data:
+Object { id: "sp_ex", tile_template: "simple_percentage", data: {…}, meta: {}, modified: "2019-08-23T00:25:07+02:00", tipboard: {…} }
+tipboard.js:183:21
+Update tile:  sp_ex tipboard.js:621:17
+Web socket received data:
+Object { id: "sp_ttc", tile_template: "simple_percentage", data: {…}, meta: {…}, modified: "2019-08-21T19:39:45+02:00", tipboard: {…} }
+tipboard.js:183:21
+Update tile:  sp_ttc tipboard.js:621:17
+WARN: Not found node with id: #sp_ttc-title tipboard.js:612:29
+WARN: Not found node with id: #sp_ttc-subtitle tipboard.js:612:29
+WARN: Not found node with id: #sp_ttc-big_value tipboard.js:612:29
+WARN: Not found node with id: #sp_ttc-left_label tipboard.js:612:29
+WARN: Not found node with id: #sp_ttc-left_value tipboard.js:612:29
+WARN: Not found node with id: #sp_ttc-right_label tipboard.js:612:29
+WARN: Not found node with id: #sp_ttc-right_value tipboard.js:612:29
+expanding stopped - container has no elements 2 tipboard.js:370:25
+Web socket received data:
+Object { id: "pie_ex", tile_template: "pie_chart", data: {…}, meta: {}, modified: "2019-08-23T00:25:07+02:00", tipboard: {…} }
+tipboard.js:183:21
+Update tile:  pie_ex tipboard.js:621:17
+WARN: No key "description" in data
+Object { title: "My title", pie_data: (3) […] }
+tipboard.js:606:25
+Web socket received data:
+Object { id: "sp_coverage", tile_template: "simple_percentage", data: {…}, meta: {…}, modified: "2019-08-02T19:52:43+02:00", tipboard: {…} }
+tipboard.js:183:21
+Update tile:  sp_coverage tipboard.js:621:17
+WARN: Not found node with id: #sp_coverage-title tipboard.js:612:29
+WARN: Not found node with id: #sp_coverage-subtitle tipboard.js:612:29
+WARN: Not found node with id: #sp_coverage-big_value tipboard.js:612:29
+WARN: Not found node with id: #sp_coverage-right_value tipboard.js:612:29
+WARN: Not found node with id: #sp_coverage-right_label tipboard.js:612:29
+WARN: Not found node with id: #sp_coverage-left_label tipboard.js:612:29
+WARN: Not found node with id: #sp_coverage-left_value tipboard.js:612:29
+expanding stopped - container has no elements 2 tipboard.js:370:25
+Web socket received data:
+Object { id: "big_value", tile_template: "norm_chart", data: {…}, meta: {}, modified: "2019-08-23T00:17:25+02:00", tipboard: {…} }
+tipboard.js:183:21
+Update tile:  big_value tipboard.js:621:17
+WARN: Not found node with id: #big_value-title tipboard.js:612:29
+WARN: Not found node with id: #big_value-description tipboard.js:612:29
+expanding stopped - container has no elements 2 tipboard.js:370:25
+ERROR:  big_value Error: No plot target specified tipboard.js:634:21
+Web socket received data:
+Object { id: "cf_ex", tile_template: "cumulative_flow", data: {…}, meta: {}, modified: "2019-08-23T00:25:07+02:00", tipboard: {…} }
+tipboard.js:183:21
+Update tile:  cf_ex

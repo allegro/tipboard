@@ -5,75 +5,75 @@ layout:
         - col_1_of_4 flip-time-5:
             - tile_template: text
               tile_id: txt_ex
-              title: text exemple
+              title: text
               classes:
 
             - tile_template: pie_chart
               tile_id: pie_ex
-              title: pie_chart exemple
+              title: pie_chart
               classes:
 
         - col_1_of_4  flip-time-10:
             - tile_template: line_chart
               tile_id: line_ex
-              title: line_chart exemple
+              title: line_chart
               classes:
 
             - tile_template: cumulative_flow
               tile_id: cf_ex
-              title: cumul_flow exemple
+              title: cumul_flow
               classes:
 
         - col_1_of_4 flip-time-10:
             - tile_template: simple_percentage
               tile_id: sp_ex
-              title: simple_percentage exemple
+              title: percentage
               classes:
 
             - tile_template: listing
               tile_id: listing_ex
-              title: listing  exemple
+              title: listing
               classes:
 
         - col_1_of_4  flip-time-10:
             - tile_template: bar_chart
               tile_id: bar_ex
-              title: bar_chart exemple
+              title: bar_chart
               classes:
 
             - tile_template: fancy_listing
               tile_id: fancy_ex
-              title: fancyListing exemple
+              title: fancyListing
               classes:
 
     - row_1_of_2:
         - col_1_of_4:
             - tile_template: line_chartjs
               tile_id: line_charjs_ex
-              title: line_charjs
+              title: line_chartjs
+              classes:
+
+        - col_1_of_4:
+            - tile_template: pie_chartjs
+              tile_id: pie_charjs_ex
+              title: line_chartjs
               classes:
 
         - col_1_of_4 flip-time-10:
             - tile_template: just_value
               tile_id: jv_ex
-              title: just_value exemple
+              title: just_value
               classes:
 
             - tile_template: big_value
               tile_id: bv_ex
-              title: big_value exemple
+              title: big_value
               classes:
 
         - col_1_of_4:
             - tile_template: norm_chart
               tile_id: norm_ex
-              title: normchart exemple
-              classes:
-
-        - col_1_of_4:
-            - tile_template: empty
-              tile_id: empty_ex
-              title: empty exemple
+              title: normchart
               classes:
 
 

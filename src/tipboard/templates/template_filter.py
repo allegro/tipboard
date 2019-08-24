@@ -1,13 +1,13 @@
 from django import template
+from django.template.loader import render_to_string
 
 register = template.Library()
 
 ALLOWED_TILES = ["text", "pie_chart",  "line_chart", "cumulative_flow", "simple_percentage", "listing", "bar_chart",
                  "norm_chart", "fancy_listing", "big_value", "just_value", "advanced_plot",  "empty",   #jqplot
 
-                 "line_chartjs"]#chartjs
+                 "line_chartjs", "pie_chartjs"]#chartjs
 
-from django.template.loader import render_to_string
 
 @register.filter(name ="template_tile")
 def template_tile(tile_id, tile_data):
