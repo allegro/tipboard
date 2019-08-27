@@ -1,3 +1,5 @@
+import json
+from src.tipboard.app.applicationconfig import getRedisPrefix, getIsoTime
 
 def getFakeText(tile_id, template_name):
     pass
@@ -5,43 +7,54 @@ def getFakeText(tile_id, template_name):
 
 def getFakePieChart(tile_id, template_name):
     return {
+          "id": tile_id,
           "tile_template": template_name,
-          "meta": {
-            "big_value_color": "#4CAF50",
-            "fading_background": False
-          },
           "data": {
-            "title": "My title",
-            "pie_data": [["Pie 1", 25],
-                         ["Pie 2", 25],
-                         ["Pie 3", 50]]
-            },
-          "modified": "2019-08-01T15:17:01+02:00",
-          "id": tile_id
+            "title": tile_id,
+            "label": "Label",
+            "pie_data_tag": ["Pie 1", "Pie 2", "Pie 3"],
+            "pie_data_value": [50, 25, 25]
+          },
+          "meta": {
+              'backgroundColor': ["#3e95cd", "#8e5ea2", "#3cba9f"],
+              'options': {
+                  'title': {
+                      'displayTitle': True,
+                      'text': "Mon Titre"
+                  }
+              }
+          },
+          "modified": getIsoTime()
         }
+
 
 def getFakeLineChart(tile_id, template_name):
     return {
+          "id": tile_id,
           "tile_template": template_name,
-          "meta": {
-            "big_value_color": "#4CAF50",
-            "fading_background": False
-          },
           "data": {
-            "title": "title",
-            "description": "description",
-            "big-value": 42,
-            "upper-left-label": "up-left-label",
-            "upper-left-value": 4,
-            "lower-left-label": "low-left-label",
-            "lower-left-value": 2,
-            "upper-right-label": "up-right-label",
-            "upper-right-value": 24,
-            "lower-right-label": "low-right-label",
-            "lower-right-value": 4242
+            "labels": ["label1", "label2", "label3", "label4", "label5"],
+            "label": "# Velocity of squad",
+            "data": [12, 19, 3]
           },
-          "modified": "2019-08-01T15:17:01+02:00",
-          "id": tile_id
+          "meta": {
+            'backgroundColor': ["#3e95cd", "#8e5ea2", "#3cba9f"],
+            'options': {
+               'legend': {'display': False },
+               'title': {
+                   'display': True,
+                   'text': 'Predicted world population (millions) in 2050'
+                },
+                'scales': {
+                    'yAxes': [{
+                        'ticks': {
+                            'beginAtZero': True
+                        }
+                    }]
+                }
+            }
+          },
+          "modified": getIsoTime()
         }
 
 
@@ -85,7 +98,7 @@ def getFakeBigValue(tile_id, template_name):
             "lower-right-label": "low-right-label",
             "lower-right-value": 4242
           },
-          "modified": "2019-08-01T15:17:01+02:00",
+          "modified": getIsoTime(),
           "id": tile_id
         }
 
@@ -102,7 +115,7 @@ def getFakeNormChart(tile_id, template_name):
     pass
 
 
-def buildFakeDataFromTemplate(tile_id, template_name):
+def buildFakeDataFromTemplate(tile_id, template_name, cache):
     print(f"Building fake data for {tile_id} as template: {template_name}")
     data = dict()
     if template_name == "text":
@@ -145,4 +158,5 @@ def buildFakeDataFromTemplate(tile_id, template_name):
                 "text":"text"
             }
         }
+    cache.redis.set(name=getRedisPrefix(tile_id), value=json.dumps(data))
     return data

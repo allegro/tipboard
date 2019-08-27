@@ -3,30 +3,30 @@
 {% load template_filter %}
 
 {% block put_body %}
-<body style="background-color: #1c1d1f;">
+    <div class=".container-fluid" style="height: 100vh; background-color: #1c1d1f;">
+        {% for rows in layout %}
+            {% for row, value in rows.items %}
 
-    {% for rows in layout %}
-        {% for row, value in rows.items %}
+                <div class="row" id="{{ row }}" style="height: 50%;width: 100%;">
+                    {% for col in value %}
+                        {% for keyCol, valueCol in col.items %}
+                            <div class="col" id="{{ keyCol }}">
+                                {% for colData in valueCol %}
+                                    {{ colData.tile_id|template_tile:colData }} <!-- get Template from tile in template filter-->
+{#                                    <input id='{{ colData.tile_id }}-lastModified' type="hidden" name="modified" value="">#}
+{#                                    <input id='{{ colData.tile_id }}-timeout' type="hidden" name="timeout" value="">#}
+                                {% endfor %}
+                            </div>
 
-            <div class="row {{ row }}">
-                {% for col in value %}
-
-                    {% for keyCol, valueCol in col.items %}
-                        <div class="col {{ keyCol }}">
-                            {% for colData in valueCol %}
-                                {{ colData.tile_id|template_tile:colData }} <!-- get Template from tile in template filter-->
-                                <input id='{{ colData.tile_id }}-lastModified' type="hidden" name="modified" value="">
-                                <input id='{{ colData.tile_id }}-timeout' type="hidden" name="timeout" value="">
-                            {% endfor %}
-                        </div>
+                        {% endfor %}
 
                     {% endfor %}
+                </div>
+            {% endfor %}
 
-                {% endfor %}
-            </div>
         {% endfor %}
 
-    {% endfor %}
+    </div>
 {% endblock %}
 
 

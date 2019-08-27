@@ -12,12 +12,17 @@ from src.sensors.sensors8_fancylisting import sonde8
 from src.sensors.sensors9_bigvalue import sonde9
 from src.sensors.sensors10_justvalue import sonde10
 from src.sensors.sensors11_advancedplot import sonde11
+from src.sensors.sensorsjs2_piechart import sonde2
 from src.sensors.sensors12_normchart import sonde12
 from src.sensors.utils import end
 
+
+
 def startUp():
-    sonde1()
     sonde2()
+    import sys
+    sys.exit()
+    sonde1()
     sonde3()
     sonde4()
     sonde5()

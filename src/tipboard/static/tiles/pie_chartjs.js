@@ -1,31 +1,20 @@
-
-    // update setDataByKeys => 'subtitle', 'description'
-    // config creation
-    // renderersSwapper.swap(meta);
-    // init graph color
-    // update actual data of tile
 function updateTilePiejs(tileId, data, meta, tipboard) {
     console.log("pie_chartjs::updateTile::start" + tileId);
     var ctx = $('#' + tileId + "-chart");
-    var myChart = new Chart(ctx, {
+    console.log(data);
+    new Chart(ctx, {
         type: 'pie',
         data: {
-            labels: ["Pie1", "Pie2", "Pie3",],
+            labels: data['pie_data_tag'],
             datasets: [{
-                label: "Population (millions)",
-                backgroundColor: ["#3e95cd", "#8e5ea2", "#3cba9f",],
-                data: [50, 25, 25]
+                label: data['label'],
+                backgroundColor: meta['backgroundColor'],
+                data: data['pie_data_value']
             }]
         },
-        options: {
-            title: {
-                display: true,
-                text: 'My Title'
-            }
-        }
+        options: meta['options']
     });
-    console.log("pie_chartjs::updateTile" + tileId);
+    console.log("pie_chartjs::updateTile end" + tileId);
 }
 
 Tipboard.Dashboard.registerUpdateFunction('pie_chartjs', updateTilePiejs);
-

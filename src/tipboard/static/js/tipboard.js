@@ -1,54 +1,17 @@
 /**
- * Render Factory to deliver Jqplot object regarding the tile needs
+ * Render Factory to deliver Jqplot(not anymore ><') object regarding the tile needs
  * @constructor
  */
 function RendererFactory() {
 }
-
-// Define a dict to list all chart available in jqplot
-RendererFactory.prototype.rendererName2renderObj = {
-    // core renderer
-    "axistickrenderer": $.jqplot.AxisTickRenderer,
-    "canvasgridrenderer": $.jqplot.CanvasGridRenderer,
-    "divtitlerenderer": $.jqplot.DivTitleRenderer,
-    "linearaxisrenderer": $.jqplot.LinearAxisRenderer,
-    "markerrenderer": $.jqplot.MarkerRenderer,
-    "shaperenderer": $.jqplot.ShapeRenderer,
-    "shadowrenderer": $.jqplot.ShadowRenderer,
-    "linerenderer": $.jqplot.LineRenderer,
-    "axislabelrenderer": $.jqplot.AxisLabelRenderer,
-    // plugins
-    "barrenderer": $.jqplot.BarRenderer,
-    "blockrenderer": $.jqplot.BlockRenderer,
-    "bubblerenderer": $.jqplot.BubbleRenderer,
-    "canvasaxislabelrenderer": $.jqplot.CanvasAxisLabelRenderer,
-    "canvasaxistickrenderer": $.jqplot.CanvasAxisTickRenderer,
-    "categoryaxisrenderer": $.jqplot.CategoryAxisRenderer,
-    "dateaxisrenderer": $.jqplot.DateAxisRenderer,
-    "donutrenderer": $.jqplot.DonutRenderer,
-    "enhancedlegendrenderer": $.jqplot.EnhancedLegendRenderer,
-    "funnelrenderer": $.jqplot.FunnelRenderer,
-    "logaxisrenderer": $.jqplot.LogAxisRenderer,
-    "mekkoaxisrenderer": $.jqplot.MekkoAxisRenderer,
-    "mekkorenderer": $.jqplot.MekkoRenderer,
-    "metergaugerenderer": $.jqplot.MeterGaugeRenderer,
-    "ohlcrenderer": $.jqplot.OHLCRenderer,
-    "pierenderer": $.jqplot.PieRenderer,
-    // others
-    "canvastextrenderer": $.jqplot.CanvasTextRenderer,
-    "donutlegendrenderer": $.jqplot.DonutLegendRenderer,
-    "pyramidaxisrenderer": $.jqplot.PyramidAxisRenderer,
-    "pyramidgridrenderer": $.jqplot.PyramidGridRenderer,
-    "pyramidrenderer": $.jqplot.PyramidRenderer
-};
 // Define a ptr to function, based on rendererName2renderObj, if undefined throw UnknownRenderer
 RendererFactory.prototype.createRenderer = function (rendererName) {
     var lower = rendererName.toLowerCase();
-    var rendererClass = RendererFactory.prototype.rendererName2renderObj[lower];
-    if (typeof (rendererClass) === 'undefined') {
+    // var rendererClass = RendererFactory.prototype.rendererName2renderObj[lower];
+    // if (typeof (rendererClass) === 'undefined') {
         throw new RendererFactory.prototype.UnknownRenderer(rendererName);
-    }
-    return rendererClass;
+//    }
+  //  return rendererClass;
 };
 // Definition of the Exception UnknownRenderer
 var UnknownRenderer = function (rendererName) {
@@ -401,7 +364,8 @@ function initConfDisplayUtils() {
         createGraph: function (tileId, plotData, config) {
             var containerId, plot;
             containerId = tileId + '-chart';
-            plot = $.jqplot(containerId, plotData, config);
+            plot = "NO TILES RENDERER FOUND";// $.qjplot(containerId, plotData, config);
+            console.log('FAKE: createGraph for:' + tileId);
             Tipboard.Dashboard.chartsIds[tileId] = plot;
         },
 
@@ -587,8 +551,7 @@ function initDashboard(Tipboard) {
 
     Tipboard.Dashboard.setDataByKeys = function (tileId, dataToPut, keysToUse) {
         /*
-        *keysToUse*: list of keys, or string 'all', if 'all' then all keys
-            used from *dataToPut*
+        *keysToUse*: list of keys, or string 'all', if 'all' then all keys used from *dataToPut*
         */
         if (keysToUse === 'all') {
             var allKeys = [];
@@ -599,7 +562,7 @@ function initDashboard(Tipboard) {
         $.each(keysToUse, function (idx, key) {
             var value = dataToPut[key];
             if (typeof (value) === 'undefined') {
-                var msg = 'WARN: No key "' + key + '" in data'
+                var msg = 'WARN: No key "' + key + '" in data';
                 console.log(msg, dataToPut);
             } else {
                 var dstId = '#' + tileId + '-' + key;
@@ -757,7 +720,6 @@ function initDashboard(Tipboard) {
 
     $(document).ready(function () {
         console.log('Tipboard starting');
-        $.jqplot.config.enablePlugins = true;
         // resize events
         $(window).bind("resize fullscreen-off", function () {
             Tipboard.DisplayUtils.resizeWindowEvent();
