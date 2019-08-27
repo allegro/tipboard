@@ -31,7 +31,7 @@ table {
 
 .tile {
     border-radius: 4%;
-    background-color: #25282d;
+    background-color: #212121;
     height: 98%;
     position: absolute;
     overflow: hidden;

@@ -1,14 +1,11 @@
-.listing {
+.list-group {
+    background: #333333;
     padding-top: 0.5em;
+
     padding-left: 0;
 }
 
-.listing li {
-    font-size: 4rem;
-    margin-bottom: 0.2em;
-}
-
-.listing li span {
+.list-group li span {
     padding-left: 0.2em;
 }
 

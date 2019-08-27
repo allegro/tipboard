@@ -256,7 +256,7 @@ function initConfDisplayUtils() {
         pallet: {
             'black': '#000000',
             'white': '#FFFFFF',
-            'tile_background': '#25282d',
+            'tile_background': '#212121',
             'red': '#DC5945',
             'yellow': '#FF9618',
             'green': '#94C140',
