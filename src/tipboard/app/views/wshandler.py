@@ -50,8 +50,7 @@ class ChatConsumer(WebsocketConsumer):
                 return
             if LOG:
                 print(f'{getTimeStr()} (-) Generating fake data for {tile_id}.', flush=True)
-            data = buildFakeDataFromTemplate(tile_id, template_name)
-            cache.redis.set(name=getRedisPrefix(tile_id), value=json.dumps(data))
+            data = buildFakeDataFromTemplate(tile_id, template_name, cache)
         else:
             data = json.loads(tileData)
         if type(data) is str:
@@ -72,3 +71,4 @@ class ChatConsumer(WebsocketConsumer):
             data = json.loads(data)
         data['tipboard'] = tipboard_helpers
         self.send(text_data=json.dumps(data))
+
