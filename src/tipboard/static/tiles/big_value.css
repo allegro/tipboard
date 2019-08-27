@@ -31,7 +31,7 @@
 }
 
 .tile.big_value_tile > .tile-content > .result-row > .result-half-col > .result {
-    font-size: 2.0rem;
+    font-size: 1.0rem;
     height: 15%;
     overflow: hidden;
     text-overflow: ellipsis;

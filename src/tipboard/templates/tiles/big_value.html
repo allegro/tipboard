@@ -2,34 +2,35 @@
     <div class="tile-header">
         <h3 >{{ title }}</h3>
     </div>
-    <div class="tile-content">
-        <h2 id="{{ tile_id }}-title" class="result big-result fixed-height"></h2>
-        <h3 id="{{ tile_id }}-description" class="result label fixed-height"
-        ></h3>
-        <div class="result big-value-container">
-          <span id="{{ tile_id }}-big-value" class="big-value"></span>
+    <div class="container" style="height: 100%;">
+        <div class="row" id="header_bv" style="height: 25%; background-color: #388E3C">
+            <h4 id="{{ tile_id }}-title" style="text-align: center; width: 100%; top:1%" ></h4>
+            <h4 id="{{ tile_id }}-description" style="text-align: center; width: 100%;bottom:1%"></h4>
         </div>
-        <div class="result-row">
-            <div class="result-half-col">
-              <div class="result">
-                <span id="{{ tile_id }}-upper-left-label" class="label"></span>
-                <span id="{{ tile_id }}-upper-left-value"></span>
-              </div>
-              <div class="result">
-                <span id="{{ tile_id}}-lower-left-label" class="label"></span>
-                <span id="{{ tile_id}}-lower-left-value"></span>
-              </div>
-            </div>
-            <div class="result-half-col">
-              <div class="result">
-                <span id="{{ tile_id }}-upper-right-label" class="label"></span>
-                <span id="{{ tile_id }}-upper-right-value"></span>
-              </div>
-              <div class="result">
-                <span id="{{ tile_id }}-lower-right-label" class="label"></span>
-                <span id="{{ tile_id }}-lower-right-value"></span>
-              </div>
-            </div>
+
+        <div class="row" id="body_bv" style="height: 45%; background-color: orange">
+            <h1 class="display-1" style="width: 100%; text-align: center" id="{{ tile_id }}-big-value"></h1>
+        </div >
+
+        <div class="row" id="bottom_bv" style="height: 30%; background-color: blue">
+          <div class="container" style="height: 100%">
+                <div class="row p-1" style="height: 100%">
+                  <div class="col-6" style="height: 100%">
+                    <span id="{{ tile_id }}-upper-left-label" class="label"></span>
+                    <span id="{{ tile_id }}-upper-left-value"></span>
+                    <span id="{{ tile_id}}-lower-left-label" class="label"></span>
+                    <span id="{{ tile_id}}-lower-left-value"></span>
+                  </div>
+
+                  <div class="col-6" style="height: 100%">
+                    <span id="{{ tile_id }}-upper-right-label"></span>
+                    <span id="{{ tile_id }}-upper-right-value"></span>
+                    <span id="{{ tile_id }}-lower-right-label"></span>
+                    <span id="{{ tile_id }}-lower-right-value"></span>
+                  </div>
+                </div>
+          </div>
         </div>
+
     </div>
 </div>
