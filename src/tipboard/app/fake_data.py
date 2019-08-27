@@ -71,7 +71,33 @@ def getFakeListing(tile_id, template_name):
 
 
 def getFakeBarChart(tile_id, template_name):
-    pass
+    return {
+          "id": tile_id,
+          "tile_template": template_name,
+          "data": {
+            "labels": ["label1", "label2", "label3", "label4", "label5"],
+            "label": "# Velocity of squad",
+            "data": [12, 19, 3]
+          },
+          "meta": {
+            'backgroundColor': ["#3e95cd", "#8e5ea2", "#3cba9f"],
+            'options': {
+               'legend': {'display': False },
+               'title': {
+                   'display': True,
+                   'text': 'Predicted world population (millions) in 2050'
+                },
+                'scales': {
+                    'yAxes': [{
+                        'ticks': {
+                            'beginAtZero': True
+                        }
+                    }]
+                }
+            }
+          },
+          "modified": getIsoTime()
+        }
 
 
 def getFakeFancyListing(tile_id, template_name):
@@ -130,7 +156,7 @@ def buildFakeDataFromTemplate(tile_id, template_name, cache):
         data = getFakeSimplePercentg(tile_id, template_name)
     elif template_name == "listing":
         data = getFakeListing(tile_id, template_name)
-    elif template_name == "bar_chart":
+    elif template_name == "bar_chart" or template_name == "bar_chartjs":
         data = getFakeBarChart(tile_id, template_name)
     elif template_name == "norm_chart":
         data = getFakeNormChart(tile_id, template_name)

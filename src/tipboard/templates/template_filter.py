@@ -13,7 +13,7 @@ def template_tile(tile_id, tile_data):
     :param tile_data:
     :return:
     """
-    #print(f"Template filter: returning: template for {tile_data['tile_template']}")
+    print(f"Template filter: returning: template for {tile_data['tile_template']}")
 
     if type(tile_data) is dict and tile_data['tile_template'] in ALLOWED_TILES:
         template_generated = render_to_string(f"tiles/{tile_data['tile_template']}.html",
@@ -21,4 +21,6 @@ def template_tile(tile_id, tile_data):
     else:
         template_generated = render_to_string(f"tiles/notfound_tiles.html",
                                               {'tile_id': tile_id, "template": tile_data['tile_template']})
+    if tile_data['tile_template'] == "bar_chartjs":
+        print(template_generated)
     return template_generated
