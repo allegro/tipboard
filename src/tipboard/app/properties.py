@@ -1,9 +1,20 @@
 import json, os
 
 dir_path = os.path.dirname(os.path.realpath(__file__))
+
+# Location of Tipboard sources
+TIPBOARD_PATH = os.path.dirname(__file__)
+
+FROM_PIP = 'src.'
+
+# Path of Config directory
+user_config_dir = dir_path + '/Config/'
+
+# Determine which layout config should be used by default
+LAYOUT_CONFIG = os.path.join(user_config_dir, 'layout_config.yaml')
+
 conf = json.load(open(dir_path + '/Config/properties.json'))
 
-FORMAT_SIMPLE_DATE = '%Y-%m-%d'
 API_VERSION = conf['API_VERSION']
 API_KEY = conf['TIPBOARD_TOKEN']
 PROJECT_NAME = conf['PROJECT_NAME']
@@ -21,11 +32,27 @@ REDIS_PORT = conf['REDIS_PORT']
 REDIS_PASSWORD = conf['REDIS_PASSWORD']
 REDIS_DB = conf['REDIS_DB']
 
-# Location of Tipboard sources
-TIPBOARD_PATH = os.path.dirname(__file__)
+ALLOWED_TILES = ["text", "fancy_listing", "simple_percentage", "listing", "big_value", "just_value", #Homemade
+                 "norm_chart", "pie_chart", "line_chart", "cumulative_flow", "advanced_plot", "bar_chart", #jqplot lib
+                 "empty",
+                 "norm_chartjs","pie_chartjs", "line_chartjs",
+                 "cumulative_flowjs","advanced_plotjs", "bar_chartjs"] #chartjs lib
+
+
+TIPBOARD_CSS_STYLES = [
+    'css/layout.css',
+]
+TIPBOARD_JAVASCRIPTS = [
+    'js/tipboard.js',
+]
 
 # Javascript log level ('1' for 'standard', '2' for 'debug')
 JS_LOG_LEVEL = 2
+
+# how many seconds dashboard is displayed before is flipped
+FLIPBOARD_INTERVAL = 0
+# file name(s) of EXISTING layouts without extension, eg. ['layout_config']
+FLIPBOARD_SEQUENCE = []
 
 # Our default color palette
 COLORS = {
@@ -40,30 +67,3 @@ COLORS = {
     'orange':           '#ff6d00',
     'naval':            '#00bfa5',
 }
-
-# how many seconds dashboard is displayed before is flipped
-FLIPBOARD_INTERVAL = 0
-# file name(s) of EXISTING layouts without extension, eg. ['layout_config']
-FLIPBOARD_SEQUENCE = []
-
-
-TIPBOARD_CSS_STYLES = [
-    'css/layout.css',
-]
-TIPBOARD_JAVASCRIPTS = [
-    'js/tipboard.js',
-]
-
-FROM_PIP = 'src.'
-#FROM_PIP = ''
-
-#Tu dois faire la diff des path quand
-# * dans pip
-# * dans docker
-# * dans bash
-
-# Determine which layout config should be used
-user_config_dir = dir_path + '/Config/'
-
-LAYOUT_CONFIG = os.path.join(user_config_dir, 'layout_config.yaml')
-

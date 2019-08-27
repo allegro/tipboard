@@ -18,6 +18,7 @@
 * [ ] Update the user doc for /update
 * [ ] Review the code
 * [ ] Fix Badge status in Readme.md
+* [ ] Write script to put in production ready mode (minify JS, debug=False, etc)
 
 
 #### Optional

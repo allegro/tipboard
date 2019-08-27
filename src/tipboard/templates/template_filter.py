@@ -1,13 +1,9 @@
 from django import template
 from django.template.loader import render_to_string
-
+from src.tipboard.app.properties import ALLOWED_TILES
 register = template.Library()
 
-ALLOWED_TILES = ["text", "pie_chart",  "line_chart", "cumulative_flow", "simple_percentage", "listing", "bar_chart",
-                 "norm_chart", "fancy_listing", "big_value", "just_value", "advanced_plot",  "empty",   #jqplot
-
-                 "line_chartjs", "pie_chartjs"]#chartjs
-
+# Tu test la tile bar_chartjs
 
 @register.filter(name ="template_tile")
 def template_tile(tile_id, tile_data):
@@ -22,7 +18,7 @@ def template_tile(tile_id, tile_data):
     if type(tile_data) is dict and tile_data['tile_template'] in ALLOWED_TILES:
         template_generated = render_to_string(f"tiles/{tile_data['tile_template']}.html",
                                               {'tile_id': tile_id, "title": tile_data['title']})
-        #print(template_generated)
-        return template_generated
-    #print(f"Nothing")
-    return ""
+    else:
+        template_generated = render_to_string(f"tiles/notfound_tiles.html",
+                                              {'tile_id': tile_id, "template": tile_data['tile_template']})
+    return template_generated
