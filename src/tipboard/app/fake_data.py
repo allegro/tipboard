@@ -12,8 +12,8 @@ def getFakePieChart(tile_id, template_name):
           "data": {
             "title": tile_id,
             "label": "Label",
-            "pie_data_tag": ["Pie 1", "Pie 2", "Pie 3"],
-            "pie_data_value": [50, 25, 25]
+            "pie_data_tag": ["Approved", "Pending", "Denied"],
+            "pie_data_value": [55, 12, 33]
           },
           "meta": {
               'backgroundColor': ["#3e95cd", "#72bf44", "#8e5ea2"]
@@ -74,21 +74,20 @@ def getFakeCumulFlow(tile_id, template_name):
           "data": {
             "labels": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
             "datasets": [{
-                'data': [0, 2, 0, 1, 1, 1, 2, 2, 1, 1],
+                'data': [0, 2, 0.5, 1, 1, 1, 2, 2, 1, 1],
                 'label': "label1",
                 'borderColor': "#3e95cd",
                 'fill': True,
-                'backgroundColor': "#3e95cd"
+                'backgroundColor': "rgba(62, 149, 205, 0.8)"
             }, {
-                'data': [0, 5, 0, 0, 1, 0, 0, 3, 0, 0],
+                'data': [0, 4, 0, 0, 1, 0, 0, 3, 0, 0],
                 'label': "label2",
                 'borderColor': "#72bf44",
                 'fill': True,
-                'backgroundColor': "#72bf44"
+                'backgroundColor': "rgba(114, 191, 68, 0.8)"
             }]
           },
           "meta": {
-            'backgroundColor': ["#3e95cd", "#8e5ea2", "#3cba9f"],
             'options': {
                 'elements': {
                     'line': {
@@ -118,17 +117,16 @@ def getFakeBarChart(tile_id, template_name):
           "id": tile_id,
           "tile_template": template_name,
           "data": {
-            "labels": ["label1", "label2", "label3", "label4", "label5"],
-            "label": "# Velocity of squad",
+            "labels": ["Last(n)", "n-1", "n-2",],
             "data": [12, 19, 3]
           },
           "meta": {
             'backgroundColor': ["#3e95cd", "#8e5ea2", "#3cba9f"],
             'options': {
-               'legend': {'display': False },
+               'legend': {'display': False},
                'title': {
                    'display': True,
-                   'text': 'Predicted world population (millions) in 2050'
+                   'text': '# Velocity of squad'
                 },
                 'scales': {
                     'yAxes': [{
@@ -185,25 +183,25 @@ def getFakeNormChart(tile_id, template_name):
           "id": tile_id,
           "tile_template": template_name,
           "data": {
-            "labels": [1500, 1600, 1700, 1750, 1800, 1850, 1900, 1950, 1999, 2050],
+            "labels": [1, 3, 5, 7, 9, 11],
             "datasets": [{
-                'data': [86, 114, 106, 106, 107, 111, 133, 221, 783, 2478],
-                'label': "Africa",
+                'data': [2, 5, 13, 33, 85, 100],
+                'label': "SERIES 2",
                 'borderColor': "#3e95cd",
                 'fill': False
             }, {
-                'data': [282, 350, 411, 502, 635, 809, 947, 1402, 3700, 5267],
-                'label': "Asia",
+                'data': [2, 8, 16, 35, 80, 110],
+                'label': "SERIES 1",
                 'borderColor': "#8e5ea2",
                 'fill': False
             }]
           },
           "meta": {
-            'backgroundColor': ["#3e95cd", "#8e5ea2", "#3cba9f"],
+            'backgroundColor': ["#3e95cd", "#8e5ea2",],
             'options': {
                 'title': {
                     'display': True,
-                    'text': 'World population per region (in millions)'
+                    'text': 'Curve Comparaison'
                 }
             }
           },

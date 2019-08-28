@@ -6,25 +6,25 @@ layout:
         - col_1_of_4:
             - tile_template: pie_chartjs
               tile_id: pie_chartjs_ex
-              title: pie_chartjs
+              title: pie chart
               classes:
 
         - col_1_of_4:
             - tile_template: cumulative_flowjs
               tile_id: cfjs_ex
-              title: cumul_flow exemple
+              title: cumulflow
               classes:
 
         - col_1_of_4:
             - tile_template: simple_percentage
               tile_id: sp_ex
-              title: percentage
+              title: Percentage
               classes:
 
         - col_1_of_4:
             - tile_template: bar_chartjs
               tile_id: barjs_ex
-              title: barjs_chart
+              title: bar tile's
               classes:
 
 
@@ -32,25 +32,25 @@ layout:
         - col_1_of_4:
             - tile_template: line_chartjs
               tile_id: line_chartjs_ex
-              title: line_chartjs
+              title: line tile's
               classes:
 
         - col_1_of_4:
             - tile_template: just_value
               tile_id: jv_ex
-              title: just_value
+              title: Just value
               classes:
 
         - col_1_of_4:
             - tile_template: big_value
               tile_id: bv_ex
-              title: big_value
+              title: Big value
               classes:
 
         - col_1_of_4:
             - tile_template: norm_chartjs
               tile_id: normjs_ex
-              title: normchartjs ex
+              title: norm tile's
               classes:
 
 #        - col_1_of_4:
