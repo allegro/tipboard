@@ -2,17 +2,21 @@
     <div class="tile-header">
         <h3 >{{ title }}</h3>
     </div>
-    <div class="container" style="height: 100%;">
-        <div class="row" id="header_bv" style="height: 25%; background-color: #388E3C">
+    <div class=".container" style="height: 100%;">
+        <div class=".row" id="header_bv" style="height: 25%; background-color: #388E3C">
             <h4 id="{{ tile_id }}-title" style="text-align: center; width: 100%; top:1%" ></h4>
             <h4 id="{{ tile_id }}-description" style="text-align: center; width: 100%;bottom:1%"></h4>
         </div>
 
-        <div class="row" id="body_bv" style="height: 45%; background-color: orange">
-            <h1 class="display-1" style="width: 100%; text-align: center" id="{{ tile_id }}-big-value"></h1>
-        </div >
+        <div class=".row" id="body_bv" style="height: 45%;background: #ed1c24;display: flex;align-items: center;justify-content: center">
+            <div class="row h-100 w-100">
+                <div class="col-md-12 my-auto" style="background: #e9ed3c;justify-content: center">
+                    <p class="h1 display-1" id="{{ tile_id }}-big-value" style="width: 100%;text-align: center"> </p>
+                </div>
+            </div>
+        </div>
 
-        <div class="row" id="bottom_bv" style="height: 30%; background-color: blue">
+        <div class=".row" id="bottom_bv" style="height: 30%; background-color: blue">
           <div class="container" style="height: 100%">
                 <div class="row p-1" style="height: 100%">
                   <div class="col-6" style="height: 100%">

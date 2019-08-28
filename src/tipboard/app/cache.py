@@ -38,8 +38,8 @@ class MyCache:
         return False
 
     def get(self, tile_id):
-        if LOG:
-            print(f"cache.get({tile_id})", flush=True)
+        # if LOG:
+        #     print(f"cache.get({tile_id})", flush=True)
         prefix = tile_id
         if self.redis.exists(prefix):
             return json.dumps(self.redis.get(prefix))

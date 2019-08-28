@@ -2,11 +2,6 @@ details:
     page_title: Tipboard exemple
 layout:
     - row_1_of_2:
-#        - col_1_of_4:
-#            - tile_template: text
-#              tile_id: txt_ex
-#              title: text
-#              classes:
 
         - col_1_of_4:
             - tile_template: pie_chartjs
@@ -15,9 +10,9 @@ layout:
               classes:
 
         - col_1_of_4:
-            - tile_template: cumulative_flow
-              tile_id: cf_ex
-              title: cumul_flow
+            - tile_template: cumulative_flowjs
+              tile_id: cfjs_ex
+              title: cumul_flow exemple
               classes:
 
         - col_1_of_4:
@@ -26,21 +21,12 @@ layout:
               title: percentage
               classes:
 
-#            - tile_template: listing
-#              tile_id: listing_ex
-#              title: listing
-#              classes:
-
         - col_1_of_4:
             - tile_template: bar_chartjs
               tile_id: barjs_ex
               title: barjs_chart
               classes:
 
-#            - tile_template: fancy_listing   Hided cause of flip bug, but need to keep update tile and test it
-#              tile_id: fancy_ex
-#              title: fancyListing
-#              classes:
 
     - row_1_of_2:
         - col_1_of_4:
@@ -62,7 +48,23 @@ layout:
               classes:
 
         - col_1_of_4:
-            - tile_template: norm_chart
-              tile_id: norm_ex
-              title: normchart
+            - tile_template: norm_chartjs
+              tile_id: normjs_ex
+              title: normchartjs ex
               classes:
+
+#        - col_1_of_4:
+#            - tile_template: text
+#              tile_id: txt_ex
+#              title: text
+#              classes:
+
+#            - tile_template: listing
+#              tile_id: listing_ex
+#              title: listing
+#              classes:
+
+#            - tile_template: fancy_listing   Hided cause of flip bug, but need to keep update tile and test it
+#              tile_id: fancy_ex
+#              title: fancyListing
+#              classes:

@@ -3,7 +3,7 @@ function updateBarChartjs(tileId, data, meta, tipboard) {
     console.log("bar_chartjs::updateTile::start" + tileId);
     var ctx = $('#' + tileId + "-chart");
     new Chart(ctx, {
-            type: 'bar',
+            type: 'horizontalBar',
             data: {
                 labels: data['labels'],
                 datasets: [{

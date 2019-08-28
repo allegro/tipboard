@@ -12,7 +12,28 @@ function updateTilePiejs(tileId, data, meta, tipboard) {
                 data: data['pie_data_value']
             }]
         },
-        options: meta['options']
+        options: {
+            tooltips: {
+                enabled: false
+            },
+            plugins: {
+                labels: {
+                    fontColor: '#fff',
+                },
+                datalabels: {
+                    formatter: (value, ctx) => {
+                        let sum = 0;
+                        console.log('I format');
+                        let dataArr = ctx.chart.data.datasets[0].data;
+                        dataArr.map(data => {
+                            sum += data;
+                        });
+                        let percentage = (value * 100 / sum).toFixed(2) + "%";
+                        return percentage;
+                    },
+                }
+            },
+        }
     });
     console.log("pie_chartjs::updateTile end" + tileId);
 }

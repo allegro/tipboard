@@ -128,8 +128,6 @@ function getFlipTime(node) {
     return flipTime;
 }
 
-//TODO: tu devras ajouter tout les nouveaux .js(ceux couper) là ou tu a import tipboard.js
-
 /**
  *
  * @returns WebSocketManager

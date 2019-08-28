@@ -30,9 +30,9 @@ table {
 ------------------------------------------------------------------------------------------------------------- */
 
 .tile {
-    border-radius: 4%;
-    background-color: #212121;
-    height: 98%;
+    background-color: #313131;
+    height: 100%;
+    width: 100%;
     position: absolute;
     overflow: hidden;
 }
@@ -96,18 +96,6 @@ table {
     color: #DC5945;
 }
 
-.round-legend .jqplot-table-legend {
-    padding-right: 5px;
-}
-
-.round-legend span.jqplot-data-label {
-    font-size: 1.7em;
-}
-
-.round-legend .jqplot-table-legend-swatch {
-    -moz-border-radius: 50%;
-    border-radius: 50%;
-}
 /*  ---------------------------------------------------------------------------------------------------------
     TILES
 ------------------------------------------------------------------------------------------------------------- */
@@ -272,28 +260,4 @@ iframe {
     font-weight: normal;
     font-style: normal;
 
-}
-
-.jqplot-point-label {
-  color: white;
-  font: 14px/1 'misolight',"Trebuchet MS", Arial, sans-serif;
-}
-
-.jqplot-data-label {
-  color: white;
-  font: 14px/1 'misolight',"Trebuchet MS", Arial, sans-serif;
-}
-
-.jqplot-table-legend {
-    font: 14px/1 'misolight',"Trebuchet MS", Arial, sans-serif;
-    text-transform: uppercase;
-    background: #25282D;
-}
-
-div.jqplot-table-legend-swatch-outline {
-    border: 0 none;
-}
-
-.jqplot-axis {
-    font: 14px/1 'misolight',"Trebuchet MS", Arial, sans-serif;
 }
