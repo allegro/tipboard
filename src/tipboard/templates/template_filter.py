@@ -13,7 +13,6 @@ def template_tile(tile_id, tile_data):
     :param tile_data:
     :return:
     """
-    # print(f"Template filter: returning: template for {tile_data['tile_template']}")
     data = {'tile_id': tile_id, "title": tile_data['title'], 'tile_template': tile_data['tile_template']}
     if type(tile_data) is dict and tile_data['tile_template'] in ALLOWED_TILES:
         try:
@@ -22,4 +21,3 @@ def template_tile(tile_id, tile_data):
             data['error'] = f'{e}'
             return render_to_string(f"tiles/error_buildingtiles.html", data)
     return render_to_string(f"tiles/notfound_tiles.html", data)
-#Tu dois faire le template error_generating a base de not found

@@ -10,7 +10,7 @@ from src.tipboard.app.views.dashboard import dashboardRendererHandler, getDashbo
 favicon_view = RedirectView.as_view(url="/static/" + 'favicon.ico', permanent=True)
 
 url_tiledata = r'^api/tiledata/([a-zA-Z0-9_-]+)$'
-url_meta = r'^api/tiledata/([a-zA-Z0-9_-]+)$'
+url_meta = r'^api/tileconfig/([a-zA-Z0-9_-]+)$'
 url_info = r'^api/info$'
 url_push = r'^api/push$'
 url_update = r'^api/update$'
@@ -20,7 +20,7 @@ url_tiledata_unsecured = r'^api/' + API_VERSION + '/' + API_KEY + '/tileconfig/(
 url_meta_unsecured = r'^api/' + API_VERSION + '/' + API_KEY + '/tileconfig/([a-zA-Z0-9_-]+)$'
 url_push_unsecured = r'^api/' + API_VERSION + '/' + API_KEY + '/push$'
 url_update_unsecured = r'^api/' + API_VERSION + '/' + API_KEY + '/update$'
-
+print('^api/' + API_VERSION + '/' + API_KEY + '/update$')
 urlpatterns = [
     # Render View for client
     url(r'^flipboard/getDashboardsPaths$', getDashboardsPaths),

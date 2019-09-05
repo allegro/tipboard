@@ -54,8 +54,7 @@ def find_tiles_names(layout):
                 key = tile_dict['tile_id']
                 if key not in key_list:
                     key_list.append(key)
-                    if name not in name_list:
-                        name_list.append(name)
+                    name_list.append(name)
     return name_list, key_list
 
 

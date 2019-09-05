@@ -34,14 +34,19 @@ class ChatConsumer(WebsocketConsumer):
     def receive(self, text_data, **kwargs):
         """ handle msg sended by client, by 2 way: update all tiles or update 1 specific tile """
         if "first_connection:" in text_data:
+            if LOG:
+                print("Initiate first ws connect for a client, sending all tiles")
             for tile in cache.listOfTilesFromLayout(text_data.replace("first_connection:/", "")):
                 self.update_tile_receive(tile_id=tile['tile_id'], template_name=tile['tile_template'])
         else:
+            if LOG:
+                print("Clientws ask for tile update")
             for tile_id in cache.listOfTilesCached():
                 self.update_tile_receive(tile_id=tile_id)
 
     def update_tile_receive(self, tile_id, template_name=None):
         """ """
+        print("wsHandler::update_tile_receive:" + tile_id)
         tileData = cache.get(tile_id=getRedisPrefix(tile_id))
         if tileData is None:
             if LOG:

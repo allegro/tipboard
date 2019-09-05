@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from datetime import datetime
-from src.tipboard.app.properties import API_KEY
+from src.tipboard.app.properties import API_KEY, DEBUG
 
 
 def getTimeStr():
@@ -9,7 +9,7 @@ def getTimeStr():
 
 def checkAccessToken(method='GET', request=None, unsecured=False):
     """ Check if API_TOKEN is correct. Who cares about api version ?"""
-    if unsecured:
+    if unsecured or DEBUG:
         return True
     key = "NO_KEY_FOUND"
     if method == 'GET':

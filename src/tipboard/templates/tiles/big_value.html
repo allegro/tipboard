@@ -4,8 +4,14 @@
     </div>
     <div class=".container" style="height: 100%;">
         <div class=".row" id="header_bv" style="height: 25%; background-color: #388E3C">
-            <h4 id="{{ tile_id }}-title" style="text-align: center; width: 100%; top:1%" ></h4>
-            <h4 id="{{ tile_id }}-description" style="text-align: center; width: 100%;bottom:1%"></h4>
+
+            <div class="row h-100 my-auto" style="text-align: center">
+                <div class="col-sm-12 my-auto">
+                    <h4 id="{{ tile_id }}-title" class="mx-auto" style="margin-top: 2%"></h4>
+                    <h4 id="{{ tile_id }}-description" class="mx-auto "></h4>
+                </div>
+            </div>
+
         </div>
 
         <div class=".row" id="body_bv" style="height: 45%;background: #ed1c24;display: flex;align-items: center;justify-content: center">
@@ -16,25 +22,39 @@
             </div>
         </div>
 
-        <div class=".row" id="bottom_bv" style="height: 30%; background-color: blue">
-          <div class="container" style="height: 100%">
-                <div class="row p-1" style="height: 100%">
-                  <div class="col-6" style="height: 100%">
-                    <span id="{{ tile_id }}-upper-left-label" class="label"></span>
-                    <span id="{{ tile_id }}-upper-left-value"></span>
-                    <span id="{{ tile_id}}-lower-left-label" class="label"></span>
-                    <span id="{{ tile_id}}-lower-left-value"></span>
-                  </div>
 
-                  <div class="col-6" style="height: 100%">
-                    <span id="{{ tile_id }}-upper-right-label"></span>
-                    <span id="{{ tile_id }}-upper-right-value"></span>
-                    <span id="{{ tile_id }}-lower-right-label"></span>
-                    <span id="{{ tile_id }}-lower-right-value"></span>
-                  </div>
+        <div class=".row w-100" style="display: inline-flex; justify-content: center ;text-align: center; height:30%; background-color: blue">
+            <div class="column1 w-100 m-1" style="">
+                <div class="row">
+                    <div id="{{ tile_id }}-upper-left-label" class="" style="width:66%">
+                    </div>
+                    <div id="{{ tile_id }}-upper-left-value" class="" style="width:34%">
+                    </div>
                 </div>
-          </div>
+                <div class="row">
+                    <div id="{{ tile_id }}-lower-left-label" class="" style="width:66%">
+                    </div>
+                    <div id="{{ tile_id }}-lower-left-value" class="" style="width:34%">
+                    </div>
+                </div>
+            </div>
+            <div style="border-left:1px solid #11ffffff;width: 2px" class="m-2"></div>
+            <div class="column1 w-100 m-1" style="float: right">
+                <div class="row">
+                    <div id="{{ tile_id }}-upper-right-label" class="" style="width:66%">
+                    </div>
+                    <div id="{{ tile_id }}-upper-right-value" class="" style="width:34%">
+                    </div>
+                </div>
+                <div class="row">
+                    <div id="{{ tile_id }}-lower-right-label" class="" style="width:66%">
+                    </div>
+                    <div id="{{ tile_id }}-lower-right-value" class="" style="width:34%">
+                    </div>
+                </div>
+            </div>
         </div>
+
 
     </div>
 </div>

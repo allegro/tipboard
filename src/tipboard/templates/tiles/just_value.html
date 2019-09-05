@@ -5,12 +5,19 @@
         <h3>{{ title }}</h3>
     </div>
     <div class=".container" style="height: 100%;">
-        <div class=".row" style="height: 35%;">
-            <h2 id="{{ tile_id }}-title" class="result big-result fixed-height" style="margin-top: 2%"></h2>
-            <h3 id="{{ tile_id }}-description" class="result label fixed-height"></h3>
+        <div class=".row" style="height: 33%;">
+
+            <div class="row h-100 my-auto">
+                <div class="col-sm-12 my-auto">
+                    <h2 id="{{ tile_id }}-title" class="mx-auto" style="margin-top: 2%"></h2>
+                    <h6 id="{{ tile_id }}-description" class="mx-auto"></h6>
+                </div>
+            </div>
+
+
         </div>
 
-        <div class=".row w-100" id="body_bv" style="height: 65%;display: flex;align-items: center;justify-content: center">
+        <div class=".row w-100" id="body_bv" style="height: 67%;display: flex;align-items: center;justify-content: center">
             <div class="row h-100 w-100">
                 <div class="col-md-12 my-auto" style="justify-content: center">
                     <p class="h1 display-1" id="{{ tile_id }}-just-value" style="width: 100%;text-align: center;color: #d7d7d7;"> </p>

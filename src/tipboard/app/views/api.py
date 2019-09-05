@@ -67,23 +67,18 @@ def meta(request, tile_key, unsecured=False):
         if not checkAccessToken(method="POST", request=request, unsecured=unsecured):
             return HttpResponse("API KEY incorrect", status=401)
         try:
-            value = request.POST.get("value", None)
-            if value is None:
-                return HttpResponseBadRequest("Missing data")
-            try:
-                value = json.loads(value)
-            except:
-                return HttpResponseBadRequest("Invalid Json data")
-            if "big_value_color" not in value or "fading_background" not in value:
-                return HttpResponseBadRequest("Bad data")
             tilePrefix = getRedisPrefix(tile_key)
             if not redis.exists(tilePrefix):
                 if LOG:
                     print(f"{getTimeStr()}: (+) {tile_key} is not present in cache", flush=True)
                 return HttpResponseBadRequest(f"{tile_key} is not present in cache")
             cachedTile = json.loads(redis.get(tilePrefix))
-            cachedTile['meta']['big_value_color'] = value['big_value_color']
-            cachedTile['meta']['fading_background'] = value['fading_background']
+            meta = json.loads(request.body.decode("utf-8"))
+            try:
+                for metaItem in meta.keys():
+                    cachedTile['meta'][metaItem] = meta[metaItem]
+            except Exception as e:
+                return HttpResponseBadRequest(f"Invalid Json data: {e}")
             cache.set(tilePrefix, json.dumps(cachedTile))
             return HttpResponse(f"{tile_key} data updated successfully.")
         except Exception as e:

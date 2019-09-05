@@ -1,13 +1,17 @@
 <div class="card-body">
 </div>
 <div class="tile line-chart-tile" id="{{ tile_id }}" >
-    <div class="tile-header">
-        <h3>Line chart</h3>
-    </div>
+    {% if narratives.narrative_text %}
+    {% else %}
+        <div class="tile-header">
+            <h3>{{ title }}</h3>
+        </div>
+    {% endif %}
+
 
     <div style="height: 100%">
 
-        <canvas id="{{ tile_id }}-chart" style="height: 86%; width: 98%">
+        <canvas id="{{ tile_id }}-chart" style="height: 92%; width: 100%">
 
         </canvas>
     </div>

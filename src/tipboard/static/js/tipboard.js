@@ -626,6 +626,7 @@ function initDashboard(Tipboard) {
     };
 
     Tipboard.Dashboard.isDataExpired = function (lastMod, timeout) {
+        console.log("isDataExpired");
         var reason = "";
         if (timeout === "") {
             // backward compability, no timeout then skip checking
@@ -660,6 +661,7 @@ function initDashboard(Tipboard) {
     };
 
     Tipboard.Dashboard.autoAddFlipClasses = function (flippingContainer) {
+        console.log("autoAddFlipClasses");
         $.each($(flippingContainer).find('.tile'), function (idx, elem) {
             if (idx === 0) {
                 $(elem).addClass('flippedforward');
@@ -669,10 +671,12 @@ function initDashboard(Tipboard) {
     };
 
     Tipboard.Dashboard.addTilesCounter = function (col) {
+        console.log("addTilesCounter");
         var tilesTotal = $(col).children('div.tile').length;
         if (tilesTotal > 1) {
             $.each($(col).children('div'), function (tileIdx, tile) {
-                var container = $(tile).find('.tile-header');
+               console.log("Building flip for tile");
+               var container = $(tile).find('.tile-header');
                 var title = $(container).children()[0];
                 $(container).addClass('flip-tile-counter');
                 var counter = (tileIdx + 1) + '/' + tilesTotal;
@@ -727,13 +731,15 @@ function initDashboard(Tipboard) {
         setInterval(Tipboard.WebSocketManager.init.bind(Tipboard.WebSocketManager),
             Tipboard.Dashboard.webSocketResetInterval);
         // flipping tiles
-        var flipContainers = $('div[class*="flip-time-"]');
+        var flipContainers = $('div[id*="flip-time-"]');
         $.each(flipContainers, function (idx, flippingContainer) {
+            console.log("flipContener detected");
+
             Tipboard.Dashboard.autoAddFlipClasses(flippingContainer);
             var flipInterval = getFlipTime(flippingContainer);
             var flipIntervalId = setInterval(function () {
                 Tipboard.DisplayUtils.flipFlippablesIn(flippingContainer);
-            }, flipInterval);
+                }, flipInterval);
             Tipboard.Dashboard.flipIds.push(flipIntervalId);
         });
         $.each($("body > div"), function (rowIdx, row) {

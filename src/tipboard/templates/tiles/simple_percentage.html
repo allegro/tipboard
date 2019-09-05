@@ -3,19 +3,29 @@
         <h3>{{ title }}</h3>
     </div>
     <div class="container-fluid p-0">
-        <div class="" style="text-align: center; height:33%; background-color: pink;">
-            <div class=".row" style="width:inherit;">
-                <h3 id="{{ tile_id }}-title" class=".row" style="width:inherit;"></h3>
+        <div class="" style="text-align: center; height:33%; color: white">
+
+            <div class="row h-100 my-auto">
+                <div class="col-sm-12 my-auto">
+                    <h2 class="mx-auto" id="{{ tile_id }}-title">
+                    </h2>
+                    <h6 class="mx-auto" id="{{ tile_id }}-subtitle">
+                    </h6>
+                </div>
             </div>
-            <div class=".row" style="width:inherit;">
-                <h4 id="{{ tile_id }}-subtitle" class=".row"></h4>
-            </div>
+
         </div>
         <div class="w-100" style="text-align: center; height:47%; background-color: green; color: white;">
-            <p class="display-3 p-1" id="{{ tile_id }}-big_value" style="height: 100%;" ></p>
+            <div class="row h-100 my-auto">
+                <div class="col-sm-12 my-auto">
+                    <div class="mx-auto display-3" id="{{ tile_id }}-big_value">
+                    </div>
+                </div>
+            </div>
+
         </div>
 
-        <div class="h-25 w-100" style="display: inline-flex; background-color: blue; justify-content: center ;text-align: center">
+        <div class="h-25 w-100" style="display: inline-flex; justify-content: center ;text-align: center">
             <div class="column1 w-100 m-1" style="">
                 <div id="{{ tile_id }}-left_label" class=".row"></div>
                 <div id="{{ tile_id }}-left_value" class=".row"><span></span></div>

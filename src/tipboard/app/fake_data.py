@@ -21,16 +21,57 @@ def getFakePieChart(tile_id, template_name):
           "modified": getIsoTime()
         }
 
-
+# return {
+#       "id": tile_id,
+#       "tile_template": template_name,
+#       "data": {
+#         "labels": ["23.09", "24.09", "25.09", "26.09", "27.09", "28.09", "29.09"],
+#         "datasets": [{
+#             'data': [8326, 260630, 240933, 229639, 190240, 125272, 3685],
+#             'label': "label1",
+#             'borderColor': "#3e95cd",
+#             'trendlineLinear': {
+#                 'style': "#3e95cd",
+#                 'lineStyle': "dotted",
+#                 'width': 2
+#             }
+#         }, {
+#             'data': [3685, 125272, 190240, 229639, 240933, 260630, 108326],
+#             'label': "label2",
+#             'borderColor': "#72bf44",
+#             'trendlineLinear': {
+#                 'style': "#3e95cd",
+#                 'lineStyle': "#72bf44",
+#                 'width': 2
+#             }
+#         }]
+#       },
+#       "meta": {
+#         'backgroundColor': ["#3e95cd", "#8e5ea2"],
+#         'options': {
+#             'responsive': True,
+#             'elements': {
+#                 'line': {
+#                     'tension': 0
+#                 }
+#             },
+#             'title': {
+#                 'display': True,
+#                 'text': 'LineChart Demo'
+#             }
+#         }
+#       },
+#       "modified": getIsoTime()
+# }
 def getFakeLineChart(tile_id, template_name):
     return {
           "id": tile_id,
           "tile_template": template_name,
           "data": {
-            "labels": ["23.09", "24.09", "25.09", "26.09", "27.09", "28.09", "29.09"],
+            "labels": ["00h", "01h", "02h", "03h", "04h", "05h", "06h", "07h", "08h", "09h", "10h", "11h", "12h", "13h", "14h", "15h", "16h", "17h", "18h", "19h", "20h", "21h","22h", "23h", "24h"],
             "datasets": [{
-                'data': [8326, 260630, 240933, 229639, 190240, 125272, 3685],
-                'label': "label1",
+                'data': [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24],
+                'label': "Hier",
                 'borderColor': "#3e95cd",
                 'trendlineLinear': {
                     'style': "#3e95cd",
@@ -38,8 +79,8 @@ def getFakeLineChart(tile_id, template_name):
                     'width': 2
                 }
             }, {
-                'data': [3685, 125272, 190240, 229639, 240933, 260630, 108326],
-                'label': "label2",
+                'data': [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24],
+                'label': "Live",
                 'borderColor': "#72bf44",
                 'trendlineLinear': {
                     'style': "#3e95cd",
@@ -59,8 +100,21 @@ def getFakeLineChart(tile_id, template_name):
                 },
                 'title': {
                     'display': True,
-                    'text': 'LineChart Demo'
-                }
+                    'text': 'Checked: 18h00',
+                    'color': '#FFFFFF'
+                },
+                'scales': {
+                    'xAxes': [{
+                        'display': True,
+                    }],
+                    'yAxes': [{
+                        'display': True,
+                        'ticks': {
+                            'beginAtZero': True,
+                            'max': 70
+                        }
+                    }]
+                },
             }
           },
           "modified": getIsoTime()

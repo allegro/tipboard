@@ -7,7 +7,6 @@ function updateTileLinejs(tileId, data, meta, tipboard) {
         data: {
             labels: data['labels'],
             datasets: data['datasets'],
-            borderColor: myColors
         },
         options: meta['options']
     });
