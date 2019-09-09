@@ -8,3 +8,4 @@ PyYAML
 redis
 piwikapi
 twine
+apscheduler
