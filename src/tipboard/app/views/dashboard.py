@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from django.http import JsonResponse, HttpResponse
+from django.contrib.staticfiles import finders
 from django.shortcuts import render
 
 from src.tipboard.app.cache import getCache
@@ -13,8 +14,6 @@ cache = getCache()
 
 
 def flipboardHandler(request):
-    if LOG:
-        print(f"{getTimeStr()} (+) flipboardHandler/", flush=True)
     data = {
         "page_title": Flipboard().get_flipboard_title(),
         "tipboard_css": TIPBOARD_CSS_STYLES,
@@ -22,6 +21,7 @@ def flipboardHandler(request):
         "flipboard_interval": FLIPBOARD_INTERVAL,
     }
 #    data['tipboard_js'].remove('js/tipboard.js')
+    print(f"{getTimeStr()} (+) flipboardHandler/ -> CSS: {data['tipboard_css']}", flush=True)
     return render(request, 'flipboard.html', data)
 
 
@@ -39,8 +39,7 @@ def dashboardRendererHandler(request, layout_name='layout_config'):
         config = process_layout_config(layout_name)
         tiles_js = ["tiles/" + '.'.join((name, 'js')) for name in config['tiles_names']]
         tiles_css = ["tiles/" + '.'.join((name, 'css')) for name in config['tiles_names']]
-        #tiles_js = filter(_verify_statics, tiles_js) #TODO fix the verify_statics for js/css in utils.py
-        print(f"Yaml loaded tilesjs: {tiles_js}")
+
         data = {
             "details": config['details'],
             "layout": config['layout'],
@@ -59,6 +58,11 @@ def dashboardRendererHandler(request, layout_name='layout_config'):
             '</div>',
         ])
         return HttpResponse(msg, status=404)
+    tiles_css = list()
+    for tile_css in data['tiles_css']:
+        if finders.find(tile_css):
+            tiles_css.append(tile_css)
+    data['tiles_css'] = tiles_css
     return render(request, 'layout.html', data)
 
 

@@ -58,12 +58,6 @@ class ChatConsumer(WebsocketConsumer):
             data = json.loads(tileData)
         if type(data) is str:
             data = json.loads(data)
-        #TODO:
-        # data is null
-        # car dans le redis, la data est null
-        # car la fake Data a pas été write, donc renvoie null
-        # Ce qui empeche le trigger de la fake data dans le norm.js pour tester la chart :(
-        data['tipboard'] = tipboard_helpers
         self.send(text_data=json.dumps(data))
 
     def update_tile(self, data):

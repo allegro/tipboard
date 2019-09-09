@@ -239,30 +239,3 @@ iframe {
     }
 }
 
-/*  ---------------------------------------------------------------------------------------------------------
-    ASSETS
-------------------------------------------------------------------------------------------------------------- */
-
-@font-face {
-    font-family: 'misolight';
-    src: url('/src/staticatic/fonts/miso-light-webfont.eot');
-    src: url('/src/staticatic/fonts/miso-light-webfont.eot?#iefix') format('embedded-opentype'),
-         url('/src/staticatic/fonts/miso-light-webfont.woff') format('woff'),
-         url('/src/staticatic/fonts/miso-light-webfont.ttf') format('truetype'),
-         url('/src/staticatic/fonts/miso-light-webfont.svg#misolight') format('svg');
-    font-weight: normal;
-    font-style: normal;
-
-}
-
-@font-face {
-    font-family: 'misoregular';
-    src: url('/src/staticatic/fonts/miso-webfont.eot');
-    src: url('/src/staticatic/fonts/miso-webfont.eot?#iefix') format('embedded-opentype'),
-         url('/src/staticatic/fonts/miso-webfont.woff') format('woff'),
-         url('/src/staticatic/fonts/miso-webfont.ttf') format('truetype'),
-         url('/src/staticatic/fonts/miso-webfont.svg#misoregular') format('svg');
-    font-weight: normal;
-    font-style: normal;
-
-}

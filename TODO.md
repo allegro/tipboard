@@ -1,14 +1,15 @@
 #### Required:
 * [x] Remove API_TOKEN from GET variable
 * [x] when TOKEN_API is not correct, return 401 not 404 #31
-* [ ] publish sensors exemple
+* [ ] fix the old way to update tile
+* [x] publish sensors exemple
 * [ ] CD AWS
 * [ ] CD Openshift
 * [ ] Made a dev Wiki
 * [ ] Make a real wiki to deploy in clouds
 * [ ] Animation when tile update
 * [ ] Make compatible with Python 3.4 & 3.5 & 3.6
-* [ ] Grid layout with flex
+* [x] Grid layout with flex
 * [ ] Let's material design the tiles ! (Its 2019 ffs)
 * [ ] Add Contrib.md
 * [ ] Test it on windows

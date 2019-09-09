@@ -159,7 +159,20 @@ def getFakeCumulFlow(tile_id, template_name):
 
 
 def getFakeSimplePercentg(tile_id, template_name):
-    pass
+    return {
+          "tile_template": template_name,
+          "meta": {
+            "big_value_color": "#4CAF50",
+            "fading_background": False
+          },
+          "data": {
+            "title": "title",
+            "description": "description",
+          },
+          "modified": getIsoTime(),
+          "id": tile_id
+        }
+
 
 
 def getFakeListing(tile_id, template_name):
@@ -196,7 +209,20 @@ def getFakeBarChart(tile_id, template_name):
 
 
 def getFakeFancyListing(tile_id, template_name):
-    pass
+    return {
+          "tile_template": template_name,
+          "meta": {
+            "big_value_color": "#4CAF50",
+            "fading_background": False
+          },
+          "data": {
+            "title": "title",
+            "description": "description",
+          },
+          "modified": getIsoTime(),
+          "id": tile_id
+        }
+
 
 
 def getFakeBigValue(tile_id, template_name):
@@ -209,15 +235,6 @@ def getFakeBigValue(tile_id, template_name):
           "data": {
             "title": "title",
             "description": "description",
-            "big-value": 42,
-            "upper-left-label": "up-left-label",
-            "upper-left-value": 4,
-            "lower-left-label": "low-left-label",
-            "lower-left-value": 2,
-            "upper-right-label": "up-right-label",
-            "upper-right-value": 24,
-            "lower-right-label": "low-right-label",
-            "lower-right-value": 4242
           },
           "modified": getIsoTime(),
           "id": tile_id
@@ -225,11 +242,35 @@ def getFakeBigValue(tile_id, template_name):
 
 
 def getFakeJustValue(tile_id, template_name):
-    pass
+    return {
+          "tile_template": template_name,
+          "meta": {
+            "big_value_color": "#4CAF50",
+            "fading_background": False
+          },
+          "data": {
+            "title": "title",
+            "description": "description",
+          },
+          "modified": getIsoTime(),
+          "id": tile_id
+        }
 
 
 def getFakeAdvancedPlot(tile_id, template_name):
-    pass
+    return {
+          "tile_template": template_name,
+          "meta": {
+            "big_value_color": "#4CAF50",
+            "fading_background": False
+          },
+          "data": {
+            "title": "title",
+            "description": "description",
+          },
+          "modified": getIsoTime(),
+          "id": tile_id
+        }
 
 
 def getFakeNormChart(tile_id, template_name):
