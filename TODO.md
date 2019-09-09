@@ -35,6 +35,14 @@
 If we do that, we can go to sleep ez
 
 
+WEEKLy:
+
+ADD CHARTJS (+sensors):
++ Vertical Barchart
++ doughnut
++ radar
++ polar-area
+
 
 ##### NB To update Documentation
 
