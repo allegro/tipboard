@@ -33,10 +33,8 @@ REDIS_PASSWORD = conf['REDIS_PASSWORD']
 REDIS_DB = conf['REDIS_DB']
 
 ALLOWED_TILES = ["text", "fancy_listing", "simple_percentage", "listing", "big_value", "just_value", #Homemade
-                 "norm_chart", "pie_chart", "line_chart", "cumulative_flow", "advanced_plot", "bar_chart", #jqplot lib
                  "empty",
-                 "norm_chartjs", "pie_chartjs", "line_chartjs",
-                 "cumulative_flowjs","advanced_plotjs", "bar_chartjs"] #chartjs lib
+                 "norm_chart", "pie_chart", "line_chart", "cumulative_flow","advanced_plot", "bar_chart"] #chartjs lib
 
 
 TIPBOARD_CSS_STYLES = [

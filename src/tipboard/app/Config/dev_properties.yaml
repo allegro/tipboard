@@ -4,13 +4,13 @@ layout:
     - row_1_of_2:
 
         - col_1_of_4:
-            - tile_template: pie_chartjs
+            - tile_template: pie_chart
               tile_id: pie_chartjs_ex
               title: pie chart
               classes:
 
         - col_1_of_4:
-            - tile_template: cumulative_flowjs
+            - tile_template: cumulative_flow
               tile_id: cfjs_ex
               title: cumulflow
               classes:
@@ -27,12 +27,12 @@ layout:
               classes:
 
         - col_1_of_4 flip-time-2:
-            - tile_template: bar_chartjs
+            - tile_template: bar_chart
               tile_id: barjs_ex
               title: bar tile's
               classes:
 
-            - tile_template: vbar_chartjs
+            - tile_template: vbar_chart
               tile_id: barjs_ex
               title: bar tile's
               classes:
@@ -40,7 +40,7 @@ layout:
 
     - row_1_of_2:
         - col_1_of_4:
-            - tile_template: line_chartjs
+            - tile_template: line_chart
               tile_id: line_chartjs_ex
               title: line tile's
               classes:
@@ -69,7 +69,7 @@ layout:
 
 
         - col_1_of_4:
-            - tile_template: norm_chartjs
+            - tile_template: norm_chart
               tile_id: normjs_ex
               title: norm tile's
               classes:
