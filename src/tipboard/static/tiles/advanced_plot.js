@@ -15,9 +15,7 @@
             Tipboard.Dashboard.setDataByKeys(tileId, data, keys);
         },
         rescaleContainers: function (tile) {
-            Tipboard.DisplayUtils.expandLastChild(tile);
-            Tipboard.DisplayUtils.expandLastChild($(tile).find('.tile-content')[0]);
-        }
+                    }
     };
 
     function updateTileAdvancedPlot(tileId, data, meta) {

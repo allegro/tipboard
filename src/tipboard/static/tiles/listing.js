@@ -15,7 +15,6 @@ function updateTileListing(id, data, meta, tipboard) {
         var textContent =  data.items[idx];
         appendListingItem(container, textContent);
     }
-    Tipboard.TileDisplayDecorator.runAllDecorators(tile);
 }
 
 Tipboard.Dashboard.registerUpdateFunction('listing', updateTileListing);

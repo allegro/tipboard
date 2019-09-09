@@ -2,6 +2,7 @@
 * [x] Remove API_TOKEN from GET variable
 * [x] when TOKEN_API is not correct, return 401 not 404 #31
 * [ ] fix the old way to update tile
+* [ ] fix the fadding possibility
 * [x] publish sensors exemple
 * [ ] CD AWS
 * [ ] CD Openshift

@@ -44,14 +44,18 @@ function initWebsocketManager() {
 
         onMessage: function (evt) {
             var tileData = JSON.parse(evt.data);
-            console.log("Web socket received data: ", tileData);
-            var tileId = Tipboard.Dashboard.escapeId(tileData.id);
-            Tipboard.Dashboard.updateTile(
-                tileId,
-                tileData.tile_template,
-                tileData.data,
-                tileData.meta,
-                tileData.modified);
+            if (tileData == null) {
+                console.log("Web socket received NULL data");
+            } else {
+                console.log("Web socket received data: ", tileData);
+                var tileId = Tipboard.Dashboard.escapeId(tileData.id);
+                Tipboard.Dashboard.updateTile(
+                    tileId,
+                    tileData.tile_template,
+                    tileData.data,
+                    tileData.meta,
+                    tileData.modified);
+                }
         },
 
         onError: function (evt) {
@@ -151,7 +155,13 @@ function initDashboard(Tipboard) {
             // Call update tile function on the right tile
             Tipboard.Dashboard.getUpdateFunction(tileType)(tileId, data, meta);
             $('#' + tileId + '-lastModified').val(lastMod);
-            Tipboard.DisplayUtils.showTileData(tile);
+             $.each(['.tile-content'], function (idx, klass) {
+                var node = $(tile).find(klass);
+                if (node.length > 1) {
+                    $(node[1]).remove();
+                    $(node[0]).show();
+                }
+            });
         } catch (err) {
             console.log('ERROR: ', tileId, err.toString());
             var msg = [
@@ -159,7 +169,21 @@ function initDashboard(Tipboard) {
                 err.name || 'error name: n/a',
                 err.message || 'error message: n/a',
             ].join('<br>');
-            Tipboard.DisplayUtils.showExcMsg(tile, msg);
+            $.each(['.tile-content'], function (idx, klass) {
+                var nodes = $(tile).find(klass);
+                if (nodes.length === 1) {
+                    var cloned = $(nodes).clone();
+                    $(nodes).hide();
+                    $(cloned).insertAfter(nodes);
+                    $(cloned).addClass('exception-message');
+                    $(cloned).show();
+                } else {
+                    $(nodes[0]).hide();
+                    $(nodes[1]).show();
+                }
+                nodes = $(tile).find('.tile-content');
+                $(nodes[1]).html(msg);
+            });
         }
     };
 
@@ -172,7 +196,6 @@ function initDashboard(Tipboard) {
     };
 
     Tipboard.Dashboard.registerUpdateFunction = function (name, fn) {
-        console.log("registeringUpdateFonction:" + name);
         this.updateFunctions[name] = fn;
     };
 
@@ -206,6 +229,7 @@ function initDashboard(Tipboard) {
     };
 
 }
+
 
 
 /**
@@ -248,8 +272,26 @@ function initDashboard(Tipboard) {
             Tipboard.Dashboard.autoAddFlipClasses(flippingContainer);
             var flipInterval = getFlipTime(flippingContainer);
             var flipIntervalId = setInterval(function () {
-                Tipboard.DisplayUtils.flipFlippablesIn(flippingContainer);
-                }, flipInterval);
+                /*
+                 * pass class *flippedforward* to next node with class
+                 * *flippable* within *container*, if last element then wrap it
+                 * and pass *flippedforward* to the first element with class
+                 * *flippable* within the *container*
+                 */
+                var nextFlipIdx;
+                var containerFlips = $(flippingContainer).find('.flippable');
+                $(containerFlips).each(function (index, tile) {
+                    if ($(tile).hasClass("flippedforward")) {
+                        nextFlipIdx = (index + 1) % containerFlips.length;
+                        $(tile).removeClass("flippedforward");
+                        return false; // break
+                    }
+                });
+                if (typeof (nextFlipIdx) !== 'undefined') {
+                    var tileToFlip = containerFlips[nextFlipIdx];
+                    $(tileToFlip).addClass("flippedforward");
+                }
+            }, flipInterval);
             Tipboard.Dashboard.flipIds.push(flipIntervalId);
         });
         $.each($("body > div"), function (rowIdx, row) {
@@ -258,7 +300,6 @@ function initDashboard(Tipboard) {
                 Tipboard.Dashboard.addTilesCounter(col);
             });
         });
-        // watchdog
-        setInterval(Tipboard.DisplayUtils.reloadPage, 3600000);
     });
 }($));
+

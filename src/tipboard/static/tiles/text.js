@@ -24,7 +24,6 @@ function updateTileText(id, data, meta, tipboard) {
     if (meta.font_weight) {
         $('.text-container').css("font-weight", meta.font_weight);
     }
-    Tipboard.TileDisplayDecorator.runAllDecorators(tile);
 }
 Tipboard.Dashboard.updateFunctions['text'] = updateTileText;
 
