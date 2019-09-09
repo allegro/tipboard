@@ -17,7 +17,7 @@ def flipboardHandler(request):
     data = {
         "page_title": Flipboard().get_flipboard_title(),
         "tipboard_css": TIPBOARD_CSS_STYLES,
-        "tipboard_js": ['js/lib/jquery.js', 'js/flipboard.js'],
+        "tipboard_js": ['js/flipboard.js'],
         "flipboard_interval": FLIPBOARD_INTERVAL,
     }
 #    data['tipboard_js'].remove('js/tipboard.js')
