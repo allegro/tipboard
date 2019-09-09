@@ -22,8 +22,6 @@ class ChatConsumer(WebsocketConsumer):
     def connect(self):
         #self.channel_name = "events"
         async_to_sync(self.channel_layer.group_add)("event", self.channel_name)
-        if LOG:
-            print(f"{getTimeStr()} (+) WS: New client with channel:{self.channel_name}", flush=True)
         self.accept()
 
     def disconnect(self, close_code):
@@ -46,7 +44,6 @@ class ChatConsumer(WebsocketConsumer):
 
     def update_tile_receive(self, tile_id, template_name=None):
         """ """
-        print("wsHandler::update_tile_receive:" + tile_id)
         tileData = cache.get(tile_id=getRedisPrefix(tile_id))
         if tileData is None:
             if LOG:
