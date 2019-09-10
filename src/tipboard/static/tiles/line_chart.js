@@ -13,5 +13,5 @@ function updateTileLinejs(tileId, data, meta, tipboard) {
     console.log("line_chartjs::updateTile" + tileId);
 }
 
-Tipboard.Dashboard.registerUpdateFunction('line_chartjs', updateTileLinejs);
+Tipboard.Dashboard.registerUpdateFunction('line_chart', updateTileLinejs);
 

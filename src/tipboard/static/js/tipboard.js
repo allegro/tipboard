@@ -196,6 +196,7 @@ function initDashboard(Tipboard) {
     };
 
     Tipboard.Dashboard.registerUpdateFunction = function (name, fn) {
+        console.log("Registering Functionetion tile:" + name);
         this.updateFunctions[name] = fn;
     };
 

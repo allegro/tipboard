@@ -16,5 +16,5 @@ function updateTileNormJs(tileId, data, meta, tipboard) {
     console.log("norm_chartjs::updateTile" + tileId);
 }
 
-Tipboard.Dashboard.registerUpdateFunction('norm_chartjs', updateTileNormJs);
+Tipboard.Dashboard.registerUpdateFunction('norm_chart', updateTileNormJs);
 

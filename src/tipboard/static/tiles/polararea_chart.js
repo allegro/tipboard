@@ -1,5 +1,5 @@
-function updateTilePiejs(tileId, data, meta, tipboard) {
-    console.log("pie_chartjs::updateTile::start" + tileId);
+function updateTilePolarareajs(tileId, data, meta, tipboard) {
+    console.log("updateTilePolarareajs::updateTile::start" + tileId);
     var ctx = $('#' + tileId + "-chart");
     console.log(data);
     new Chart(ctx, {
@@ -35,7 +35,7 @@ function updateTilePiejs(tileId, data, meta, tipboard) {
             },
         }
     });
-    console.log("pie_chartjs::updateTile end" + tileId);
+    console.log("updateTilePolarareajs::updateTile end" + tileId);
 }
 
-Tipboard.Dashboard.registerUpdateFunction('pie_chart', updateTilePiejs);
+Tipboard.Dashboard.registerUpdateFunction('polararea_chart', updateTilePolarareajs);

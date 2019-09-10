@@ -1,9 +1,9 @@
 
-function updateBarChartjs(tileId, data, meta, tipboard) {
-    console.log("bar_chartjs::updateTile::start" + tileId);
+function updatevBarChartjs(tileId, data, meta, tipboard) {
+    console.log("vbar_chartjs::updateTile::start" + tileId);
     var ctx = $('#' + tileId + "-chart");
     new Chart(ctx, {
-            type: 'horizontalBar',
+            type: 'bar',
             data: {
                 labels: data['labels'],
                 datasets: [{
@@ -14,8 +14,8 @@ function updateBarChartjs(tileId, data, meta, tipboard) {
             },
             options: meta['options']
     });
-    console.log("bar_chartjs::updateTile" + tileId);
+    console.log("vbar_chartjs::updateTile" + tileId);
 }
 
-Tipboard.Dashboard.registerUpdateFunction('bar_chart', updateBarChartjs);
+Tipboard.Dashboard.registerUpdateFunction('vbar_chart', updatevBarChartjs);
 

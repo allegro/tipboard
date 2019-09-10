@@ -3,27 +3,38 @@ details:
 layout:
     - row_1_of_2:
 
-        - col_1_of_4:
+        - col_1_of_4 flip-time-2:
             - tile_template: pie_chart
               tile_id: pie_chartjs_ex
               title: pie chart
               classes:
 
-        - col_1_of_4:
+            - tile_template: doughnut_chart
+              tile_id: doughnut_ex
+              title: doughnut
+              classes:
+
+        - col_1_of_4 flip-time-2:
             - tile_template: cumulative_flow
               tile_id: cfjs_ex
               title: cumulflow
               classes:
 
-        - col_1_of_4 flip-time-2:
-            - tile_template: simple_percentage
-              tile_id: sp_ex
-              title: Percentage
+            - tile_template: radar_chart
+              tile_id: radar_ex
+              title: radar chart
               classes:
 
-            - tile_template: text
-              tile_id: txt_ex
-              title: text
+
+        - col_1_of_4 flip-time-2:
+            - tile_template: norm_chart
+              tile_id: normjs_ex
+              title: norm tile's
+              classes:
+
+            - tile_template: polararea_chart
+              tile_id: polararea_ex
+              title: polar-area
               classes:
 
         - col_1_of_4 flip-time-2:
@@ -32,7 +43,7 @@ layout:
               title: bar tile's
               classes:
 
-            - tile_template: bar_chart
+            - tile_template: vbar_chart
               tile_id: vbarjs_ex
               title: vertical bar
               classes:
@@ -68,11 +79,17 @@ layout:
               classes:
 
 
-        - col_1_of_4:
-            - tile_template: norm_chart
-              tile_id: normjs_ex
-              title: norm tile's
+        - col_1_of_4 flip-time-2:
+            - tile_template: simple_percentage
+              tile_id: sp_ex
+              title: Percentage
               classes:
+
+            - tile_template: text
+              tile_id: txt_ex
+              title: text
+              classes:
+
 
 
 

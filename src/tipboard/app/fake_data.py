@@ -23,48 +23,6 @@ def getFakePieChart(tile_id, template_name):
     }
 
 
-# return {
-#       "id": tile_id,
-#       "tile_template": template_name,
-#       "data": {
-#         "labels": ["23.09", "24.09", "25.09", "26.09", "27.09", "28.09", "29.09"],
-#         "datasets": [{
-#             'data': [8326, 260630, 240933, 229639, 190240, 125272, 3685],
-#             'label': "label1",
-#             'borderColor': "#3e95cd",
-#             'trendlineLinear': {
-#                 'style': "#3e95cd",
-#                 'lineStyle': "dotted",
-#                 'width': 2
-#             }
-#         }, {
-#             'data': [3685, 125272, 190240, 229639, 240933, 260630, 108326],
-#             'label': "label2",
-#             'borderColor': "#72bf44",
-#             'trendlineLinear': {
-#                 'style': "#3e95cd",
-#                 'lineStyle': "#72bf44",
-#                 'width': 2
-#             }
-#         }]
-#       },
-#       "meta": {
-#         'backgroundColor': ["#3e95cd", "#8e5ea2"],
-#         'options': {
-#             'responsive': True,
-#             'elements': {
-#                 'line': {
-#                     'tension': 0
-#                 }
-#             },
-#             'title': {
-#                 'display': True,
-#                 'text': 'LineChart Demo'
-#             }
-#         }
-#       },
-#       "modified": getIsoTime()
-# }
 def getFakeLineChart(tile_id, template_name):
     return {
         "id": tile_id,
@@ -305,7 +263,96 @@ def getFakeNormChart(tile_id, template_name):
     }
 
 
-def buildFakeDataForChartJS(tile_id, template_name, cache):
+def getFakeDoughnutChart(tile_id, template_name):
+    return {
+        "id": tile_id,
+        "tile_template": template_name,
+        "data": {
+            'labels': ["Africa", "Asia", "Europe", "Latin America", "North America"],
+            'datasets': [
+                {
+                    'label': "Population (millions)",
+                    'backgroundColor': ["#7b1fa2", "#1976d2", "#8e5ea2", "#ffa000", "#ffeb3b"],
+                    'data': [2478, 5267, 734, 784, 433]
+                }
+            ]
+        },
+        "meta": {
+            'title': {
+                'display': True,
+                'text': 'Predicted world population (millions) in 2050'
+            }
+        },
+        "modified": getIsoTime()
+    }
+
+
+def getFakeRadarChart(tile_id, template_name):
+    return {
+        "id": tile_id,
+        "tile_template": template_name,
+        "data": {
+            'labels': ["Africa", "Asia", "Europe", "Latin America", "North America"],
+            'datasets': [
+                {
+                    'label': "1950",
+                    'fill': True,
+                    'backgroundColor': "rgba(62, 149, 205, 0.8)",
+                    'borderColor': "rgba(62, 149, 205, 1)",
+                    'pointBorderColor': "#fff",
+                    'pointBackgroundColor': "rgba(225, 245, 254, 1)",
+                    'data': [8.77, 55.61, 21.69, 6.62, 6.82]
+                }, {
+                    'label': "2050",
+                    'fill': True,
+                    'backgroundColor': "rgba(114, 191, 68, 0.8)",
+                    'borderColor': "rgba(114, 191, 68, 1)",
+                    'pointBorderColor': "#fff",
+                    'pointBackgroundColor': "rgba(220, 237, 200, 1)",
+                    'data': [25.48, 54.16, 7.61, 8.06, 4.45]
+                }
+            ]
+        },
+        "meta": {
+            'title': {
+                'display': True,
+                'text': 'Distribution in % of world population',
+                'borderColor': 'rgba(158, 158, 158, 1)'
+            }
+        },
+        "modified": getIsoTime()
+    }
+
+
+def getFakePolarareaChart(tile_id, template_name):
+    return {
+        "id": tile_id,
+        "tile_template": template_name,
+        "data": {
+            'labels': ["Africa", "Asia", "Europe", "Latin America", "North America"],
+            'datasets': [
+                {
+                    'label': "Population (millions)",
+                    'backgroundColor': ["#3e95cd", "#8e5ea2", "#3cba9f", "#e8c3b9", "#c45850"],
+                    'data': [2478, 5267, 734, 784, 433]
+                }
+            ]
+        },
+        "meta": {
+            'title': {
+                'display': True,
+                'text': 'Predicted world population (millions) in 2050'
+            }
+        },
+        "modified": getIsoTime()
+    }
+
+
+def getFakeVbarChart(tile_id, template_name):
+    return getFakeBarChart(tile_id, template_name)
+
+
+def buildFakeDataForChartJS(tile_id, template_name):
     if template_name == "pie_chart":
         return getFakePieChart(tile_id, template_name)
     elif template_name == "line_chart":
@@ -316,9 +363,18 @@ def buildFakeDataForChartJS(tile_id, template_name, cache):
         return getFakeBarChart(tile_id, template_name)
     elif template_name == "norm_chart":
         return getFakeNormChart(tile_id, template_name)
+
+    elif template_name == "doughnut_chart":
+        return getFakeDoughnutChart(tile_id, template_name)
+    elif template_name == "radar_chart":
+        return getFakeRadarChart(tile_id, template_name)
+    elif template_name == "polararea_chart":
+        return getFakePolarareaChart(tile_id, template_name)
+    elif template_name == "vbar_chart":
+        return getFakeVbarChart(tile_id, template_name)
     else:
         print(f"ERROR WITH FAKE DATA ON {tile_id}")
-        return dict()
+        return None
 
 
 def buildFakeDataFromTemplate(tile_id, template_name, cache):
@@ -339,6 +395,7 @@ def buildFakeDataFromTemplate(tile_id, template_name, cache):
     elif template_name == "empty":
         pass
     else:
-        data = buildFakeDataForChartJS(tile_id, template_name, cache)
+        data = buildFakeDataForChartJS(tile_id, template_name)
+        print(f"\t->{data}")
     cache.redis.set(name=getRedisPrefix(tile_id), value=json.dumps(data))
     return data

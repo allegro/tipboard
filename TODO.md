@@ -11,9 +11,9 @@
 * [ ] Animation when tile update
 * [ ] Make compatible with Python 3.4 & 3.5 & 3.6
 * [x] Grid layout with flex
-* [ ] Let's material design the tiles ! (Its 2019 ffs)
+* [x] Let's material design the tiles ! (Its 2019 ffs)
 * [ ] Add Contrib.md
-* [ ] Test it on windows
+* [x] Test it on windows
 * [ ] Propose real docker img with/without redis
 * [ ] publish a public tipboard to show build CI/CD stats of project
 * [ ] made issue #32 possible
