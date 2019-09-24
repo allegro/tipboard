@@ -1,9 +1,8 @@
 var myColors = ['red', 'green', 'blue']; // Define your colors
 
 
-function updateTileCumulJs(tileId, data, meta, tipboard) {
-
-    console.log("cumulative_flowjs::updateTile::start" + tileId);
+function updateTileCumul(tileId, data, meta, tipboard) {
+    console.log("cumulative_flow::updateTile::start" + tileId);
     var ctx = $('#' + tileId + "-chart");
     new Chart(ctx, {
         type: 'line',
@@ -14,8 +13,8 @@ function updateTileCumulJs(tileId, data, meta, tipboard) {
         },
         options: meta['options']
     });
-    console.log("cumulative_flowjs::updateTile" + tileId);
+    console.log("cumulative_flow::updateTile" + tileId);
 }
 
-Tipboard.Dashboard.registerUpdateFunction('cumulative_flowjs', updateTileCumulJs);
+Tipboard.Dashboard.registerUpdateFunction('cumulative_flow', updateTileCumul);
 
