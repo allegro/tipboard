@@ -40,7 +40,7 @@ def getFakeLineChart(tile_id, template_name):
                     'width': 2
                 }
             }, {
-                'data': [5, 6, 4, 1, 3, 9, 10, 11, 12, 19, 20, 21, 22, 24, 23, 22, 21, 20, 19, 18, 17, 16, 15, 14],
+                'data': [5, 6, 4, 1, 3, 9, 10, 11, 12, 19, 30, 31, 32, 34, 33, 32, 31, 20, 19, 18, 17, 16, 15, 14],
                 'label': "Live",
                 'borderColor': "#72bf44",
                 'trendlineLinear': {
@@ -72,7 +72,7 @@ def getFakeLineChart(tile_id, template_name):
                         'display': True,
                         'ticks': {
                             'beginAtZero': True,
-                            'max': 70
+                            'max': 40
                         }
                     }]
                 },
@@ -153,6 +153,7 @@ def getFakeListing(tile_id, template_name):
         "modified": getIsoTime(),
         "id": tile_id
     }
+
 
 def getFakeBarChart(tile_id, template_name):
     return {
@@ -254,12 +255,12 @@ def getFakeNormChart(tile_id, template_name):
         "data": {
             "labels": [1, 3, 5, 7, 9, 11],
             "datasets": [{
-                'data': [2, 5, 13, 33, 85, 100],
+                'data': [2, 20, 13, 33, 85, 100],
                 'label': "SERIES 2",
                 'borderColor': "#3e95cd",
                 'fill': False
             }, {
-                'data': [2, 8, 16, 35, 80, 110],
+                'data': [2, 8, 10, 15, 80, 120],
                 'label': "SERIES 1",
                 'borderColor': "#8e5ea2",
                 'fill': False
