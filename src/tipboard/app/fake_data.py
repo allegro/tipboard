@@ -355,9 +355,11 @@ def getFakePolarareaChart(tile_id, template_name):
             ]
         },
         "meta": {
-            'title': {
-                'display': True,
-                'text': 'Predicted world population (millions) in 2050'
+            "options": {
+                'title': {
+                    'display': True,
+                    'text': 'Predicted world population (millions) in 2050'
+                }
             }
         },
         "modified": getIsoTime()

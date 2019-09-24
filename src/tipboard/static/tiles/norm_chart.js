@@ -1,9 +1,6 @@
-var myColors = ['red', 'green', 'blue']; // Define your colors
+function updateTileNorm(tileId, data, meta, tipboard) {
 
-
-function updateTileNormJs(tileId, data, meta, tipboard) {
-
-    console.log("norm_chartjs::updateTile::start" + tileId);
+    console.log("norm_chart::updateTile::start" + tileId);
     var ctx = $('#' + tileId + "-chart");
     new Chart(ctx, {
         type: 'line',
@@ -13,8 +10,8 @@ function updateTileNormJs(tileId, data, meta, tipboard) {
         },
         options: meta['options']
     });
-    console.log("norm_chartjs::updateTile" + tileId);
+    console.log("norm_chart::updateTile" + tileId);
 }
 
-Tipboard.Dashboard.registerUpdateFunction('norm_chart', updateTileNormJs);
+Tipboard.Dashboard.registerUpdateFunction('norm_chart', updateTileNorm);
 
