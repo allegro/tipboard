@@ -4,23 +4,19 @@
     <div class="tile-header">
         <h3>{{ title }}</h3>
     </div>
-    <div class=".container" style="height: 100%;">
-        <div class=".row" style="height: 33%;">
+    <div class="container w-100 h-100">
 
-            <div class="row h-100 my-auto">
-                <div class="col-sm-12 my-auto">
-                    <h2 id="{{ tile_id }}-title" class="mx-auto" style="margin-top: 2%"></h2>
-                    <h6 id="{{ tile_id }}-description" class="mx-auto"></h6>
-                </div>
+        <div class="row" style="height: 20%;margin-top: 2%">
+            <div class="col-sm-12 my-auto" >
+                <h2 id="{{ tile_id }}-title" class="mx-auto" style="margin-top: 2%"></h2>
+                <h6 id="{{ tile_id }}-description" class="mx-auto"></h6>
             </div>
-
-
         </div>
 
-        <div class=".row w-100" id="body_bv" style="height: 67%;display: flex;align-items: center;justify-content: center">
-            <div class="row h-100 w-100">
-                <div class="col-md-12 my-auto" style="justify-content: center">
-                    <p class="h1 display-1" id="{{ tile_id }}-just-value" style="width: 100%;text-align: center;color: #d7d7d7;"> </p>
+        <div class="row" id="body_bv" style="display: flex;align-items: center;justify-content: center;height: 70%">
+            <div class="row">
+                <div class="col-md-12 my-auto">
+                    <p class="h1 display-1 text-white" id="{{ tile_id }}-just-value" style="font-size: 100px"> </p>
                 </div>
             </div>
         </div>
