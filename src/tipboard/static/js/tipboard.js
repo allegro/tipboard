@@ -17,7 +17,7 @@ UnknownUpdateFunction.prototype = new Error();
 function getFlipTime(node) {
     // TODO: make it Tipboard.Dashboard member
     var classStr = $(node).attr('class');
-    var flipTime = 20000;
+    var flipTime = 10000;
     $.each(classStr.split(' '), function (idx, val) {
         var groups = /flip-time-(\d+)/.exec(val);
         if (Boolean(groups) && groups.length > 1) {
