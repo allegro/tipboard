@@ -15,9 +15,9 @@ var UnknownUpdateFunction = function (tileType) {
 UnknownUpdateFunction.prototype = new Error();
 
 function getFlipTime(node) {
-    // TODO: make it Tipboard.Dashboard member
     var classStr = $(node).attr('class');
-    var flipTime = 10000;
+    // TODO: make this flip time CUSTOM
+    var flipTime = 4200;
     $.each(classStr.split(' '), function (idx, val) {
         var groups = /flip-time-(\d+)/.exec(val);
         if (Boolean(groups) && groups.length > 1) {

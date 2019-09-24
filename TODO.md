@@ -38,10 +38,10 @@ If we do that, we can go to sleep ez
 WEEKLy:
 
 ADD CHARTJS (+sensors):
-+ Vertical Barchart
-+ doughnut
 + radar
 + polar-area
+
+ADD UNIT TEST():
 
 
 ##### NB To update Documentation

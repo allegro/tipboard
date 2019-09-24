@@ -14,15 +14,10 @@ layout:
               title: doughnut
               classes:
 
-        - col_1_of_4 flip-time-1:
-            - tile_template: cumulative_flow
-              tile_id: cfjs_ex2
-              title: cumulflow
-              classes:
-
-            - tile_template: radar_chart
-              tile_id: radar_ex
-              title: radar chart
+        - col_1_of_4:
+            - tile_template: polararea_chart
+              tile_id: polararea_ex
+              title: polar-area
               classes:
 
 
@@ -32,12 +27,17 @@ layout:
               title: norm tile's
               classes:
 
-            - tile_template: polararea_chart
-              tile_id: polararea_ex
-              title: polar-area
+            - tile_template: cumulative_flow
+              tile_id: cfjs_ex2
+              title: cumulflow
               classes:
 
-        - col_1_of_4 flip-time-2:
+            - tile_template: line_chart
+              tile_id: line_chartjs_ex
+              title: line tile's
+              classes:
+
+        - col_1_of_4 flip-time-1:
             - tile_template: bar_chart
               tile_id: barjs_ex
               title: bar tile's
@@ -48,12 +48,16 @@ layout:
               title: vertical bar
               classes:
 
+            - tile_template: radar_chart
+              tile_id: radar_ex
+              title: radar chart
+              classes:
 
     - row_1_of_2:
         - col_1_of_4:
-            - tile_template: line_chart
-              tile_id: line_chartjs_ex
-              title: line tile's
+            - tile_template: listing
+              tile_id: listing_ex
+              title: listing
               classes:
 
         - col_1_of_4 :
@@ -80,10 +84,6 @@ layout:
               title: text
               classes:
 
-            - tile_template: listing
-              tile_id: listing_ex
-              title: listing
-              classes:
 
 
 

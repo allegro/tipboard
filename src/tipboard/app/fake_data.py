@@ -40,7 +40,7 @@ def getFakeLineChart(tile_id, template_name):
                     'width': 2
                 }
             }, {
-                'data': [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24],
+                'data': [5, 6, 4, 1, 3, 9, 10, 11, 12, 19, 20, 21, 22, 24, 23, 22, 21, 20, 19, 18, 17, 16, 15, 14],
                 'label': "Live",
                 'borderColor': "#72bf44",
                 'trendlineLinear': {
@@ -136,8 +136,23 @@ def getFakeSimplePercentg(tile_id, template_name):
 
 
 def getFakeListing(tile_id, template_name):
-    return dict()
-
+    return {
+        "tile_template": template_name,
+        "meta": {
+            "fading_background": False
+        },
+        "data": {
+            "items": [
+              "Leader: 42",
+              "Product Owner: 1",
+              "Scrum Master: 1",
+              "Developer: 1",
+              "U.X: 1"
+            ]
+          },
+        "modified": getIsoTime(),
+        "id": tile_id
+    }
 
 def getFakeBarChart(tile_id, template_name):
     return {
