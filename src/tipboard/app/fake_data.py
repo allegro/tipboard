@@ -3,7 +3,7 @@ from src.tipboard.app.applicationconfig import getRedisPrefix, getIsoTime
 
 
 def getFakeText(tile_id, template_name):
-    pass
+    return dict()
 
 
 def getFakePieChart(tile_id, template_name):
@@ -136,7 +136,7 @@ def getFakeSimplePercentg(tile_id, template_name):
 
 
 def getFakeListing(tile_id, template_name):
-    pass
+    return dict()
 
 
 def getFakeBarChart(tile_id, template_name):
@@ -396,6 +396,6 @@ def buildFakeDataFromTemplate(tile_id, template_name, cache):
         pass
     else:
         data = buildFakeDataForChartJS(tile_id, template_name)
-        print(f"\t->{data}")
-    cache.redis.set(name=getRedisPrefix(tile_id), value=json.dumps(data))
+    if cache is not None:
+        cache.redis.set(name=getRedisPrefix(tile_id), value=json.dumps(data))
     return data

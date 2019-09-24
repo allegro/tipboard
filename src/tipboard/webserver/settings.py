@@ -6,7 +6,6 @@ SECRET_KEY = SUPER_SECRET_KEY
 DEBUG = DEBUG
 ALLOWED_HOSTS = ['*']
 
-print("LOADING:-> " +  FROM_PIP + 'tipboard.app.Config')
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -67,7 +66,7 @@ USE_TZ = True
 ROOT_URLCONF = FROM_PIP + 'tipboard.webserver.urls'
 WSGI_APPLICATION = FROM_PIP + 'tipboard.webserver.wsgi.application'
 
-print("->>>" + BASE_DIR + '/templates')
+
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',

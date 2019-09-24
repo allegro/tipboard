@@ -19,9 +19,6 @@ from src.sensors.utils import end
 
 
 def startUp():
-    sonde2()
-    import sys
-    sys.exit()
     sonde1()
     sonde3()
     sonde4()

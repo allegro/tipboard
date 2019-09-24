@@ -2,7 +2,8 @@
 import os, sys
 
 
-def startDjango():
+def startDjango(settings_path='tipboard.webserver.settings'):
+    os.environ.setdefault('DJANGO_SETTINGS_MODULE', settings_path)
     sys.path.insert(0, os.getcwd())  # Import project to PYTHONPATH
     try:
         from django.core.management import execute_from_command_line
@@ -33,16 +34,16 @@ def main(argc, argv):#don't you miss the old fashion way, the fabulous main in C
             return show_help()
         elif "sensors" in argv[1] or '-s' in argv[1]:
             return show_help()  # TODO replace by real sensors
-    elif argc >= 2 and "runserver" in argv[1] or '-r' in argv[1]:
-        os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'tipboard.webserver.settings')
+        elif "test" in argv[1] or '-t' in argv[1]:
+            return startDjango()
+    elif argc >= 2 and ("runserver" in argv[1] or '-r' in argv[1] or "test" in argv[1]):
         return startDjango()
     return show_help()
 
 
 # to become a python package and go to pypi, started in ../setup.py
 def main_as_pkg():
-    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'src.tipboard.webserver.settings')
-    startDjango()
+    startDjango(settings_path='src.tipboard.webserver.settings')
 
 
 if __name__ == '__main__':
