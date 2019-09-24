@@ -67,12 +67,18 @@ def getFakeLineChart(tile_id, template_name):
                 'scales': {
                     'xAxes': [{
                         'display': True,
+                        "gridLines": {
+                            "color": "#52525252",
+                        }
                     }],
                     'yAxes': [{
                         'display': True,
                         'ticks': {
                             'beginAtZero': True,
                             'max': 40
+                        },
+                        "gridLines": {
+                            "color": "#52525252",
                         }
                     }]
                 },
@@ -112,6 +118,18 @@ def getFakeCumulFlow(tile_id, template_name):
                 'title': {
                     'display': True,
                     'text': 'Cumulative Flow Demo'
+                },
+                "scales": {
+                    "xAxes": [{
+                        "gridLines": {
+                            "color": "#52525252",
+                        }
+                    }],
+                    "yAxes": [{
+                        "gridLines": {
+                            "color": "#52525252",
+                        }
+                    }]
                 }
             }
         },
@@ -171,11 +189,20 @@ def getFakeBarChart(tile_id, template_name):
                     'display': True,
                     'text': '# Velocity of squad'
                 },
-                'scales': {
-                    'yAxes': [{
+                "scales": {
+                    "xAxes": [{
+                        "gridLines": {
+                            "color": "#52525252",
+                        }
+                    }],
+                    "yAxes": [{
+                        "gridLines": {
+                            "color": "#52525252",
+                        },
                         'ticks': {
                             'beginAtZero': True
                         }
+
                     }]
                 }
             }
@@ -272,7 +299,19 @@ def getFakeNormChart(tile_id, template_name):
                 'title': {
                     'display': True,
                     'text': 'Curve Comparaison'
-                }
+                },
+            "scales": {
+                "xAxes": [{
+                    "gridLines": {
+                    "color": "#52525252",
+                    }
+                }],
+                "yAxes": [{
+                    "gridLines": {
+                    "color": "#52525252",
+                    }
+                }]
+            }
             }
         },
         "modified": getIsoTime()
@@ -350,7 +389,7 @@ def getFakePolarareaChart(tile_id, template_name):
                 {
                     'label': "Population (millions)",
                     'backgroundColor': ["#3e95cd", "#8e5ea2", "#3cba9f", "#e8c3b9", "#c45850"],
-                    'data': [2478, 5267, 734, 784, 433]
+                    'data': [2478, 5267, 734, 784, 433],
                 }
             ]
         },
@@ -359,6 +398,12 @@ def getFakePolarareaChart(tile_id, template_name):
                 'title': {
                     'display': True,
                     'text': 'Predicted world population (millions) in 2050'
+                },
+                'elements': {
+                  'arc': {
+                    'borderColor': "#52525252",
+                    'borderWidth': 2
+                  }
                 }
             }
         },
