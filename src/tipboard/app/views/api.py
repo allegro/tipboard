@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 import json
-from django.http import JsonResponse, HttpResponseBadRequest, HttpResponse
-from django.http import HttpResponseServerError, Http404
+from django.http import JsonResponse, HttpResponseBadRequest, HttpResponse, Http404
 from src.tipboard.app.applicationconfig import getRedisPrefix, getIsoTime
 from src.tipboard.app.properties import PROJECT_NAME, LAYOUT_CONFIG, REDIS_DB, LOG, DEBUG
 from src.tipboard.app.cache import getCache
@@ -42,12 +41,9 @@ def tile(request, tile_key, unsecured=False):  # TODO: "it's better to ask forgi
 def push_tile(tile_id, data, tile_template):
     tilePrefix = getRedisPrefix(tile_id)
     if not redis.exists(tilePrefix):
-        if LOG:
-            print(f"{getTimeStr()}: (+) {tile_id} not found in cache, creating tile {tile_template}", flush=True)
-        if cache.createTile(tile_id=tile_id, value=data, tile_template=tile_template):
-            return HttpResponse(f"{tile_id} data created successfully.")
-        else:
-            return HttpResponse(f"Internal Error {tile_id} was not created")
+        return HttpResponse(f"{tile_id} data created successfully."
+                            if cache.createTile(tile_id=tile_id, value=data, tile_template=tile_template)
+                            else f"Internal Error {tile_id} was not created")
     cachedTile = json.loads(redis.get(tilePrefix))
     cachedTile['data'] = json.loads(data)
     cachedTile['modified'] = getIsoTime()
