@@ -2,24 +2,19 @@ import json
 from src.tipboard.app.applicationconfig import getRedisPrefix, getIsoTime
 
 
-def getFakeText(tile_id, template_name):
-    return dict()
-
-
-def getFakePieChart(tile_id, template_name):
+def getFakeAdvancedPlot(tile_id, template_name):
     return {
-        "id": tile_id,
         "tile_template": template_name,
-        "data": {
-            "title": tile_id,
-            "label": "Label",
-            "pie_data_tag": ["Approved", "Pending", "Denied"],
-            "pie_data_value": [55, 12, 33]
-        },
         "meta": {
-            'backgroundColor': ["#3e95cd", "#72bf44", "#8e5ea2"]
+            "big_value_color": "#4CAF50",
+            "fading_background": False
         },
-        "modified": getIsoTime()
+        "data": {
+            "title": "title",
+            "description": "description",
+        },
+        "modified": getIsoTime(),
+        "id": tile_id
     }
 
 
@@ -32,7 +27,7 @@ def getFakeLineChart(tile_id, template_name):
                        "14h", "15h", "16h", "17h", "18h", "19h", "20h", "21h", "22h", "23h", "24h"],
             "datasets": [{
                 'data': [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24],
-                'label': "Hier",
+                'label': "Series 1",
                 'borderColor': "#3e95cd",
                 'trendlineLinear': {
                     'style': "#3e95cd",
@@ -41,7 +36,7 @@ def getFakeLineChart(tile_id, template_name):
                 }
             }, {
                 'data': [5, 6, 4, 1, 3, 9, 10, 11, 12, 19, 30, 31, 32, 34, 33, 32, 31, 20, 19, 18, 17, 16, 15, 14],
-                'label': "Live",
+                'label': "Series 2",
                 'borderColor': "#72bf44",
                 'trendlineLinear': {
                     'style': "#3e95cd",
@@ -96,13 +91,13 @@ def getFakeCumulFlow(tile_id, template_name):
             "labels": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
             "datasets": [{
                 'data': [0, 2, 0.5, 1, 1, 1, 2, 2, 1, 1],
-                'label': "label1",
+                'label': "Series 1",
                 'borderColor': "#3e95cd",
                 'fill': True,
                 'backgroundColor': "rgba(62, 149, 205, 0.8)"
             }, {
                 'data': [0, 4, 0, 0, 1, 0, 0, 3, 0, 0],
-                'label': "label2",
+                'label': "Series 2",
                 'borderColor': "#72bf44",
                 'fill': True,
                 'backgroundColor': "rgba(114, 191, 68, 0.8)"
@@ -137,48 +132,12 @@ def getFakeCumulFlow(tile_id, template_name):
     }
 
 
-def getFakeSimplePercentg(tile_id, template_name):
-    return {
-        "tile_template": template_name,
-        "meta": {
-            "big_value_color": "#4CAF50",
-            "fading_background": False
-        },
-        "data": {
-            "title": "title",
-            "description": "description",
-        },
-        "modified": getIsoTime(),
-        "id": tile_id
-    }
-
-
-def getFakeListing(tile_id, template_name):
-    return {
-        "tile_template": template_name,
-        "meta": {
-            "fading_background": False
-        },
-        "data": {
-            "items": [
-              "Leader: 42",
-              "Product Owner: 1",
-              "Scrum Master: 1",
-              "Developer: 1",
-              "U.X: 1"
-            ]
-          },
-        "modified": getIsoTime(),
-        "id": tile_id
-    }
-
-
 def getFakeBarChart(tile_id, template_name):
     return {
         "id": tile_id,
         "tile_template": template_name,
         "data": {
-            "labels": ["Last(n)", "n-1", "n-2", ],
+            "labels": ["Label 1", "Label 2", "Label 3", ],
             "data": [12, 19, 3]
         },
         "meta": {
@@ -187,7 +146,7 @@ def getFakeBarChart(tile_id, template_name):
                 'legend': {'display': False},
                 'title': {
                     'display': True,
-                    'text': '# Velocity of squad'
+                    'text': 'Bar Chart Demo'
                 },
                 "scales": {
                     "xAxes": [{
@@ -211,68 +170,8 @@ def getFakeBarChart(tile_id, template_name):
     }
 
 
-def getFakeFancyListing(tile_id, template_name):
-    return {
-        "tile_template": template_name,
-        "meta": {
-            "big_value_color": "#4CAF50",
-            "fading_background": False
-        },
-        "data": {
-            "title": "title",
-            "description": "description",
-        },
-        "modified": getIsoTime(),
-        "id": tile_id
-    }
-
-
-def getFakeBigValue(tile_id, template_name):
-    return {
-        "tile_template": template_name,
-        "meta": {
-            "big_value_color": "#4CAF50",
-            "fading_background": False
-        },
-        "data": {
-            "title": "title",
-            "description": "description",
-        },
-        "modified": getIsoTime(),
-        "id": tile_id
-    }
-
-
-def getFakeJustValue(tile_id, template_name):
-    return {
-        "tile_template": template_name,
-        "meta": {
-            "big_value_color": "#4CAF50",
-            "fading_background": False
-        },
-        "data": {
-            "title": "title",
-            "description": "description",
-        },
-        "modified": getIsoTime(),
-        "id": tile_id
-    }
-
-
-def getFakeAdvancedPlot(tile_id, template_name):
-    return {
-        "tile_template": template_name,
-        "meta": {
-            "big_value_color": "#4CAF50",
-            "fading_background": False
-        },
-        "data": {
-            "title": "title",
-            "description": "description",
-        },
-        "modified": getIsoTime(),
-        "id": tile_id
-    }
+def getFakeVbarChart(tile_id, template_name):
+    return getFakeBarChart(tile_id, template_name)
 
 
 def getFakeNormChart(tile_id, template_name):
@@ -283,12 +182,12 @@ def getFakeNormChart(tile_id, template_name):
             "labels": [1, 3, 5, 7, 9, 11],
             "datasets": [{
                 'data': [2, 20, 13, 33, 85, 100],
-                'label': "SERIES 2",
+                'label': "Series 2",
                 'borderColor': "#3e95cd",
                 'fill': False
             }, {
                 'data': [2, 8, 10, 15, 80, 120],
-                'label': "SERIES 1",
+                'label': "Series 1",
                 'borderColor': "#8e5ea2",
                 'fill': False
             }]
@@ -318,24 +217,53 @@ def getFakeNormChart(tile_id, template_name):
     }
 
 
+def getFakePieChart(tile_id, template_name):
+    return {
+        "id": tile_id,
+        "tile_template": template_name,
+        "data": {
+            "title": tile_id,
+            "label": "Label",
+            "pie_data_tag": ["Label 1", "Label 2", "label 3"],
+            "pie_data_value": [55, 12, 33]
+        },
+        "meta": {
+            'backgroundColor': ["#3e95cd", "#72bf44", "#8e5ea2"],
+            'elements': {
+                'arc': {
+                    'borderWidth': 1.5,
+                    'borderColor': 'rgba(255, 255, 255, 0.92)'
+                }
+            }
+
+        },
+        "modified": getIsoTime()
+    }
+
+
 def getFakeDoughnutChart(tile_id, template_name):
     return {
         "id": tile_id,
         "tile_template": template_name,
         "data": {
-            'labels': ["Africa", "Asia", "Europe", "Latin America", "North America"],
+            'labels': ["Label 1", "Label 2", "Label 3"],
             'datasets': [
                 {
-                    'label': "Population (millions)",
-                    'backgroundColor': ["#7b1fa2", "#1976d2", "#8e5ea2", "#ffa000", "#ffeb3b"],
-                    'data': [2478, 5267, 734, 784, 433]
+                    'backgroundColor': ["#3e95cd", "#72bf44", "#8e5ea2"],
+                    'data': [2478, 5267, 734]
                 }
             ]
         },
         "meta": {
             'title': {
                 'display': True,
-                'text': 'Predicted world population (millions) in 2050'
+                'text': 'Doughnut Demo'
+            },
+            'elements': {
+                'arc': {
+                    'borderWidth': 1.5,
+                    'borderColor': 'rgba(255, 255, 255, 0.92)'
+                }
             }
         },
         "modified": getIsoTime()
@@ -398,12 +326,12 @@ def getFakePolarareaChart(tile_id, template_name):
         "id": tile_id,
         "tile_template": template_name,
         "data": {
-            'labels': ["Africa", "Asia", "Europe", "Latin America", "North America"],
+            'labels': ["Series 1", "Series 2", "Series 3"],
             'datasets': [
                 {
-                    'label': "Population (millions)",
+                    'label': "Series",
                     'backgroundColor': ["#3e95cd", "#8e5ea2", "#3cba9f", "#e8c3b9", "#c45850"],
-                    'data': [2478, 5267, 734, 784, 433],
+                    'data': [10, 29, 40],
                 }
             ]
         },
@@ -411,13 +339,22 @@ def getFakePolarareaChart(tile_id, template_name):
             "options": {
                 'title': {
                     'display': True,
-                    'text': 'Predicted world population (millions) in 2050'
+                    'text': 'Polar area Demo'
                 },
                 'elements': {
                   'arc': {
                     'borderColor': "#52525252",
                     'borderWidth': 2
                   }
+                },
+                'scale': {
+                    'gridLines': {
+                        'color': ['#525252', '#525252', '#525252', '#525252', '#525252', '#525252', '#525252']
+                    },
+                    'angleLines': {'color': '#525252'},
+                    'ticks': {
+                        'display': False
+                    }
                 }
             }
         },
@@ -425,8 +362,92 @@ def getFakePolarareaChart(tile_id, template_name):
     }
 
 
-def getFakeVbarChart(tile_id, template_name):
-    return getFakeBarChart(tile_id, template_name)
+def getFakeSimplePercentg(tile_id, template_name):
+    return {
+        "tile_template": template_name,
+        "meta": {
+            "big_value_color": "#4CAF50",
+            "fading_background": False
+        },
+        "data": {
+            "title": "title",
+            "description": "description",
+        },
+        "modified": getIsoTime(),
+        "id": tile_id
+    }
+
+
+def getFakeListing(tile_id, template_name):
+    return {
+        "tile_template": template_name,
+        "meta": {
+            "fading_background": False
+        },
+        "data": {
+            "items": [
+              "Leader: 42",
+              "Product Owner: 1",
+              "Scrum Master: 1",
+              "Developer: 1",
+              "U.X: 1"
+            ]
+          },
+        "modified": getIsoTime(),
+        "id": tile_id
+    }
+
+
+def getFakeText(tile_id, template_name):
+    return dict()
+
+
+def getFakeFancyListing(tile_id, template_name):
+    return {
+        "tile_template": template_name,
+        "meta": {
+            "big_value_color": "#4CAF50",
+            "fading_background": False
+        },
+        "data": {
+            "title": "title",
+            "description": "description",
+        },
+        "modified": getIsoTime(),
+        "id": tile_id
+    }
+
+
+def getFakeBigValue(tile_id, template_name):
+    return {
+        "tile_template": template_name,
+        "meta": {
+            "big_value_color": "#4CAF50",
+            "fading_background": False
+        },
+        "data": {
+            "title": "title",
+            "description": "description",
+        },
+        "modified": getIsoTime(),
+        "id": tile_id
+    }
+
+
+def getFakeJustValue(tile_id, template_name):
+    return {
+        "tile_template": template_name,
+        "meta": {
+            "big_value_color": "#4CAF50",
+            "fading_background": False
+        },
+        "data": {
+            "title": "title",
+            "description": "description",
+        },
+        "modified": getIsoTime(),
+        "id": tile_id
+    }
 
 
 def buildFakeDataForChartJS(tile_id, template_name):
