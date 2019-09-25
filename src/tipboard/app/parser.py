@@ -13,7 +13,7 @@ def _get_tiles_dict(col):
 
 
 def get_cols(rows):
-    #TODO: validation col_1_of_4
+    # TODO: validation col_1_of_4
     cols = []
     for col in list(rows.values())[0]:
         cols.append(col)

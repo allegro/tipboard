@@ -26,7 +26,7 @@ def show_help():
     return 0
 
 
-def main(argc, argv):#don't you miss the old fashion way, the fabulous main in C :D.    I do
+def main(argc, argv):  # don't you miss the old fashion way, the fabulous main in C :D.    I do
     if argc == 1:
         return startDjango()
     elif argc == 2:

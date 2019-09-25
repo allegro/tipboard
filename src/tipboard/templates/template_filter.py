@@ -4,7 +4,7 @@ from src.tipboard.app.properties import ALLOWED_TILES
 register = template.Library()
 
 
-@register.filter(name ="template_tile")
+@register.filter(name="template_tile")
 def template_tile(tile_id, tile_data):
     """
     return a String, this is the template to string render, of the tiles template in config.yaml

@@ -23,7 +23,7 @@ API_URL_PUSH = '/'.join((API_URL, 'push'))
 API_URL_TILECONFIG = '/'.join((API_URL, 'tileconfig'))
 
 
-#### Helper functions for data transformations (data sources --> tiles).
+# Helper functions for data transformations (data sources --> tiles).
 
 # We have only one tile here, hence 'prepare_for_pie_chart' is all we need,
 # but in real-life scenario you may want some additional functions like
@@ -39,7 +39,7 @@ def prepare_for_pie_chart(data):
     return data_prepared
 
 
-#### Putting it all together.
+# Putting it all together.
 
 def main():
     # Tile 'pie001' (pie chart)
@@ -83,7 +83,6 @@ def main():
     if resp.status_code != 200:
         print(resp.text)
         return
-
 
     # Tile 'pie002'
     # TILE_NAME = 'pie_chart'

@@ -25,17 +25,17 @@ VERSION = conf["VERSION"]
 SITE_ENV = conf["SITE_ENV"]
 LOCAL = conf['LOCAL']
 TIPBOARD_URL = conf['TIPBOARD_URL']
-CDN_URL = conf['CDN_URL'] #if you are in production and need a CDN for media and static file
+CDN_URL = conf['CDN_URL']  # if you are in production and need a CDN for media and static file
 
 REDIS_HOST = conf['REDIS_HOST']
 REDIS_PORT = conf['REDIS_PORT']
 REDIS_PASSWORD = conf['REDIS_PASSWORD']
 REDIS_DB = conf['REDIS_DB']
 
-ALLOWED_TILES = ["text", "fancy_listing", "simple_percentage", "listing", "big_value", "just_value", #Homemade
-                 "norm_chart", "line_chart", "cumulative_flow", "bar_chart", "vbar_chart", #ChartJS
-                 "doughnut_chart", "pie_chart", "radar_chart", "polararea_chart", #ChartJS
-                 "empty"] #chartjs lib
+ALLOWED_TILES = ["text", "fancy_listing", "simple_percentage", "listing", "big_value", "just_value",  # Homemade
+                 "norm_chart", "line_chart", "cumulative_flow", "bar_chart", "vbar_chart",  # ChartJS
+                 "doughnut_chart", "pie_chart", "radar_chart", "polararea_chart",  # ChartJS
+                 "empty"]  # chartjs lib
 
 
 TIPBOARD_CSS_STYLES = [
@@ -55,14 +55,14 @@ FLIPBOARD_SEQUENCE = []
 
 # Our default color palette
 COLORS = {
-    'black':            '#000000',
-    'white':            '#FFFFFF',
-    'tile_background':  '#15282d',
-    'red':              '#d50000',
-    'yellow':           '#ffea00',
-    'green':            '#00c853',
-    'blue':             '#0091ea',
-    'violet':           '#aa00ff',
-    'orange':           '#ff6d00',
-    'naval':            '#00bfa5',
+    'black': '#000000',
+    'white': '#FFFFFF',
+    'tile_background': '#15282d',
+    'red': '#d50000',
+    'yellow': '#ffea00',
+    'green': '#00c853',
+    'blue': '#0091ea',
+    'violet': '#aa00ff',
+    'orange': '#ff6d00',
+    'naval': '#00bfa5',
 }

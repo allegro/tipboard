@@ -6,7 +6,7 @@ from django.shortcuts import render
 from src.tipboard.app.cache import getCache
 from src.tipboard.app.flipboard import Flipboard
 from src.tipboard.app.parser import process_layout_config
-from src.tipboard.app.properties import *
+from src.tipboard.app.properties import TIPBOARD_CSS_STYLES, FLIPBOARD_INTERVAL, LOG, TIPBOARD_JAVASCRIPTS
 from src.tipboard.app.utils import getTimeStr
 
 cache = getCache()

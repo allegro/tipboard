@@ -11,7 +11,7 @@ cache = getCache()
 redis = cache.redis
 
 
-def tile(request, tile_key, unsecured=False): # TODO: "it's better to ask forgiveness than permission" ;)
+def tile(request, tile_key, unsecured=False):  # TODO: "it's better to ask forgiveness than permission" ;)
     """ Handles reading and deleting of tile's data """
     if request.method == "GET":
         if not checkAccessToken(method="GET", request=request, unsecured=unsecured):
@@ -86,14 +86,16 @@ def meta(request, tile_key, unsecured=False):
     raise Http404
 
 
-def update(request, unsecured=False): # TODO: "it's better to ask forgiveness than permission" ;)
+def update(request, unsecured=False):  # TODO: "it's better to ask forgiveness than permission" ;)
     """ Update the meta(config) AND the content of a tile(widget) """
     if request.method == "POST":
         if not checkAccessToken(method="POST", request=request, unsecured=unsecured):
             return HttpResponse("API KEY incorrect", status=401)
         try:
             tile_id = request.POST.get("key", None)
-            data = request.POST.get("data", None) #Test if var is present
+            data = request.POST.get("data", None)  # Test if var is present
+            if data is None:
+                print("No data")
             httpResponse = push(request)
             if httpResponse.status_code != 200:
                 return httpResponse
@@ -126,7 +128,7 @@ def projectInfo(request):
     raise Http404
 
 
-### Unsecured part
+# Unsecured part
 """ This allow previous user to use their old script without migration in a insecure way :) """
 
 
@@ -156,4 +158,3 @@ def update_unsecured(request):
         raise Http404
     else:
         return update(request=request, unsecured=True)
-

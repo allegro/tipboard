@@ -48,7 +48,7 @@ SUBP_PARAMS = ["casperjs", "jira-ds.js"]
 REQUESTS_TIMEOUT = 10  # in seconds
 
 
-##### 'Internal' stuff.
+# 'Internal' stuff.
 
 def _get_identifiers(name, url):
     """
@@ -83,7 +83,7 @@ def _get_data_from_subprocess(subp_params):
         return json.loads(data)
 
 
-##### Command-line options.
+# Command-line options.
 
 def get_summary(project_key):
     subp_params = SUBP_PARAMS + ["--project-key=" + project_key,
@@ -130,7 +130,7 @@ def get_jql(query, max_results):
     return(rest_data)
 
 
-##### Putting it all together.
+# Putting it all together.
 
 def main():
     args = docopt(__doc__)
@@ -177,6 +177,7 @@ def main():
             print("Your query has raised an error: '{}'.".format(e.message))
             return
     print(json.dumps(result, ensure_ascii=False))
+
 
 if __name__ == '__main__':
     main()

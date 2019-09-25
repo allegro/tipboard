@@ -66,7 +66,6 @@ USE_TZ = True
 ROOT_URLCONF = FROM_PIP + 'tipboard.webserver.urls'
 WSGI_APPLICATION = FROM_PIP + 'tipboard.webserver.wsgi.application'
 
-
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
@@ -79,17 +78,16 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
             ],
-        'libraries':{
-            'template_filter': FROM_PIP + 'tipboard.templates.template_filter',
+            'libraries': {
+                'template_filter': FROM_PIP + 'tipboard.templates.template_filter',
             }
         },
     },
 ]
 
-
 STATICFILES_FINDERS = (
-        'django.contrib.staticfiles.finders.FileSystemFinder',
-        'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
 )
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),

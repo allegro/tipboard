@@ -10,7 +10,7 @@ from src.tipboard.app.utils import getTimeStr
 
 
 cache = getCache()
-tipboard_helpers = {#TODO: merge in properties.py
+tipboard_helpers = {  # TODO: merge in properties.py
     'color': COLORS,
     'log_level': JS_LOG_LEVEL,
 }
@@ -20,7 +20,7 @@ class ChatConsumer(WebsocketConsumer):
     """Handles client connections on web sockets and listens on Redis subscriptions """
 
     def connect(self):
-        #self.channel_name = "events"
+        # self.channel_name = "events"
         async_to_sync(self.channel_layer.group_add)("event", self.channel_name)
         self.accept()
 
@@ -70,4 +70,3 @@ class ChatConsumer(WebsocketConsumer):
             data = json.loads(data)
         data['tipboard'] = tipboard_helpers
         self.send(text_data=json.dumps(data))
-

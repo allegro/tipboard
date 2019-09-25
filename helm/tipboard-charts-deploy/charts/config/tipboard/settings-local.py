@@ -3,4 +3,3 @@
 
 PROJECT_NAME = 'tipboard'
 API_KEY = '424242'
-

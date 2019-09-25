@@ -199,18 +199,18 @@ def getFakeNormChart(tile_id, template_name):
                     'display': True,
                     'text': 'Curve Comparaison'
                 },
-            "scales": {
-                "xAxes": [{
-                    "gridLines": {
-                    "color": "#52525252",
-                    }
-                }],
-                "yAxes": [{
-                    "gridLines": {
-                    "color": "#52525252",
-                    }
-                }]
-            }
+                "scales": {
+                    "xAxes": [{
+                        "gridLines": {
+                            "color": "#52525252",
+                        }
+                    }],
+                    "yAxes": [{
+                        "gridLines": {
+                            "color": "#52525252",
+                        }
+                    }]
+                }
             }
         },
         "modified": getIsoTime()
@@ -342,10 +342,10 @@ def getFakePolarareaChart(tile_id, template_name):
                     'text': 'Polar area Demo'
                 },
                 'elements': {
-                  'arc': {
-                    'borderColor': "#52525252",
-                    'borderWidth': 2
-                  }
+                    'arc': {
+                        'borderColor': "#52525252",
+                        'borderWidth': 2
+                    }
                 },
                 'scale': {
                     'gridLines': {
@@ -386,13 +386,13 @@ def getFakeListing(tile_id, template_name):
         },
         "data": {
             "items": [
-              "Leader: 42",
-              "Product Owner: 1",
-              "Scrum Master: 1",
-              "Developer: 1",
-              "U.X: 1"
+                "Leader: 42",
+                "Product Owner: 1",
+                "Scrum Master: 1",
+                "Developer: 1",
+                "U.X: 1"
             ]
-          },
+        },
         "modified": getIsoTime(),
         "id": tile_id
     }

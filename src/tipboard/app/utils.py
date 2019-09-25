@@ -20,10 +20,9 @@ def checkAccessToken(method='GET', request=None, unsecured=False):
         key = request.POST.get('API_KEY', 'NO_API_KEY_FOUND')
         if request.POST.get('API_KEY', 'NO_API_KEY') == API_KEY:
             return True
-    elif method == 'DELETE': #TODO: check if it's work with delete
+    elif method == 'DELETE':  # TODO: check if it's work with delete
         key = request.POST.get('API_KEY', 'NO_API_KEY_FOUND')
         if request.POST.get('API_KEY', 'NO_API_KEY') == API_KEY:
             return True
     print(f"{getTimeStr()} (-) Access Token error: {key}")
     return False
-

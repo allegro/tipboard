@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
 from src.tipboard.app.utils import getTimeStr
-from src.tipboard.app.properties import *
+from src.tipboard.app.properties import LOG, FLIPBOARD_SEQUENCE
 from src.tipboard.app.parser import get_config_files_names, process_layout_config
+
 
 class Flipboard(object):
 

@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-import datetime, os, sys, time, pytz
+import datetime, time
 from apscheduler.schedulers.blocking import BlockingScheduler
 from src.sensors.sensors1_text import sonde1
 from src.sensors.sensors2_piechart import sonde2
@@ -12,10 +12,8 @@ from src.sensors.sensors8_fancylisting import sonde8
 from src.sensors.sensors9_bigvalue import sonde9
 from src.sensors.sensors10_justvalue import sonde10
 from src.sensors.sensors11_advancedplot import sonde11
-from src.sensors.sensorsjs2_piechart import sonde2
-from src.sensors.sensors12_normchart import sonde12
+# from src.sensors.sensorsjs2_piechart import sonde12
 from src.sensors.utils import end
-
 
 
 def startUp():
@@ -29,7 +27,7 @@ def startUp():
     sonde9()
     sonde10()
     sonde11()
-    #sonde12()
+    # sonde12()
 
 
 def scheduleYourSensors():
@@ -56,5 +54,5 @@ if __name__ == "__main__":
     start_time = time.time()
     startUp()
     end(title="startUp", start_time=start_time)
-    #scheduleYourSensors() If you need actualized data :)
+    # scheduleYourSensors() If you need actualized data :)
     end(title="scheduled sensors ", start_time=start_time)

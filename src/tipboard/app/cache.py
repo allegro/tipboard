@@ -25,7 +25,7 @@ class MyCache:
             if LOG:
                 print(f"{getTimeStr()} (+) Initializing cache from redis server with {len(self.listOfTilesCached())} key", flush=True)
             self.clientsWS = list()
-        except:
+        except Exception:
             self.isRedisConnected = False
         pass
 
@@ -61,7 +61,7 @@ class MyCache:
         key = key.split(":")[-1]
         from channels.layers import get_channel_layer
         channel_layer = get_channel_layer()
-        async_to_sync(channel_layer.group_send)("event", {"type": "update.tile",  "tile_id": key}, )
+        async_to_sync(channel_layer.group_send)("event", {"type": "update.tile", "tile_id": key})
 
     def listOfTilesCached(self):
         listOfTiles = list()
@@ -93,5 +93,5 @@ class MyCache:
             ))
             cache.set(getRedisPrefix(tile_id), dumped_value)
             return True
-        except:
+        except Exception:
             return False
