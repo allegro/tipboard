@@ -61,7 +61,7 @@ def getFakeLineChart(tile_id, template_name):
                 },
                 'title': {
                     'display': True,
-                    'text': 'Checked: 18h00',
+                    'text': 'LineChart Demo',
                     'color': '#FFFFFF'
                 },
                 'scales': {
@@ -347,33 +347,47 @@ def getFakeRadarChart(tile_id, template_name):
         "id": tile_id,
         "tile_template": template_name,
         "data": {
-            'labels': ["Africa", "Asia", "Europe", "Latin America", "North America"],
+            'labels': ["Label 1", "Label 2", "Label 3", "Label 4", "Label 5"],
             'datasets': [
                 {
-                    'label': "1950",
+                    'label': "Series 1",
                     'fill': True,
-                    'backgroundColor': "rgba(62, 149, 205, 0.8)",
-                    'borderColor': "rgba(62, 149, 205, 1)",
-                    'pointBorderColor': "#fff",
-                    'pointBackgroundColor': "rgba(225, 245, 254, 1)",
+
+                    'backgroundColor': "rgba(114, 191, 68, 0.8)",
+                    'borderColor': "rgba(114, 191, 68, 0.8)",
+
+                    'pointBorderColor': "rgba(114, 191, 68, 0.95)",
+                    'pointBackgroundColor': "rgba(255, 255, 255, 0.5)",
                     'data': [8.77, 55.61, 21.69, 6.62, 6.82]
                 }, {
-                    'label': "2050",
+                    'label': "Series 2",
                     'fill': True,
-                    'backgroundColor': "rgba(114, 191, 68, 0.8)",
-                    'borderColor': "rgba(114, 191, 68, 1)",
-                    'pointBorderColor': "#fff",
-                    'pointBackgroundColor': "rgba(220, 237, 200, 1)",
-                    'data': [25.48, 54.16, 7.61, 8.06, 4.45]
+
+                    'backgroundColor': "rgba(62, 149, 205, 0.8)",
+                    'borderColor': "rgba(62, 149, 205, 0.8)",
+
+                    'pointBorderColor': "rgba(62, 149, 205, 0.95)",
+                    'pointBackgroundColor': "rgba(255, 255, 255, 0.5)",
+                    'data': [18, 10, 36, 36, 40]
                 }
             ]
         },
         "meta": {
             'title': {
                 'display': True,
-                'text': 'Distribution in % of world population',
-                'borderColor': 'rgba(158, 158, 158, 1)'
+                'text': 'Radar Demo',
+                'borderColor': 'rgba(255, 255, 255, 1)'
+            },
+            'scale': {
+                'gridLines': {
+                    'color': ['#525252', '#525252', '#525252', '#525252', '#525252', '#525252', '#525252']
+                },
+                'angleLines': {'color': '#525252'},
+                'ticks': {
+                    'display': False
+                }
             }
+
         },
         "modified": getIsoTime()
     }
