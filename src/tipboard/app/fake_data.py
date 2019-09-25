@@ -436,7 +436,7 @@ def buildFakeDataForChartJS(tile_id, template_name):
     elif template_name == "vbar_chart":
         return getFakeVbarChart(tile_id, template_name)
     else:
-        print(f"ERROR WITH FAKE DATA ON {tile_id}")
+        print(f"ERROR WITH FAKE DATA ON {tile_id}", flush=True)
         return None
 
 

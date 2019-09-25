@@ -20,27 +20,13 @@ class TestApp(TestCase):
             tileTemplate = template_tile(tile_data['title'], tile_data)
             self.assertTrue('role="alert"' not in tileTemplate)
 
-    # def test_0020_fake_data(self):
-    #     """ Test Fake data generation """
-    #
-    #     for tile in self.ALLOWED_TILES:
-    #         data = buildFakeDataFromTemplate(tile_id=f"{tile}_ex", template_name=tile, cache=None)
-    #         self.assertTrue(data is not None)
+    def test_0020_test_fake_data(self):
+        """ Test fake_data generation """
 
-    # def test_0030_parser(self):
-    #     """ Test Fake data generation """
-    #     self.assertTrue(True)
-    #
-    #
-    # def test_0040_api(self):
-    #     """ Test Fake data generation """
-    #     request = self.factory.get('/api/info')
-    #     l = dashboardRendererHandler(request)
-    #     self.assertTrue(l.status_code is 200)
-    #
-    # def test_0050_oldapi(self):
-    #     """ Test Fake data generation """
-    #     request = self.factory.get('/api/' + API_VERSION + '/' + API_KEY + '/info')
-    #     l = dashboardRendererHandler(request)
-    #     self.assertTrue(l.status_code is 200)
-    #
+        for tile in self.ALLOWED_TILES:
+            if tile is not "text" and tile is not "empty":
+                tileData = buildFakeDataFromTemplate(f"test_{tile}", template_name=tile, cache=None)
+                self.assertTrue("meta" in tileData)
+                self.assertTrue("data" in tileData)
+                self.assertTrue("id" in tileData)
+                self.assertTrue("tile_template" in tileData)
