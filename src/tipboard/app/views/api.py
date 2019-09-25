@@ -61,15 +61,12 @@ def push(request, unsecured=False):
     if request.method == "POST":
         if not checkAccessToken(method="POST", request=request, unsecured=unsecured):
             return HttpResponse("API KEY incorrect", status=401)
-        try:
-            tile_id = request.POST.get("key", None)
-            data = request.POST.get("data", None)
-            tile_template = request.POST.get("tile", None)
-            if not tile_id or not data or not tile_template:
-                return HttpResponseBadRequest(f"Missing data")
-            return push_tile(tile_id, data, tile_template)
-        except IOError as e:
-            return HttpResponseServerError(e)
+        tile_id = request.POST.get("key", None)
+        data = request.POST.get("data", None)
+        tile_template = request.POST.get("tile", None)
+        if not tile_id or not data or not tile_template:
+            return HttpResponseBadRequest(f"Missing data")
+        return push_tile(tile_id, data, tile_template)
     raise Http404
 
 
@@ -92,8 +89,6 @@ def meta(request, tile_key, unsecured=False):
             return HttpResponse("API KEY incorrect", status=401)
         tilePrefix = getRedisPrefix(tile_key)
         if not redis.exists(tilePrefix):
-            if LOG:
-                print(f"{getTimeStr()}: (+) {tile_key} is not present in cache", flush=True)
             return HttpResponseBadRequest(f"{tile_key} is not present in cache")
         return update_tile_meta(request, tilePrefix, tile_key)
     raise Http404
@@ -117,19 +112,14 @@ def update(request, unsecured=False):  # TODO: "it's better to ask forgiveness t
     if request.method == "POST":
         if not checkAccessToken(method="POST", request=request, unsecured=unsecured):
             return HttpResponse("API KEY incorrect", status=401)
-        try:
-            tile_id = request.POST.get("key", None)
-            data = request.POST.get("data", None)  # Test if var is present
-            if data is None:
-                print("No data")
-            httpResponse = push(request)
-            if httpResponse.status_code != 200:
-                return httpResponse
-            isThereMetaUpdate(request, tile_id)
-        except Exception as e:
-            if LOG:
-                print(f"{getTimeStr()} (-) Update error: {e}", flush=True)
-            return HttpResponseBadRequest(f"{e}")
+        tile_id = request.POST.get("key", None)
+        data = request.POST.get("data", None)  # Test if var is present
+        if data is None:
+            print("No data")
+        httpResponse = push(request)
+        if httpResponse.status_code != 200:
+            return httpResponse
+        isThereMetaUpdate(request, tile_id)
     raise Http404
 
 
