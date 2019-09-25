@@ -57,12 +57,13 @@ def push(request, unsecured=False):
     if request.method == "POST":
         if not checkAccessToken(method="POST", request=request, unsecured=unsecured):
             return HttpResponse("API KEY incorrect", status=401)
-        tile_id = request.POST.get("key", None)
-        data = request.POST.get("data", None)
-        tile_template = request.POST.get("tile", None)
-        if not tile_id or not data or not tile_template:
+        if not request.POST.get("key", None) or \
+                not request.POST.get("data", None) or \
+                not request.POST.get("tile", None):
             return HttpResponseBadRequest(f"Missing data")
-        return push_tile(tile_id, data, tile_template)
+        return push_tile(request.POST.get("key", None),
+                         request.POST.get("data", None),
+                         request.POST.get("tile", None))
     raise Http404
 
 
