@@ -28,13 +28,15 @@ def show_help():
 
 def main(argc, argv):  # don't you miss the old fashion way, the fabulous main in C :D.    I do
     exitStatus = -42
-    if argc == 2 and "help" in argv[1] or '-h' in argv[1]:
-        exitStatus = show_help()
-    elif argc == 2 and "sensors" in argv[1] or '-s' in argv[1]:
-        exitStatus = launch_sensors()
-    elif argc >= 2 and ("runserver" in argv[1] or "test" in argv[1]):
-        exitStatus = startDjango()
-    return exitStatus
+    try:
+        if "sensors" in argv[1] or '-s' in argv[1]:
+            exitStatus = launch_sensors()
+        elif "runserver" in argv[1] or "test" in argv[1]:
+            exitStatus = startDjango()
+        return exitStatus
+    except Exception:
+        pass
+    show_help()
 
 
 def main_as_pkg():
