@@ -27,16 +27,9 @@ def show_help():
 
 
 def main(argc, argv):  # don't you miss the old fashion way, the fabulous main in C :D.    I do
-    if argc == 1:
-        return startDjango()
-    elif argc == 2:
-        if "help" in argv[1] or '-h' in argv[1]:
-            return show_help()
-        elif "sensors" in argv[1] or '-s' in argv[1]:
-            return show_help()  # TODO replace by real sensors
-        elif "test" in argv[1] or '-t' in argv[1]:
-            return startDjango()
-    elif argc >= 2 and ("runserver" in argv[1] or '-r' in argv[1] or "test" in argv[1]):
+    if argc == 2 and "sensors" in argv[1] or '-s' in argv[1]:
+        return show_help()  # TODO replace by real sensors
+    elif argc == 1 or (argc >= 2 and ("runserver" in argv[1] or '-r' in argv[1] or "test" in argv[1])):
         return startDjango()
     return show_help()
 
