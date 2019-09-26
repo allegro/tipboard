@@ -1,6 +1,7 @@
 from django import template
 from django.template.loader import render_to_string
 from src.tipboard.app.properties import ALLOWED_TILES
+
 register = template.Library()
 
 
@@ -14,13 +15,6 @@ def template_tile(tile_id, tile_data):
     """
     data = {'tile_id': tile_id, "title": tile_data['title'], 'tile_template': tile_data['tile_template']}
     if type(tile_data) is dict and tile_data['tile_template'] in ALLOWED_TILES:
-        try:
-            return render_to_string(f"tiles/{tile_data['tile_template']}.html", data)
-        except Exception as e:
-            data['error'] = f'{e}'
-            return render_to_string(f"tiles/error_buildingtiles.html", data)
-    if tile_data['tile_template'] not in ALLOWED_TILES:
-        data['reason'] = "not allowed"
-        return render_to_string(f"tiles/notfound_tiles.html", data)
+        return render_to_string(f"tiles/{tile_data['tile_template']}.html", data)
     data['reason'] = "not found"
     return render_to_string(f"tiles/notfound_tiles.html", data)

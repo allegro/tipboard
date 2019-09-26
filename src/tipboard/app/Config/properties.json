@@ -7,7 +7,7 @@
 
   "CDN_URL": "",
   "SITE_ENV": "preprod",
-  "REDIS_HOST": "0.0.0.0",
+  "REDIS_HOST": "0.0.0.1",
   "REDIS_PASSWORD": null,
   "REDIS_PORT": 6379,
   "REDIS_DB": 4,
