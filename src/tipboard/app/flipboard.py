@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from src.tipboard.app.utils import getTimeStr
 from src.tipboard.app.properties import LOG, FLIPBOARD_SEQUENCE
-from src.tipboard.app.parser import get_config_files_names, process_layout_config
+from src.tipboard.app.parser import get_config_files_names, parse_xml_layout
 
 
 class Flipboard(object):
@@ -28,7 +28,7 @@ class Flipboard(object):
         title = ''
         config_names = self._get_config_names()
         if len(config_names) == 1:
-            config = process_layout_config(config_names[0])
+            config = parse_xml_layout(config_names[0])
             try:
                 title = config['details']['page_title']
             except KeyError:

@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import json, redis
 from asgiref.sync import async_to_sync
-from src.tipboard.app.parser import process_layout_config
+from src.tipboard.app.parser import parse_xml_layout
 from src.tipboard.app.applicationconfig import getRedisPrefix, getIsoTime
 from src.tipboard.app.properties import REDIS_DB, REDIS_PASSWORD, REDIS_HOST, REDIS_PORT, LOCAL, LOG
 from src.tipboard.app.utils import getTimeStr
@@ -72,7 +72,7 @@ class MyCache:
     def listOfTilesFromLayout(self, layout_name="layout_config"):
         rcx = 0
         listOfTiles = list()
-        config = process_layout_config(layout_name)
+        config = parse_xml_layout(layout_name)
         for tile in config['tiles_keys']:
             tileObj = {
                 "tile_id": tile,

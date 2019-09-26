@@ -92,13 +92,13 @@ def get_tiles_configs():
     }
     configs_names = get_config_files_names()
     for config_name in configs_names:
-        parsed_config = process_layout_config(config_name)
+        parsed_config = parse_xml_layout(config_name)
         tiles_configs['tiles_keys'].update(set(parsed_config['tiles_keys']))
         tiles_configs['tiles_names'].update(set(parsed_config['tiles_names']))
     return tiles_configs
 
 
-def process_layout_config(layout_name='layout_config'):
+def parse_xml_layout(layout_name='layout_config'):
     config_path = config_file_name2path(layout_name)
     try:
         with open(config_path, 'r') as layout_config:

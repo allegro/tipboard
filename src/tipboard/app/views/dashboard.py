@@ -5,7 +5,7 @@ from django.shortcuts import render
 
 from src.tipboard.app.cache import getCache
 from src.tipboard.app.flipboard import Flipboard
-from src.tipboard.app.parser import process_layout_config
+from src.tipboard.app.parser import parse_xml_layout
 from src.tipboard.app.properties import TIPBOARD_CSS_STYLES, FLIPBOARD_INTERVAL, LOG, TIPBOARD_JAVASCRIPTS
 from src.tipboard.app.utils import getTimeStr
 
@@ -34,7 +34,7 @@ def dashboardRendererHandler(request, layout_name='layout_config'):
     if LOG:
         print(f"{getTimeStr()} GET dashboardRendererHandler /{layout_name}", flush=True)
     try:
-        config = process_layout_config(layout_name)
+        config = parse_xml_layout(layout_name)
 
         data = {
             "details": config['details'],

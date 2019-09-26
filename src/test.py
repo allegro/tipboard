@@ -2,7 +2,7 @@ from django.test import RequestFactory, TestCase
 from src.tipboard.app.properties import ALLOWED_TILES
 from src.tipboard.templates.template_filter import template_tile
 from src.tipboard.app.fake_data import buildFakeDataFromTemplate
-
+from src.tipboard.app.parser import parse_xml_layout
 
 class TestApp(TestCase):
 
@@ -28,3 +28,8 @@ class TestApp(TestCase):
                 self.assertTrue("data" in tileData)
                 self.assertTrue("id" in tileData)
                 self.assertTrue("tile_template" in tileData)
+
+    def test_0030_test_parser(self):
+        config = parse_xml_layout()
+        title = config['details']['page_title']
+        self.assertTrue(title is not None)
