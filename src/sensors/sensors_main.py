@@ -16,17 +16,17 @@ from src.sensors.sensors11_advancedplot import sonde11
 from src.sensors.utils import end
 
 
-def launch_sensors():
-    sonde1()
-    sonde3()
-    sonde4()
-    sonde5()
-    sonde6()
-    sonde7()
-    sonde8()
-    sonde9()
-    sonde10()
-    sonde11()
+def launch_sensors(isTest=False):
+    sonde1(isTest)
+    sonde3(isTest)
+    sonde4(isTest)
+    sonde5(isTest)
+    sonde6(isTest)
+    sonde7(isTest)
+    sonde8(isTest)
+    sonde9(isTest)
+    sonde10(isTest)
+    sonde11(isTest)
     # sonde12()
 
 

@@ -6,8 +6,7 @@ from src.tipboard.app.parser import parse_xml_layout
 from src.tipboard.app.flipboard import Flipboard
 from src.tipboard.app.cache import MyCache
 from src.tipboard.app.utils import checkAccessToken
-from src.tipboard.app.views.api import tile_unsecured, update_unsecured, meta_unsecured, push_unsecured
-
+from src.sensors.sensors_main import launch_sensors
 
 class TestApp(TestCase):
 
@@ -70,3 +69,6 @@ class TestApp(TestCase):
         self.fakeClient.post('api/' + API_VERSION + '/' + API_KEY + '/push')
         self.fakeClient.post('api/' + API_VERSION + '/' + API_KEY + '/update')
         self.assertTrue(True)
+
+    def test_0080_test_sensors(self):
+        launch_sensors(isTest=True)

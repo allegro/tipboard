@@ -14,17 +14,18 @@ def executeScriptToGetData():
     return {"title": "My title:", "series_list": [label1, label2]}
 
 
-def sendDataToTipboard(data=None, tile_template=None, tile_id=""):
+def sendDataToTipboard(data=None, tile_template=None, tile_id="", isTest=False):
     configTile = {
         "tile": tile_template, #tile_template name
         "key": tile_id, #tile_template name
         "data": json.dumps(data)
     }
-    res = requests.post(TIPBOARD_URL + "/push", data=configTile)
-    print(f"{res} -> {tile_id}: {res.text}", flush=True)
+    if not isTest:
+        res = requests.post(TIPBOARD_URL + "/push", data=configTile)
+        print(f"{res} -> {tile_id}: {res.text}", flush=True)
 
-def sonde4():
+def sonde4(isTest):
     start_time = time.time()
     data = executeScriptToGetData()
-    sendDataToTipboard(data, tile_template=TILE_TEMPLATE, tile_id=TILE_ID)
+    sendDataToTipboard(data, tile_template=TILE_TEMPLATE, tile_id=TILE_ID, isTest=isTest)
     end(title=f"sensors4 -> {TILE_ID}", start_time=start_time)
