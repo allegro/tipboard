@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 import os, sys
-
+from .sensors_main import launch_sensors
 
 def startDjango(settings_path='tipboard.webserver.settings'):
     os.environ.setdefault('DJANGO_SETTINGS_MODULE', settings_path)
@@ -27,16 +27,23 @@ def show_help():
 
 
 def main(argc, argv):  # don't you miss the old fashion way, the fabulous main in C :D.    I do
-    if argc == 2 and "sensors" in argv[1] or '-s' in argv[1]:
-        return show_help()  # TODO replace by real sensors
-    elif argc == 1 or (argc >= 2 and ("runserver" in argv[1] or '-r' in argv[1] or "test" in argv[1])):
-        return startDjango()
-    return show_help()
+    exitStatus = -42
+    if argc == 2:
+        arg = argv[1]
+        if "sensors" in arg or '-s' in arg:
+            exitStatus = launch_sensors()
+        elif "help" in arg or '-h' in arg:
+            exitStatus = show_help()
+        elif "test" in arg or '-t' in arg:
+            exitStatus = startDjango()
+    elif (argc == 1 or argc >= 2) and ("runserver" in argv[1] or "test" in argv[1]):
+        exitStatus = startDjango()
+    return exitStatus
 
 
-# to become a python package and go to pypi, started in ../setup.py
 def main_as_pkg():
-    startDjango(settings_path='src.tipboard.webserver.settings')
+    """ to become a python package and go to pypi, started in ../setup.py """
+    return startDjango(settings_path='src.tipboard.webserver.settings')
 
 
 if __name__ == '__main__':

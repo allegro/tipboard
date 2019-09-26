@@ -16,7 +16,7 @@ from src.sensors.sensors11_advancedplot import sonde11
 from src.sensors.utils import end
 
 
-def startUp():
+def launch_sensors():
     sonde1()
     sonde3()
     sonde4()
@@ -52,7 +52,7 @@ def scheduleYourSensors():
 if __name__ == "__main__":
     print(f"(+) Tipboard  sensors initialisation", flush=True)
     start_time = time.time()
-    startUp()
+    launch_sensors()
     end(title="startUp", start_time=start_time)
     # scheduleYourSensors() If you need actualized data :)
     end(title="scheduled sensors ", start_time=start_time)
