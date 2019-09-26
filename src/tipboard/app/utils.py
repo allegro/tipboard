@@ -9,20 +9,11 @@ def getTimeStr():
 
 def checkAccessToken(method='GET', request=None, unsecured=False):
     """ Check if API_TOKEN is correct. Who cares about api version ?"""
+    key = "NO_KEY_FOUND"
     if unsecured or DEBUG:
         return True
-    key = "NO_KEY_FOUND"
-    if method == 'GET':
-        key = request.GET.get('API_KEY', 'NO_API_KEY_FOUND')
-        if key == API_KEY:
-            return True
-    elif method == 'POST':
-        key = request.POST.get('API_KEY', 'NO_API_KEY_FOUND')
-        if request.POST.get('API_KEY', 'NO_API_KEY') == API_KEY:
-            return True
-    elif method == 'DELETE':  # TODO: check if it's work with delete
-        key = request.POST.get('API_KEY', 'NO_API_KEY_FOUND')
-        if request.POST.get('API_KEY', 'NO_API_KEY') == API_KEY:
+    elif method == 'GET' or method == 'POST' or method == 'DELETE':  # TODO: check if it's work with delete:
+        if request.GET.get('API_KEY', 'NO_API_KEY_FOUND') == API_KEY:
             return True
     print(f"{getTimeStr()} (-) Access Token error: {key}")
     return False
