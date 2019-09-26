@@ -451,48 +451,54 @@ def getFakeJustValue(tile_id, template_name):
 
 
 def buildFakeDataForChartJS(tile_id, template_name):
+    data = None
     if template_name == "pie_chart":
-        return getFakePieChart(tile_id, template_name)
+        data = getFakePieChart(tile_id, template_name)
     elif template_name == "line_chart":
-        return getFakeLineChart(tile_id, template_name)
+        data = getFakeLineChart(tile_id, template_name)
     elif template_name == "cumulative_flow":
-        return getFakeCumulFlow(tile_id, template_name)
+        data = getFakeCumulFlow(tile_id, template_name)
     elif template_name == "bar_chart":
-        return getFakeBarChart(tile_id, template_name)
+        data = getFakeBarChart(tile_id, template_name)
     elif template_name == "norm_chart":
-        return getFakeNormChart(tile_id, template_name)
+        data = getFakeNormChart(tile_id, template_name)
 
     elif template_name == "doughnut_chart":
-        return getFakeDoughnutChart(tile_id, template_name)
+        data = getFakeDoughnutChart(tile_id, template_name)
     elif template_name == "radar_chart":
-        return getFakeRadarChart(tile_id, template_name)
+        data = getFakeRadarChart(tile_id, template_name)
     elif template_name == "polararea_chart":
-        return getFakePolarareaChart(tile_id, template_name)
+        data = getFakePolarareaChart(tile_id, template_name)
     elif template_name == "vbar_chart":
-        return getFakeVbarChart(tile_id, template_name)
+        data = getFakeVbarChart(tile_id, template_name)
     else:
         print(f"ERROR WITH FAKE DATA ON {tile_id}", flush=True)
+    return data
+
+
+def buildDataFromValueTemplate(tile_id, template_name):
+    if template_name == "big_value":
+        return getFakeBigValue(tile_id, template_name)
+    elif template_name == "just_value":
+        return getFakeJustValue(tile_id, template_name)
+    elif template_name == "simple_percentage":
+        return getFakeSimplePercentg(tile_id, template_name)
+    else:
         return None
-
-
+    
+    
 def buildFakeDataFromTemplate(tile_id, template_name, cache):
     print(f"Building fake data for {tile_id} as template: {template_name}")
     data = dict()
     if template_name == "text":
         data = getFakeText(tile_id, template_name)
-    elif template_name == "simple_percentage":
-        data = getFakeSimplePercentg(tile_id, template_name)
     elif template_name == "listing":
         data = getFakeListing(tile_id, template_name)
     elif template_name == "fancy_listing":
         data = getFakeFancyListing(tile_id, template_name)
-    elif template_name == "big_value":
-        data = getFakeBigValue(tile_id, template_name)
-    elif template_name == "just_value":
-        data = getFakeJustValue(tile_id, template_name)
-    elif template_name == "empty":
-        pass
-    else:
+    elif "value" in template_name or "percentage" in template_name:
+        data = buildDataFromValueTemplate(tile_id, template_name)
+    elif template_name != "empty":
         data = buildFakeDataForChartJS(tile_id, template_name)
     if cache is not None:
         cache.redis.set(name=getRedisPrefix(tile_id), value=json.dumps(data))
