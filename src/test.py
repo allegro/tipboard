@@ -1,3 +1,4 @@
+import json
 from django.test import RequestFactory, TestCase, Client
 from src.tipboard.app.properties import ALLOWED_TILES
 from src.tipboard.templates.template_filter import template_tile
@@ -54,7 +55,7 @@ class TestApp(TestCase):
         cache.listOfTilesCached()
         self.assertTrue(len(cache.listOfTilesFromLayout()) > 0)
         cache.get(tile_id='test')
-        cache.set(tile_id='test', dumped_value={'testValue': True})
+        cache.set(tile_id='test', dumped_value=json.dumps({'testValue': True}))
         cache.createTile(tile_id='test', value={'test': True}, tile_template='test')
 
     def test_0060_checkToken(self):
