@@ -1,8 +1,5 @@
-
-# Tipboard :bar_chart: :snake: :whale: :cloud:
-
   <p align="center">
-  <img alt="BetterCap" src="https://i.ibb.co/Fx6FykP/image-5.png"  />
+  <img alt="BetterCap" src="https://i.ibb.co/Fx6FykP/image-5.png"/> 
   <p align="center">
     <a href="http://hits.dwyl.io/themaux/tipboard">
      <img src="http://hits.dwyl.io/themaux/tipboard.svg"></a>
