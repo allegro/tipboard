@@ -10,7 +10,7 @@ cache = getCache()
 redis = cache.redis
 
 
-def get_tile(request, tile_key, unsecured=False):
+def get_tile(request, tile_key, unsecured=False):  # pragma: no cover
     if not checkAccessToken(method="GET", request=request, unsecured=unsecured):
         return HttpResponse("API KEY incorrect", status=401)
     if redis.exists(tile_key):
@@ -19,7 +19,7 @@ def get_tile(request, tile_key, unsecured=False):
         return HttpResponseBadRequest(f"{tile_key} key does not exist.")
 
 
-def delete_tile(request, tile_key, unsecured=False):
+def delete_tile(request, tile_key, unsecured=False):  # pragma: no cover
     if not checkAccessToken(method="DELETE", request=request, unsecured=unsecured):
         return HttpResponse("API KEY incorrect", status=401)
     if redis.exists(tile_key):
@@ -38,7 +38,7 @@ def tile(request, tile_key, unsecured=False):  # TODO: "it's better to ask forgi
     raise Http404
 
 
-def push_tile(tile_id, data, tile_template):
+def push_tile(tile_id, data, tile_template):  # pragma: no cover
     tilePrefix = getRedisPrefix(tile_id)
     if not redis.exists(tilePrefix):
         return HttpResponse(f"{tile_id} data created successfully."
@@ -52,7 +52,7 @@ def push_tile(tile_id, data, tile_template):
     return HttpResponse(f"{tile_id} data updated successfully.")
 
 
-def push(request, unsecured=False):
+def push(request, unsecured=False):  # pragma: no cover
     """ Update the content of a tile(widget) """
     if request.method == "POST":
         if not checkAccessToken(method="POST", request=request, unsecured=unsecured):
@@ -67,7 +67,7 @@ def push(request, unsecured=False):
     raise Http404
 
 
-def update_tile_meta(request, tilePrefix, tile_key):
+def update_tile_meta(request, tilePrefix, tile_key):  # pragma: no cover
     cachedTile = json.loads(redis.get(tilePrefix))
     options = json.loads(request.body.decode("utf-8"))
     try:
@@ -79,7 +79,7 @@ def update_tile_meta(request, tilePrefix, tile_key):
     return HttpResponse(f"{tile_key} data updated successfully.")
 
 
-def meta(request, tile_key, unsecured=False):
+def meta(request, tile_key, unsecured=False):  # pragma: no cover
     """ Update the meta(config) of a tile(widget) """
     if request.method == "POST":
         if not checkAccessToken(method="POST", request=request, unsecured=unsecured):
@@ -91,7 +91,7 @@ def meta(request, tile_key, unsecured=False):
     raise Http404
 
 
-def isThereMetaUpdate(request, tile_id):
+def isThereMetaUpdate(request, tile_id):  # pragma: no cover
     try:
         request.POST.get("value", None)
         httpResponse = meta(request, tile_id)
@@ -120,7 +120,7 @@ def update(request, unsecured=False):  # TODO: "it's better to ask forgiveness t
     raise Http404
 
 
-def projectInfo(request):
+def projectInfo(request):  # pragma: no cover
     if request.method == "GET":
         response = {
             'tipboard_version': "v0.1",
@@ -136,28 +136,28 @@ def projectInfo(request):
 """ This allow previous user to use their old script without migration in a insecure way :) """
 
 
-def tile_unsecured(request, tile_key):
+def tile_unsecured(request, tile_key):  # pragma: no cover
     if not DEBUG:
         raise Http404
     else:
         return tile(request=request, tile_key=tile_key, unsecured=True)
 
 
-def push_unsecured(request):
+def push_unsecured(request):  # pragma: no cover
     if not DEBUG:
         raise Http404
     else:
         return push(request=request, unsecured=True)
 
 
-def meta_unsecured(request, tile_key):
+def meta_unsecured(request, tile_key):  # pragma: no cover
     if not DEBUG:
         raise Http404
     else:
         return meta(request=request, tile_key=tile_key, unsecured=True)
 
 
-def update_unsecured(request):
+def update_unsecured(request):  # pragma: no cover
     if not DEBUG:
         raise Http404
     else:

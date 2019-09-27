@@ -8,7 +8,7 @@ def end(title, start_time):
     duration = time.time() - start_time
     m = str(duration / 60)[:str(duration / 60).index(".")]
     s = str(duration % 60)[:str(duration % 60).index(".")]
-    if m == 0:
+    if m == 0:  # pragma: no cover
         print(f"{getTimeStr()}-{title}: executed script in {s} seconds", flush=True)
     else:
         print(f"{getTimeStr()}-{title}: executed script in {m}:{s}", flush=True)
@@ -19,7 +19,7 @@ def getTimeStr():
     return datetime.datetime.now().strftime("%Hh%M")
 
 
-def sendBVColor(color, tile, fading=False):
+def sendBVColor(color, tile, fading=False):  # pragma: no cover
     """ Modify meta of tile: update the color and/or fading of a specific tile """
     var = {"value": json.dumps({"big_value_color": color, "fading_background": fading})}
     res = requests.post(TIPBOARD_URL + "/tileconfig/" + tile, data=var, verify=False)

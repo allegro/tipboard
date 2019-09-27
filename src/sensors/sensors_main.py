@@ -30,7 +30,7 @@ def launch_sensors(isTest=False):
     sonde12(isTest)
 
 
-def scheduleYourSensors():
+def scheduleYourSensors():  # pragma: no cover
     scheduler = BlockingScheduler()
     scheduler.add_job(sonde1, 'interval', minutes=42)
     scheduler.add_job(sonde2, 'interval', minutes=42)
@@ -48,7 +48,8 @@ def scheduleYourSensors():
     scheduler.start()
     return True
 
-if __name__ == "__main__":
+
+if __name__ == "__main__":  # pragma: no cover
     print(f"(+) Tipboard  sensors initialisation", flush=True)
     start_time = time.time()
     launch_sensors()
