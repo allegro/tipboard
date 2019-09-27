@@ -12,7 +12,7 @@ from src.tipboard.app.utils import getTimeStr
 cache = getCache()
 
 
-def flipboardHandler(request):
+def flipboardHandler(request):  # pragma: no cover
     data = {
         "page_title": Flipboard().get_flipboard_title(),
         "tipboard_css": TIPBOARD_CSS_STYLES,
@@ -23,14 +23,14 @@ def flipboardHandler(request):
     return render(request, 'flipboard.html', data)
 
 
-def getDashboardsPaths(request):
+def getDashboardsPaths(request):  # pragma: no cover
     if LOG:
         print(f"{getTimeStr()} GET /getDashboardsPaths", flush=True)
     paths = Flipboard().get_paths()
     return JsonResponse({'paths': paths}, safe=False)
 
 
-def dashboardRendererHandler(request, layout_name='layout_config'):
+def dashboardRendererHandler(request, layout_name='layout_config'):  # pragma: no cover
     if LOG:
         print(f"{getTimeStr()} GET dashboardRendererHandler /{layout_name}", flush=True)
     try:

@@ -1,5 +1,8 @@
 import json
+import pytest
 from django.test import RequestFactory, TestCase, Client
+from channels.testing import HttpCommunicator, ChannelsLiveServerTestCase
+from src.tipboard.app.views.wshandler import WSConsumer
 from src.tipboard.app.properties import ALLOWED_TILES
 from src.tipboard.templates.template_filter import template_tile
 from src.tipboard.app.fake_data import buildFakeDataFromTemplate
@@ -73,3 +76,12 @@ class TestApp(TestCase):
 
     def test_0080_test_sensors(self):
         launch_sensors(isTest=True)
+
+
+class SomeLiveTests(ChannelsLiveServerTestCase):
+
+    @pytest.mark.asyncio
+    async def test_0090_test_consumer(self):
+        communicator = HttpCommunicator(WSConsumer, "GET", "/communication/websocket")
+        response = await communicator.get_response()
+        assert response["status"] == 200

@@ -12,7 +12,7 @@ from src.sensors.sensors8_fancylisting import sonde8
 from src.sensors.sensors9_bigvalue import sonde9
 from src.sensors.sensors10_justvalue import sonde10
 from src.sensors.sensors11_advancedplot import sonde11
-# from src.sensors.sensorsjs2_piechart import sonde12
+from src.sensors.sensors12_normchart import sonde12
 from src.sensors.utils import end
 
 
@@ -27,7 +27,7 @@ def launch_sensors(isTest=False):
     sonde9(isTest)
     sonde10(isTest)
     sonde11(isTest)
-    # sonde12()
+    sonde12(isTest)
 
 
 def scheduleYourSensors():
@@ -47,7 +47,6 @@ def scheduleYourSensors():
     print(f"(+) Tipboard starting schedul task", flush=True)
     scheduler.start()
     return True
-
 
 if __name__ == "__main__":
     print(f"(+) Tipboard  sensors initialisation", flush=True)

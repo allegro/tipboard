@@ -9,3 +9,4 @@ redis
 piwikapi
 twine
 apscheduler
+pytest

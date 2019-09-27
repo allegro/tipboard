@@ -7,7 +7,7 @@ before_script:
   - chmod +x ./cc-test-reporter
   - ./cc-test-reporter before-build
 install:
-    - pip install coverage
+    - pip install coverage pytest-django pytest-asyncio
     - pip install -r requirements.txt
 script:
     - coverage run --source='.' --rcfile=.coveragerc. src/manage.py test  -v 2

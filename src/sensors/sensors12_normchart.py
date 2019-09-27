@@ -25,7 +25,7 @@ def sendDataToTipboard(data=None, tile_template=None, tile_id="", isTest=False):
     }
     if not isTest:
         res = requests.post(TIPBOARD_URL + "/push", data=configTile)
-    print(f"{res} -> {tile_id}: {res.text}", flush=True)
+        print(f"{res} -> {tile_id}: {res.text}", flush=True)
 
 def sonde12(isTest):
     start_time = time.time()
