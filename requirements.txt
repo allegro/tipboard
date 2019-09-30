@@ -9,4 +9,4 @@ redis==3.3.8
 piwikapi==0.3
 twine==2.0.0
 apscheduler==3.6.1
-pytest
+pytest==5.2.0
