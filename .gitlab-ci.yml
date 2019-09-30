@@ -25,7 +25,7 @@ test:
 
 ci_github_dev:
   stage: integration
-  only: ['develop']
+  only: ['dev']
   script:
     - docker login -u themaux -p ${CI_GITHUB_PACKAGE} docker.pkg.github.com
     - docker build -t docker.pkg.github.com/the-maux/tipboard/tipboard:dev .
