@@ -13,6 +13,8 @@
      <img alt="Github" src="https://img.shields.io/github/v/release/the-maux/tipboard"></a>
     <a href="https://pypi.org/project/tipboard2.0/">
      <img alt="Pypi" src="https://badge.fury.io/py/tipboard2.0.svg"></a>
+    <a href="https://github.com/the-maux/tipboard/blob/master/LICENSE.rst">
+     <img alt="License" src="https://img.shields.io/pypi/l/tipboard2.0.svg"></a>
   </br>
     <a href="https://aws.amazon.com">
      <img alt="Aws" src="https://codebuild.eu-west-3.amazonaws.com/badges?uuid=eyJlbmNyeXB0ZWREYXRhIjoiOXBBZTVtMk5nMmJFcG9vVFlGUVh3cHNoWUFoWXlCVjNjNkd1RE9ZWGtpVlBpazBLaHFKaFpsdXRuamdTc1d4ckNuTSttZnNoNzkwZHNyRUZrbndaaGdvPSIsIml2UGFyYW1ldGVyU3BlYyI6IjNHTnRyekcvWER0Wk1uRW4iLCJtYXRlcmlhbFNldFNlcmlhbCI6MX0%3D&branch=master"></a>
