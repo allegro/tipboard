@@ -32,8 +32,7 @@
     <a href="https://codeclimate.com/github/the-maux/tipboard/maintainability">
      <img alt="Code Coverage" src="https://api.codeclimate.com/v1/badges/d8974fc0be8e2b0d4c88/test_coverage"></a>
     <a href="https://snyk.io//test/github/the-maux/tipboard?targetFile=requirements.txt">
-     <img alt="Snyk" src="https://snyk.io//test/github/the-maux/tipboard/badge.svg?targetFile=requirements.txt
-"></a>
+     <img alt="Snyk" src="https://snyk.io/test/github/the-maux/tipboard?targetFile=requirements.txt"></a>
 </p>
 </p>
 
