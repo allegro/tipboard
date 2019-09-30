@@ -1,12 +1,11 @@
 import os
-from src.tipboard.app.properties import SUPER_SECRET_KEY, debug, REDIS_HOST, REDIS_PORT, FROM_PIP
+from src.tipboard.app.properties import SUPER_SECRET_KEY, DEBUG, REDIS_HOST, REDIS_PORT, FROM_PIP
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = SUPER_SECRET_KEY
-DEBUG = debug
+DEBUG = DEBUG
 ALLOWED_HOSTS = ['*']
 
-print("LOADING:-> " +  FROM_PIP + 'tipboard.app.Config')
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -67,7 +66,6 @@ USE_TZ = True
 ROOT_URLCONF = FROM_PIP + 'tipboard.webserver.urls'
 WSGI_APPLICATION = FROM_PIP + 'tipboard.webserver.wsgi.application'
 
-print("->>>" + BASE_DIR + '/templates')
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
@@ -80,17 +78,16 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
             ],
-        'libraries':{
-            'template_filter': FROM_PIP + 'tipboard.templates.template_filter',
+            'libraries': {
+                'template_filter': FROM_PIP + 'tipboard.templates.template_filter',
             }
         },
     },
 ]
 
-
 STATICFILES_FINDERS = (
-        'django.contrib.staticfiles.finders.FileSystemFinder',
-        'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
 )
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),
@@ -109,3 +106,12 @@ CHANNEL_LAYERS = {
     }
 }
 
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        "TEST": {
+            "NAME": os.path.join(BASE_DIR, "db_test.sqlite3"),
+        },
+    }
+}

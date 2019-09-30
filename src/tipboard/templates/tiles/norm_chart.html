@@ -1,10 +1,17 @@
-<div class="tile norm-chart-tile" id="{{ tile_id }}">
+<div class="container">
+
+</div>
+<div class="tile line-chart-tile" id="{{ tile_id }}" >
     <div class="tile-header">
-        <h3 >{{ title }}</h3>
+        <h3>{{ title }}</h3>
     </div>
-    <div class="tile-content">
-        <h2 id="{{ tile_id }}-title" class="result big-result"></h2>
-        <h3 id="{{tile_id }}-description" class="result label"> </h3>
-        <div id="{{ tile_id }}-chart" class="chart round-legend"> </div>
+
+    <div style="height: 100%">
+{#        <h2 id="{{ tile_id }}-title" class="result big-result"></h2>#}
+{#        <h3 id="{{tile_id }}-description" class="result label"> </h3>#}
+        <canvas id="{{ tile_id }}-chart" style="height: 90%; width: 100%">
+
+        </canvas>
     </div>
+
 </div>

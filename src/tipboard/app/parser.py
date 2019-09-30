@@ -13,7 +13,7 @@ def _get_tiles_dict(col):
 
 
 def get_cols(rows):
-    #TODO: validation col_1_of_4
+    # TODO: validation col_1_of_4
     cols = []
     for col in list(rows.values())[0]:
         cols.append(col)
@@ -54,8 +54,7 @@ def find_tiles_names(layout):
                 key = tile_dict['tile_id']
                 if key not in key_list:
                     key_list.append(key)
-                    if name not in name_list:
-                        name_list.append(name)
+                    name_list.append(name)
     return name_list, key_list
 
 
@@ -85,7 +84,7 @@ def config_file_name2path(config_name):
 
 def get_tiles_configs():
     """
-    Return dict with both tiles' keys and ids from all available configs
+    Return dict with tiles keys and ids from all available configs
     """
     tiles_configs = {
         'tiles_keys': set(),
@@ -93,13 +92,13 @@ def get_tiles_configs():
     }
     configs_names = get_config_files_names()
     for config_name in configs_names:
-        parsed_config = process_layout_config(config_name)
+        parsed_config = parse_xml_layout(config_name)
         tiles_configs['tiles_keys'].update(set(parsed_config['tiles_keys']))
         tiles_configs['tiles_names'].update(set(parsed_config['tiles_names']))
     return tiles_configs
 
 
-def process_layout_config(layout_name='layout_config'):
+def parse_xml_layout(layout_name='layout_config'):
     config_path = config_file_name2path(layout_name)
     try:
         with open(config_path, 'r') as layout_config:

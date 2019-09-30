@@ -2,11 +2,11 @@
 import os, sys
 
 
-def startDjango():
-    sys.path.insert(0, os.getcwd())  # Import project to PYTHONPATH
+def startDjango(settings_path='tipboard.webserver.settings'):
+    os.environ.setdefault('DJANGO_SETTINGS_MODULE', settings_path)
     try:
         from django.core.management import execute_from_command_line
-    except ImportError as exc:
+    except ImportError as exc:  # pragma: no cover
         raise ImportError(
             "Couldn't import Django. Are you sure it's installed and "
             "available on your PYTHONPATH environment variable? Did you "
@@ -15,7 +15,7 @@ def startDjango():
     execute_from_command_line(sys.argv)
 
 
-def show_help():
+def show_help():  # pragma: no cover
     help = """Usage:
   -h, or help  \t\t=> show help usage
   -r, or runserver\t=> start the tipboard server
@@ -25,24 +25,24 @@ def show_help():
     return 0
 
 
-def main(argc, argv):#don't you miss the old fashion way, the fabulous main in C :D.    I do
-    if argc == 1:
-        return startDjango()
-    elif argc == 2:
-        if "help" in argv[1] or '-h' in argv[1]:
-            return show_help()
-        elif "sensors" in argv[1] or '-s' in argv[1]:
-            return show_help()  # TODO replace by real sensors
-    elif argc >= 2 and "runserver" in argv[1] or '-r' in argv[1]:
-        os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'tipboard.webserver.settings')
-        return startDjango()
-    return show_help()
+def main(argc, argv):  # don't you miss the old fashion way, the fabulous main in C :D.    I do
+    exitStatus = -42
+    try:
+        sys.path.insert(0, os.getcwd())  # Import project to PYTHONPATH
+        if "sensors" in argv[1] or '-s' in argv[1]:
+            from src.sensors.sensors_main import launch_sensors
+            exitStatus = launch_sensors()
+        elif "runserver" in argv[1] or "test" in argv[1]:
+            exitStatus = startDjango()
+        return exitStatus
+    except Exception:  # pragma: no cover
+        pass
+    show_help()
 
 
-# to become a python package and go to pypi, started in ../setup.py
-def main_as_pkg():
-    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'src.tipboard.webserver.settings')
-    startDjango()
+def main_as_pkg():  # pragma: no cover
+    """ to become a python package and go to pypi, started in ../setup.py """
+    return startDjango(settings_path='src.tipboard.webserver.settings')
 
 
 if __name__ == '__main__':

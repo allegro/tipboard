@@ -1,5 +1,6 @@
 import pathlib, sys
 from setuptools import setup, find_packages
+from src import __version__
 
 assert sys.version_info >= (3, 7), "Python 3.7+ required."
 
@@ -15,7 +16,6 @@ print(README)
 with open(HERE / 'requirements.txt') as requirements:
     required = requirements.read().splitlines()
 
-from src import __version__
 
 setup(
     name="tipboard2.0",
@@ -36,5 +36,3 @@ setup(
         ],
     },
 )
-
-

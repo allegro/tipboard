@@ -1,15 +1,24 @@
+
+
 <div class="tile highlighter-tile just-value-tile" id="{{ tile_id }}">
     <div class="tile-header">
         <h3>{{ title }}</h3>
     </div>
-    <div class="tile-content">
-        <h2 id="{{ tile_id }}-title" class="result big-result fixed-height"></h2>
-        <h3
-            id="{{ tile_id }}-description"
-            class="result label fixed-height"
-        ></h3>
-        <div class="result big-result highlighted-result just-value-div" >
-            <span id="{{ tile_id }}-just-value" class="just-value" > </span>
+    <div class="container w-100 h-100">
+
+        <div class="row" style="height: 20%;margin-top: 2%">
+            <div class="col-sm-12 my-auto" >
+                <h2 id="{{ tile_id }}-title" class="mx-auto" style="margin-top: 2%"></h2>
+                <h6 id="{{ tile_id }}-description" class="mx-auto"></h6>
+            </div>
+        </div>
+
+        <div class="row" id="body_bv" style="display: flex;align-items: center;justify-content: center;height: 68%;background-color: red;margin-top: 2%">
+            <div class="row" >
+                <div class="col-md-12 my-auto">
+                    <p class="h1 display-1 text-white" id="{{ tile_id }}-just-value" style="font-size: 100px"> </p>
+                </div>
+            </div>
         </div>
 
     </div>

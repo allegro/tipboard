@@ -1,63 +1,59 @@
 # -*- coding: utf-8 -*-
-
 from django.http import JsonResponse, HttpResponse
+from django.contrib.staticfiles import finders
 from django.shortcuts import render
 
 from src.tipboard.app.cache import getCache
 from src.tipboard.app.flipboard import Flipboard
-from src.tipboard.app.parser import process_layout_config
-from src.tipboard.app.properties import *
+from src.tipboard.app.parser import parse_xml_layout
+from src.tipboard.app.properties import TIPBOARD_CSS_STYLES, FLIPBOARD_INTERVAL, LOG, TIPBOARD_JAVASCRIPTS
 from src.tipboard.app.utils import getTimeStr
 
 cache = getCache()
 
 
-def flipboardHandler(request):
-    if LOG:
-        print(f"{getTimeStr()} (+) flipboardHandler/", flush=True)
+def flipboardHandler(request):  # pragma: no cover
     data = {
         "page_title": Flipboard().get_flipboard_title(),
         "tipboard_css": TIPBOARD_CSS_STYLES,
-        "tipboard_js": ['js/lib/jquery.js', 'js/flipboard.js', 'js/lib/require.js'],
+        "tipboard_js": ['js/flipboard.js'],
         "flipboard_interval": FLIPBOARD_INTERVAL,
     }
-#    data['tipboard_js'].remove('js/tipboard.js')
+    print(f"{getTimeStr()} (+) flipboardHandler/ -> CSS: {data['tipboard_css']}", flush=True)
     return render(request, 'flipboard.html', data)
 
 
-def getDashboardsPaths(request):
+def getDashboardsPaths(request):  # pragma: no cover
     if LOG:
         print(f"{getTimeStr()} GET /getDashboardsPaths", flush=True)
     paths = Flipboard().get_paths()
     return JsonResponse({'paths': paths}, safe=False)
 
 
-def dashboardRendererHandler(request, layout_name='layout_config'):
+def dashboardRendererHandler(request, layout_name='layout_config'):  # pragma: no cover
     if LOG:
-        print(f"{getTimeStr()} GET dashboardRendererHandler /([a-zA-Z0-9_-]*)", flush=True)
+        print(f"{getTimeStr()} GET dashboardRendererHandler /{layout_name}", flush=True)
     try:
-        config = process_layout_config(layout_name)
-        tiles_js = ["tiles/" + '.'.join((name, 'js')) for name in config['tiles_names']]
-        tiles_css = ["tiles/" + '.'.join((name, 'css')) for name in config['tiles_names']]
-        #tiles_js = filter(_verify_statics, tiles_js) #TODO fix the verify_statics for js/css in utils.py
+        config = parse_xml_layout(layout_name)
+
         data = {
             "details": config['details'],
             "layout": config['layout'],
             "tipboard_css": TIPBOARD_CSS_STYLES,
             "tipboard_js": TIPBOARD_JAVASCRIPTS,
-            "tiles_css": tiles_css,
-            "tiles_js": tiles_js,
+            "tiles_css": ["tiles/" + '.'.join((name, 'css')) for name in config['tiles_names']],
+            "tiles_js": ["tiles/" + '.'.join((name, 'js')) for name in config['tiles_names']],
         }
     except FileNotFoundError as e:
         if LOG:
             print(f"{getTimeStr()}: (+)Config file:{layout_name} not found", flush=True)
-        msg = '<br>'.join([
-            '<div style="color: red">',
-            f'No config file found for dashboard: {layout_name}',
-            f'Make sure that file: "{e.filename}" exists.',
-            '</div>',
-        ])
+        msg = f'<br> <div style="color: red"> ' \
+            f'No config file found for dashboard: {layout_name} ' \
+            f'Make sure that file: "{e.filename}" exists. </div>'
         return HttpResponse(msg, status=404)
+    tiles_css = list()
+    for tile_css in data['tiles_css']:
+        if finders.find(tile_css):
+            tiles_css.append(tile_css)
+    data['tiles_css'] = tiles_css
     return render(request, 'layout.html', data)
-
-

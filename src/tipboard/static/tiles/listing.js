@@ -1,10 +1,7 @@
-/*jslint browser: true, devel: true*/
-/*global WebSocket: false, Tipboard: false*/
-
 function updateTileListing(id, data, meta, tipboard) {
     var MAX_ITEMS = 7;
     var tile = $('#' + id)[0];
-    var container = $(tile).find('.listing')[0];
+    var container = $(tile).find('.list-group')[0];
     $(container).children().remove();
     for (idx in data.items) {
         if (idx > MAX_ITEMS) {
@@ -18,7 +15,6 @@ function updateTileListing(id, data, meta, tipboard) {
         var textContent =  data.items[idx];
         appendListingItem(container, textContent);
     }
-    Tipboard.TileDisplayDecorator.runAllDecorators(tile);
 }
 
 Tipboard.Dashboard.registerUpdateFunction('listing', updateTileListing);
@@ -26,7 +22,7 @@ Tipboard.Dashboard.registerUpdateFunction('listing', updateTileListing);
 
 function appendListingItem(container, itemText) {
     var htmlLabel = [
-        '<li class="listing-item">',
+        '<li class="list-group-item text-white" style="background: #212121">',
         itemText,
         '</li>'
     ].join('\n');

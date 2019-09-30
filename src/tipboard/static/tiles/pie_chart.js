@@ -1,69 +1,41 @@
-function updateTilePie(tileId, data, config, tipboard) {
-    Tipboard.Dashboard.setDataByKeys(tileId, data, ['title', 'description']);
-    renderersSwapper = new RenderersSwapper();
-    renderersSwapper.swap(config);
-    var config = jQuery.extend(true, DEFAULT_PIE_CHART_CONFIG, {
-      legend: {
-        border: Tipboard.DisplayUtils.palette.tile_background,
-        //background: Tipboard.DisplayUtils.palette.tile_background
-      },
-      grid: {
-        background: "transparent"
-      }
-    }, config);
-
-    // if (config.seriesColors) {
-    //     $.each(config.seriesColors, function (idx, color) {
-    //         config.seriesColors[idx] = Tipboard.DisplayUtils.replaceFromPalette(color);
-    //     });
-    // } else {
-    //     config.seriesColors = Tipboard.DisplayUtils.getPalette(
-    //         tipboard.color
-    //     );
-    // }
-    //autoscale required nodes and plot
-    // TODO: use buildFittedChart
-    var tile = Tipboard.Dashboard.id2node(tileId);
-    Tipboard.DisplayUtils.expandLastChild(tile);
-    Tipboard.DisplayUtils.expandLastChild($(tile).find('.tile-content')[0]);
-    Tipboard.Dashboard.chartsIds[tileId] = $.jqplot(
-        tileId + '-chart', [data.pie_data], config
-    );
+function updateTilePiejs(tileId, data, meta, tipboard) {
+    console.log("pie_chartjs::updateTile::start" + tileId);
+    var ctx = $('#' + tileId + "-chart");
+    console.log(data);
+    new Chart(ctx, {
+        type: 'pie',
+        data: {
+            labels: data['pie_data_tag'],
+            datasets: [{
+                label: data['label'],
+                backgroundColor: meta['backgroundColor'],
+                data: data['pie_data_value']
+            }]
+        },
+        options: {
+            tooltips: {
+                enabled: false
+            },
+            plugins: {
+                labels: {
+                    fontColor: '#fff',
+                },
+                datalabels: {
+                    formatter: (value, ctx) => {
+                        let sum = 0;
+                        console.log('I format');
+                        let dataArr = ctx.chart.data.datasets[0].data;
+                        dataArr.map(data => {
+                            sum += data;
+                        });
+                        let percentage = (value * 100 / sum).toFixed(2) + "%";
+                        return percentage;
+                    },
+                }
+            },
+        }
+    });
+    console.log("pie_chartjs::updateTile end" + tileId);
 }
-Tipboard.Dashboard.registerUpdateFunction('pie_chart', updateTilePie);
 
-var DEFAULT_PIE_CHART_CONFIG  = {
-  title: false,
-  legend: {
-      textColor: 'white',
-      renderer: $.jqplot.DonutLegendRenderer,
-      location: 'e',
-      show: true,
-      border: '0',
-      fontSize: '2.5rem',
-      //placement: "outside",
-      rendererOptions: {
-          numberColumns: 1,
-          fontSize: '2.5rem',
-      }
-  },
-  grid: {
-      drawGridLines: false,
-      borderWidth: 0,
-      shadow: false,
-
-  },
-    seriesColors:['#85802b', '#00749F', '#73C774', '#C7754C', '#17BDB8'],
-    seriesDefaults: {
-
-      renderer: $.jqplot.DonutRenderer,
-      rendererOptions: {
-          padding: 0,
-          shadowAlpha: 0,
-          sliceMargin: 0,
-          innerDiameter: 60,
-          showDataLabels: true,
-          startAngle: -90
-      }
-  }
-};
+Tipboard.Dashboard.registerUpdateFunction('pie_chart', updateTilePiejs);

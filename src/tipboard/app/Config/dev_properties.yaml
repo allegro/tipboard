@@ -1,78 +1,95 @@
 details:
-    page_title: Mobilite Healthboard
+    page_title: Tipboard exemple
 layout:
     - row_1_of_2:
-        - col_1_of_4 flip-time-5:
-            - tile_template: big_value
-              tile_id: bv_wt6000
-              title: WT6000 MCO
+
+        - col_1_of_4 flip-time-1:
+
+            - tile_template: pie_chart
+              tile_id: pie_chartjs_ex
+              title: pie chart
               classes:
 
-            - tile_template: big_value
-              tile_id: bv_tc8000
-              title: TC8000 MCO
+            - tile_template: doughnut_chart
+              tile_id: doughnut_ex
+              title: doughnut
               classes:
 
-            - tile_template: big_value
-              tile_id: bv_TC5X
-              title: TC5X MCO
+        - col_1_of_4  flip-time-1:
+
+            - tile_template: polararea_chart
+              tile_id: polararea_ex
+              title: polar-area
               classes:
 
-            - tile_template: big_value
-              tile_id: bv_bluebird
-              title: EF500(R) MCO
+            - tile_template: radar_chart
+              tile_id: radar_ex
+              title: radar chart
               classes:
 
-        - col_1_of_4:
-            - tile_template: simple_percentage
-              tile_id: sp_ttc
-              title: Wifi Quality
+        - col_1_of_4 flip-time-1:
+
+            - tile_template: vbar_chart
+              tile_id: vbarjs_ex
+              title: vertical bar
               classes:
 
-        - col_1_of_4 flip-time-10:
-            - tile_template: big_value
-              tile_id: bv_proxy
-              title: Proxy Incidents
+            - tile_template: bar_chart
+              tile_id: barjs_ex
+              title: bar tile's
               classes:
 
-            - tile_template: big_value
-              tile_id: bv_agent
-              title: MCO Incidents
+        - col_1_of_4 flip-time-1:
+
+            - tile_template: norm_chart
+              tile_id: normjs_ex
+              title: norm tile's
               classes:
 
-            - tile_template: big_value
-              tile_id: bv_storage
-              title: Storage Incidents
+            - tile_template: cumulative_flow
+              tile_id: cfjs_ex2
+              title: cumulflow
               classes:
 
-        - col_1_of_4:
-            - tile_template: big_value
-              tile_id: bv_soti_connected_devices
-              title: MDM Infos
+            - tile_template: line_chart
+              tile_id: line_chartjs_ex
+              title: line tile's
               classes:
+
+
 
     - row_1_of_2:
         - col_1_of_4:
-            - tile_template: bar_chart
-              tile_id: ooc_soti
-              title: Out of contact
-              classes:
-
-        - col_1_of_4:
             - tile_template: simple_percentage
-              tile_id: sp_coverage
-              title: Analytics
+              tile_id: sp_ex
+              title: Percentage
               classes:
 
         - col_1_of_4:
-            - tile_template: pie_chart
-              tile_id: total_model_devices
-              title: Type of devices
+            - tile_template: big_value
+              tile_id: bv_ex
+              title: Big value
               classes:
 
-        - col_1_of_4:
-            - tile_template: norm_chart
-              tile_id: lc_clients
-              title: Day Comparaison
+        - col_1_of_4 :
+            - tile_template: just_value
+              tile_id: jv_ex
+              title: Just value
               classes:
+
+        - col_1_of_4 flip-time-1:
+            - tile_template: listing
+              tile_id: listing_ex
+              title: listing
+              classes:
+
+            - tile_template: text
+              tile_id: txt_ex
+              title: text
+              classes:
+
+
+
+
+
 

@@ -9,7 +9,6 @@ function updateTileFancyListing(tileId, data, config, tipboard) {
     }
     FancyListing.populateItems(tile, nodeToClone, data);
     FancyListing.applyConfig(tile, config);
-    Tipboard.TileDisplayDecorator.runAllDecorators(tile);
     if (config['vertical_center'] === true) {
         FancyListing.verticalCenter(tile);
     }
@@ -42,9 +41,7 @@ FancyListing = {
             if (/\d+/.test(idx)) {
                 var item = $(tile).find('.fancy-listing-item')[idx];
                 // set color
-                var color = Tipboard.DisplayUtils.replaceFromPalette(
-                    tileConfig['label_color']
-                );
+                var color = "#FFFFFF";
                 $(item).find('.fancy-listing-label').css('background-color', color);
                 // set centering
                 if (tileConfig['center'] === true) {

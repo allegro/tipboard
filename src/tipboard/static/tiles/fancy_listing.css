@@ -32,7 +32,7 @@
 
 .tile.fancy-listing .fancy-listing-label-inside {
     font-weight: 900;
-    font-size: 1.5em;
+    font-size: 1.0em;
 }
 
 .tile.fancy-listing .fancy-listing-def {
@@ -41,6 +41,6 @@
 }
 
 .tile.fancy-listing .fancy-listing-term {
-    font-size: 1.5em;
+    font-size: 1.0em;
     white-space: nowrap;
 }

@@ -2,21 +2,39 @@
     <div class="tile-header">
         <h3>{{ title }}</h3>
     </div>
-    <div class="tile-content">
-        <h2 id="{{ tile_id }}-title" class="result big-result fixed-height"></h2>
-        <h3 id="{{ tile_id }}-subtitle" class="result subtitle label fixed-height"></h3>
-        <div class="result big-value-container">
-            <span id="{{ tile_id }}-big_value"></span>
-        </div>
-        <div class="result-row highlight-footer">
-            <div class="result-col with-right-border">
-                <div id="{{ tile_id }}-left_label" class="result label"></div>
-                <div id="{{ tile_id }}-left_value" class="result medium-result"><span></span></div>
+    <div class="container-fluid h-100 p-0 w-100">
+        <div class=".row " style="text-align: center; color: white; height: 22%">
+
+            <div class="row h-100 w-100 my-auto">
+                <div class="col-sm-12 my-auto" style="text-align: center">
+                    <h2 class="mx-auto" id="{{ tile_id }}-title">
+                    </h2>
+                    <h6 class="mx-auto" id="{{ tile_id }}-subtitle">
+                    </h6>
+                </div>
             </div>
-            <div class="result-col">
-                <div id="{{ tile_id }}-right_label" class="result label"></div>
-                <div id="{{ tile_id }}-right_value" class="result medium-result"><span></span></div>
+
+        </div>
+        <div class=".row w-100" style="height: 46%;text-align: center;background-color: green; color: white;">
+            <div class=".row w-100 my-auto h-100" style="display: flex;align-items: center;justify-content: center;">
+                <div class="col w-100">
+                    <div class="display-3 w-100 h-100" id="{{ tile_id }}-big_value">
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class=".row w-100" style="height: 22%;display: inline-flex; justify-content: center ;text-align: center;align-items: center;">
+            <div class="column1 w-100 m-1" style="">
+                <div id="{{ tile_id }}-left_label" class=".row text-white" style=""></div>
+                <div id="{{ tile_id }}-left_value" class=".row text-white" style="margin-top: 1%"><span></span></div>
+            </div>
+            <div style="border-left:1px solid #b4b4b4;width: 2px;height: 90%;margin-top: 2%;margin-bottom: 2%" class="m-2"></div>
+            <div class="column1 w-100 m-1" style="float: right;">
+                <div id="{{ tile_id }}-right_label" class=".row center text-white" style=""></div>
+                <div id="{{ tile_id }}-right_value" class=".row center text-white" style="margin-top: 1%"><span></span></div>
             </div>
         </div>
+
     </div>
 </div>
