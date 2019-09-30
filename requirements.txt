@@ -1,5 +1,5 @@
 django==2.2.5
-django-prometheus
+django-prometheus==1.1.0
 django-cors-headers
 channels
 channels_redis
