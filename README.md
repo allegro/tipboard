@@ -9,13 +9,15 @@
      <img alt="docker" src="https://img.shields.io/docker/pulls/themaux/tipboard"></a>
     <a href="">
   </br>
-    <a href="">
-     <img alt="Azure" src="https://dev.azure.com/maximerenaud/tipboard/_apis/build/status/the-maux.tipboard?branchName=master"></a>
     <a href="https://github.com/the-maux/tipboard">
      <img alt="Github" src="https://img.shields.io/github/v/release/the-maux/tipboard"></a>
     <a href="https://pypi.org/project/tipboard2.0/">
      <img alt="Pypi" src="https://badge.fury.io/py/tipboard2.0.svg"></a>
   </br>
+    <a href="https://aws.amazon.com">
+     <img alt="Aws" src="https://codebuild.eu-west-3.amazonaws.com/badges?uuid=eyJlbmNyeXB0ZWREYXRhIjoiOXBBZTVtMk5nMmJFcG9vVFlGUVh3cHNoWUFoWXlCVjNjNkd1RE9ZWGtpVlBpazBLaHFKaFpsdXRuamdTc1d4ckNuTSttZnNoNzkwZHNyRUZrbndaaGdvPSIsIml2UGFyYW1ldGVyU3BlYyI6IjNHTnRyekcvWER0Wk1uRW4iLCJtYXRlcmlhbFNldFNlcmlhbCI6MX0%3D&branch=master"></a>
+    <a href="">
+     <img alt="Azure" src="https://dev.azure.com/maximerenaud/tipboard/_apis/build/status/the-maux.tipboard?branchName=master"></a>
     <a href="https://travis-ci.com/the-maux/tipboard"> 
       <img alt="Travis" src="https://travis-ci.com/the-maux/tipboard.svg?branch=develop"></a>
     <a href="https://gitlab.com/the-maux/tipboard/pipelines">
@@ -30,8 +32,6 @@
     <a href="https://snyk.io//test/github/the-maux/tipboard?targetFile=requirements.txt">
      <img alt="Snyk" src="https://snyk.io//test/github/the-maux/tipboard/badge.svg?targetFile=requirements.txt
 "></a>
-    <a href="https://aws.amazon.com">
-     <img alt="Aws" src="https://codebuild.eu-west-3.amazonaws.com/badges?uuid=eyJlbmNyeXB0ZWREYXRhIjoiOXBBZTVtMk5nMmJFcG9vVFlGUVh3cHNoWUFoWXlCVjNjNkd1RE9ZWGtpVlBpazBLaHFKaFpsdXRuamdTc1d4ckNuTSttZnNoNzkwZHNyRUZrbndaaGdvPSIsIml2UGFyYW1ldGVyU3BlYyI6IjNHTnRyekcvWER0Wk1uRW4iLCJtYXRlcmlhbFNldFNlcmlhbCI6MX0%3D&branch=master"></a>
 </p>
 </p>
 
