@@ -69,6 +69,7 @@ A detailed, technical documentation for Tipboard can be found
 [30]: https://img.shields.io/badge/pipeline-todo-orange
 [31]: https://dev.azure.com/maximerenaud/tipboard/_apis/build/status/tipboard?branchName=master
 [32]: https://img.shields.io/badge/pipeline-todo-orange
+[33]: https://codebuild.eu-west-3.amazonaws.com/badges?uuid=eyJlbmNyeXB0ZWREYXRhIjoiOXBBZTVtMk5nMmJFcG9vVFlGUVh3cHNoWUFoWXlCVjNjNkd1RE9ZWGtpVlBpazBLaHFKaFpsdXRuamdTc1d4ckNuTSttZnNoNzkwZHNyRUZrbndaaGdvPSIsIml2UGFyYW1ldGVyU3BlYyI6IjNHTnRyekcvWER0Wk1uRW4iLCJtYXRlcmlhbFNldFNlcmlhbCI6MX0%3D&branch=master
 
 ## Quick start
 
