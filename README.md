@@ -1,27 +1,18 @@
   <p align="center">
-  <img alt="BetterCap" src="https://i.ibb.co/Fx6FykP/image-5.png"/> 
+  <img alt="Tipboard" src="https://i.ibb.co/Fx6FykP/image-5.png"/>
   <p align="center">
-    <a href="http://hits.dwyl.io/themaux/tipboard">
-     <img src="http://hits.dwyl.io/themaux/tipboard.svg"></a>
-    <a href="">
-     <img alt="pypi" src="https://img.shields.io/pypi/dm/tipboard.svg"></a>
-    <a href="">
-     <img alt="docker" src="https://img.shields.io/docker/pulls/themaux/tipboard"></a>
-    <a href="">
-  </br>
+    <a href="https://travis-ci.com/the-maux/tipboard">
+      <img alt="Travis" src="https://travis-ci.com/the-maux/tipboard.svg?branch=develop"></a>
+    <a href="https://gitlab.com/the-maux/tipboard/pipelines">
+     <img src="https://gitlab.com/the-maux/tipboard/badges/master/pipeline.svg" alt="Gitlab"></a>
+    <a href="https://tipboard.readthedocs.io/">
+     <img alt="ReadTheDocs" src="https://readthedocs.org/projects/tipboard/badge/?version=latest"></a>  </br>
     <a href="https://github.com/the-maux/tipboard">
      <img alt="Github" src="https://img.shields.io/github/v/release/the-maux/tipboard"></a>
     <a href="https://pypi.org/project/tipboard2.0/">
      <img alt="Pypi" src="https://badge.fury.io/py/tipboard2.0.svg"></a>
     <a href="https://pyup.io/account/repos/github/the-maux/tipboard/">
      <img alt="PyUp" src="https://pyup.io/repos/github/the-maux/tipboard/shield.svg"></a>
-  </br>
-    <a href="https://travis-ci.com/the-maux/tipboard">
-      <img alt="Travis" src="https://travis-ci.com/the-maux/tipboard.svg?branch=develop"></a>
-    <a href="https://gitlab.com/the-maux/tipboard/pipelines">
-     <img src="https://gitlab.com/the-maux/tipboard/badges/master/pipeline.svg" alt="Gitlab"></a>
-    <a href="https://tipboard.readthedocs.io/">
-     <img alt="ReadTheDocs" src="https://readthedocs.org/projects/tipboard/badge/?version=latest"></a>
 </br>
     <a href="">
      <img alt="Code Quality" src="https://api.codeclimate.com/v1/badges/d8974fc0be8e2b0d4c88/maintainability"></a>
@@ -29,6 +20,15 @@
      <img alt="Code Coverage" src="https://api.codeclimate.com/v1/badges/d8974fc0be8e2b0d4c88/test_coverage"></a>
     <a href="https://snyk.io/test/github/the-maux/tipboard?targetFile=requirements.txt">
      <img alt="Snyk" src="https://snyk.io/test/github/the-maux/tipboard/badge.svg?targetFile=requirements.txt"></a>
+</br>
+    <a href="https://allegro.tech/tipboard/">
+     <img src="http://hits.dwyl.io/themaux/tipboard.svg"></a>
+    <a href="">
+     <img alt="pypi" src="https://img.shields.io/pypi/dm/tipboard.svg"></a>
+    <a href="">
+     <img alt="docker" src="https://img.shields.io/docker/pulls/themaux/tipboard"></a>
+    <a href="">
+  </br>
 </p>
 </p>
 
