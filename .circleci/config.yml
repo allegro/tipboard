@@ -8,7 +8,7 @@ workflows:
             - test_commit
           filters:
             branches:
-              only: circle-ci/pypi
+              only: master
 jobs:
   test_commit:
     docker:
