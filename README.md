@@ -46,31 +46,6 @@ A detailed, technical documentation for Tipboard can be found
 [here](http://tipboard.readthedocs.org/en/latest/).
 
 
-#### Continuous.Deployment
-| cloud :cloud: |                     URL / CD-Pipeline                |
-| ------------- | ---------------------------------------------------- | 
-| Azure         | [![AzurePipeline][31]][31] [![][22]][31]              |
-| Aws           | [![][33]][13] [![GircleCI][19]][20]            |
-| GCP           | [![CircleCI][23]][24] |
-| Openshift/k8s | [![Gitlab][27]][28] [![Gitlab][27]][28]              | 
-
-[18]: https://img.shields.io/badge/pipeline-todo-orange
-[19]: https://circleci.com/gh/the-maux/tipboard/tree/master.svg?style=svg
-[20]: https://circleci.com/gh/the-maux/tipboard/tree/master
-[21]: http://35.181.91.193
-[22]: https://img.shields.io/badge/pipeline-todo-orange
-[23]: https://circleci.com/gh/the-maux/tipboard/tree/master.svg?style=svg
-[24]: https://img.shields.io/badge/pipeline-todo-orange
-[25]: https://img.shields.io/badge/pipeline-todo-orange
-[26]: https://img.shields.io/badge/pipeline-todo-orange
-[27]: https://img.shields.io/badge/pipeline-todo-orange
-[28]: https://img.shields.io/badge/pipeline-todo-orange
-[29]: https://tipboard-gcp.appspot.com/
-[30]: https://img.shields.io/badge/pipeline-todo-orange
-[31]: https://dev.azure.com/maximerenaud/tipboard/_apis/build/status/tipboard?branchName=master
-[32]: https://img.shields.io/badge/pipeline-todo-orange
-[33]: https://codebuild.eu-west-3.amazonaws.com/badges?uuid=eyJlbmNyeXB0ZWREYXRhIjoiOXBBZTVtMk5nMmJFcG9vVFlGUVh3cHNoWUFoWXlCVjNjNkd1RE9ZWGtpVlBpazBLaHFKaFpsdXRuamdTc1d4ckNuTSttZnNoNzkwZHNyRUZrbndaaGdvPSIsIml2UGFyYW1ldGVyU3BlYyI6IjNHTnRyekcvWER0Wk1uRW4iLCJtYXRlcmlhbFNldFNlcmlhbCI6MX0%3D&branch=master
-
 ## Quick start
 
 ### 1. Execution by python :snake:
@@ -188,6 +163,32 @@ $ helm template --values tipboard_helm.yaml --name tipboard  --output-dir ./mani
 $ oc apply -R -f ./manifests || helm install --name tipboard MY_PATH_ENVIRONMENT
 ```
 </details>
+
+
+#### Continuous.Deployment
+| cloud :cloud: |                     URL / CD-Pipeline                |
+| ------------- | ---------------------------------------------------- |
+| Azure         | [![AzurePipeline][31]][31] [![][22]][31]             |
+| Aws           | ![][33] [![GircleCI][19]][20]                        |
+| GCP           | [![CircleCI][23]][24]                                |
+| Openshift/k8s | [![Gitlab][27]][28] [![Gitlab][27]][28]              |
+
+[18]: https://img.shields.io/badge/pipeline-todo-orange
+[19]: https://circleci.com/gh/the-maux/tipboard/tree/master.svg?style=svg
+[20]: https://circleci.com/gh/the-maux/tipboard/tree/master
+[21]: http://35.181.91.193
+[22]: https://img.shields.io/badge/pipeline-todo-orange
+[23]: https://circleci.com/gh/the-maux/tipboard/tree/master.svg?style=svg
+[24]: https://img.shields.io/badge/pipeline-todo-orange
+[25]: https://img.shields.io/badge/pipeline-todo-orange
+[26]: https://img.shields.io/badge/pipeline-todo-orange
+[27]: https://img.shields.io/badge/pipeline-todo-orange
+[28]: https://img.shields.io/badge/pipeline-todo-orange
+[29]: https://tipboard-gcp.appspot.com/
+[30]: https://img.shields.io/badge/pipeline-todo-orange
+[31]: https://dev.azure.com/maximerenaud/tipboard/_apis/build/status/tipboard?branchName=master
+[32]: https://img.shields.io/badge/pipeline-todo-orange
+[33]: https://codebuild.eu-west-3.amazonaws.com/badges?uuid=eyJlbmNyeXB0ZWREYXRhIjoiOXBBZTVtMk5nMmJFcG9vVFlGUVh3cHNoWUFoWXlCVjNjNkd1RE9ZWGtpVlBpazBLaHFKaFpsdXRuamdTc1d4ckNuTSttZnNoNzkwZHNyRUZrbndaaGdvPSIsIml2UGFyYW1ldGVyU3BlYyI6IjNHTnRyekcvWER0Wk1uRW4iLCJtYXRlcmlhbFNldFNlcmlhbCI6MX0%3D&branch=master
 
 
 ---
