@@ -9,7 +9,9 @@ function updateTilePiejs(tileId, data, meta, tipboard) {
             datasets: [{
                 label: data['label'],
                 backgroundColor: meta['backgroundColor'],
-                data: data['pie_data_value']
+                data: data['pie_data_value'],
+                borderColor: data['borderColor'],
+                borderWidth: data['borderWidth']
             }]
         },
         options: {
@@ -18,18 +20,16 @@ function updateTilePiejs(tileId, data, meta, tipboard) {
             },
             plugins: {
                 labels: {
-                    fontColor: '#fff',
+                    fontColor: 'rgba(255, 255, 255, 0.70)',
                 },
                 datalabels: {
                     formatter: (value, ctx) => {
                         let sum = 0;
-                        console.log('I format');
                         let dataArr = ctx.chart.data.datasets[0].data;
                         dataArr.map(data => {
                             sum += data;
                         });
-                        let percentage = (value * 100 / sum).toFixed(2) + "%";
-                        return percentage;
+                        return (value * 100 / sum).toFixed(2) + "%";
                     },
                 }
             },

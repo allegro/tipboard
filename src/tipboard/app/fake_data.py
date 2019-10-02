@@ -63,7 +63,7 @@ def getFakeLineChart(tile_id, template_name):
                     'xAxes': [{
                         'display': True,
                         "gridLines": {
-                            "color": "#52525252",
+                            "color": "#525252",
                         }
                     }],
                     'yAxes': [{
@@ -73,7 +73,7 @@ def getFakeLineChart(tile_id, template_name):
                             'max': 40
                         },
                         "gridLines": {
-                            "color": "#52525252",
+                            "color": "#525252",
                         }
                     }]
                 },
@@ -117,12 +117,12 @@ def getFakeCumulFlow(tile_id, template_name):
                 "scales": {
                     "xAxes": [{
                         "gridLines": {
-                            "color": "#52525252",
+                            "color": "#525252",
                         }
                     }],
                     "yAxes": [{
                         "gridLines": {
-                            "color": "#52525252",
+                            "color": "#525252",
                         }
                     }]
                 }
@@ -151,12 +151,12 @@ def getFakeBarChart(tile_id, template_name):
                 "scales": {
                     "xAxes": [{
                         "gridLines": {
-                            "color": "#52525252",
+                            "color": "#525252",
                         }
                     }],
                     "yAxes": [{
                         "gridLines": {
-                            "color": "#52525252",
+                            "color": "#525252",
                         },
                         'ticks': {
                             'beginAtZero': True
@@ -193,7 +193,7 @@ def getFakeNormChart(tile_id, template_name):
             }]
         },
         "meta": {
-            'backgroundColor': ["#3e95cd", "#8e5ea2", ],
+            'backgroundColor': ["#3e95cd", "#8e5ea2"],
             'options': {
                 'title': {
                     'display': True,
@@ -202,12 +202,12 @@ def getFakeNormChart(tile_id, template_name):
                 "scales": {
                     "xAxes": [{
                         "gridLines": {
-                            "color": "#52525252",
+                            "color": "#525252",
                         }
                     }],
                     "yAxes": [{
                         "gridLines": {
-                            "color": "#52525252",
+                            "color": "#525252",
                         }
                     }]
                 }
@@ -223,19 +223,18 @@ def getFakePieChart(tile_id, template_name):
         "tile_template": template_name,
         "data": {
             "title": tile_id,
-            "label": "Label",
-            "pie_data_tag": ["Label 1", "Label 2", "label 3"],
-            "pie_data_value": [55, 12, 33]
+            "labels": ["Label 1", "Label 2", "label 3"],
+            "pie_data_value": [55, 12, 33],
+            'borderColor': 'rgba(255, 255, 255, 0.82)',
+            'borderWidth': 1.0
         },
         "meta": {
             'backgroundColor': ["#3e95cd", "#72bf44", "#8e5ea2"],
             'elements': {
                 'arc': {
-                    'borderWidth': 1.5,
-                    'borderColor': 'rgba(255, 255, 255, 0.92)'
+
                 }
             }
-
         },
         "modified": getIsoTime()
     }
@@ -250,7 +249,7 @@ def getFakeDoughnutChart(tile_id, template_name):
             'datasets': [
                 {
                     'backgroundColor': ["#3e95cd", "#72bf44", "#8e5ea2"],
-                    'data': [2478, 5267, 734]
+                    'data': [2478, 5267, 734],
                 }
             ]
         },
@@ -261,8 +260,8 @@ def getFakeDoughnutChart(tile_id, template_name):
             },
             'elements': {
                 'arc': {
-                    'borderWidth': 1.5,
-                    'borderColor': 'rgba(255, 255, 255, 0.92)'
+                    'borderWidth': 1.0,
+                    'borderColor': 'rgba(255, 255, 255, 0.82)'
                 }
             }
         },
@@ -343,7 +342,7 @@ def getFakePolarareaChart(tile_id, template_name):
                 },
                 'elements': {
                     'arc': {
-                        'borderColor': "#52525252",
+                        'borderColor': "#525252",
                         'borderWidth': 2
                     }
                 },
