@@ -16,11 +16,7 @@
     <a href="https://pyup.io/account/repos/github/the-maux/tipboard/">
      <img alt="PyUp" src="https://pyup.io/repos/github/the-maux/tipboard/shield.svg"></a>
   </br>
-    <a href="https://aws.amazon.com">
-     <img alt="Aws" src="https://codebuild.eu-west-3.amazonaws.com/badges?uuid=eyJlbmNyeXB0ZWREYXRhIjoiOXBBZTVtMk5nMmJFcG9vVFlGUVh3cHNoWUFoWXlCVjNjNkd1RE9ZWGtpVlBpazBLaHFKaFpsdXRuamdTc1d4ckNuTSttZnNoNzkwZHNyRUZrbndaaGdvPSIsIml2UGFyYW1ldGVyU3BlYyI6IjNHTnRyekcvWER0Wk1uRW4iLCJtYXRlcmlhbFNldFNlcmlhbCI6MX0%3D&branch=master"></a>
-    <a href="https://dev.azure.com/maximerenaud/tipboard">
-     <img alt="Azure" src="https://dev.azure.com/maximerenaud/tipboard/_apis/build/status/the-maux.tipboard?branchName=master"></a>
-    <a href="https://travis-ci.com/the-maux/tipboard"> 
+    <a href="https://travis-ci.com/the-maux/tipboard">
       <img alt="Travis" src="https://travis-ci.com/the-maux/tipboard.svg?branch=develop"></a>
     <a href="https://gitlab.com/the-maux/tipboard/pipelines">
      <img src="https://gitlab.com/the-maux/tipboard/badges/master/pipeline.svg" alt="Gitlab"></a>
@@ -49,46 +45,13 @@ in your office), it is optimized for larger screens.
 A detailed, technical documentation for Tipboard can be found
 [here](http://tipboard.readthedocs.org/en/latest/).
 
-#### Continuous.Integration
-| :hammer:   |    Runner / Release      |  
-| --------   | --------------------- |
-| Docs       | ![docs][34] |
-| pypi       | [![CircleCI][1]][2] ![][9]  | 
-| Github     | [![Gitlab][17]][4] [![Gitlab][3]][4]   |
-| DockerHUB  | [![][15]][13] [![][16]][13]        | 
-| AWS Code   | [![][33]][13]      |
-| AzureBuild | [![][36]][13]         |
-| Helm       | [![Gitlab][7]][8]     |
-
-[1]: https://travis-ci.com/the-maux/tipboard.svg?branch=develop
-[2]: https://travis-ci.com/the-maux/tipboard
-[3]: https://img.shields.io/github/v/release/the-maux/tipboard
-[4]: https://github.com/the-maux/tipboard/packages
-[5]: https://img.shields.io/badge/pipeline-todo-orange
-[6]: https://gitlab.com/the-maux/tipboard/commits/develop
-[7]: https://img.shields.io/badge/pipeline-todo-orange
-[8]: https://gitlab.com/the-maux/tipboard/commits/develop
-[9]: https://badge.fury.io/py/tipboard2.0.svg
-[10]: https://pypi.org/project/tipboard2.0/
-[11]: https://img.shields.io/docker/stars/themaux/tipboard
-[12]: https://pypi.org/project/tipboard2.0/
-[13]: https://hub.docker.com/r/themaux/tipboard
-[14]: https://img.shields.io/docker/pulls/themaux/tipboard
-[15]: https://img.shields.io/docker/cloud/automated/themaux/tipboard
-[16]: https://img.shields.io/docker/cloud/build/themaux/tipboard
-[17]: https://gitlab.com/the-maux/tipboard/badges/master/pipeline.svg
-[33]: https://codebuild.eu-west-3.amazonaws.com/badges?uuid=eyJlbmNyeXB0ZWREYXRhIjoiOXBBZTVtMk5nMmJFcG9vVFlGUVh3cHNoWUFoWXlCVjNjNkd1RE9ZWGtpVlBpazBLaHFKaFpsdXRuamdTc1d4ckNuTSttZnNoNzkwZHNyRUZrbndaaGdvPSIsIml2UGFyYW1ldGVyU3BlYyI6IjNHTnRyekcvWER0Wk1uRW4iLCJtYXRlcmlhbFNldFNlcmlhbCI6MX0%3D&branch=master
-[34]: https://readthedocs.org/projects/tipboard/badge/?version=latest
-[35]: https://readthedocs.org/projects/tipboard/badge/?version=latest
-[36]: https://dev.azure.com/maximerenaud/tipboard/_apis/build/status/the-maux.tipboard?branchName=master
-
 
 #### Continuous.Deployment
 | cloud :cloud: |                     URL / CD-Pipeline                |
 | ------------- | ---------------------------------------------------- | 
-| Azure         | [![][22]][31] [![AzurePipeline][31]][31]             |
-| Aws           | [35.181.91.193][21] [![GircleCI][19]][20]            | 
-| GCP           | [tipboard-gcp.appspot.com][29] [![CircleCI][23]][24] | 
+| Azure         | [![AzurePipeline][31]][31] [![][22]][31]              |
+| Aws           | [![][33]][13] [![GircleCI][19]][20]            |
+| GCP           | [![CircleCI][23]][24] |
 | Openshift/k8s | [![Gitlab][27]][28] [![Gitlab][27]][28]              | 
 
 [18]: https://img.shields.io/badge/pipeline-todo-orange
