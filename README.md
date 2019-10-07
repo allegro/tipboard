@@ -164,6 +164,22 @@ $ oc apply -R -f ./manifests || helm install --name tipboard MY_PATH_ENVIRONMENT
 ```
 </details>
 
+#### Continuous.Integration
+
+| C.I :hammer:     |    Stages        |
+| -------------    | -----------------|
+| Travis           |  [![Build Status](https://travis-ci.com/the-maux/tipboard.svg?branch=develop)](https://travis-ci.com/the-maux/tipboard)            |
+| CodeFresh        |  [![Codefresh build status]( https://g.codefresh.io/api/badges/pipeline/themaux/tipboard%2FMyPipeline?key=eyJhbGciOiJIUzI1NiJ9.NWQ5NDkxYzg1YzI5YzVmOWQyODQ0MDc4.rDj-1Rn5DxSkv_oE8p87ijZhoTelE_WjvbbKWMCI3ZA&type=cf-1)]( https://g.codefresh.io/pipelines/MyPipeline/builds?filter=trigger:build~Build;pipeline:5d9492f4941e460201d39d0a~MyPipeline)           |
+| CircleCI         |  [![GircleCI][19]][20]            |
+| Pyup/safety-ci   |  ![Pyup](https://pyup.io/repos/github/the-maux/tipboard/shield.svg)             |
+| Scrutinizer      |  [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/the-maux/tipboard/badges/quality-score.png?b=develop)](https://scrutinizer-ci.com/g/the-maux/tipboard/?branch=develop)             |
+| DockerCI         | ![Docker](https://img.shields.io/docker/cloud/build/themaux/tipboard) ![Docker](https://img.shields.io/microbadger/image-size/themaux/tipboard/latest)    |
+| AzureBuild       | [![AzurePipeline][31]][31]      |
+| AwsCodeBuild     | ![][33]      |
+| HelmChart     | ![][24]      |
+| GoogleCloudBuild |  :x:             |
+
+
 
 #### Continuous.Deployment
 | cloud :cloud: |                     URL / CD-Pipeline                |
