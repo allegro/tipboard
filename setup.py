@@ -1,8 +1,13 @@
-import pathlib, sys
+import pathlib, sys, os
 from setuptools import setup, find_packages
 from src import __version__
 
 assert sys.version_info >= (3, 7), "Python 3.7+ required."
+
+sys.path.insert(0, os.getcwd())  # Import project to PYTHONPATH
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'src.tipboard.webserver.settings')
+import django
+django.setup()
 
 # The directory containing this file
 HERE = pathlib.Path.cwd()
