@@ -1,6 +1,6 @@
 FROM bitnami/python:3.7
 
-RUN apt-get update && apt-get install redis-server -y
+RUN apt-get update && apt-get install redis-server sqlite3 -y
 
 RUN groupadd -g 1001 app && useradd -r -u 1001 -g app app
 RUN mkdir /home/app && chown 1001 /home/app

@@ -260,7 +260,7 @@ function initDashboard(Tipboard) {
     Tipboard.Dashboard.UnknownUpdateFunction = UnknownUpdateFunction;
     Tipboard.WebSocketManager = initWebsocketManager();
     initDashboard(Tipboard);
-
+    Chart.defaults.global.defaultFontColor = 'rgba(255, 255, 255, 0.83)';
     $(document).ready(function () {
         console.log('Tipboard starting');
         //TODO: resize event

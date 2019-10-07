@@ -7,15 +7,17 @@ before_script:
   - chmod +x ./cc-test-reporter
   - ./cc-test-reporter before-build
 install:
-    - pip install coverage pytest-django pytest-asyncio
+    - pip install coverage pytest-django pytest-asyncio codacy-coverage
     - pip install -r requirements.txt
 script:
     - coverage run --source='.' --rcfile=.coveragerc. src/manage.py test  -v 2
     - coverage report
 after_script:
   - coverage xml
-  - if [[ "$TRAVIS_PULL_REQUEST" == "false" && "$TRAVIS_PYTHON_VERSION" == "3.7" ]]; then ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT; fi
+  - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
+  - python-codacy-coverage -r coverage.xml
 env:
   global:
     - CC_TEST_REPORTER_ID=08b43026fb188b3529d78e39eb5409b45b98a63888802dc8ca854478cd78b67d
+    - CODACY_PROJECT_TOKEN=7594b00e25614e438774aa123448975c
     - GIT_COMMITTED_AT=$(if [ "$TRAVIS_PULL_REQUEST" == "false" ]; then git log -1 --pretty=format:%ct; else git log -1 --skip 1 --pretty=format:%ct; fi)
