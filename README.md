@@ -11,8 +11,6 @@
      <img alt="Github" src="https://img.shields.io/github/v/release/the-maux/tipboard"></a>
     <a href="https://pypi.org/project/tipboard2.0/">
      <img alt="Pypi" src="https://badge.fury.io/py/tipboard2.0.svg"></a>
-    <a href="https://pyup.io/account/repos/github/the-maux/tipboard/">
-     <img alt="PyUp" src="https://pyup.io/repos/github/the-maux/tipboard/shield.svg"></a>
 </br>
     <a href="https://allegro.tech/tipboard/">
      <img src="http://hits.dwyl.io/themaux/tipboard.svg"></a>
@@ -28,8 +26,12 @@
      <img alt="Code Coverage" src="https://api.codeclimate.com/v1/badges/d8974fc0be8e2b0d4c88/test_coverage"></a>
      <a href="https://www.codacy.com/manual/the-maux/tipboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=the-maux/tipboard&amp;utm_campaign=Badge_Grade">
      <img alt="Codacy" src="https://api.codacy.com/project/badge/Grade/b28af36f50584bd29612b66bc42ce0c3"></a>
+
+</br>
     <a href="https://snyk.io/test/github/the-maux/tipboard?targetFile=requirements.txt">
      <img alt="Snyk" src="https://snyk.io/test/github/the-maux/tipboard/badge.svg?targetFile=requirements.txt"></a>
+     <a href="https://pyup.io/account/repos/github/the-maux/tipboard/">
+     <img alt="PyUp" src="https://pyup.io/repos/github/the-maux/tipboard/shield.svg"></a>
 </br>
 </p>
 </p>
