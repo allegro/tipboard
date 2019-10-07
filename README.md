@@ -70,7 +70,6 @@ $ (tb-env)$ python manage.py runserver    # start webserver
 ```
 </details>
 
-
 <details>
     <summary><b>Install with python dependencies on system</b></summary>
   
@@ -108,8 +107,6 @@ $ docker run -p 8080:8080 themaux/tipboard
      2 - In entrypoint.sh, comment line 2 `nohup redis-server &`
      3 - Change the value *REDIS_HOST* & *REDIS_PASSWORD* in the tipboard/Config/properties.json
 </details>
-
-
 
 ### 3. Execution on cloud :cloud: 
 
@@ -184,8 +181,8 @@ C.I / C.D
 | DockerCI         | ![Docker][7] ![Docker][8]               |
 | AzureBuild       | [![AzurePipeline][31]][31]              |
 | AwsCodeBuild     | ![][33]                                 |
-| Codacy     | [![Codacy Badge][10]][11]                     |
-| HelmChart     | ![][24]                                    |
+| Codacy           | [![Codacy Badge][10]][11]               |
+| HelmChart        | ![][24]                                 |
 | GoogleCloudBuild |  :x:                                    |
 
 #### Continuous.Deployment
@@ -217,7 +214,6 @@ Copyright (c) 2013-2017 [Allegro Group](http://allegrogroup.com).
 [18]: https://img.shields.io/badge/pipeline-todo-orange
 [19]: https://circleci.com/gh/the-maux/tipboard/tree/master.svg?style=svg
 [20]: https://circleci.com/gh/the-maux/tipboard/tree/master
-[21]: http://35.181.91.193
 [22]: https://img.shields.io/badge/pipeline-todo-orange
 [23]: https://circleci.com/gh/the-maux/tipboard/tree/master.svg?style=svg
 [24]: https://img.shields.io/badge/pipeline-todo-orange
@@ -225,8 +221,5 @@ Copyright (c) 2013-2017 [Allegro Group](http://allegrogroup.com).
 [26]: https://img.shields.io/badge/pipeline-todo-orange
 [27]: https://img.shields.io/badge/pipeline-todo-orange
 [28]: https://img.shields.io/badge/pipeline-todo-orange
-[29]: https://tipboard-gcp.appspot.com/
-[30]: https://img.shields.io/badge/pipeline-todo-orange
 [31]: https://dev.azure.com/maximerenaud/tipboard/_apis/build/status/tipboard?branchName=master
-[32]: https://img.shields.io/badge/pipeline-todo-orange
 [33]: https://codebuild.eu-west-3.amazonaws.com/badges?uuid=eyJlbmNyeXB0ZWREYXRhIjoiOXBBZTVtMk5nMmJFcG9vVFlGUVh3cHNoWUFoWXlCVjNjNkd1RE9ZWGtpVlBpazBLaHFKaFpsdXRuamdTc1d4ckNuTSttZnNoNzkwZHNyRUZrbndaaGdvPSIsIml2UGFyYW1ldGVyU3BlYyI6IjNHTnRyekcvWER0Wk1uRW4iLCJtYXRlcmlhbFNldFNlcmlhbCI6MX0%3D&branch=master
