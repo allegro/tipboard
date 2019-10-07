@@ -36,7 +36,8 @@
 </p>
 </p>
 
-## Introduction
+Introduction
+------------
 
 Tipboard is a system for creating dashboards, written in JavaScript and Python.
 Its widgets ('tiles' in Tipboard's terminology) are completely
@@ -49,8 +50,8 @@ in your office), it is optimized for larger screens.
 A detailed, technical documentation for Tipboard can be found
 [here](http://tipboard.readthedocs.org/en/latest/).
 
-
-## Quick start
+Quick start
+-----------
 
 ### 1. Execution by python :snake:
 
@@ -168,32 +169,51 @@ $ oc apply -R -f ./manifests || helm install --name tipboard MY_PATH_ENVIRONMENT
 ```
 </details>
 
-#### Continuous.Integration
+C.I / C.D
+---------
 
-| C.I :hammer:     |    Stages        |
-| -------------    | -----------------|
-| Travis           |  [![Build Status](https://travis-ci.com/the-maux/tipboard.svg?branch=develop)](https://travis-ci.com/the-maux/tipboard)            |
-| CodeFresh        |  [![Codefresh build status]( https://g.codefresh.io/api/badges/pipeline/themaux/tipboard%2FMyPipeline?key=eyJhbGciOiJIUzI1NiJ9.NWQ5NDkxYzg1YzI5YzVmOWQyODQ0MDc4.rDj-1Rn5DxSkv_oE8p87ijZhoTelE_WjvbbKWMCI3ZA&type=cf-1)]( https://g.codefresh.io/pipelines/MyPipeline/builds?filter=trigger:build~Build;pipeline:5d9492f4941e460201d39d0a~MyPipeline)           |
-| CircleCI         |  [![GircleCI][19]][20]            |
-| Pyup/safety-ci   |  ![Pyup](https://pyup.io/repos/github/the-maux/tipboard/shield.svg)             |
-| Scrutinizer      |  [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/the-maux/tipboard/badges/quality-score.png?b=develop)](https://scrutinizer-ci.com/g/the-maux/tipboard/?branch=develop)             |
-| DockerCI         | ![Docker](https://img.shields.io/docker/cloud/build/themaux/tipboard) ![Docker](https://img.shields.io/microbadger/image-size/themaux/tipboard/latest)    |
-| AzureBuild       | [![AzurePipeline][31]][31]      |
-| AwsCodeBuild     | ![][33]      |
-| Codacy     | [![Codacy Badge](https://api.codacy.com/project/badge/Grade/b28af36f50584bd29612b66bc42ce0c3)](https://www.codacy.com/manual/the-maux/tipboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=the-maux/tipboard&amp;utm_campaign=Badge_Grade)     |
-| HelmChart     | ![][24]      |
-| GoogleCloudBuild |  :x:             |
+#### Continuous.Integration
 
-
+| C.I :hammer:     |    Stages                               |
+| -------------    | --------------------------------------- |
+| Travis           |  [![Build Status][1]][2]                |
+| CodeFresh        |  [![Codefresh build status][3]][4]      |
+| CircleCI         |  [![GircleCI][19]][20]                  |
+| Pyup/safety-ci   |  ![Pyup][9]                             |
+| Scrutinizer      |  [![Scrutinizer Code Quality][5]][6]    |
+| DockerCI         | ![Docker][7] ![Docker][8]               |
+| AzureBuild       | [![AzurePipeline][31]][31]              |
+| AwsCodeBuild     | ![][33]                                 |
+| Codacy     | [![Codacy Badge][10]][11]                     |
+| HelmChart     | ![][24]                                    |
+| GoogleCloudBuild |  :x:                                    |
 
 #### Continuous.Deployment
-| cloud :cloud: |                     URL / CD-Pipeline                |
-| ------------- | ---------------------------------------------------- |
-| Azure         | [![AzurePipeline][31]][31] [![][22]][31]             |
-| Aws           | ![][33] [![GircleCI][19]][20]                        |
-| GCP           | [![CircleCI][23]][24]                                |
-| Openshift/k8s | [![Gitlab][27]][28] [![Gitlab][27]][28]              |
+| cloud :cloud: |                     URL / CD-Pipeline      |
+| ------------- | ------------------------------------------ |
+| Azure         | [![AzurePipeline][31]][31] [![][22]][31]   |
+| Aws           | ![][33] [![GircleCI][19]][20]              |
+| GCP           | [![CircleCI][23]][24]                      |
+| Openshift/k8s | [![Gitlab][27]][28] [![Gitlab][27]][28]    |
 
+License
+-------
+
+Tipboard is licensed under the [Apache License, v2.0](http://tipboard.readthedocs.org/en/latest/license.html).
+
+Copyright (c) 2013-2017 [Allegro Group](http://allegrogroup.com).
+
+[1]: https://travis-ci.com/the-maux/tipboard.svg?branch=develop
+[2]: https://travis-ci.com/the-maux/tipboard
+[3]: https://g.codefresh.io/api/badges/pipeline/themaux/tipboard%2FMyPipeline?key=eyJhbGciOiJIUzI1NiJ9.NWQ5NDkxYzg1YzI5YzVmOWQyODQ0MDc4.rDj-1Rn5DxSkv_oE8p87ijZhoTelE_WjvbbKWMCI3ZA&type=cf-1
+[4]: https://g.codefresh.io/pipelines/MyPipeline/builds?filter=trigger:build~Build;pipeline:5d9492f4941e460201d39d0a~MyPipeline
+[5]: https://scrutinizer-ci.com/g/the-maux/tipboard/badges/quality-score.png?b=develop
+[6]: https://scrutinizer-ci.com/g/the-maux/tipboard/?branch=develop
+[7]: https://img.shields.io/docker/cloud/build/themaux/tipboard
+[8]: https://img.shields.io/microbadger/image-size/themaux/tipboard/latest
+[9]: https://pyup.io/repos/github/the-maux/tipboard/shield.svg
+[10]: https://api.codacy.com/project/badge/Grade/b28af36f50584bd29612b66bc42ce0c3
+[11]: https://www.codacy.com/manual/the-maux/tipboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=the-maux/tipboard&amp;utm_campaign=Badge_Grade
 [18]: https://img.shields.io/badge/pipeline-todo-orange
 [19]: https://circleci.com/gh/the-maux/tipboard/tree/master.svg?style=svg
 [20]: https://circleci.com/gh/the-maux/tipboard/tree/master
@@ -210,14 +230,3 @@ $ oc apply -R -f ./manifests || helm install --name tipboard MY_PATH_ENVIRONMENT
 [31]: https://dev.azure.com/maximerenaud/tipboard/_apis/build/status/tipboard?branchName=master
 [32]: https://img.shields.io/badge/pipeline-todo-orange
 [33]: https://codebuild.eu-west-3.amazonaws.com/badges?uuid=eyJlbmNyeXB0ZWREYXRhIjoiOXBBZTVtMk5nMmJFcG9vVFlGUVh3cHNoWUFoWXlCVjNjNkd1RE9ZWGtpVlBpazBLaHFKaFpsdXRuamdTc1d4ckNuTSttZnNoNzkwZHNyRUZrbndaaGdvPSIsIml2UGFyYW1ldGVyU3BlYyI6IjNHTnRyekcvWER0Wk1uRW4iLCJtYXRlcmlhbFNldFNlcmlhbCI6MX0%3D&branch=master
-
-
----
-
-License
--------
-
-Tipboard is licensed under the [Apache License, v2.0](http://tipboard.readthedocs.org/en/latest/license.html).
-
-Copyright (c) 2013-2017 [Allegro Group](http://allegrogroup.com).
-
