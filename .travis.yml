@@ -15,6 +15,7 @@ script:
 after_script:
   - coverage xml
   - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
+  - coverage xml
   - python-codacy-coverage -r coverage.xml
 env:
   global:
