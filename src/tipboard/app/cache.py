@@ -92,6 +92,6 @@ class MyCache:
             ))
             if self.isRedisConnected:
                 cache.set(getRedisPrefix(tile_id), dumped_value)
-            return True
-        except Exception:
-            return False
+            return True, None
+        except Exception as e:
+            return False, e

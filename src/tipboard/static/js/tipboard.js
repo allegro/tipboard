@@ -107,10 +107,14 @@ function initDashboard(Tipboard) {
         */
         // XXX: backslash MUST BE FIRST, otherwise this convertions is
         // broken (escaping chars which meant to be escapers)
+        try {
         var charsToEscape = "\\!\"#$%&'()*+,./:;<=>?@[]^`{|}~";
         for (var i = 0; i < charsToEscape.length; i++) {
             var _char = charsToEscape[i];
             id = id.replace(_char, '\\' + _char);
+        }
+        } catch (e) {
+            
         }
         return id;
     };

@@ -1,20 +1,24 @@
-# -*- coding: utf-8 -*-
-import datetime, json, requests, time
+import json, requests, time, random
 from src.tipboard.app.properties import TIPBOARD_URL
-from src.sensors.utils import getTimeStr, end, sendBVColor
+from src.sensors.utils import end
+from src.tipboard.app.fake_data import getFakePieChart
 
 NAME_OF_SENSORS = "GET"
 TILE_TEMPLATE = "pie_chart"
 TILE_ID = "pie_ex"
 
+
 def executeScriptToGetData():
-    """ Simulate some actions for text tile exemple"""
-    return {
-        "title": "My title",
-        "pie_data": [["Pie 1", 25],
-                     ["Pie 2", 25],
-                     ["Pie 3", 50]]
-    }
+    """ Simulate some actions for text Pie chart exemple"""
+    pieData = getFakePieChart(tile_id=TILE_ID, template_name=TILE_TEMPLATE)
+    pieData['data']['title'] = 'Sensors title'
+    value1 = random.randrange(10, 80)
+    limit = 100 - value1
+    value2 = random.randrange(10, limit)
+    value3 = 100 - value2 - value1
+    pieData['data']['pie_data_value'] = [value1, value2, value3]
+    pieData['data']['labels'] = ["Fake 1", "Fake 2", "Fake 3"]
+    return pieData
 
 
 def sendDataToTipboard(data=None, tile_template=None, tile_id="", isTest=False):
@@ -25,7 +29,8 @@ def sendDataToTipboard(data=None, tile_template=None, tile_id="", isTest=False):
     }
     if not isTest:
         res = requests.post(TIPBOARD_URL + "/push", data=configTile)
-    print(f"{res} -> {tile_id}: {res.text}", flush=True)
+        print(f"{res} -> {tile_id}: {res.text}", flush=True)
+
 
 def sonde2(isTest):
     start_time = time.time()

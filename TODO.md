@@ -25,23 +25,14 @@
 
 #### Optional
 
+* add color blind mode :)
 * Deploy to Azure
-* Use Chart.js over Jqplat
 * Eazy way to secure dashboard with authentification view
 * Add matomo iframe widget as tile :D
 * Propose an interactive/GUI way to build your custom_layout !
 
 
 If we do that, we can go to sleep ez
-
-
-WEEKLy:
-
-ADD CHARTJS (+sensors):
-+ radar
-+ polar-area
-
-ADD UNIT TEST():
 
 
 ##### NB To update Documentation

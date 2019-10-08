@@ -398,7 +398,17 @@ def getFakeListing(tile_id, template_name):
 
 
 def getFakeText(tile_id, template_name):
-    return dict()
+    return {
+        "tile_template": template_name,
+        "meta": {
+            "fading_background": False
+        },
+        "data": {
+            "text": 42
+        },
+        "modified": getIsoTime(),
+        "id": tile_id
+    }
 
 
 def getFakeFancyListing(tile_id, template_name):

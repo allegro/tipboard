@@ -41,15 +41,17 @@ def tile(request, tile_key, unsecured=False):  # TODO: "it's better to ask forgi
 def push_tile(tile_id, data, tile_template):  # pragma: no cover
     tilePrefix = getRedisPrefix(tile_id)
     if not redis.exists(tilePrefix):
-        return HttpResponse(f"{tile_id} data created successfully."
-                            if cache.createTile(tile_id=tile_id, value=data, tile_template=tile_template)
-                            else f"Internal Error {tile_id} was not created")
+        if cache.createTile(tile_id=tile_id, value=data, tile_template=tile_template):
+            return HttpResponse(f"{tile_id} data created successfully.")
+        else:
+            return HttpResponseBadRequest(content="")
+
     cachedTile = json.loads(redis.get(tilePrefix))
     cachedTile['data'] = json.loads(data)
     cachedTile['modified'] = getIsoTime()
     cachedTile['tile_template'] = tile_template
     cache.set(tilePrefix, json.dumps(cachedTile))
-    return HttpResponse(f"{tile_id} data updated successfully.")
+    return HttpResponse(f"{tile_id} data updated successfully. -> {json.dumps(cachedTile)}")
 
 
 def push(request, unsecured=False):  # pragma: no cover
