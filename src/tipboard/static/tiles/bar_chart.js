@@ -1,7 +1,8 @@
-
 function updateBarChartjs(tileId, data, meta, tipboard) {
     console.log("bar_chartjs::updateTile::start" + tileId);
     var ctx = $('#' + tileId + "-chart");
+    ctx.height = "88%";
+    ctx.width = "100%";
     new Chart(ctx, {
             type: 'horizontalBar',
             data: {
@@ -14,7 +15,6 @@ function updateBarChartjs(tileId, data, meta, tipboard) {
             },
             options: meta['options']
     });
-    console.log("bar_chartjs::updateTile" + tileId);
 }
 
 Tipboard.Dashboard.registerUpdateFunction('bar_chart', updateBarChartjs);
