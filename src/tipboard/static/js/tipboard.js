@@ -235,7 +235,42 @@ function initDashboard(Tipboard) {
 
 }
 
+function initTilesFliping() {
+    // flipping tiles
+    var flipContainers = $('div[id*="flip-time-"]');
+    $.each(flipContainers, function (idx, flippingContainer) {
+        Tipboard.Dashboard.autoAddFlipClasses(flippingContainer);
+        var flipInterval = getFlipTime(flippingContainer);
+        var flipIntervalId = setInterval(function () {
+            var nextFlipIdx;
+            var containerFlips = $(flippingContainer).find('.flippable');
+            $(containerFlips).each(function (index, tile) {
+                if ($(tile).hasClass("flippedforward")) {
+                    nextFlipIdx = (index + 1) % containerFlips.length;
+                    $(tile).removeClass("flippedforward");
+                    return false; // break
+                }
+            });
+            if (typeof (nextFlipIdx) !== 'undefined') {
+                var tileToFlip = containerFlips[nextFlipIdx];
+                $(tileToFlip).addClass("flippedforward");
+            }
+        }, flipInterval);
+        Tipboard.Dashboard.flipIds.push(flipIntervalId);
+    });
+}
 
+
+
+function initTiles() {
+    initTilesFliping()
+    $.each($("body > div"), function (rowIdx, row) {
+        // show tiles number (like: 1/3)
+        $.each($(row).children('div'), function (colIdx, col) {
+            Tipboard.Dashboard.addTilesCounter(col);
+        });
+    });
+}
 
 /**
  *  Main function of tipboard.js
@@ -253,10 +288,12 @@ function initDashboard(Tipboard) {
             }
         };
     }
-
+    $(window).on('resize', function() {
+        location.href = location.href; // location.reload(); is not working on firefox...
+    });
     window.Tipboard = {};
     Tipboard.Dashboard = {
-        webSocketResetInterval: 900000,
+        wsSocketTimeout: 900000,
         flipIds: [],
         updateFunctions: {},
         chartsIds: {},
@@ -269,42 +306,8 @@ function initDashboard(Tipboard) {
         console.log('Tipboard starting');
         //TODO: resize event
         Tipboard.WebSocketManager.init();
-        setInterval(Tipboard.WebSocketManager.init.bind(Tipboard.WebSocketManager),
-            Tipboard.Dashboard.webSocketResetInterval);
-        // flipping tiles
-        var flipContainers = $('div[id*="flip-time-"]');
-        $.each(flipContainers, function (idx, flippingContainer) {
-            Tipboard.Dashboard.autoAddFlipClasses(flippingContainer);
-            var flipInterval = getFlipTime(flippingContainer);
-            var flipIntervalId = setInterval(function () {
-                /*
-                 * pass class *flippedforward* to next node with class
-                 * *flippable* within *container*, if last element then wrap it
-                 * and pass *flippedforward* to the first element with class
-                 * *flippable* within the *container*
-                 */
-                var nextFlipIdx;
-                var containerFlips = $(flippingContainer).find('.flippable');
-                $(containerFlips).each(function (index, tile) {
-                    if ($(tile).hasClass("flippedforward")) {
-                        nextFlipIdx = (index + 1) % containerFlips.length;
-                        $(tile).removeClass("flippedforward");
-                        return false; // break
-                    }
-                });
-                if (typeof (nextFlipIdx) !== 'undefined') {
-                    var tileToFlip = containerFlips[nextFlipIdx];
-                    $(tileToFlip).addClass("flippedforward");
-                }
-            }, flipInterval);
-            Tipboard.Dashboard.flipIds.push(flipIntervalId);
-        });
-        $.each($("body > div"), function (rowIdx, row) {
-            // show tiles number (like: 1/3)
-            $.each($(row).children('div'), function (colIdx, col) {
-                Tipboard.Dashboard.addTilesCounter(col);
-            });
-        });
+        setInterval(Tipboard.WebSocketManager.init.bind(Tipboard.WebSocketManager), Tipboard.Dashboard.wsSocketTimeout);
+        initTiles()
     });
 }($));
 
