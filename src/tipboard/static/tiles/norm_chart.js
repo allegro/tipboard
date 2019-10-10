@@ -2,6 +2,8 @@ function updateTileNorm(tileId, data, meta, tipboard) {
 
     console.log("norm_chart::updateTile::start" + tileId);
     var ctx = $('#' + tileId + "-chart");
+    ctx.height = "90%";
+    ctx.width = "100%";
     new Chart(ctx, {
         type: 'line',
         data: {
