@@ -272,6 +272,17 @@ function initTiles() {
     });
 }
 
+var addEvent = function(object, type, callback) {
+    if (object == null || typeof(object) == 'undefined') return;
+    if (object.addEventListener) {
+        object.addEventListener(type, callback, false);
+    } else if (object.attachEvent) {
+        object.attachEvent("on" + type, callback);
+    } else {
+        object["on"+type] = callback;
+    }
+};
+
 /**
  *  Main function of tipboard.js
  *  Define the Palette object used for custom color
@@ -282,14 +293,8 @@ function initTiles() {
 (function ($) {
     'use strict';
 
-    if (!window.console) {// wtf is that ?
-        window.console = {
-            log: function () {
-            }
-        };
-    }
-    $(window).on('resize', function() {
-        location.href = location.href; // location.reload(); is not working on firefox...
+    addEvent(window, "resize", function(event) {
+      location.href = location.href; // location.reload(); is not working on firefox...
     });
     window.Tipboard = {};
     Tipboard.Dashboard = {
