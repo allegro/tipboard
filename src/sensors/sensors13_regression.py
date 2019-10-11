@@ -52,7 +52,7 @@ def sendDataToTipboard1(data=None, tile_template=None, tile_id="", isTest=False)
     print(f"{res} -> {tile_id}: {res.text}", flush=True)
 
 
-def sonde13(isTest):
+def sonde13(isTest=False):
     """ Test if update sensors like tipboard1.0 is still working on tipboard2.0 """
     start_time = time.time()
     if not isTest:
