@@ -4,6 +4,7 @@ var UnknownRenderer = function (rendererName) {
     this.name = "UnknownRederer";
     this.message = "Renderer: '" + rendererName + "' not found";
 };
+window.Tipboard = {};
 UnknownRenderer.prototype = new Error();
 UnknownRenderer.prototype.constructor = UnknownRenderer;
 
@@ -15,10 +16,10 @@ var UnknownUpdateFunction = function (tileType) {
 UnknownUpdateFunction.prototype = new Error();
 
 function getFlipTime(node) {
-    var classStr = $(node).attr('class');
+    var classStr = $(node).attr("class");
     // TODO: make this flip time CUSTOM
     var flipTime = 4200;
-    $.each(classStr.split(' '), function (idx, val) {
+    $.each(classStr.split(" "), function (idx, val) {
         var groups = /flip-time-(\d+)/.exec(val);
         if (Boolean(groups) && groups.length > 1) {
             flipTime = groups[1];
@@ -36,9 +37,8 @@ function getFlipTime(node) {
 function initWebsocketManager() {
     return {
 
-        onClose: function (evt) {
+        onClose: function () {
             console.log("Web socket closed. Restarting...");
-          //  this.websocket = void 0;
             setTimeout(Tipboard.WebSocketManager.init.bind(this), 1000);
         },
 
@@ -92,12 +92,12 @@ function initWebsocketManager() {
  */
 function initDashboard(Tipboard) {
     Tipboard.Dashboard.id2node = function (id) {
-        var tile = $('#' + id)[0];
+        var tile = $("#" + id)[0];
         return tile;
     };
 
     Tipboard.Dashboard.tile2id = function (tileNode) {
-        return $(tileNode).attr('id');
+        return $(tileNode).attr("id");
     };
 
     Tipboard.Dashboard.escapeId = function (id) {
@@ -111,7 +111,7 @@ function initDashboard(Tipboard) {
         var charsToEscape = "\\!\"#$%&'()*+,./:;<=>?@[]^`{|}~";
         for (var i = 0; i < charsToEscape.length; i++) {
             var _char = charsToEscape[i];
-            id = id.replace(_char, '\\' + _char);
+            id = id.replace(_char, "\\" + _char);
         }
         } catch (e) {
             
@@ -123,7 +123,7 @@ function initDashboard(Tipboard) {
         /*
         *keysToUse*: list of keys, or string 'all', if 'all' then all keys used from *dataToPut*
         */
-        if (keysToUse === 'all') {
+        if (keysToUse == 'all') {
             var allKeys = [];
             for (var k in dataToPut) allKeys.push(k);
             keysToUse = allKeys;
@@ -131,11 +131,11 @@ function initDashboard(Tipboard) {
         var tile = Tipboard.Dashboard.id2node(tileId);
         $.each(keysToUse, function (idx, key) {
             var value = dataToPut[key];
-            if (typeof (value) === 'undefined') {
+            if (typeof (value) == 'undefined') {
                 var msg = 'WARN: No key "' + key + '" in data';
                 console.log(msg, dataToPut);
             } else {
-                var dstId = '#' + tileId + '-' + key;
+                var dstId = "#" + tileId + "-" + key;
                 var dst = $(tile).find(dstId)[0];
                 if (typeof dst === 'undefined') {
                     var msg = 'WARN: Not found node with id: ' + dstId;
@@ -158,8 +158,8 @@ function initDashboard(Tipboard) {
         try {
             // Call update tile function on the right tile
             Tipboard.Dashboard.getUpdateFunction(tileType)(tileId, data, meta);
-            $('#' + tileId + '-lastModified').val(lastMod);
-             $.each(['.tile-content'], function (idx, klass) {
+            $("#" + tileId + "-lastModified").val(lastMod);
+            $.each(['.tile-content'], function (idx, klass) {
                 var node = $(tile).find(klass);
                 if (node.length > 1) {
                     $(node[1]).remove();
@@ -169,9 +169,9 @@ function initDashboard(Tipboard) {
         } catch (err) {
             console.log('ERROR: ', tileId, err.toString());
             var msg = [
-                'Tile ' + tileId + ' configuration error:',
-                err.name || 'error name: n/a',
-                err.message || 'error message: n/a',
+                "Tile " + tileId + " configuration error:",
+                err.name || "error name: n/a",
+                err.message || "error message: n/a",
             ].join('<br>');
             $.each(['.tile-content'], function (idx, klass) {
                 var nodes = $(tile).find(klass);
@@ -179,7 +179,7 @@ function initDashboard(Tipboard) {
                     var cloned = $(nodes).clone();
                     $(nodes).hide();
                     $(cloned).insertAfter(nodes);
-                    $(cloned).addClass('exception-message');
+                    $(cloned).addClass("exception-message");
                     $(cloned).show();
                 } else {
                     $(nodes[0]).hide();
@@ -224,7 +224,7 @@ function initDashboard(Tipboard) {
             $.each($(col).children('div'), function (tileIdx, tile) {
                console.log("Building flip for tile");
                var container = $(tile).find('.tile-header');
-                var title = $(container).children()[0];
+                //var title = $(container).children()[0];
                 $(container).addClass('flip-tile-counter');
                 var counter = (tileIdx + 1) + '/' + tilesTotal;
                 $(container).append(counter);
@@ -296,7 +296,6 @@ var addEvent = function(object, type, callback) {
     addEvent(window, "resize", function(event) {
       location.href = location.href; // location.reload(); is not working on firefox...
     });
-    window.Tipboard = {};
     Tipboard.Dashboard = {
         wsSocketTimeout: 900000,
         flipIds: [],
