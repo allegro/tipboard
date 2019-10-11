@@ -1,0 +1,14 @@
+engines:
+  sonar-python:
+    enabled: true
+    checks:
+      python:S1542:
+        enabled: false
+plugins:
+  duplication:
+    enabled: true
+    config:
+      languages:
+        python:
+          python_version: 3
+
