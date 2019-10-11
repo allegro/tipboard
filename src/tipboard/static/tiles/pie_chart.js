@@ -1,6 +1,8 @@
 function updateTilePiejs(tileId, data, meta, tipboard) {
     console.log("pie_chartjs::updateTile::start" + tileId);
     var ctx = $('#' + tileId + "-chart");
+    ctx.height = "75%";
+    ctx.width = "90%";
     console.log(data);
     new Chart(ctx, {
         type: 'pie',

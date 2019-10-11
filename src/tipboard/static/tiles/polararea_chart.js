@@ -3,6 +3,8 @@ function updateTilePolararea(tileId, data, meta, tipboard) {
     var ctx = $('#' + tileId + "-chart");
     console.log(data);
     console.log(meta);
+    ctx.height = "75%";
+    ctx.width = "90%";
     new Chart(ctx, {
         type: 'polarArea',
         data: {

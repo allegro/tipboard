@@ -2,6 +2,9 @@
 function updateTileLinejs(tileId, data, meta, tipboard) {
     console.log("line_chartjs::updateTile::start" + tileId);
     var ctx = $('#' + tileId + "-chart");
+    ctx.height = "90%";
+    ctx.width = "100%";
+    console.log(ctx);
     new Chart(ctx, {
         type: 'line',
         data: {
