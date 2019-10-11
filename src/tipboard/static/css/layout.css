@@ -96,7 +96,7 @@ table {
 }
 
 .exception-message {
-    white-space: normal !important;
+    white-space: normal;
     font-size: 3.2rem;
     color: #DC5945;
 }
