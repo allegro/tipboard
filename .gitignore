@@ -8,3 +8,14 @@ tipboard.egg-info/
 !.elasticbeanstalk/*.cfg.yml
 !.elasticbeanstalk/*.global.yml
 src/tipboard/app/Config/dev_properties.json
+/tipboard2.0.egg-info/
+.eggs/
+.idea/
+src/sensors/__pycache__/
+src/tipboard/__pycache__/
+src/tipboard/app/__pycache__/
+src/tipboard/app/views/__pycache__/
+src/tipboard/db.sqlite3
+src/tipboard/templates/__pycache__/
+src/tipboard/webserver/__pycache__/
+tipboard2.0.egg-info/
