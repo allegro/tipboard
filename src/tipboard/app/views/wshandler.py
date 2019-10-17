@@ -55,6 +55,7 @@ class WSConsumer(WebsocketConsumer):
             data = json.loads(tileData)
         if type(data) is str:
             data = json.loads(data)
+        print(f"WS:TILES_UPDATE:{data}")
         self.send(text_data=json.dumps(data))
 
     def update_tile(self, data):  # pragma: no cover

@@ -1,5 +1,4 @@
-function updateTilePiejs(tileId, data, meta, tipboard) {
-    console.log("pie_chartjs::updateTile::start" + tileId);
+function updateTilePiejs(tileId, data, meta, tileType) {
     var ctx = $('#' + tileId + "-chart");
     ctx.height = "75%";
     ctx.width = "90%";
@@ -37,7 +36,7 @@ function updateTilePiejs(tileId, data, meta, tipboard) {
             },
         }
     });
-    console.log("pie_chartjs::updateTile end" + tileId);
+    console.log("pie_chartjs::type(" + tileType +")::updateTile end" + tileId);
 }
 
 Tipboard.Dashboard.registerUpdateFunction('pie_chart', updateTilePiejs);

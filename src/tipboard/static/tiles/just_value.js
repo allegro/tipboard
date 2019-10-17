@@ -1,7 +1,7 @@
 /*jslint browser: true, devel: true*/
 /*global WebSocket: false, Tipboard: false*/
 
-function updateTileJustValue(tileId, data, config) {
+function updateTileJustValue(tileId, data, config, tileType) {
     var tile = Tipboard.Dashboard.id2node(tileId);
     JustValue.setDataByKeys(tileId, data, 'all');
     var highlighterNode = $('#' + tileId + '-just-value').parent();

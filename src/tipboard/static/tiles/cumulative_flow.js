@@ -1,8 +1,7 @@
 var myColors = ['red', 'green', 'blue']; // Define your colors
 
 
-function updateTileCumul(tileId, data, meta, tipboard) {
-    console.log("cumulative_flow::updateTile::start" + tileId);
+function updateTileCumul(tileId, data, meta, tileType) {
     var ctx = $('#' + tileId + "-chart");
     ctx.height = "86%";
     ctx.width = "98%";
@@ -15,7 +14,7 @@ function updateTileCumul(tileId, data, meta, tipboard) {
         },
         options: meta['options']
     });
-    console.log("cumulative_flow::updateTile" + tileId);
+    console.log("cumulative_flow::type(" + tileType +")::updateTile" + tileId);
 }
 
 Tipboard.Dashboard.registerUpdateFunction('cumulative_flow', updateTileCumul);

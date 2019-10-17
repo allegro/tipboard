@@ -1,4 +1,4 @@
-function updateTileListing(id, data, meta, tipboard) {
+function updateTileListing(id, data, meta, tileType) {
     var MAX_ITEMS = 7;
     var tile = $('#' + id)[0];
     var container = $(tile).find('.list-group')[0];

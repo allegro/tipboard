@@ -156,8 +156,8 @@ function initDashboard(Tipboard) {
             Tipboard.Dashboard.chartsIds[tileId].destroy();
         }
         try {
-            // Call update tile function on the right tile
-            Tipboard.Dashboard.getUpdateFunction(tileType)(tileId, data, meta);
+            // its a ptr to function, calling the right update function for the right tile
+            Tipboard.Dashboard.getUpdateFunction(tileType)(tileId, data, meta, tileType);
             $("#" + tileId + "-lastModified").val(lastMod);
             $.each(['.tile-content'], function (idx, klass) {
                 var node = $(tile).find(klass);
@@ -192,6 +192,10 @@ function initDashboard(Tipboard) {
     };
 
     Tipboard.Dashboard.getUpdateFunction = function (tileType) {
+        // to not duplicate js, and get separation for none tech user
+        // we use same the same chartJS widget but different name
+        if (tileType === "vbar_chart")
+            tileType = "bar_chart";
         var fn = this.updateFunctions[tileType];
         if (typeof fn !== 'function') {
             throw new Tipboard.Dashboard.UnknownUpdateFunction(tileType);

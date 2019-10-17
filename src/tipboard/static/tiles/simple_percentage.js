@@ -3,7 +3,7 @@
 
 "use strict";
 
-function updateTileSimplePercentage(tileId, data, config) {
+function updateTileSimplePercentage(tileId, data, config, tileType) {
     Tipboard.Dashboard.setDataByKeys(tileId, data, 'all');
     var highlighterNode = $('#' + tileId + '-big_value').parent();
     var tile = Tipboard.Dashboard.id2node(tileId);

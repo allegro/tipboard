@@ -1,5 +1,4 @@
-function updateTileDoughnutjs(tileId, data, meta, tipboard) {
-    console.log("doughnut_chartjs::updateTile::start" + tileId);
+function updateTileDoughnutjs(tileId, data, meta, tileType) {
     var ctx = $('#' + tileId + "-chart");
     ctx.height = "75%";
     ctx.width = "90%";
@@ -9,7 +8,7 @@ function updateTileDoughnutjs(tileId, data, meta, tipboard) {
         data: data,
         options: meta
     });
-    console.log("doughnut_chartjs::updateTile end" + tileId);
+    console.log("doughnut_chartjs::type(" + tileType +")::updateTile end" + tileId);
 }
 
 Tipboard.Dashboard.registerUpdateFunction('doughnut_chart', updateTileDoughnutjs);

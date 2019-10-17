@@ -1,7 +1,7 @@
 /*jslint browser: true, devel: true*/
 /*global WebSocket: false, Tipboard: false*/
 
-function updateTileText(id, data, meta, tipboard) {
+function updateTileText(id, data, meta, tileType) {
     var tile = $("#" + id)[0];
     var textSelector = 'span.text-container';
     containers = $(tile).find(textSelector);

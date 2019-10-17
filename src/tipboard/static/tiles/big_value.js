@@ -1,7 +1,7 @@
 /*jslint browser: true, devel: true*/
 /*global WebSocket: false, Tipboard: false*/
 
-function updateTileBigValue(tileId, data, config) {
+function updateTileBigValue(tileId, data, config, tileType) {
     var tile = Tipboard.Dashboard.id2node(tileId);
     BigValueTile.setDataByKeys(tileId, data, 'all');
     var highlighterNode = $('#' + tileId + '-big-value').parent();

@@ -37,3 +37,8 @@ If we do that, we can go to sleep ez
 
 ##### NB To update Documentation
 
+dans le merge des .js ChartJS tiles tu migres vbar_chart
+tu dois add un filter dans parser.py utilisé dans le dashboard.dashboardRendererHandler
+mais quelle fonction va etre call dans tipboard.js.getUpdateFonction(l:194)
+Et comment connaitre le tile_template name dans la tiles.js ?
+pour envoyer HorizontalBar au lieu de Bar
