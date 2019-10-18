@@ -194,8 +194,10 @@ function initDashboard(Tipboard) {
     Tipboard.Dashboard.getUpdateFunction = function (tileType) {
         // to not duplicate js, and get separation for none tech user
         // we use same the same chartJS widget but different name
-        if (tileType === "vbar_chart")
-            tileType = "bar_chart";
+        if (tileType === 'vbar_chart')
+            tileType = 'bar_chart';
+        else if (tileType === 'doughnut_chart')
+            tileType = 'radar_chart';
         var fn = this.updateFunctions[tileType];
         if (typeof fn !== 'function') {
             throw new Tipboard.Dashboard.UnknownUpdateFunction(tileType);

@@ -7,7 +7,9 @@ register = template.Library()
 
 def isChartJS_tile(tile_template):
     print(tile_template)
-    return True if tile_template in ["bar_chart", "vbar_chart", "pie_chart", "polararea_chart", "doughnut_chart", "radar_chart", "cumulative_flow", "norm_chart", "line_chart"] else False
+    return True if tile_template in ["bar_chart", "vbar_chart", "pie_chart",
+                                     "polararea_chart", "doughnut_chart", "radar_chart",
+                                     "cumulative_flow", "norm_chart", "line_chart"] else False
 
 
 @register.filter(name="template_tile")

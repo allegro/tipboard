@@ -2,11 +2,9 @@ function updateBarChartjs(tileId, data, meta, tileType) {
     var ctx = document.getElementById(tileId + '-chart');
     ctx.style.height = '100px';
     ctx.style.width = '100px';
-    let typeOfTile = '';
+    let typeOfTile = 'horizontalBar';
     if (tileType === 'vbar_chart')
         typeOfTile = 'bar';
-    else
-        typeOfTile = 'horizontalBar';
     new Chart(ctx, {
             type: typeOfTile,
             data: {

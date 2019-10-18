@@ -1,10 +1,12 @@
 function updateTileRadarjs(tileId, data, meta, tileType) {
     var ctx = $('#' + tileId + "-chart");
-    console.log(data);
     ctx.height = "75%";
     ctx.width = "90%";
+    let typeOfTile = 'radar';
+    if (tileType === 'doughnut_chart')
+        typeOfTile = 'doughnut';
     new Chart(ctx, {
-        type: 'radar',
+        type: typeOfTile,
         data: data,
         options: meta
     });
