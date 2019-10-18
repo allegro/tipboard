@@ -48,7 +48,6 @@ def getFakeLineChart(tile_id, template_name):
         "meta": {
             'backgroundColor': ["#3e95cd", "#8e5ea2"],
             'options': {
-                'responsive': True,
                 'elements': {
                     'line': {
                         'tension': 0
@@ -229,6 +228,7 @@ def getFakePieChart(tile_id, template_name):
             'borderWidth': 1.0
         },
         "meta": {
+            'maintainAspectRatio': False,
             'backgroundColor': ["#3e95cd", "#72bf44", "#8e5ea2"],
             'elements': {
                 'arc': {
@@ -254,6 +254,7 @@ def getFakeDoughnutChart(tile_id, template_name):
             ]
         },
         "meta": {
+            'maintainAspectRatio': False,
             'title': {
                 'display': True,
                 'text': 'Doughnut Demo'

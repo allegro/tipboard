@@ -32,13 +32,9 @@ class WSConsumer(WebsocketConsumer):
     def receive(self, text_data, **kwargs):  # pragma: no cover
         """ handle msg sended by client, by 2 way: update all tiles or update 1 specific tile """
         if "first_connection:" in text_data:
-            if LOG:
-                print("Initiate first ws connect for a client, sending all tiles")
             for tile in cache.listOfTilesFromLayout(text_data.replace("first_connection:/", "")):
                 self.update_tile_receive(tile_id=tile['tile_id'], template_name=tile['tile_template'])
         else:
-            if LOG:
-                print("Clientws ask for tile update")
             for tile_id in cache.listOfTilesCached():
                 self.update_tile_receive(tile_id=tile_id)
 
@@ -55,7 +51,6 @@ class WSConsumer(WebsocketConsumer):
             data = json.loads(tileData)
         if type(data) is str:
             data = json.loads(data)
-        print(f"WS:TILES_UPDATE:{data}")
         self.send(text_data=json.dumps(data))
 
     def update_tile(self, data):  # pragma: no cover

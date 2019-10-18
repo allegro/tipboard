@@ -1,7 +1,7 @@
 function updateTilePiejs(tileId, data, meta, tileType) {
-    var ctx = $('#' + tileId + "-chart");
-    ctx.height = "75%";
-    ctx.width = "90%";
+    var ctx = document.getElementById(tileId + '-chart');
+    ctx.style.height = '100px';
+    ctx.style.width = '100px';
     new Chart(ctx, {
         type: 'pie',
         data: {

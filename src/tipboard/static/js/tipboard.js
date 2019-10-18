@@ -198,6 +198,9 @@ function initDashboard(Tipboard) {
             tileType = 'bar_chart';
         else if (tileType === 'doughnut_chart')
             tileType = 'radar_chart';
+        else if (tileType === 'cumulative_flow')
+            tileType = 'line_chart';
+
         var fn = this.updateFunctions[tileType];
         if (typeof fn !== 'function') {
             throw new Tipboard.Dashboard.UnknownUpdateFunction(tileType);

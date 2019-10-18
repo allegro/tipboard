@@ -1,18 +1,23 @@
 function updateTileLinejs(tileId, data, meta, tileType) {
     console.log("line_chartjs::updateTile::start" + tileId);
-    var ctx = $('#' + tileId + "-chart");
-    ctx.height = "90%";
-    ctx.width = "100%";
-    console.log(ctx);
+    var ctx = document.getElementById(tileId + '-chart');
+    ctx.style.height = '100px';
+    ctx.style.width = '100px';
+    let tileData = {
+        labels: data['labels'],
+        datasets: data['datasets'],
+    };
+
+    if (tileType === 'cumulative_flow') {
+        tileData['borderColor'] = ['red', 'green', 'blue'];
+    }
+
     new Chart(ctx, {
         type: 'line',
-        data: {
-            labels: data['labels'],
-            datasets: data['datasets'],
-        },
+        data: tileData,
         options: meta['options']
     });
-    console.log("line_chartjs::updateTile" + tileId);
+    console.log("linejs::type(" + tileType +")::updateTile" + tileId);
 }
 
 Tipboard.Dashboard.registerUpdateFunction('line_chart', updateTileLinejs);
