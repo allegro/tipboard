@@ -239,17 +239,17 @@ iframe {
     MEDIA QUERIES
 ------------------------------------------------------------------------------------------------------------- */
 
-@media only screen and (max-width: 1024px) {
-    body {
+@media (max-width: 400px) {
+    .grid-group {
+        display: block;
+        flex: 1;
     }
-    .tile > .tile-header h3 {}
-    .tile > .tile-content .title {}
-    .tile > .tile-content .subtitle {}
-    .tile > .tile-content .big-result {}
 
-}
-@media only screen and (min-width: 1025px) and (max-width: 1260px) {
-    body {
+    .grid-cell {
+        height: 400px;
+        margin: 2px;
+    }
+
+    body.flipboard {
     }
 }
-
