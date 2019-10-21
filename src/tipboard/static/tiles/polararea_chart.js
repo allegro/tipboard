@@ -1,7 +1,5 @@
 function updateTilePolararea(tileId, data, meta, tileType) {
     var ctx = document.getElementById(tileId + '-chart');
-    ctx.style.height = '100px';
-    ctx.style.width = '100px';
     new Chart(ctx, {
         type: 'polarArea',
         data: {

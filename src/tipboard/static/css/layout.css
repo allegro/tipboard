@@ -29,6 +29,20 @@ table {
     font-size: 1.6rem;
 }
 
+.grid {
+	display: flex;
+	flex-direction: column;
+}
+
+.grid-group {
+	display: flex;
+	flex: 1;
+}
+
+.grid-cell {
+	flex: 1;
+    margin: 2px;
+}
 
 /*  ---------------------------------------------------------------------------------------------------------
     COMPONENTS

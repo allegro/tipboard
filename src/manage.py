@@ -26,18 +26,13 @@ def show_help():  # pragma: no cover
 
 
 def main(argc, argv):  # don't you miss the old fashion way, the fabulous main in C :D.    I do
-    exitStatus = -42
-    try:
-        sys.path.insert(0, os.getcwd())  # Import project to PYTHONPATH
-        if "sensors" in argv[1] or '-s' in argv[1]:
-            from src.sensors.sensors_main import launch_sensors
-            exitStatus = launch_sensors()
-        elif "runserver" in argv[1] or "test" in argv[1]:
-            exitStatus = startDjango()
-        return exitStatus
-    except Exception:  # pragma: no cover
-        pass
-    show_help()
+    sys.path.insert(0, os.getcwd())  # Import project to PYTHONPATH
+    if "sensors" in argv[1] or '-s' in argv[1]:
+        from src.sensors.sensors_main import launch_sensors
+        return launch_sensors()
+    elif "runserver" in argv[1] or "test" in argv[1]:
+        return startDjango()
+    return show_help()
 
 
 def main_as_pkg():  # pragma: no cover

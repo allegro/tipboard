@@ -1,8 +1,6 @@
 function updateTileLinejs(tileId, data, meta, tileType) {
     console.log("line_chartjs::updateTile::start" + tileId);
     var ctx = document.getElementById(tileId + '-chart');
-    ctx.style.height = '100px';
-    ctx.style.width = '100px';
     let tileData = {
         labels: data['labels'],
         datasets: data['datasets'],
