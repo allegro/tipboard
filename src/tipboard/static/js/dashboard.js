@@ -38,13 +38,16 @@ function initDashboard2(Tipboard) {
         */
         if (keysToUse === "all") {
             var allKeys = [];
-            for (let data in dataToPut)
-                allKeys.push(data);
+            for (let data in dataToPut) {
+                if ({}.hasOwnProperty.call(dataToPut, data)) {
+                    allKeys.push(data);
+                }
+            }
             keysToUse = allKeys;
         }
         var tile = Tipboard.Dashboard.id2node(tileId);
         $.each(keysToUse, function (idx, key) {
-            var value = dataToPut[key];
+            var value = dataToPut[parseInt(key)];
             if (typeof (value) == "undefined") {
                 console.log('WARN: No key "' + key + '" in data', dataToPut);
             } else {
@@ -62,9 +65,9 @@ function initDashboard2(Tipboard) {
         console.log("Update tile: ", tileId);
         var tile = Tipboard.Dashboard.id2node(tileId);
         // destroy old graph
-        var chartObj = Tipboard.Dashboard.chartsIds[tileId];
+        var chartObj = Tipboard.Dashboard.chartsIds[parseInt(tileId)];
         if (typeof chartObj === "object") {
-            Tipboard.Dashboard.chartsIds[tileId].destroy();
+            Tipboard.Dashboard.chartsIds[parseInt(tileId)].destroy();
         }
         try {
             // its a ptr to function, calling the right update function for the right tile
@@ -111,13 +114,13 @@ function initDashboard2(Tipboard) {
         else if (tileType === "cumulative_flow")
             tileType = "line_chart";
 
-        var fn = this.updateFunctions[tileType];
+        var fn = this.updateFunctions[parseInt(tileType)];
         if (typeof fn !== "function") {
             throw new Tipboard.Dashboard.UnknownUpdateFunction(tileType);
         }
         return fn;
     };
-    initDashboard3(Tipboard)
+    initDashboard3(Tipboard);
 }
 
 
@@ -140,14 +143,10 @@ function initDashboard(Tipboard) {
         */
         // XXX: backslash MUST BE FIRST, otherwise this convertions is
         // broken (escaping chars which meant to be escapers)
-        try {
         var charsToEscape = "\\!\"#$%&'()*+,./:;<=>?@[]^`{|}~";
         for (var i = 0; i < charsToEscape.length; i++) {
-            var _char = charsToEscape[i];
+            var _char = charsToEscape[parseInt(i)];
             id = id.replace(_char, "\\" + _char);
-        }
-        } catch (e) {
-
         }
         return id;
     };
