@@ -32,7 +32,8 @@ def main(argc, argv):  # don't you miss the old fashion way, the fabulous main i
         return launch_sensors()
     elif "runserver" in argv[1] or "test" in argv[1]:
         return startDjango()
-    return show_help()
+    else:
+        return show_help()
 
 
 def main_as_pkg():  # pragma: no cover
