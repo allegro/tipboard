@@ -1,0 +1,165 @@
+htmlFunctionToNodeJS = function (id) {
+    return $("#" + id)[0];
+};
+
+escapeId = function (id) {
+        /*
+        the Tipboard application allows user to use eg. '.' in tiles' ids
+        jquery requires such chars to be escaped
+        */
+        // XXX: backslash MUST BE FIRST, otherwise this convertions is
+        // broken (escaping chars which meant to be escapers)
+        try {
+        var charsToEscape = "\\!\"#$%&'()*+,./:;<=>?@[]^`{|}~";
+        for (var i = 0; i < charsToEscape.length; i++) {
+            var _char = charsToEscape[i];
+            id = id.replace(_char, "\\" + _char);
+        }
+        } catch (e) {
+
+        }
+        return id;
+};
+
+setDataByKeys = function (tileId, dataToPut, keysToUse) {
+        /*
+        *keysToUse*: list of keys, or string 'all', if 'all' then all keys used from *dataToPut*
+        */
+        if (keysToUse === 'all') {
+            var allKeys = [];
+            for (let data in dataToPut)
+                allKeys.push(data);
+            keysToUse = allKeys;
+        }
+        var tile = Tipboard.Dashboard.id2node(tileId);
+        $.each(keysToUse, function (idx, key) {
+            var value = dataToPut[key];
+            if (typeof (value) == 'undefined') {
+                console.log('WARN: No key "' + key + '" in data', dataToPut);
+            } else {
+                var dstId = "#" + tileId + "-" + key;
+                var dst = $(tile).find(dstId)[0];
+                if (typeof dst === 'undefined') {
+                    console.log('WARN: Not found node with id: ' + dstId);
+                } else {
+                    $(dst).text(value);
+                }
+            }
+        });
+    };
+
+updateTile = function (tileId, tileType, data, meta, lastMod) {
+        console.log('Update tile: ', tileId);
+        var tile = Tipboard.Dashboard.id2node(tileId);
+        // destroy old graph
+        var chartObj = Tipboard.Dashboard.chartsIds[tileId];
+        if (typeof chartObj === "object") {
+            Tipboard.Dashboard.chartsIds[tileId].destroy();
+        }
+        try {
+            // its a ptr to function, calling the right update function for the right tile
+            Tipboard.Dashboard.getUpdateFunction(tileType)(tileId, data, meta, tileType);
+            $("#" + tileId + "-lastModified").val(lastMod);
+            $.each(['.tile-content'], function (idx, klass) {
+                var node = $(tile).find(klass);
+                if (node.length > 1) {
+                    $(node[1]).remove();
+                    $(node[0]).show();
+                }
+            });
+        } catch (err) {
+            console.log('ERROR: ', tileId, err.toString());
+            var msg = [
+                "Tile " + tileId + " configuration error:",
+                err.name || "error name: n/a",
+                err.message || "error message: n/a",
+            ].join('<br>');
+            $.each(['.tile-content'], function (idx, klass) {
+                var nodes = $(tile).find(klass);
+                if (nodes.length === 1) {
+                    var cloned = $(nodes).clone();
+                    $(nodes).hide();
+                    $(cloned).insertAfter(nodes);
+                    $(cloned).addClass("exception-message");
+                    $(cloned).show();
+                } else {
+                    $(nodes[0]).hide();
+                    $(nodes[1]).show();
+                }
+                nodes = $(tile).find('.tile-content');
+                $(nodes[1]).html(msg);
+            });
+        }
+};
+
+addTilesCounter = function (col) {
+        var tilesTotal = $(col).children('div.tile').length;
+        if (tilesTotal > 1) {
+            $.each($(col).children('div'), function (tileIdx, tile) {
+               console.log("Building flip for tile");
+               var container = $(tile).find('.tile-header');
+                //var title = $(container).children()[0];
+                $(container).addClass('flip-tile-counter');
+                var counter = (tileIdx + 1) + '/' + tilesTotal;
+                $(container).append(counter);
+                $(container).append('<div style="clear:both"></div>');
+            });
+        }
+};
+
+updateFunctionForTile = function (tileType) {
+        // to not duplicate js, and get separation for none tech user
+        // we use same the same chartJS widget but different name
+        if (tileType === 'vbar_chart')
+            tileType = 'bar_chart';
+        else if (tileType === 'doughnut_chart')
+            tileType = 'radar_chart';
+        else if (tileType === 'cumulative_flow')
+            tileType = 'line_chart';
+
+        var fn = this.updateFunctions[tileType];
+        if (typeof fn !== 'function') {
+            throw new Tipboard.Dashboard.UnknownUpdateFunction(tileType);
+        }
+        return fn;
+};
+
+/**
+ *
+ * @param Tipboard
+ */
+function initDashboard(Tipboard) {
+    Tipboard.Dashboard.id2node = htmlFunctionToNodeJS;
+
+    Tipboard.Dashboard.tile2id = function (tileNode) {
+        return $(tileNode).attr("id");
+    };
+
+    Tipboard.Dashboard.escapeId = escapeId;
+
+    Tipboard.Dashboard.setDataByKeys = setDataByKeys;
+
+    Tipboard.Dashboard.updateTile = updateTile;
+
+    Tipboard.Dashboard.getUpdateFunction = updateFunctionForTile;
+
+    Tipboard.Dashboard.registerUpdateFunction = function (name, fn) {
+        console.log("Registering Function tile:" + name);
+        this.updateFunctions[name] = fn;
+    };
+
+    Tipboard.Dashboard.isTileRenderedSuccessful = function (tile) {
+        return $(tile).find('.exception-message').length === 0;
+    };
+
+    Tipboard.Dashboard.autoAddFlipClasses = function (flippingContainer) {
+        $.each($(flippingContainer).find('.tile'), function (idx, elem) {
+            if (idx === 0) {
+                $(elem).addClass('flippedforward');
+            }
+            $(elem).addClass('flippable');
+        });
+    };
+
+    Tipboard.Dashboard.addTilesCounter = addTilesCounter;
+}
