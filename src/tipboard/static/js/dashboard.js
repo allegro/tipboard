@@ -1,27 +1,38 @@
-htmlFunctionToNodeJS = function (id) {
-    return $("#" + id)[0];
-};
-
-escapeId = function (id) {
-        /*
-        the Tipboard application allows user to use eg. '.' in tiles' ids
-        jquery requires such chars to be escaped
-        */
-        // XXX: backslash MUST BE FIRST, otherwise this convertions is
-        // broken (escaping chars which meant to be escapers)
-        try {
-        var charsToEscape = "\\!\"#$%&'()*+,./:;<=>?@[]^`{|}~";
-        for (var i = 0; i < charsToEscape.length; i++) {
-            var _char = charsToEscape[i];
-            id = id.replace(_char, "\\" + _char);
+function initDashboard3(Tipboard) {
+    Tipboard.Dashboard.registerUpdateFunction = function (name, fn) {
+        console.log("Registering Functionetion tile:" + name);
+        this.updateFunctions[name] = fn;
+    };
+    Tipboard.Dashboard.isTileRenderedSuccessful = function (tile) {
+        var suc = $(tile).find('.exception-message').length === 0;
+        return suc;
+    };
+    Tipboard.Dashboard.autoAddFlipClasses = function (flippingContainer) {
+        $.each($(flippingContainer).find('.tile'), function (idx, elem) {
+            if (idx === 0) {
+                $(elem).addClass('flippedforward');
+            }
+            $(elem).addClass('flippable');
+        });
+    };
+    Tipboard.Dashboard.addTilesCounter = function (col) {
+        var tilesTotal = $(col).children('div.tile').length;
+        if (tilesTotal > 1) {
+            $.each($(col).children('div'), function (tileIdx, tile) {
+               console.log("Building flip for tile");
+               var container = $(tile).find('.tile-header');
+                //var title = $(container).children()[0];
+                $(container).addClass('flip-tile-counter');
+                var counter = (tileIdx + 1) + '/' + tilesTotal;
+                $(container).append(counter);
+                $(container).append('<div style="clear:both"></div>');
+            });
         }
-        } catch (e) {
+    };
+}
 
-        }
-        return id;
-};
-
-setDataByKeys = function (tileId, dataToPut, keysToUse) {
+function initDashboard2(Tipboard) {
+    Tipboard.Dashboard.setDataByKeys = function (tileId, dataToPut, keysToUse) {
         /*
         *keysToUse*: list of keys, or string 'all', if 'all' then all keys used from *dataToPut*
         */
@@ -47,8 +58,7 @@ setDataByKeys = function (tileId, dataToPut, keysToUse) {
             }
         });
     };
-
-updateTile = function (tileId, tileType, data, meta, lastMod) {
+    Tipboard.Dashboard.updateTile = function (tileId, tileType, data, meta, lastMod) {
         console.log('Update tile: ', tileId);
         var tile = Tipboard.Dashboard.id2node(tileId);
         // destroy old graph
@@ -90,24 +100,8 @@ updateTile = function (tileId, tileType, data, meta, lastMod) {
                 $(nodes[1]).html(msg);
             });
         }
-};
-
-addTilesCounter = function (col) {
-        var tilesTotal = $(col).children('div.tile').length;
-        if (tilesTotal > 1) {
-            $.each($(col).children('div'), function (tileIdx, tile) {
-               console.log("Building flip for tile");
-               var container = $(tile).find('.tile-header');
-                //var title = $(container).children()[0];
-                $(container).addClass('flip-tile-counter');
-                var counter = (tileIdx + 1) + '/' + tilesTotal;
-                $(container).append(counter);
-                $(container).append('<div style="clear:both"></div>');
-            });
-        }
-};
-
-updateFunctionForTile = function (tileType) {
+    };
+    Tipboard.Dashboard.getUpdateFunction = function (tileType) {
         // to not duplicate js, and get separation for none tech user
         // we use same the same chartJS widget but different name
         if (tileType === 'vbar_chart')
@@ -122,44 +116,40 @@ updateFunctionForTile = function (tileType) {
             throw new Tipboard.Dashboard.UnknownUpdateFunction(tileType);
         }
         return fn;
-};
+    };
+    initDashboard3(Tipboard)
+}
+
 
 /**
  *
  * @param Tipboard
  */
 function initDashboard(Tipboard) {
-    Tipboard.Dashboard.id2node = htmlFunctionToNodeJS;
-
+    Tipboard.Dashboard.id2node = function (id) {
+        var tile = $("#" + id)[0];
+        return tile;
+    };
     Tipboard.Dashboard.tile2id = function (tileNode) {
         return $(tileNode).attr("id");
     };
+    Tipboard.Dashboard.escapeId = function (id) {
+        /*
+        the Tipboard application allows user to use eg. '.' in tiles' ids
+        jquery requires such chars to be escaped
+        */
+        // XXX: backslash MUST BE FIRST, otherwise this convertions is
+        // broken (escaping chars which meant to be escapers)
+        try {
+        var charsToEscape = "\\!\"#$%&'()*+,./:;<=>?@[]^`{|}~";
+        for (var i = 0; i < charsToEscape.length; i++) {
+            var _char = charsToEscape[i];
+            id = id.replace(_char, "\\" + _char);
+        }
+        } catch (e) {
 
-    Tipboard.Dashboard.escapeId = escapeId;
-
-    Tipboard.Dashboard.setDataByKeys = setDataByKeys;
-
-    Tipboard.Dashboard.updateTile = updateTile;
-
-    Tipboard.Dashboard.getUpdateFunction = updateFunctionForTile;
-
-    Tipboard.Dashboard.registerUpdateFunction = function (name, fn) {
-        console.log("Registering Function tile:" + name);
-        this.updateFunctions[name] = fn;
+        }
+        return id;
     };
-
-    Tipboard.Dashboard.isTileRenderedSuccessful = function (tile) {
-        return $(tile).find('.exception-message').length === 0;
-    };
-
-    Tipboard.Dashboard.autoAddFlipClasses = function (flippingContainer) {
-        $.each($(flippingContainer).find('.tile'), function (idx, elem) {
-            if (idx === 0) {
-                $(elem).addClass('flippedforward');
-            }
-            $(elem).addClass('flippable');
-        });
-    };
-
-    Tipboard.Dashboard.addTilesCounter = addTilesCounter;
+    initDashboard2(Tipboard);
 }
