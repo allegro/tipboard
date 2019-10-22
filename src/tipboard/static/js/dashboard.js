@@ -4,8 +4,7 @@ function initDashboard3(Tipboard) {
         this.updateFunctions[name.toString()] = fn;
     };
     Tipboard.Dashboard.isTileRenderedSuccessful = function (tile) {
-        var suc = $(tile).find(".exception-message").length === 0;
-        return suc;
+        return $(tile).find(".exception-message").length === 0;
     };
     Tipboard.Dashboard.autoAddFlipClasses = function (flippingContainer) {
         $.each($(flippingContainer).find(".tile"), function (idx, elem) {
@@ -94,13 +93,21 @@ function initDashboard2(Tipboard) {
         }
     };
     Tipboard.Dashboard.getUpdateFunction = function (tileType) {
-        // to not duplicate js, and get separation for none tech user
-        // we use same the same chartJS widget but different name
-        if (tileType === "vbar_chart") {tileType = "bar_chart";}
-        else if (tileType === "doughnut_chart") {tileType = "radar_chart";}
-        else if (tileType === "cumulative_flow") {tileType = "line_chart";}
+        switch (tileType) {
+            case "vbar_chart":
+                tileType = "bar_chart";
+                break;
+            case "doughnut_chart":
+                tileType = "radar_chart";
+                break;
+            case "cumulative_flow":
+                tileType = "line_chart";
+                break;
+        }
         var fn = this.updateFunctions[tileType.toString()];
-        if (typeof fn !== "function") {throw new Tipboard.Dashboard.UnknownUpdateFunction(tileType);}
+        if (typeof fn !== "function") {
+            throw new Tipboard.Dashboard.UnknownUpdateFunction(tileType);
+        }
         return fn;
     };
     initDashboard3(Tipboard);
