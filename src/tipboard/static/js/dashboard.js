@@ -104,7 +104,7 @@ function initDashboard2(Tipboard) {
                 tileType = "line_chart";
                 break;
         }
-        var fn = this.updateFunctions[tileType.toString()];
+        let fn = this.updateFunctions[tileType.toString()];
         if (typeof fn !== "function") {
             throw new Tipboard.Dashboard.UnknownUpdateFunction(tileType);
         }
@@ -120,8 +120,7 @@ function initDashboard2(Tipboard) {
  */
 function initDashboard(Tipboard) {
     Tipboard.Dashboard.id2node = function (id) {
-        var tile = $("#" + id)[0];
-        return tile;
+        return $("#" + id)[0];
     };
     Tipboard.Dashboard.tile2id = function (tileNode) {
         return $(tileNode).attr("id");
@@ -130,9 +129,9 @@ function initDashboard(Tipboard) {
         /*
         the Tipboard application allows user to use eg. '.' in tiles' ids
         jquery requires such chars to be escaped
+        XXX: backslash MUST BE FIRST, otherwise this convertions is
+        broken (escaping chars which meant to be escapers)
         */
-        // XXX: backslash MUST BE FIRST, otherwise this convertions is
-        // broken (escaping chars which meant to be escapers)
         var charsToEscape = "\\!\"#$%&'()*+,./:;<=>?@[]^`{|}~";
         for (var i = 0; i < charsToEscape.length; i++) {
             var _char = charsToEscape[i + ""];
