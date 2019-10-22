@@ -4,26 +4,26 @@ function initDashboard3(Tipboard) {
         this.updateFunctions[name] = fn;
     };
     Tipboard.Dashboard.isTileRenderedSuccessful = function (tile) {
-        var suc = $(tile).find('.exception-message').length === 0;
+        var suc = $(tile).find(".exception-message").length === 0;
         return suc;
     };
     Tipboard.Dashboard.autoAddFlipClasses = function (flippingContainer) {
-        $.each($(flippingContainer).find('.tile'), function (idx, elem) {
+        $.each($(flippingContainer).find(".tile"), function (idx, elem) {
             if (idx === 0) {
-                $(elem).addClass('flippedforward');
+                $(elem).addClass("flippedforward");
             }
-            $(elem).addClass('flippable');
+            $(elem).addClass("flippable");
         });
     };
     Tipboard.Dashboard.addTilesCounter = function (col) {
-        var tilesTotal = $(col).children('div.tile').length;
+        var tilesTotal = $(col).children("div.tile").length;
         if (tilesTotal > 1) {
-            $.each($(col).children('div'), function (tileIdx, tile) {
+            $.each($(col).children("div"), function (tileIdx, tile) {
                console.log("Building flip for tile");
-               var container = $(tile).find('.tile-header');
+               var container = $(tile).find(".tile-header");
                 //var title = $(container).children()[0];
-                $(container).addClass('flip-tile-counter');
-                var counter = (tileIdx + 1) + '/' + tilesTotal;
+                $(container).addClass("flip-tile-counter");
+                var counter = (tileIdx + 1) + "/" + tilesTotal;
                 $(container).append(counter);
                 $(container).append('<div style="clear:both"></div>');
             });
@@ -36,7 +36,7 @@ function initDashboard2(Tipboard) {
         /*
         *keysToUse*: list of keys, or string 'all', if 'all' then all keys used from *dataToPut*
         */
-        if (keysToUse === 'all') {
+        if (keysToUse === "all") {
             var allKeys = [];
             for (let data in dataToPut)
                 allKeys.push(data);
@@ -45,13 +45,13 @@ function initDashboard2(Tipboard) {
         var tile = Tipboard.Dashboard.id2node(tileId);
         $.each(keysToUse, function (idx, key) {
             var value = dataToPut[key];
-            if (typeof (value) == 'undefined') {
+            if (typeof (value) == "undefined") {
                 console.log('WARN: No key "' + key + '" in data', dataToPut);
             } else {
                 var dstId = "#" + tileId + "-" + key;
                 var dst = $(tile).find(dstId)[0];
-                if (typeof dst === 'undefined') {
-                    console.log('WARN: Not found node with id: ' + dstId);
+                if (typeof dst === "undefined") {
+                    console.log("WARN: Not found node with id: " + dstId);
                 } else {
                     $(dst).text(value);
                 }
@@ -59,7 +59,7 @@ function initDashboard2(Tipboard) {
         });
     };
     Tipboard.Dashboard.updateTile = function (tileId, tileType, data, meta, lastMod) {
-        console.log('Update tile: ', tileId);
+        console.log("Update tile: ", tileId);
         var tile = Tipboard.Dashboard.id2node(tileId);
         // destroy old graph
         var chartObj = Tipboard.Dashboard.chartsIds[tileId];
@@ -70,7 +70,7 @@ function initDashboard2(Tipboard) {
             // its a ptr to function, calling the right update function for the right tile
             Tipboard.Dashboard.getUpdateFunction(tileType)(tileId, data, meta, tileType);
             $("#" + tileId + "-lastModified").val(lastMod);
-            $.each(['.tile-content'], function (idx, klass) {
+            $.each([".tile-content"], function (idx, klass) {
                 var node = $(tile).find(klass);
                 if (node.length > 1) {
                     $(node[1]).remove();
@@ -78,13 +78,13 @@ function initDashboard2(Tipboard) {
                 }
             });
         } catch (err) {
-            console.log('ERROR: ', tileId, err.toString());
+            console.log("ERROR: ", tileId, err.toString());
             var msg = [
                 "Tile " + tileId + " configuration error:",
                 err.name || "error name: n/a",
                 err.message || "error message: n/a",
-            ].join('<br>');
-            $.each(['.tile-content'], function (idx, klass) {
+            ].join("<br>");
+            $.each([".tile-content"], function (idx, klass) {
                 var nodes = $(tile).find(klass);
                 if (nodes.length === 1) {
                     var cloned = $(nodes).clone();
@@ -96,7 +96,7 @@ function initDashboard2(Tipboard) {
                     $(nodes[0]).hide();
                     $(nodes[1]).show();
                 }
-                nodes = $(tile).find('.tile-content');
+                nodes = $(tile).find(".tile-content");
                 $(nodes[1]).html(msg);
             });
         }
@@ -104,15 +104,15 @@ function initDashboard2(Tipboard) {
     Tipboard.Dashboard.getUpdateFunction = function (tileType) {
         // to not duplicate js, and get separation for none tech user
         // we use same the same chartJS widget but different name
-        if (tileType === 'vbar_chart')
-            tileType = 'bar_chart';
-        else if (tileType === 'doughnut_chart')
-            tileType = 'radar_chart';
-        else if (tileType === 'cumulative_flow')
-            tileType = 'line_chart';
+        if (tileType === "vbar_chart")
+            tileType = "bar_chart";
+        else if (tileType === "doughnut_chart")
+            tileType = "radar_chart";
+        else if (tileType === "cumulative_flow")
+            tileType = "line_chart";
 
         var fn = this.updateFunctions[tileType];
-        if (typeof fn !== 'function') {
+        if (typeof fn !== "function") {
             throw new Tipboard.Dashboard.UnknownUpdateFunction(tileType);
         }
         return fn;
