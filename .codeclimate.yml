@@ -1,9 +1,5 @@
-engines:
-  sonar-python:
-    enabled: true
-    checks:
-      python:S1542:
-        enabled: false
+version: "2"
+
 plugins:
   duplication:
     enabled: true
@@ -11,4 +7,9 @@ plugins:
       languages:
         python:
           python_version: 3
+  sonar-python:
+    enabled: true
+    checks:
+      python:S1542:
+        enabled: false
 
