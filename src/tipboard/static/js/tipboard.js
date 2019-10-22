@@ -123,23 +123,22 @@ function initDashboard(Tipboard) {
         /*
         *keysToUse*: list of keys, or string 'all', if 'all' then all keys used from *dataToPut*
         */
-        if (keysToUse == 'all') {
+        if (keysToUse === 'all') {
             var allKeys = [];
-            for (var k in dataToPut) allKeys.push(k);
+            for (let data in dataToPut)
+                allKeys.push(data);
             keysToUse = allKeys;
         }
         var tile = Tipboard.Dashboard.id2node(tileId);
         $.each(keysToUse, function (idx, key) {
             var value = dataToPut[key];
             if (typeof (value) == 'undefined') {
-                var msg = 'WARN: No key "' + key + '" in data';
-                console.log(msg, dataToPut);
+                console.log('WARN: No key "' + key + '" in data', dataToPut);
             } else {
                 var dstId = "#" + tileId + "-" + key;
                 var dst = $(tile).find(dstId)[0];
                 if (typeof dst === 'undefined') {
-                    var msg = 'WARN: Not found node with id: ' + dstId;
-                    console.log(msg);
+                    console.log('WARN: Not found node with id: ' + dstId);
                 } else {
                     $(dst).text(value);
                 }

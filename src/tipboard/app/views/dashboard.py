@@ -44,7 +44,6 @@ def dashboardRendererHandler(request, layout_name='layout_config'):  # pragma: n
             "tiles_css": ["tiles/" + '.'.join((name, 'css')) for name in tiles_template],
             "tiles_js": ["tiles/" + '.'.join((name, 'js')) for name in tiles_template],
         }
-        print(f"{data}")
     except FileNotFoundError as e:
         if LOG:
             print(f"{getTimeStr()}: (+)Config file:{layout_name} not found", flush=True)

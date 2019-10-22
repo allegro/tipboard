@@ -1,45 +1,8 @@
-{#<div class="tile highlighter-tile simple-percentage-tile" id="{{ tile_id }}">#}
-{#    <div class="tile-header">#}
-{#        <h3>{{ title }}</h3>#}
-{#    </div>#}
-{#    <div class="container-fluid h-100 p-0 w-100">#}
-{#        <div class=".row" style="text-align: center; color: white; height: 22%">#}
-{##}
-{#            <div class=".row h-90 w-100">#}
-{#                <div class=".col-sm-12" style="text-align: center">#}
-{#                    <p class="card-title" id="{{ tile_id }}-title" style="font-size: xx-large"></p>#}
-{#                    <p id="{{ tile_id }}-subtitle"></p>#}
-{#                </div>#}
-{#            </div>#}
-{##}
-{#        </div>#}
-{#        <div class=".row w-100" style="height: 46%;text-align: center;background-color: green; color: white;">#}
-{#            <div class=".row w-100 my-auto h-100" style="display: flex;align-items: center;justify-content: center;">#}
-{#                <div class="col w-100">#}
-{#                    <div class="display-3 w-100 h-100" id="{{ tile_id }}-big_value">#}
-{#                    </div>#}
-{#                </div>#}
-{#            </div>#}
-{##}
-{#        </div>#}
-{#        <div class=".row w-100" style="height: 22%;display: inline-flex; justify-content: center ;text-align: center;align-items: center;">#}
-{#            <div class="column1 w-100 m-1" style="">#}
-{#                <div id="{{ tile_id }}-left_label" class=".row text-white" style=""></div>#}
-{#                <div id="{{ tile_id }}-left_value" class=".row text-white" style="margin-top: 1%"><span></span></div>#}
-{#            </div>#}
-{#            <div style="border-left:1px solid #b4b4b4;width: 2px;height: 90%;margin-top: 2%;margin-bottom: 2%" class="m-2"></div>#}
-{#            <div class="column1 w-100 m-1" style="float: right;">#}
-{#                <div id="{{ tile_id }}-right_label" class=".row center text-white" style=""></div>#}
-{#                <div id="{{ tile_id }}-right_value" class=".row center text-white" style="margin-top: 1%"><span></span></div>#}
-{#            </div>#}
-{#        </div>#}
-{##}
-{#    </div>#}
-{#</div>#}
 
-<div id="{{ tile_id }}" style="height: 100%;display: flex; flex-direction: column">
-    <div class="tile-header" style="text-transform: full-width;flex : 0 0 36px; border-bottom: 1px solid rgba(255,255,255,0.1);">
-        <h3>{{ title }}</h3>
+
+<div class="tile" id="{{ tile_id }}" style="height: 100%;display: flex; flex-direction: column">
+    <div class="tile-header" style="flex : 0 0 36px; border-bottom: 1px solid rgba(255,255,255,0.1);">
+        <h3 style="text-overflow: ellipsis;width: 99%;white-space: nowrap;">{{ title }}</h3>
     </div>
     <div style=" flex: 1 0 0;display: flex; flex-direction: column;height: 100%;">
             <div id="head-{{ tile_id }}" style="flex-grow: 1;">
@@ -49,7 +12,7 @@
             <div id="body-{{ tile_id }}" style="flex-grow: 7; background-color: green; display: flex; align-items: center;justify-content: center;">
                 <div class="display-3 text-white" id="{{ tile_id }}-big_value" style=""></div>
             </div>
-            <div id="bott-{{ tile_id }}" style="flex-grow: 3;display: inline-flex; justify-content: center ;text-align: center;align-items: center;background-color: #5b80b2;">
+            <div id="bott-{{ tile_id }}" style="flex-grow: 3;display: inline-flex; justify-content: center ;text-align: center;align-items: center;">
                 <div class="column1 w-100 m-1" style="">
                     <div id="{{ tile_id }}-left_label" class=".row text-white" style=""></div>
                     <div id="{{ tile_id }}-left_value" class=".row text-white" style="margin-top: 1%"><span></span></div>

@@ -1,12 +1,11 @@
-/*jslint browser: true, devel: true*/
-/*global $, WebSocket: false, Tipboard: false*/
-
 "use strict";
 
 function updateTileSimplePercentage(tileId, data, config, tileType) {
+    //update the tile value
     Tipboard.Dashboard.setDataByKeys(tileId, data, 'all');
-    var highlighterNode = $('#' + tileId + '-big_value').parent();
-    var tile = Tipboard.Dashboard.id2node(tileId);
+    //update background color regarding the config['fading_value'] if conf['fading_'] is true
+//    var highlighterNode = $('#' + tileId + '-big_value').parent();
+    //var tile = Tipboard.Dashboard.id2node(tileId);
 }
 
 Tipboard.Dashboard.registerUpdateFunction('simple_percentage', updateTileSimplePercentage);

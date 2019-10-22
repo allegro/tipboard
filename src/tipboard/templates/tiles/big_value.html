@@ -1,55 +1,38 @@
-<div class="tile highlighter-tile big_value_tile" id="{{ tile_id }}">
-    <div class="tile-header">
-        <h3 >{{ title }}</h3>
+<div class="tile" id="{{ tile_id }}" style="height: 100%;display: flex; flex-direction: column">
+    <div class="tile-header" style="flex : 0 0 36px; border-bottom: 1px solid rgba(255,255,255,0.1);">
+        <h3 style="text-overflow: ellipsis;width: 99%;white-space: nowrap;">{{ title }}</h3>
     </div>
-    <div class=".container" style="height: 100%;">
-        <div class=".row" id="header_bv" style="height: 20%;">
+    <div style=" flex: 1 0 0;display: flex; flex-direction: column;height: 100%;">
 
-            <div class=".row h-100 my-auto" style="text-align: center">
-                <div class="col-sm-12 my-auto">
-                    <h2 id="{{ tile_id }}-title" class="mx-auto text-white" style="margin-top: 2%"></h2>
-                    <h6 id="{{ tile_id }}-description" class="text-white"></h6>
-                </div>
-            </div>
-
+        <div id="head-{{ tile_id }}" style="flex-grow: 1;">
+            <h2 id="{{ tile_id }}-title" class="mx-auto text-white"></h2>
+            <h6 id="{{ tile_id }}-description" class="text-white">number of blockers</h6>
         </div>
 
-        <div class=".row mt-1" id="body_bv" style="background-color: orange;height: 45%;display: flex;align-items: center;justify-content: center;">
-            <div class="row h-100 w-100">
-                <div class="col-md-12 my-auto" style="justify-content: center">
-                    <p class="h1 display-1 text-white" id="{{ tile_id }}-big-value" style="width: 100%;text-align: center"> </p>
-                </div>
-            </div>
+        <div id="body-{{ tile_id }}" style="flex-grow: 8; background-color: orange; display: flex; align-items: center;justify-content: center;">
+            <div class="display-3 text-white" id="{{ tile_id }}-big-value" style=""></div>
         </div>
 
-        <div class=".row w-100" style="height:35%; display: flex;">
-            <div class=".col w-100 h-100 m-1" style="flex-grow: 100">
-                <div class=".row mt-1" style="display: flex;">
-                    <div id="{{ tile_id }}-upper-left-label" class="text-white" style="flex-grow: 1">
-                    </div>
-                    <div id="{{ tile_id }}-upper-left-value" class="text-white" style="flex-grow: 1;display: flex;justify-content:flex-end">
-                    </div>
+        <div id="bott-{{ tile_id }} " style="flex-grow: 3;display: flex;">
+            <div style="flex : 1 0 0;display: flex;flex-direction: column;padding: 2%">
+                <div style="flex-grow: 1;align-content: stretch;align-items: center;display: flex; flex-direction: row;">
+                    <div id="{{ tile_id }}-upper-left-label" class="text-white" style="flex-grow: 1"></div>
+                    <div id="{{ tile_id }}-upper-left-value" class="text-white" style="flex-grow: 1;display: flex;justify-content:flex-end"></div>
                 </div>
-                <div class=".row mt-1" style="display: flex;">
-                    <div id="{{ tile_id }}-lower-left-label" class="text-white" style="flex-grow: 1">
-                    </div>
-                    <div id="{{ tile_id }}-lower-left-value" class="text-white" style="flex-grow: 1;display: flex;justify-content:flex-end">
-                    </div>
+                <div style="flex-grow: 1;align-content: stretch;align-items: center;display: flex; flex-direction: row;">
+                    <div id="{{ tile_id }}-lower-left-label" class="text-white" style="flex-grow: 1"></div>
+                    <div id="{{ tile_id }}-lower-left-value" class="text-white" style="flex-grow: 1;display: flex;justify-content:flex-end"></div>
                 </div>
             </div>
-            <div style="border-left:1px solid #ffffff;width: 2px;flex-grow: 1" class="m-2"></div>
-            <div class=".col w-100 h-100 m-1" style="flex-grow: 100;display: flex;flex-direction: column">
-                <div class=".row mt-1" style="display: flex;flex-grow: 0;align-items:stretch">
-                    <div id="{{ tile_id }}-upper-right-label" class="text-white" style="flex-grow: 1">
-                    </div>
-                    <div id="{{ tile_id }}-upper-right-value" class="text-white" style="flex-grow: 1;display: flex;justify-content:flex-end">
-                    </div>
+            <div class="m-2" style="border-left:1px solid #b4b4b4;" ></div>
+            <div style="flex : 1 0 0;display: flex;flex-direction: column;padding: 2%">
+                <div style="flex-grow: 1;align-content: stretch;align-items: center;display: flex; flex-direction: row;">
+                    <div id="{{ tile_id }}-upper-right-label" class="text-white" style="flex-grow: 1"> </div>
+                    <div id="{{ tile_id }}-upper-right-value" class="text-white" style="flex-grow: 1;display: flex;justify-content:flex-end"></div>
                 </div>
-                <div class=".row mt-1" style="display: flex;flex-grow: 0">
-                    <div id="{{ tile_id }}-lower-right-label" class="text-white" style="flex-grow: 1">
-                    </div>
-                    <div id="{{ tile_id }}-lower-right-value" class="text-white" style="flex-grow: 1;display: flex;justify-content:flex-end">
-                    </div>
+                <div style="flex-grow: 1;align-content: stretch;align-items: center;display: flex; flex-direction: row;">
+                    <div id="{{ tile_id }}-lower-right-label" class="text-white" style="flex-grow: 1;align-content: stretch;"></div>
+                    <div id="{{ tile_id }}-lower-right-value" class="text-white" style="flex-grow: 1;display: flex;justify-content:flex-end;align-content: stretch;"></div>
                 </div>
             </div>
         </div>

@@ -139,6 +139,7 @@ def projectInfo(request):  # pragma: no cover
 
 
 def tile_unsecured(request, tile_key):  # pragma: no cover
+    print(f"{getTimeStr()} (~) Using unsecured tile url")
     if not DEBUG:
         raise Http404
     else:
@@ -146,6 +147,7 @@ def tile_unsecured(request, tile_key):  # pragma: no cover
 
 
 def push_unsecured(request):  # pragma: no cover
+    print(f"{getTimeStr()} (~) Using unsecured push url")
     if not DEBUG:
         raise Http404
     else:
@@ -153,6 +155,7 @@ def push_unsecured(request):  # pragma: no cover
 
 
 def meta_unsecured(request, tile_key):  # pragma: no cover
+    print(f"{getTimeStr()} (~) Using unsecured meta url")
     if not DEBUG:
         raise Http404
     else:
@@ -160,6 +163,7 @@ def meta_unsecured(request, tile_key):  # pragma: no cover
 
 
 def update_unsecured(request):  # pragma: no cover
+    print(f"{getTimeStr()} (~) Using unsecured update url")
     if not DEBUG:
         raise Http404
     else:

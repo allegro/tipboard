@@ -1,0 +1,17 @@
+<div id="{{ tile_id }}" style="height: 100%;display: flex; flex-direction: column">
+    <div class="tile-header" style="text-transform: full-width;flex : 0 0 36px; border-bottom: 1px solid rgba(255,255,255,0.1);">
+        <h3>{{ title }}</h3>
+    </div>
+    <div style=" flex: 1 0 0;display: flex; flex-direction: column;height: 100%;">
+        <div id="head-{{ tile_id }}" style="flex-grow: 1;">
+            <h2 id="{{ tile_id }}-title" class="mx-auto text-white"></h2>
+            <h6 id="{{ tile_id }}-subtitle" class="text-white">number of blockers</h6>
+        </div>
+        <div id="body-{{ tile_id }}" style="flex-grow: 7; background-color: orange; display: flex; align-items: center;justify-content: center;">
+            <div class="display-3 text-white" id="{{ tile_id }}-big_value" style=""></div>
+        </div>
+        <div id="bott-{{ tile_id }}" style="flex-grow: 3;display: inline-flex; justify-content: center ;text-align: center;align-items: center;background-color: #5b80b2;">
+
+        </div>
+    </div>
+</div>
