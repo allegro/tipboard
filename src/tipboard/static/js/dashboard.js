@@ -25,7 +25,7 @@ function initDashboard3(Tipboard) {
                 $(container).addClass("flip-tile-counter");
                 var counter = (tileIdx + 1) + "/" + tilesTotal;
                 $(container).append(counter);
-                $(container).append('<div style="clear:both"></div>');
+                $(container).append("<div style=\"clear:both\"></div>");
             });
         }
     };
@@ -47,9 +47,9 @@ function initDashboard2(Tipboard) {
         }
         var tile = Tipboard.Dashboard.id2node(tileId);
         $.each(keysToUse, function (idx, key) {
-            var value = dataToPut[parseInt(key)];
+            var value = dataToPut[key.toString()];
             if (typeof (value) == "undefined") {
-                console.log('WARN: No key "' + key + '" in data', dataToPut);
+                console.log("WARN: No key \"" + key + "\" in data", dataToPut);
             } else {
                 var dstId = "#" + tileId + "-" + key;
                 var dst = $(tile).find(dstId)[0];
@@ -65,9 +65,9 @@ function initDashboard2(Tipboard) {
         console.log("Update tile: ", tileId);
         var tile = Tipboard.Dashboard.id2node(tileId);
         // destroy old graph
-        var chartObj = Tipboard.Dashboard.chartsIds[parseInt(tileId)];
+        var chartObj = Tipboard.Dashboard.chartsIds[tileId.toString()];
         if (typeof chartObj === "object") {
-            Tipboard.Dashboard.chartsIds[parseInt(tileId)].destroy();
+            Tipboard.Dashboard.chartsIds[tileId.toString()].destroy();
         }
         try {
             // its a ptr to function, calling the right update function for the right tile
@@ -107,14 +107,16 @@ function initDashboard2(Tipboard) {
     Tipboard.Dashboard.getUpdateFunction = function (tileType) {
         // to not duplicate js, and get separation for none tech user
         // we use same the same chartJS widget but different name
-        if (tileType === "vbar_chart")
+        if (tileType === "vbar_chart") {
             tileType = "bar_chart";
-        else if (tileType === "doughnut_chart")
+        }
+        else if (tileType === "doughnut_chart") {
             tileType = "radar_chart";
-        else if (tileType === "cumulative_flow")
+        }
+        else if (tileType === "cumulative_flow") {
             tileType = "line_chart";
-
-        var fn = this.updateFunctions[parseInt(tileType)];
+        }
+        var fn = this.updateFunctions[tileType.toString()];
         if (typeof fn !== "function") {
             throw new Tipboard.Dashboard.UnknownUpdateFunction(tileType);
         }
@@ -145,7 +147,7 @@ function initDashboard(Tipboard) {
         // broken (escaping chars which meant to be escapers)
         var charsToEscape = "\\!\"#$%&'()*+,./:;<=>?@[]^`{|}~";
         for (var i = 0; i < charsToEscape.length; i++) {
-            var _char = charsToEscape[parseInt(i)];
+            var _char = charsToEscape[i + ""];
             id = id.replace(_char, "\\" + _char);
         }
         return id;
