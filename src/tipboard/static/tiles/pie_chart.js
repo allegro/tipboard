@@ -1,7 +1,5 @@
-function updateTilePiejs(tileId, data, meta, tipboard) {
-    console.log("pie_chartjs::updateTile::start" + tileId);
-    var ctx = $('#' + tileId + "-chart");
-    console.log(data);
+function updateTilePiejs(tileId, data, meta, tileType) {
+    var ctx = document.getElementById(tileId + '-chart');
     new Chart(ctx, {
         type: 'pie',
         data: {
@@ -15,6 +13,8 @@ function updateTilePiejs(tileId, data, meta, tipboard) {
             }]
         },
         options: {
+            responsive: true,
+            maintainAspectRatio: false,
             tooltips: {
                 enabled: false
             },
@@ -35,7 +35,6 @@ function updateTilePiejs(tileId, data, meta, tipboard) {
             },
         }
     });
-    console.log("pie_chartjs::updateTile end" + tileId);
 }
 
 Tipboard.Dashboard.registerUpdateFunction('pie_chart', updateTilePiejs);

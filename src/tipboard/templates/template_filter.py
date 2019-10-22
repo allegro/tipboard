@@ -5,6 +5,12 @@ from src.tipboard.app.properties import ALLOWED_TILES
 register = template.Library()
 
 
+def isChartJS_tile(tile_template):
+    return True if tile_template in ["bar_chart", "vbar_chart", "pie_chart",
+                                     "polararea_chart", "doughnut_chart", "radar_chart",
+                                     "cumulative_flow", "norm_chart", "line_chart"] else False
+
+
 @register.filter(name="template_tile")
 def template_tile(tile_id, tile_data):
     """
@@ -15,6 +21,9 @@ def template_tile(tile_id, tile_data):
     """
     data = {'tile_id': tile_id, "title": tile_data['title'], 'tile_template': tile_data['tile_template']}
     if type(tile_data) is dict and tile_data['tile_template'] in ALLOWED_TILES:
-        return render_to_string(f"tiles/{tile_data['tile_template']}.html", data)
+        if isChartJS_tile(tile_data['tile_template']):
+            return render_to_string(f"tiles/chartJS_template.html", data)
+        else:
+            return render_to_string(f"tiles/{tile_data['tile_template']}.html", data)
     data['reason'] = "not found"
     return render_to_string(f"tiles/notfound_tiles.html", data)

@@ -1,8 +1,5 @@
-function updateTilePolararea(tileId, data, meta, tipboard) {
-    console.log("updateTilePolararea::updateTile::start" + tileId);
-    var ctx = $('#' + tileId + "-chart");
-    console.log(data);
-    console.log(meta);
+function updateTilePolararea(tileId, data, meta, tileType) {
+    var ctx = document.getElementById(tileId + '-chart');
     new Chart(ctx, {
         type: 'polarArea',
         data: {
@@ -12,7 +9,7 @@ function updateTilePolararea(tileId, data, meta, tipboard) {
         options: meta['options']
     });
 
-    console.log("updateTilePolararea::updateTile end" + tileId);
+    console.log("updateTilePolararea::type(" + tileType +")::updateTile end" + tileId);
 }
 
 Tipboard.Dashboard.registerUpdateFunction('polararea_chart', updateTilePolararea);

@@ -45,19 +45,6 @@ def get_rows(layout):
     return rows_data
 
 
-def find_tiles_names(layout):
-    name_list, key_list = [], []
-    for row in get_rows(layout):
-        for col in get_cols(row):
-            for tile_dict in _get_tiles_dict(col):
-                name = tile_dict['tile_template']
-                key = tile_dict['tile_id']
-                if key not in key_list:
-                    key_list.append(key)
-                    name_list.append(name)
-    return name_list, key_list
-
-
 def get_config_files_names():
     """
     Return all configs files' names (without '.yaml' ext.) from user space
@@ -98,6 +85,19 @@ def get_tiles_configs():
     return tiles_configs
 
 
+def find_tiles_names(layout):
+    name_list, key_list = [], []
+    for row in get_rows(layout):
+        for col in get_cols(row):
+            for tile_dict in list(col.values())[0]:
+                name = tile_dict['tile_template']
+                key = tile_dict['tile_id']
+                if key not in key_list:
+                    key_list.append(key)
+                    name_list.append(name)
+    return name_list, key_list
+
+
 def parse_xml_layout(layout_name='layout_config'):
     config_path = config_file_name2path(layout_name)
     try:
@@ -111,3 +111,17 @@ def parse_xml_layout(layout_name='layout_config'):
     layout = config['layout']
     config['tiles_names'], config['tiles_keys'] = find_tiles_names(layout)
     return config
+
+
+def getSrcJssForTilesInLayout(tiles_name):
+    listOfTiles = list()
+    for name_tile in tiles_name:
+        if not listOfTiles.__contains__(name_tile):
+            if name_tile == "vbar_chart":
+                name_tile = "bar_chart"
+            elif name_tile == "tamerelapute":
+                name_tile = "putaEsTuMadre"
+            elif name_tile == "padreEsUnePuta":
+                name_tile = "tonperelapute"
+            listOfTiles.append(name_tile)
+    return listOfTiles

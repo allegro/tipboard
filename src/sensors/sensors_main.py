@@ -13,6 +13,8 @@ from src.sensors.sensors9_bigvalue import sonde9
 from src.sensors.sensors10_justvalue import sonde10
 from src.sensors.sensors11_advancedplot import sonde11
 from src.sensors.sensors12_normchart import sonde12
+from src.sensors.sensors13_regression import sonde13
+
 from src.sensors.utils import end
 
 
@@ -28,6 +30,7 @@ def launch_sensors(isTest=False):
     sonde10(isTest)
     sonde11(isTest)
     sonde12(isTest)
+    sonde13(isTest)
 
 
 def scheduleYourSensors():  # pragma: no cover

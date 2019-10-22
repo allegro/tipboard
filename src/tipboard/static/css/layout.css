@@ -10,7 +10,7 @@ html, body {
     height: 100%;
 }
 
-h2 {
+h2  {
     text-align: center;
     color: #FFFFFF;
 }
@@ -25,10 +25,20 @@ h6 {
     text-align: center;
 }
 
-table {
-    font-size: 1.6rem;
+.grid {
+	display: flex;
+	flex-direction: column;
 }
 
+.grid-group {
+	display: flex;
+	flex: 1;
+}
+
+.grid-cell {
+	flex: 1;
+    margin: 2px;
+}
 
 /*  ---------------------------------------------------------------------------------------------------------
     COMPONENTS
@@ -55,7 +65,7 @@ table {
     width: 99%;
     text-overflow: ellipsis;
     white-space: nowrap;
-    font-size: 1.6rem;
+    font-size: calc(15px + (24 - 15) * ((100vw - 300px) / (1600 - 300)));
 }
 
 .tile > .tile-header > .flip-tile-counter {
@@ -81,22 +91,8 @@ table {
     color: #dcedc8;
 }
 
-
-.tile > .tile-content .big-result {
-    font-weight: normal;
-}
-
-.tile > .tile-content .small-padding {
-    margin-bottom: 0;
-    line-height: 1em;
-}
-
-.tile > .tile-content .medium-result {
-    font-size: 2.5rem;
-}
-
 .exception-message {
-    white-space: normal !important;
+    white-space: normal;
     font-size: 3.2rem;
     color: #DC5945;
 }
@@ -225,17 +221,17 @@ iframe {
     MEDIA QUERIES
 ------------------------------------------------------------------------------------------------------------- */
 
-@media only screen and (max-width: 1024px) {
-    body {
+@media (max-width: 500px) {
+    .grid-group {
+        display: block;
+        flex: 1;
     }
-    .tile > .tile-header h3 {}
-    .tile > .tile-content .title {}
-    .tile > .tile-content .subtitle {}
-    .tile > .tile-content .big-result {}
 
-}
-@media only screen and (min-width: 1025px) and (max-width: 1260px) {
-    body {
+    .grid-cell {
+        height: 400px;
+        margin: 2px;
+    }
+
+    body.flipboard {
     }
 }
-

@@ -1,7 +1,7 @@
 /*jslint browser: true, devel: true*/
 /*global WebSocket: false, Tipboard: false*/
 
-function updateTileFancyListing(tileId, data, config, tipboard) {
+function updateTileFancyListing(tileId, data, config, tileType) {
     var tile = Tipboard.Dashboard.id2node(tileId);
     var nodeToClone = FancyListing.initContainer(tile);
     if (typeof(nodeToClone) === 'undefined') {

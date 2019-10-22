@@ -41,15 +41,17 @@ def tile(request, tile_key, unsecured=False):  # TODO: "it's better to ask forgi
 def push_tile(tile_id, data, tile_template):  # pragma: no cover
     tilePrefix = getRedisPrefix(tile_id)
     if not redis.exists(tilePrefix):
-        return HttpResponse(f"{tile_id} data created successfully."
-                            if cache.createTile(tile_id=tile_id, value=data, tile_template=tile_template)
-                            else f"Internal Error {tile_id} was not created")
+        if cache.createTile(tile_id=tile_id, value=data, tile_template=tile_template):
+            return HttpResponse(f"{tile_id} data created successfully.")
+        else:
+            return HttpResponseBadRequest(content="")
+
     cachedTile = json.loads(redis.get(tilePrefix))
     cachedTile['data'] = json.loads(data)
     cachedTile['modified'] = getIsoTime()
     cachedTile['tile_template'] = tile_template
     cache.set(tilePrefix, json.dumps(cachedTile))
-    return HttpResponse(f"{tile_id} data updated successfully.")
+    return HttpResponse(f"{tile_id} data updated successfully. -> {json.dumps(cachedTile)}")
 
 
 def push(request, unsecured=False):  # pragma: no cover
@@ -137,6 +139,7 @@ def projectInfo(request):  # pragma: no cover
 
 
 def tile_unsecured(request, tile_key):  # pragma: no cover
+    print(f"{getTimeStr()} (~) Using unsecured tile url")
     if not DEBUG:
         raise Http404
     else:
@@ -144,6 +147,7 @@ def tile_unsecured(request, tile_key):  # pragma: no cover
 
 
 def push_unsecured(request):  # pragma: no cover
+    print(f"{getTimeStr()} (~) Using unsecured push url")
     if not DEBUG:
         raise Http404
     else:
@@ -151,6 +155,7 @@ def push_unsecured(request):  # pragma: no cover
 
 
 def meta_unsecured(request, tile_key):  # pragma: no cover
+    print(f"{getTimeStr()} (~) Using unsecured meta url")
     if not DEBUG:
         raise Http404
     else:
@@ -158,6 +163,7 @@ def meta_unsecured(request, tile_key):  # pragma: no cover
 
 
 def update_unsecured(request):  # pragma: no cover
+    print(f"{getTimeStr()} (~) Using unsecured update url")
     if not DEBUG:
         raise Http404
     else:

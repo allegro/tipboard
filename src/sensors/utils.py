@@ -8,10 +8,11 @@ def end(title, start_time):
     duration = time.time() - start_time
     m = str(duration / 60)[:str(duration / 60).index(".")]
     s = str(duration % 60)[:str(duration % 60).index(".")]
-    if m == 0:  # pragma: no cover
+    if m == '0':  # pragma: no cover
         print(f"{getTimeStr()}-{title}: executed script in {s} seconds", flush=True)
     else:
         print(f"{getTimeStr()}-{title}: executed script in {m}:{s}", flush=True)
+    print(f"", flush=True)
 
 
 def getTimeStr():

@@ -1,7 +1,5 @@
-function updateTileNorm(tileId, data, meta, tipboard) {
-
-    console.log("norm_chart::updateTile::start" + tileId);
-    var ctx = $('#' + tileId + "-chart");
+function updateTileNorm(tileId, data, meta, tileType) {
+    var ctx = document.getElementById(tileId + '-chart');
     new Chart(ctx, {
         type: 'line',
         data: {
@@ -10,7 +8,7 @@ function updateTileNorm(tileId, data, meta, tipboard) {
         },
         options: meta['options']
     });
-    console.log("norm_chart::updateTile" + tileId);
+    console.log("norm_chart::type(" + tileType +")::updateTile" + tileId);
 }
 
 Tipboard.Dashboard.registerUpdateFunction('norm_chart', updateTileNorm);
