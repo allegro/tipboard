@@ -1,7 +1,7 @@
 function initDashboard3(Tipboard) {
     Tipboard.Dashboard.registerUpdateFunction = function (name, fn) {
         console.log("Registering Functionetion tile:" + name);
-        this.updateFunctions[name] = fn;
+        this.updateFunctions[name.toString()] = fn;
     };
     Tipboard.Dashboard.isTileRenderedSuccessful = function (tile) {
         var suc = $(tile).find(".exception-message").length === 0;
@@ -61,7 +61,7 @@ function initDashboard2(Tipboard) {
             }
         });
     };
-    Tipboard.Dashboard.updateTile = function (tileId, tileType, data, meta, lastMod) {
+    Tipboard.Dashboard.updateTile = function (tileId, tileType, data, meta) {
         console.log("Update tile: ", tileId);
         var tile = Tipboard.Dashboard.id2node(tileId);
         // destroy old graph
@@ -72,7 +72,6 @@ function initDashboard2(Tipboard) {
         try {
             // its a ptr to function, calling the right update function for the right tile
             Tipboard.Dashboard.getUpdateFunction(tileType)(tileId, data, meta, tileType);
-            $("#" + tileId + "-lastModified").val(lastMod);
             $.each([".tile-content"], function (idx, klass) {
                 var node = $(tile).find(klass);
                 if (node.length > 1) {
@@ -81,26 +80,16 @@ function initDashboard2(Tipboard) {
                 }
             });
         } catch (err) {
-            console.log("ERROR: ", tileId, err.toString());
-            var msg = [
-                "Tile " + tileId + " configuration error:",
-                err.name || "error name: n/a",
-                err.message || "error message: n/a",
-            ].join("<br>");
             $.each([".tile-content"], function (idx, klass) {
                 var nodes = $(tile).find(klass);
-                if (nodes.length === 1) {
-                    var cloned = $(nodes).clone();
-                    $(nodes).hide();
-                    $(cloned).insertAfter(nodes);
-                    $(cloned).addClass("exception-message");
-                    $(cloned).show();
-                } else {
-                    $(nodes[0]).hide();
-                    $(nodes[1]).show();
-                }
+                $(nodes[0]).hide();
+                $(nodes[1]).show();
                 nodes = $(tile).find(".tile-content");
-                $(nodes[1]).html(msg);
+                $(nodes[1]).html([
+                    "Tile " + tileId + " configuration error:",
+                    err.name || "error name: n/a",
+                    err.message || "error message: n/a",
+                ].join("<br>"));
             });
         }
     };
