@@ -23,6 +23,6 @@ def getTimeStr():
 def sendBVColor(color, tile, fading=False):  # pragma: no cover
     """ Modify meta of tile: update the color and/or fading of a specific tile """
     var = {"value": json.dumps({"big_value_color": color, "fading_background": fading})}
-    res = requests.post(TIPBOARD_URL + "/tileconfig/" + tile, data=var, verify=False)
+    res = requests.post(TIPBOARD_URL + "/tileconfig/" + tile, data=var)
     if DEBUG:
         print(f"{res}: color -> {tile}", flush=True)
