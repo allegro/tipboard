@@ -106,14 +106,14 @@ RenderersSwapper.prototype.swap = function (config) {
     };
     $.each(simple, function (key, rendererTypes) {
         if (config[key]) {
-            config[key] = RenderersSwapper.prototype.insertRendererClasses(
+            config[key.toString()] = RenderersSwapper.prototype.insertRendererClasses(
               config[key], rendererTypes
             );
         }
     });
     complex = {
-        'axes': simple.axesDefaults,
-        'series': simple.seriesDefaults
+        "axes": simple.axesDefaults,
+        "series": simple.seriesDefaults
     };
     $.each(complex, function (key, rendererTypes) {
         if (config[key]) {

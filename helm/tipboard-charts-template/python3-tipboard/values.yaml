@@ -20,7 +20,7 @@ version: latest
 #   - name: python-django-configmap
 #     mountPath: /tmp/config
 
-# ingressHostDomain: my-project-dev.apps.op.acp.adeo.com
+# ingressHostDomain: my-project-dev.apps.op.acp.com
 
 # The number of replicas to run
 replicas: 1

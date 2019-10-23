@@ -24,6 +24,7 @@ def template_tile(tile_id, tile_data):
         if isChartJS_tile(tile_data['tile_template']):
             return render_to_string(f"tiles/chartJS_template.html", data)
         else:
+            print(f"Template [tiles/{tile_data['tile_template']}.html]")
             return render_to_string(f"tiles/{tile_data['tile_template']}.html", data)
     data['reason'] = "not found"
     return render_to_string(f"tiles/notfound_tiles.html", data)

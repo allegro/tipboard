@@ -470,6 +470,30 @@ def getFakeJustValue(tile_id, template_name):
         'id': tile_id
     }
 
+def getFakeMatomoRealTimeVisitsValue(tile_id, template_name):
+    return {
+        'tile_template': template_name,
+        'data': {
+            'title': 'title',
+            'description': 'description',
+            'url': 'https://velocity-analytics.apps.op.acp.com/index.php?module=Widgetize&action=iframe&disableLink=0&widget=1&moduleToWidgetize=Live&actionToWidgetize=getSimpleLastVisitCount&idSite=1&period=day&date=today&disableLink=1&widget=1',
+        },
+        'modified': getIsoTime(),
+        'id': tile_id
+    }
+
+def getFakeMatomoRealTimeMapValue(tile_id, template_name):
+    return {
+        'tile_template': template_name,
+        'data': {
+            'title': 'title',
+            'description': 'description',
+            'url': 'https://velocity-analytics.apps.op.acp.com/index.php?module=Widgetize&action=iframe&disableLink=0&widget=1&moduleToWidgetize=UserCountryMap&actionToWidgetize=realtimeMap&idSite=1&period=day&date=today&disableLink=1&widget=1',
+        },
+        'modified': getIsoTime(),
+        'id': tile_id
+    }
+
 
 def buildFakeDataForChartJS(tile_id, template_name):
     data = None
@@ -506,8 +530,77 @@ def buildDataFromValueTemplate(tile_id, template_name):
         return getFakeSimplePercentg(tile_id, template_name)
     else:
         return None
-    
-    
+
+
+def getFakeMatomoProfilesValue(tile_id, template_name):
+    return {
+        'tile_template': template_name,
+        'data': {
+            'title': 'title',
+            'description': 'description',
+            'url': 'https://velocity-analytics.apps.op.acp.com/index.php?module=Widgetize&action=iframe&idDimension=8&disableLink=0&widget=1&moduleToWidgetize=CustomDimensions&actionToWidgetize=getCustomDimension&idSite=1&period=day&date=today&disableLink=1&widget=1',
+        },
+        'modified': getIsoTime(),
+        'id': tile_id
+    }
+
+
+def getFakeMatomoErrorsValues(tile_id, template_name):
+    return {
+        'tile_template': template_name,
+        'data': {
+            'title': 'title',
+            'description': 'description',
+            'url': 'https://velocity-analytics.apps.op.acp.com/index.php?module=Widgetize&action=iframe&secondaryDimension=eventAction&disableLink=0&widget=1&moduleToWidgetize=Events&actionToWidgetize=getName&idSite=1&period=day&date=today&segment=eventAction%3D%3DonError&disableLink=1&widget=1',
+        },
+        'modified': getIsoTime(),
+        'id': tile_id
+    }
+
+def getFakeMatomoWarningsValues(tile_id, template_name):
+    return {
+        'tile_template': template_name,
+        'data': {
+            'title': 'title',
+            'description': 'description',
+            'url': 'https://velocity-analytics.apps.op.acp.com/index.php?module=Widgetize&action=iframe&secondaryDimension=eventAction&disableLink=0&widget=1&moduleToWidgetize=Events&actionToWidgetize=getName&idSite=1&period=day&date=today&segment=eventAction%3D%3DonError&disableLink=1&widget=1',
+        },
+        'modified': getIsoTime(),
+        'id': tile_id
+    }
+
+
+def getFakeMatomoDisconnectionsValues(tile_id, template_name):
+    return {
+        'tile_template': template_name,
+        'data': {
+            'title': 'title',
+            'description': 'description',
+            'url': 'https://velocity-analytics.apps.op.acp.com/index.php?module=Widgetize&action=iframe&secondaryDimension=eventAction&disableLink=0&widget=1&moduleToWidgetize=Events&actionToWidgetize=getName&idSite=1&period=day&date=today&segment=eventAction%3D%3DonError&disableLink=1&widget=1',
+        },
+        'modified': getIsoTime(),
+        'id': tile_id
+    }
+
+
+def buildFakeDataForMatomoWidget(tile_id, template_name):
+    if 'matomo_real_time_visits' in tile_id:
+        return getFakeMatomoRealTimeVisitsValue(tile_id, template_name)
+    elif 'matomo_real_time_map' in tile_id:
+        return getFakeMatomoRealTimeMapValue(tile_id, template_name)
+    elif 'matomo_velocity_profiles' in tile_id:
+        print('Coucou')
+        return getFakeMatomoProfilesValue(tile_id, template_name)
+    elif 'matomo_velocity_error' in tile_id:
+        return getFakeMatomoErrorsValues(tile_id, template_name)
+    elif 'matomo_velocity_warning' in tile_id:
+        return getFakeMatomoWarningsValues(tile_id, template_name)
+    elif 'matomo_velocity_disconnections' in tile_id:
+        return getFakeMatomoDisconnectionsValues(tile_id, template_name)
+    else:
+        return None
+
+
 def buildFakeDataFromTemplate(tile_id, template_name, cache):
     print(f'Building fake data for {tile_id} as template: {template_name}')
     data = dict()
@@ -519,6 +612,8 @@ def buildFakeDataFromTemplate(tile_id, template_name, cache):
         data = getFakeFancyListing(tile_id, template_name)
     elif 'value' in template_name or 'percentage' in template_name:
         data = buildDataFromValueTemplate(tile_id, template_name)
+    elif 'matomo'in template_name:
+        data = buildFakeDataForMatomoWidget(tile_id, template_name)
     elif template_name != 'empty':
         data = buildFakeDataForChartJS(tile_id, template_name)
     if cache is not None:

@@ -119,9 +119,7 @@ def getSrcJssForTilesInLayout(tiles_name):
         if not listOfTiles.__contains__(name_tile):
             if name_tile == "vbar_chart":
                 name_tile = "bar_chart"
-            elif name_tile == "tamerelapute":
-                name_tile = "putaEsTuMadre"
-            elif name_tile == "padreEsUnePuta":
-                name_tile = "tonperelapute"
+            elif name_tile == "matomo_widget":
+                name_tile = "matomo_widget"
             listOfTiles.append(name_tile)
     return listOfTiles
