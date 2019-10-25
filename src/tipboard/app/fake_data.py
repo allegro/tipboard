@@ -232,14 +232,13 @@ def getFakePieChart(tile_id, template_name):
             'title': tile_id,
             'labels': ['Label 1', 'Label 2', 'label 3'],
             'pie_data_value': [55, 12, 33],
-            'borderColor': 'rgba(255, 255, 255, 0.82)',
+            'borderColor': 'rgba(255, 255, 255, 0.72)',
             'borderWidth': 1.0
         },
         'meta': {
-            'backgroundColor': ['#3e95cd', '#72bf44', '#8e5ea2'],
+            'backgroundColor': ['#303F9F', '#8BC34A', '#0288D1', '#E040FB', '#FF5722'],
             'elements': {
                 'arc': {
-
                 }
             }
         },

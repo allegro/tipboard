@@ -1,10 +1,11 @@
-# -*- coding: utf-8 -*-
 import json
 from django.http import JsonResponse, HttpResponseBadRequest, HttpResponse, Http404
 from src.tipboard.app.applicationconfig import getRedisPrefix, getIsoTime
 from src.tipboard.app.properties import PROJECT_NAME, LAYOUT_CONFIG, REDIS_DB, LOG, DEBUG
 from src.tipboard.app.cache import getCache
 from src.tipboard.app.utils import getTimeStr, checkAccessToken
+from src.tipboard.app.ApiAntiRegression import updateDatav1tov2
+
 
 cache = getCache()
 redis = cache.redis
@@ -134,7 +135,7 @@ def projectInfo(request):  # pragma: no cover
     raise Http404
 
 
-# Unsecured part
+# Unsecured part, don't look here ! :D
 """ This allow previous user to use their old script without migration in a insecure way :) """
 
 
@@ -150,8 +151,15 @@ def push_unsecured(request):  # pragma: no cover
     print(f"{getTimeStr()} (~) Using unsecured push url")
     if not DEBUG:
         raise Http404
-    else:
-        return push(request=request, unsecured=True)
+    postVariable = request.POST
+    if not postVariable.get("key", None) or not postVariable.get("data", None) or not postVariable.get("tile", None):
+        return HttpResponseBadRequest(f"Missing data")
+    tileType = postVariable.get("tile", None)
+    # TODO: check the token for 'security' xD
+    data, success = updateDatav1tov2(tileType, postVariable.get("data", None))    
+    if success:
+        return push_tile(tile_id=postVariable.get("key", None), data=data, tile_template=tileType)
+    return HttpResponseBadRequest('Error in request')
 
 
 def meta_unsecured(request, tile_key):  # pragma: no cover
