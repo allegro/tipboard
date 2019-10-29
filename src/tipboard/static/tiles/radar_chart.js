@@ -1,12 +1,12 @@
 function updateTileRadarjs(tileId, data, meta, tileType) {
-    var ctx = document.getElementById(tileId + '-chart');
     let typeOfTile = 'radar';
     if (tileType === 'doughnut_chart')
         typeOfTile = 'doughnut';
-    new Chart(ctx, {
+    meta['options']['title'] = getTitleForChartJSTitle(data);
+    new Chart(document.getElementById(tileId + '-chart'), {
         type: typeOfTile,
         data: data,
-        options: meta
+        options: meta['options']
     });
     console.log("radar_chartjs::type(" + tileType +")::updateTile end" + tileId);
 }

@@ -39,18 +39,22 @@ def tile(request, tile_key, unsecured=False):  # TODO: "it's better to ask forgi
     raise Http404
 
 
-def push_tile(tile_id, data, tile_template):  # pragma: no cover
+def push_tile(tile_id, tile_template, data, meta):  # pragma: no cover
     tilePrefix = getRedisPrefix(tile_id)
     if not redis.exists(tilePrefix):
         if cache.createTile(tile_id=tile_id, value=data, tile_template=tile_template):
             return HttpResponse(f"{tile_id} data created successfully.")
         else:
-            return HttpResponseBadRequest(content="")
-
+            return HttpResponseBadRequest(content=f"Error when creating tile: {tile_id}")
     cachedTile = json.loads(redis.get(tilePrefix))
     cachedTile['data'] = json.loads(data)
     cachedTile['modified'] = getIsoTime()
     cachedTile['tile_template'] = tile_template
+    if meta is not None: # TODO: Test the update meta
+        if meta.get('options') is not None:
+            cachedTile['meta']['options'].update(meta['options'])
+        elif meta.get('backgroundColor') is not None:
+            cachedTile['meta']['backgroundColor'].update(meta['backgroundColor'])
     cache.set(tilePrefix, json.dumps(cachedTile))
     return HttpResponse(f"{tile_id} data updated successfully. -> {json.dumps(cachedTile)}")
 
@@ -66,7 +70,8 @@ def push(request, unsecured=False):  # pragma: no cover
             return HttpResponseBadRequest(f"Missing data")
         return push_tile(request.POST.get("key", None),
                          request.POST.get("data", None),
-                         request.POST.get("tile", None))
+                         request.POST.get("tile", None),
+                         request.POST.get("meta", None))
     raise Http404
 
 
@@ -158,7 +163,7 @@ def push_unsecured(request):  # pragma: no cover
     # TODO: check the token for 'security' xD
     data, success = updateDatav1tov2(tileType, postVariable.get("data", None))    
     if success:
-        return push_tile(tile_id=postVariable.get("key", None), data=data, tile_template=tileType)
+        return push_tile(tile_id=postVariable.get("key", None), data=data, tile_template=tileType, meta=None)
     return HttpResponseBadRequest('Error in request')
 
 

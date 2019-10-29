@@ -1,17 +1,13 @@
 function updateBarChartjs(tileId, data, meta, tileType) {
-    var ctx = document.getElementById(tileId + '-chart');
     let typeOfTile = 'horizontalBar';
     if (tileType === 'vbar_chart')
         typeOfTile = 'bar';
-    new Chart(ctx, {
+    meta['options']['title'] = getTitleForChartJSTitle(data);
+    new Chart(document.getElementById(tileId + '-chart'), {
             type: typeOfTile,
             data: {
                 labels: data['labels'],
-                datasets: [{
-                    label: data['label'],
-                    data: data['data'],
-                    backgroundColor: meta['backgroundColor'],
-                }]
+                datasets: data['datasets'],
             },
             options: meta['options']
     });

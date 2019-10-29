@@ -1,16 +1,14 @@
 function updateTileLinejs(tileId, data, meta, tileType) {
     console.log("line_chartjs::updateTile::start" + tileId);
-    var ctx = document.getElementById(tileId + '-chart');
     let tileData = {
         labels: data['labels'],
         datasets: data['datasets'],
     };
-
     if (tileType === 'cumulative_flow') {
         tileData['borderColor'] = ['red', 'green', 'blue'];
     }
-
-    new Chart(ctx, {
+    meta['options']['title'] = getTitleForChartJSTitle(data);
+    new Chart(document.getElementById(tileId + '-chart'), {
         type: 'line',
         data: tileData,
         options: meta['options']

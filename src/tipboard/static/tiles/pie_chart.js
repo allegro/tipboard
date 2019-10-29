@@ -1,16 +1,5 @@
 function updateTilePiejs(tileId, data, meta, tileType) {
-    var ctx = document.getElementById(tileId + '-chart');
-    let isTitle = true;
-    if (data['title'] === 'undefined') {
-        isTitle = false;
-        data['title'] = '';
-    }
-
-    let tileTitle = {
-        display: isTitle,
-        text: data['title']
-    };
-    new Chart(ctx, {
+    new Chart(document.getElementById(tileId + '-chart'), {
         type: 'pie',
         data: {
             labels: data['pie_data_tag'],
@@ -28,7 +17,7 @@ function updateTilePiejs(tileId, data, meta, tileType) {
                 display: true,
                 position: 'top',
             },
-            title: tileTitle,
+            title: getTitleForChartJSTitle(meta),
             maintainAspectRatio: false,
             tooltips: {
                 enabled: false

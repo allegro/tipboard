@@ -134,6 +134,19 @@ var addEvent = function(object, type, callback) {
     }
 };
 
+const getTitleForChartJSTitle = function (data) {
+    return (!('title' in data) || !('text' in data['title'])) ?
+        { // When no title present
+            display: false,
+        } :
+        {
+            display: true,
+            text: data['title']['text'],
+            borderColor: ('borderColor' in data) ? data['borderColor'] : 'rgba(255, 255, 255, 1)',
+            color: ('color' in data) ? data['color'] : ''
+        };
+};
+
 /**
  *  Main function of tipboard.js
  *  Define the Palette object used for custom color
