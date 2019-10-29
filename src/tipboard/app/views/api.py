@@ -161,7 +161,7 @@ def push_unsecured(request):  # pragma: no cover
         return HttpResponseBadRequest(f"Missing data")
     tileType = postVariable.get("tile", None)
     # TODO: check the token for 'security' xD
-    data, success = updateDatav1tov2(tileType, postVariable.get("data", None))    
+    data, success = updateDatav1tov2(tileType, postVariable.get("data", None))
     if success:
         return push_tile(tile_id=postVariable.get("key", None), data=data, tile_template=tileType, meta=None)
     return HttpResponseBadRequest('Error in request')

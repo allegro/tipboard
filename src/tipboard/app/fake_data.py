@@ -30,27 +30,18 @@ def getFakeLineChart(tile_id, template_name):
             'labels': ['00h', '01h', '02h', '03h', '04h', '05h', '06h', '07h', '08h', '09h', '10h', '11h', '12h', '13h',
                        '14h', '15h', '16h', '17h', '18h', '19h', '20h', '21h', '22h', '23h', '24h'],
             'datasets': [{
-                'data': [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24],
+                'data': [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13,
+                         14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24],
                 'label': 'Series 1',
-                'borderColor': '#3e95cd',
-                'trendlineLinear': {
-                    'style': '#3e95cd',
-                    'lineStyle': 'dotted',
-                    'width': 2
-                }
+                'backgroundColor': 'rgba(62, 149, 205, 0.8)',
             }, {
-                'data': [5, 6, 4, 1, 3, 9, 10, 11, 12, 19, 30, 31, 32, 34, 33, 32, 31, 20, 19, 18, 17, 16, 15, 14],
+                'data': [5, 6, 4, 1, 3, 9, 10, 11, 12, 19, 30, 31, 32,
+                         34, 33, 32, 31, 20, 19, 18, 17, 16, 15, 14],
                 'label': 'Series 2',
-                'borderColor': '#72bf44',
-                'trendlineLinear': {
-                    'style': '#3e95cd',
-                    'lineStyle': '#72bf44',
-                    'width': 2
-                }
+                'backgroundColor': 'rgba(114, 191, 68, 0.8)',
             }]
         },
         'meta': {
-            'backgroundColor': ['#3e95cd', '#8e5ea2'],
             'options': {
                 'responsive': True,
                 'maintainAspectRatio': False,
@@ -96,14 +87,10 @@ def getFakeCumulFlow(tile_id, template_name):
             'datasets': [{
                 'data': [0, 2, 0.5, 1, 1, 1, 2, 2, 1, 1],
                 'label': 'Series 1',
-                'borderColor': '#3e95cd',
-                'fill': True,
                 'backgroundColor': 'rgba(62, 149, 205, 0.8)'
             }, {
                 'data': [0, 4, 0, 0, 1, 0, 0, 3, 0, 0],
                 'label': 'Series 2',
-                'borderColor': '#72bf44',
-                'fill': True,
                 'backgroundColor': 'rgba(114, 191, 68, 0.8)'
             }]
         },

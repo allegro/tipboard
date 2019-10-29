@@ -1,9 +1,5 @@
 import json
-from django.http import JsonResponse, HttpResponseBadRequest, HttpResponse, Http404
-from src.tipboard.app.applicationconfig import getRedisPrefix, getIsoTime
-from src.tipboard.app.properties import PROJECT_NAME, LAYOUT_CONFIG, REDIS_DB, LOG, DEBUG
-from src.tipboard.app.cache import getCache
-from src.tipboard.app.utils import getTimeStr, checkAccessToken
+from src.tipboard.app.utils import getTimeStr
 
 
 def updateDatav1tov2_linechart(data):
