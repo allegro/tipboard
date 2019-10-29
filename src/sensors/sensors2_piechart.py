@@ -23,8 +23,8 @@ def executeScriptToGetData():
 
 def sendDataToTipboard(data=None, tile_template=None, tile_id="", isTest=False):
     configTile = {
-        "tile": tile_template, #tile_template name
-        "key": tile_id, #tile_template name
+        "tile": tile_template,
+        "key": tile_id,
         "data": json.dumps(data)
     }
     if not isTest:

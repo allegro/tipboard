@@ -1,6 +1,5 @@
 function updateTilePiejs(tileId, data, meta, tileType) {
-    var ctx = document.getElementById(tileId + '-chart');
-    new Chart(ctx, {
+    new Chart(document.getElementById(tileId + '-chart'), {
         type: 'pie',
         data: {
             labels: data['pie_data_tag'],
@@ -9,18 +8,23 @@ function updateTilePiejs(tileId, data, meta, tileType) {
                 backgroundColor: meta['backgroundColor'],
                 data: data['pie_data_value'],
                 borderColor: data['borderColor'],
-                borderWidth: data['borderWidth']
+                borderWidth: data['borderWidth'],
             }]
         },
         options: {
             responsive: true,
+            legend: {
+                display: true,
+                position: 'top',
+            },
+            title: getTitleForChartJSTitle(meta),
             maintainAspectRatio: false,
             tooltips: {
                 enabled: false
             },
             plugins: {
                 labels: {
-                    fontColor: 'rgba(255, 255, 255, 0.70)',
+                    fontColor: 'rgba(255, 255, 255, 0.80)',
                 },
                 datalabels: {
                     formatter: (value, ctx) => {

@@ -114,7 +114,7 @@ function initTilesFliping() {
 
 
 function initTiles() {
-    initTilesFliping()
+    initTilesFliping();
     $.each($("body > div"), function (rowIdx, row) {
         // show tiles number (like: 1/3)
         $.each($(row).children('div'), function (colIdx, col) {
@@ -132,6 +132,19 @@ var addEvent = function(object, type, callback) {
     } else {
         object["on"+type] = callback;
     }
+};
+
+const getTitleForChartJSTitle = function (data) {
+    return (!("title" in data) || !("text" in data["title"])) ?
+        { // When no title present
+            display: false,
+        } :
+        {
+            display: true,
+            text: data["title"]["text"],
+            borderColor: ("borderColor" in data) ? data["borderColor"] : "rgba(255, 255, 255, 1)",
+            color: ("color" in data) ? data["color"] : ""
+        };
 };
 
 /**
