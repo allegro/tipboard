@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 import datetime, time
 from apscheduler.schedulers.blocking import BlockingScheduler
 from src.sensors.sensors1_text import sonde1

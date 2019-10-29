@@ -1,6 +1,6 @@
-import json, requests, time, random
+import requests, time, random
 from src.tipboard.app.properties import TIPBOARD_URL
-from src.sensors.utils import end
+from src.sensors.utils import end, buildConfigTile
 from src.tipboard.app.fake_data import getFakePieChart
 
 NAME_OF_SENSORS = "GET"
@@ -22,11 +22,7 @@ def executeScriptToGetData():
 
 
 def sendDataToTipboard(data=None, tile_template=None, tile_id="", isTest=False):
-    configTile = {
-        "tile": tile_template,
-        "key": tile_id,
-        "data": json.dumps(data)
-    }
+    configTile = buildConfigTile(tile_id=tile_id, tile_template=tile_template, data=data)
     if not isTest:
         res = requests.post(TIPBOARD_URL + "/push", data=configTile)
         print(f"{res} -> {tile_id}: {res.text}", flush=True)
