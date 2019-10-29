@@ -8,7 +8,7 @@ function updateTileNorm(tileId, data, meta, tileType) {
         },
         options: meta['options']
     });
-    console.log("norm_chart::type(" + tileType +")::updateTile" + tileId);
+    console.log("norm_chart::type(" + tileType +")::updateTile " + tileId);
 }
 
 Tipboard.Dashboard.registerUpdateFunction('norm_chart', updateTileNorm);

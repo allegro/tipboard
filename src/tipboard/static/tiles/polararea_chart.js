@@ -9,7 +9,7 @@ function updateTilePolararea(tileId, data, meta, tileType) {
         options: meta['options']
     });
 
-    console.log("updateTilePolararea::type(" + tileType +")::updateTile end" + tileId);
+    console.log("updateTilePolararea::type(" + tileType +")::updateTile end " + tileId);
 }
 
 Tipboard.Dashboard.registerUpdateFunction('polararea_chart', updateTilePolararea);

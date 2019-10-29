@@ -13,7 +13,7 @@ function updateTileLinejs(tileId, data, meta, tileType) {
         data: tileData,
         options: meta['options']
     });
-    console.log("linejs::type(" + tileType +")::updateTile" + tileId);
+    console.log("linejs::type(" + tileType +")::updateTile " + tileId);
 }
 
 Tipboard.Dashboard.registerUpdateFunction('line_chart', updateTileLinejs);

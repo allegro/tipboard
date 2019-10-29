@@ -6,107 +6,108 @@ from src.tipboard.app.cache import getCache
 from src.tipboard.app.utils import getTimeStr, checkAccessToken
 
 
-def updateDatav1tov2_linechart(request):
+def updateDatav1tov2_linechart(data):
     success = True
     try:
-        request = None
+        data = None
     except Exception:
         print(f"{getTimeStr()} (-) Error in updateDatav1tov2_piechart")
         success = False
-    return request, success
+    return data, success
 
 
-def updateDatav1tov2_cumul(request):
+def updateDatav1tov2_cumul(data):
     success = True
     try:
-        request = None
+        data = None
     except Exception:
         print(f"{getTimeStr()} (-) Error in updateDatav1tov2_piechart")
         success = False
-    return request, success
+    return data, success
 
 
-def updateDatav1tov2_percentage(request):
+def updateDatav1tov2_percentage(data):
     success = True
     try:
-        request = None
+        data = None
     except Exception:
         print(f"{getTimeStr()} (-) Error in updateDatav1tov2_piechart")
         success = False
-    return request, success
+    return data, success
 
 
-def updateDatav1tov2_listing(request):
+def updateDatav1tov2_listing(data):
     success = True
     try:
-        request = None
+        data = None
     except Exception:
         print(f"{getTimeStr()} (-) Error in updateDatav1tov2_piechart")
         success = False
-    return request, success
+    return data, success
 
 
-def updateDatav1tov2_barchart(request):
+def updateDatav1tov2_bigvalue(data):
     success = True
     try:
-        request = None
+        data = None
     except Exception:
         print(f"{getTimeStr()} (-) Error in updateDatav1tov2_piechart")
         success = False
-    return request, success
+    return data, success
 
 
-def updateDatav1tov2_bigvalue(request):
+def updateDatav1tov2_justvalue(data):
     success = True
     try:
-        request = None
+        data = None
     except Exception:
         print(f"{getTimeStr()} (-) Error in updateDatav1tov2_piechart")
         success = False
-    return request, success
+    return data, success
 
 
-def updateDatav1tov2_justvalue(request):
+def updateDatav1tov2_normchart(data):
     success = True
     try:
-        request = None
+        data = None
     except Exception:
         print(f"{getTimeStr()} (-) Error in updateDatav1tov2_piechart")
         success = False
-    return request, success
+    return data, success
 
 
-def updateDatav1tov2_normchart(request):
+def updateDatav1tov2_barchart(data):
     success = True
     try:
-        request = None
-    except Exception:
+        data['labels'] = data['ticks']
+        data = None
+    except FutureWarning:
         print(f"{getTimeStr()} (-) Error in updateDatav1tov2_piechart")
         success = False
-    return request, success
+    return data, success
 
 
 def updateDatav1tov2_piechart(data):
     success = True
-    try:
-        data = json.loads(data)
-        print(f"data was {data['pie_data']}")
-        data['pie_data_value'] = list()
-        data['labels'] = list()
-        data['pie_data_tag'] = list()
-        for elem_pie_data in data['pie_data']:
-            data['labels'].append(elem_pie_data[0])
-            data['pie_data_value'].append(elem_pie_data[1])
-            data['pie_data_tag'].append(elem_pie_data[0])
-        del data['pie_data']
-    except FutureWarning as e:
-        print(f"{getTimeStr()} (-) Error in updateDatav1tov2_piechart:")
-        success = False
+#    try:
+    print(f"data was {data['pie_data']}")
+    data['pie_data_value'] = list()
+    data['labels'] = list()
+    data['pie_data_tag'] = list()
+    for elem_pie_data in data['pie_data']:
+        data['labels'].append(elem_pie_data[0])
+        data['pie_data_value'].append(elem_pie_data[1])
+        data['pie_data_tag'].append(elem_pie_data[0])
+    del data['pie_data']
+    # except FutureWarning as e:
+    #     print(f"{getTimeStr()} (-) Error in updateDatav1tov2_piechart:")
+    #     success = False
     print(f"data is now {data}")
     return json.dumps(data), success
 
 
 def updateDatav1tov2(tileType, tileData):
+    tileData = json.loads(tileData)
     if 'pie_chart' in tileType:
         return updateDatav1tov2_piechart(tileData)
     elif 'bar_chart' in tileType:
