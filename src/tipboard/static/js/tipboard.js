@@ -88,14 +88,13 @@ function initWebsocketManager() {
 
 
 function initTilesFliping() {
-    // flipping tiles
-    var flipContainers = $('div[id*="flip-time-"]');
+    let flipContainers = $('div[id*="flip-time-"]');
     $.each(flipContainers, function (idx, flippingContainer) {
         Tipboard.Dashboard.autoAddFlipClasses(flippingContainer);
-        var flipInterval = getFlipTime(flippingContainer);
-        var flipIntervalId = setInterval(function () {
-            var nextFlipIdx;
-            var containerFlips = $(flippingContainer).find('.flippable');
+        let flipInterval = getFlipTime(flippingContainer);
+        let flipIntervalId = setInterval(function () {
+            let nextFlipIdx;
+            let containerFlips = $(flippingContainer).find('.flippable');
             $(containerFlips).each(function (index, tile) {
                 if ($(tile).hasClass("flippedforward")) {
                     nextFlipIdx = (index + 1) % containerFlips.length;
@@ -104,7 +103,7 @@ function initTilesFliping() {
                 }
             });
             if (typeof (nextFlipIdx) !== 'undefined') {
-                var tileToFlip = containerFlips[nextFlipIdx];
+                let tileToFlip = containerFlips[parseInt(nextFlipIdx)];
                 $(tileToFlip).addClass("flippedforward");
             }
         }, flipInterval);

@@ -1,4 +1,4 @@
-import json, requests, time
+import requests, time
 from src.tipboard.app.properties import TIPBOARD_URL
 from src.sensors.utils import getTimeStr, end, buildConfigTile
 

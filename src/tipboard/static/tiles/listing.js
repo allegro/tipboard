@@ -1,18 +1,28 @@
+function appendListingItem(container, itemText) {
+    let htmlLabel = [
+        '<li class="list-group-item text-white" style="background: #212121">',
+        itemText,
+        '</li>'
+    ].join('\n');
+    $(container).append(htmlLabel);
+}
+
 function updateTileListing(id, data, meta, tileType) {
-    var MAX_ITEMS = 7;
-    var tile = $('#' + id)[0];
-    var container = $(tile).find('.list-group')[0];
+    let MAX_ITEMS = 7;
+    let tile = $('#' + id)[0];
+    let container = $(tile).find('.list-group')[0];
     $(container).children().remove();
-    for (idx in data.items) {
+    for (let idx in data.items) {
+
         if (idx > MAX_ITEMS) {
             console.log([
                 'ERROR: more then',
                 MAX_ITEMS,
                 'items passed - RENDERING STOPPED'
-            ].join(' '))
+            ].join(' '));
             break;
         }
-        var textContent =  data.items[idx];
+        let textContent = data.items[parseInt(idx)];
         appendListingItem(container, textContent);
     }
 }
@@ -20,12 +30,4 @@ function updateTileListing(id, data, meta, tileType) {
 Tipboard.Dashboard.registerUpdateFunction('listing', updateTileListing);
 
 
-function appendListingItem(container, itemText) {
-    var htmlLabel = [
-        '<li class="list-group-item text-white" style="background: #212121">',
-        itemText,
-        '</li>'
-    ].join('\n');
-    $(container).append(htmlLabel);
-}
 

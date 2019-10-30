@@ -107,7 +107,7 @@ def parse_xml_layout(layout_name='layout_config'):
         if ".yaml" not in config_path:
             config_path += ".yaml"
         with open(config_path, 'r') as layout_config:
-            config = yaml.load(layout_config)
+            config = yaml.safe_load(layout_config)
     layout = config['layout']
     config['tiles_names'], config['tiles_keys'] = find_tiles_names(layout)
     return config

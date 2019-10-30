@@ -84,4 +84,4 @@ class SomeLiveTests(ChannelsLiveServerTestCase):
     async def test_0090_test_consumer(self):
         communicator = HttpCommunicator(WSConsumer, "GET", "/communication/websocket")
         response = await communicator.get_response()
-        assert response["status"] == 200
+        self.assertTrue(response["status"] == 200)
