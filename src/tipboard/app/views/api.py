@@ -5,6 +5,7 @@ from src.tipboard.app.properties import PROJECT_NAME, LAYOUT_CONFIG, REDIS_DB, L
 from src.tipboard.app.cache import getCache
 from src.tipboard.app.utils import getTimeStr, checkAccessToken
 from src.tipboard.app.ApiAntiRegression import updateDatav1tov2
+from src.tipboard.app.fake_data import buildFakeDataFromTemplate
 
 
 cache = getCache()
@@ -42,10 +43,7 @@ def tile(request, tile_key, unsecured=False):  # TODO: "it's better to ask forgi
 def push_tile(tile_id, tile_template, data, meta):  # pragma: no cover
     tilePrefix = getRedisPrefix(tile_id)
     if not redis.exists(tilePrefix):
-        if cache.createTile(tile_id=tile_id, value=data, tile_template=tile_template):
-            return HttpResponse(f"{tile_id} data created successfully.")
-        else:
-            return HttpResponseBadRequest(content=f"Error when creating tile: {tile_id}")
+        buildFakeDataFromTemplate(tile_id, tile_template, cache)
     cachedTile = json.loads(redis.get(tilePrefix))
     cachedTile['data'] = json.loads(data)
     cachedTile['modified'] = getIsoTime()

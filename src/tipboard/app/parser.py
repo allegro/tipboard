@@ -121,7 +121,7 @@ def getSrcJssForTilesInLayout(tiles_name):
                 name_tile = "bar_chart"
             elif name_tile == "cumulative_flow":
                 name_tile = "line_chart"
-            elif name_tile == "padreEsUnePuta":
-                name_tile = "tonperelapute"
+            elif name_tile == "doughnut_chart":
+                name_tile = "radar_chart"
             listOfTiles.append(name_tile)
     return listOfTiles

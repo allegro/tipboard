@@ -13,11 +13,13 @@ from src.sensors.sensors10_justvalue import sonde10
 from src.sensors.sensors11_advancedplot import sonde11
 from src.sensors.sensors12_normchart import sonde12
 from src.sensors.sensors13_regression import sonde13
-
 from src.sensors.utils import end
 
 
 def launch_sensors(isTest=False):
+    sonde2(isTest)
+    import sys
+    sys.exit(0)
     sonde1(isTest)
     sonde3(isTest)
     sonde4(isTest)

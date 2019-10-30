@@ -108,12 +108,12 @@ def updateDatav1tov2(tileType, tileData):
         return updateDatav1tov2_piechart(tileData)
     elif 'bar_chart' in tileType:
         return updateDatav1tov2_barchart(tileData)
+    elif 'line_chart' in tileType:
+        return updateDatav1tov2_linechart(tileData)
     elif 'norm_chart' in tileType:
         return updateDatav1tov2_normchart(tileData)
     elif 'cumulative_flow' in tileType:
         return updateDatav1tov2_cumul(tileData)
-    elif 'line_chart' in tileType:
-        return updateDatav1tov2_linechart(tileData)
     elif 'big_value' in tileType:
         return updateDatav1tov2_bigvalue(tileData)
     elif 'listing' in tileType:
