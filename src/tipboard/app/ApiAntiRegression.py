@@ -75,12 +75,18 @@ def updateDatav1tov2_normchart(data):
 def updateDatav1tov2_barchart(data):
     success = True
     try:
-        data['labels'] = data['ticks']
-        data = None
+        data['labels'] = data.pop('ticks')
+        data['datasets'] = list()
+        for serie_list in data['series_list']:
+            dataset = dict()
+            dataset['data'] = serie_list
+            data['datasets'].append(dataset)
+        del data['series_list']
     except FutureWarning:
         print(f"{getTimeStr()} (-) Error in updateDatav1tov2_piechart")
         success = False
-    return data, success
+    print(f"{getTimeStr()} (+) AntiRegression now : {data}")
+    return json.dumps(data), success
 
 
 def updateDatav1tov2_piechart(data):
@@ -104,6 +110,7 @@ def updateDatav1tov2_piechart(data):
 
 def updateDatav1tov2(tileType, tileData):
     tileData = json.loads(tileData)
+    print(f"{getTimeStr()} (+) AntiRegression type({tileType}): {tileData}")
     if 'pie_chart' in tileType:
         return updateDatav1tov2_piechart(tileData)
     elif 'bar_chart' in tileType:

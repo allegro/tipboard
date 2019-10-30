@@ -40,15 +40,24 @@ def tile(request, tile_key, unsecured=False):  # TODO: "it's better to ask forgi
     raise Http404
 
 
+def update_tile_data(previousData, newData):
+    for key, value in newData.items():
+        if isinstance(value, dict):
+            update_tile_data(previousData[key], value)
+        else:
+            previousData[key] = value
+    return previousData
+
+
 def push_tile(tile_id, tile_template, data, meta):  # pragma: no cover
     tilePrefix = getRedisPrefix(tile_id)
     if not redis.exists(tilePrefix):
         buildFakeDataFromTemplate(tile_id, tile_template, cache)
     cachedTile = json.loads(redis.get(tilePrefix))
-    cachedTile['data'] = json.loads(data)
+    cachedTile['data'] = update_tile_data(json.loads(data), json.loads(data))
     cachedTile['modified'] = getIsoTime()
     cachedTile['tile_template'] = tile_template
-    if meta is not None: # TODO: Test the update meta
+    if meta is not None:  # TODO: Test the update meta
         if meta.get('options') is not None:
             cachedTile['meta']['options'].update(meta['options'])
         elif meta.get('backgroundColor') is not None:

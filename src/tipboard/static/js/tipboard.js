@@ -134,16 +134,25 @@ let addEvent = function(object, type, callback) {
 };
 
 const getTitleForChartJSTitle = function (data) {
-    return (!("title" in data) || !("text" in data["title"])) ?
-        { // When no title present
-            display: false,
-        } :
-        {
+    let basic = { display: false };
+    if (!("title" in data))
+        return basic;
+    if (typeof data["title"] === 'string' || data["title"] instanceof String) { // ligth conf
+        return {
+            display: true,
+            text: data["title"],
+            color: ("color" in data) ? data["color"] : "#FFFFFF"
+        };
+    } else if (!("text" in data["title"])) { //don't start exeception when no present as dict
+        return basic
+    } else {
+        return {
             display: true,
             text: data["title"]["text"],
             borderColor: ("borderColor" in data) ? data["borderColor"] : "rgba(255, 255, 255, 1)",
-            color: ("color" in data) ? data["color"] : ""
+            color: ("color" in data) ? data["color"] : "#FFFFFF"
         };
+    }
 };
 
 /**
