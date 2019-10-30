@@ -18,8 +18,6 @@ from src.sensors.utils import end
 
 def launch_sensors(isTest=False):
     sonde2(isTest)
-    import sys
-    sys.exit(0)
     sonde1(isTest)
     sonde3(isTest)
     sonde4(isTest)
