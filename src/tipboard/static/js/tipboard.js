@@ -103,7 +103,7 @@ function initTilesFliping() {
                 }
             });
             if (typeof (nextFlipIdx) !== "undefined") {
-                let tileToFlip = containerFlips[parseInt(nextFlipIdx)];
+                let tileToFlip = containerFlips[parseInt(nextFlipIdx, 10)];
                 $(tileToFlip).addClass("flippedforward");
             }
         }, flipInterval);

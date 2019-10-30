@@ -13,11 +13,13 @@ function updateTileListing(id, data, meta, tileType) {
     let container = $(tile).find(".list-group")[0];
     $(container).children().remove();
     for (let idx in data.items) {
-        if (idx > MAX_ITEMS) {
-            console.log(["ERROR: more then", MAX_ITEMS, "items passed - RENDERING STOPPED"].join(" "));
-            break;
+        if ({}.hasOwnProperty.call(idx, data.items)) {
+            if (idx > MAX_ITEMS) {
+                console.log(["ERROR: more then", MAX_ITEMS, "items passed - RENDERING STOPPED"].join(" "));
+                break;
+            }
+            appendListingItem(container, data.items[parseInt(idx, 10)]);
         }
-        appendListingItem(container, data.items[parseInt(idx)]);
     }
 }
 

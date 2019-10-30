@@ -36,7 +36,7 @@ FancyListing = {
     applyConfig: function(tile, config) {
         let color = "#FFFFFF";
         $.each(config, function(idx, tileConfig) {
-            let item = $(tile).find(".fancy-listing-item")[parseInt(idx)];
+            let item = $(tile).find(".fancy-listing-item")[parseInt(idx, 10)];
             $(item).find(".fancy-listing-label").css("background-color", color);
             // set centering
             if (tileConfig["center"] === true) {

@@ -1,6 +1,6 @@
 function updateTileText(id, data, meta, tileType) {
     let tile = $("#" + id)[0];
-    let containers = $(tile).find(textSelector);
+    let containers = $(tile).find(id);
     if (containers.length !== 1) {
         console.log("tile " + tile + "does not include ONE: " + "span.text-container");
     }
