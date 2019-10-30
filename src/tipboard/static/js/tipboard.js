@@ -88,13 +88,13 @@ function initWebsocketManager() {
 
 
 function initTilesFliping() {
-    let flipContainers = $('div[id*="flip-time-"]');
+    let flipContainers = $("div[id*=\"flip-time-\"]");
     $.each(flipContainers, function (idx, flippingContainer) {
         Tipboard.Dashboard.autoAddFlipClasses(flippingContainer);
         let flipInterval = getFlipTime(flippingContainer);
         let flipIntervalId = setInterval(function () {
             let nextFlipIdx;
-            let containerFlips = $(flippingContainer).find('.flippable');
+            let containerFlips = $(flippingContainer).find(".flippable");
             $(containerFlips).each(function (index, tile) {
                 if ($(tile).hasClass("flippedforward")) {
                     nextFlipIdx = (index + 1) % containerFlips.length;
@@ -102,7 +102,7 @@ function initTilesFliping() {
                     return false; // break
                 }
             });
-            if (typeof (nextFlipIdx) !== 'undefined') {
+            if (typeof (nextFlipIdx) !== "undefined") {
                 let tileToFlip = containerFlips[parseInt(nextFlipIdx)];
                 $(tileToFlip).addClass("flippedforward");
             }
@@ -116,14 +116,14 @@ function initTiles() {
     initTilesFliping();
     $.each($("body > div"), function (rowIdx, row) {
         // show tiles number (like: 1/3)
-        $.each($(row).children('div'), function (colIdx, col) {
+        $.each($(row).children("div"), function (colIdx, col) {
             Tipboard.Dashboard.addTilesCounter(col);
         });
     });
 }
 
-var addEvent = function(object, type, callback) {
-    if (object == null || typeof(object) == 'undefined') return;
+let addEvent = function(object, type, callback) {
+    if (object == null || typeof(object) === "undefined") return;
     if (object.addEventListener) {
         object.addEventListener(type, callback, false);
     } else if (object.attachEvent) {
@@ -168,9 +168,9 @@ const getTitleForChartJSTitle = function (data) {
     Tipboard.Dashboard.UnknownUpdateFunction = UnknownUpdateFunction;
     Tipboard.WebSocketManager = initWebsocketManager();
     initDashboard(Tipboard);
-    Chart.defaults.global.defaultFontColor = 'rgba(255, 255, 255, 0.83)';
+    Chart.defaults.global.defaultFontColor = "rgba(255, 255, 255, 0.83)";
     $(document).ready(function () {
-        console.log('Tipboard starting');
+        console.log("Tipboard starting");
         //TODO: resize event
         Tipboard.WebSocketManager.init();
         setInterval(Tipboard.WebSocketManager.init.bind(Tipboard.WebSocketManager), Tipboard.Dashboard.wsSocketTimeout);

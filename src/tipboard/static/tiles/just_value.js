@@ -2,9 +2,9 @@
 /*global WebSocket: false, Tipboard: false*/
 
 function updateTileJustValue(tileId, data, config, tileType) {
-    var tile = Tipboard.Dashboard.id2node(tileId);
+    let tile = Tipboard.Dashboard.id2node(tileId);
     JustValue.setDataByKeys(tileId, data, 'all');
-    var highlighterNode = $('#' + tileId + '-just-value').parent();
+    let highlighterNode = $('#' + tileId + '-just-value').parent();
     // Tipboard.DisplayUtils.applyHighlighterConfig(
     //     highlighterNode, config['just-value-color'], config.fading_background
     // );

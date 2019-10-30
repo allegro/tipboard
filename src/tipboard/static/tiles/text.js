@@ -1,18 +1,13 @@
-/*jslint browser: true, devel: true*/
-/*global WebSocket: false, Tipboard: false*/
-
 function updateTileText(id, data, meta, tileType) {
-    var tile = $("#" + id)[0];
-    var textSelector = 'span.text-container';
-    containers = $(tile).find(textSelector);
-    if (containers.length != 1) {
-        console.log('tile ' + tile + 'does not include ONE: ' + textSelector);
+    let tile = $("#" + id)[0];
+    let containers = $(tile).find(textSelector);
+    if (containers.length !== 1) {
+        console.log("tile " + tile + "does not include ONE: " + "span.text-container");
     }
-    var nodeWithText = containers[0];
-    $(nodeWithText).html(data['text']);
+    let nodeWithText = containers[0];
+    $(nodeWithText).html(data["text"]);
 
-
-    var textSelector = '#' + id + ' .text-container';
+    let textSelector = "#" + id + " .text-container";
     if (meta.font_size) {
         $(textSelector).css("font-size", meta.font_size);
     }
@@ -22,8 +17,7 @@ function updateTileText(id, data, meta, tileType) {
         );
     }
     if (meta.font_weight) {
-        $('.text-container').css("font-weight", meta.font_weight);
+        $(".text-container").css("font-weight", meta.font_weight);
     }
 }
-Tipboard.Dashboard.updateFunctions['text'] = updateTileText;
-
+Tipboard.Dashboard.updateFunctions["text"] = updateTileText;

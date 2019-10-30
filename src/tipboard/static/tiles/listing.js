@@ -1,29 +1,23 @@
 function appendListingItem(container, itemText) {
     let htmlLabel = [
-        '<li class="list-group-item text-white" style="background: #212121">',
+        "<li class=\"list-group-item text-white\" style=\"background: #212121\">",
         itemText,
-        '</li>'
-    ].join('\n');
+        "</li>"
+    ].join("\n");
     $(container).append(htmlLabel);
 }
 
 function updateTileListing(id, data, meta, tileType) {
     let MAX_ITEMS = 7;
-    let tile = $('#' + id)[0];
-    let container = $(tile).find('.list-group')[0];
+    let tile = $("#" + id)[0];
+    let container = $(tile).find(".list-group")[0];
     $(container).children().remove();
     for (let idx in data.items) {
-
         if (idx > MAX_ITEMS) {
-            console.log([
-                'ERROR: more then',
-                MAX_ITEMS,
-                'items passed - RENDERING STOPPED'
-            ].join(' '));
+            console.log(["ERROR: more then", MAX_ITEMS, "items passed - RENDERING STOPPED"].join(" "));
             break;
         }
-        let textContent = data.items[parseInt(idx)];
-        appendListingItem(container, textContent);
+        appendListingItem(container, data.items[parseInt(idx)]);
     }
 }
 
