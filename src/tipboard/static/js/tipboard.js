@@ -123,7 +123,9 @@ function initTiles() {
 }
 
 let addEvent = function(object, type, callback) {
-    if (object == null || typeof(object) === "undefined") return;
+    if (object == null || typeof(object) === "undefined") {
+        return;
+    }
     if (object.addEventListener) {
         object.addEventListener(type, callback, false);
     } else if (object.attachEvent) {
@@ -135,16 +137,17 @@ let addEvent = function(object, type, callback) {
 
 const getTitleForChartJSTitle = function (data) {
     let basic = { display: false };
-    if (!("title" in data))
+    if (!("title" in data)) {
         return basic;
-    if (typeof data["title"] === 'string' || data["title"] instanceof String) { // ligth conf
+    }
+    if (typeof data["title"] === "string" || data["title"] instanceof String) { // ligth conf
         return {
             display: true,
             text: data["title"],
             color: ("color" in data) ? data["color"] : "#FFFFFF"
         };
     } else if (!("text" in data["title"])) { //don't start exeception when no present as dict
-        return basic
+        return basic;
     } else {
         return {
             display: true,
