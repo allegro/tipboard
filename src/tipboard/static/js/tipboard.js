@@ -123,15 +123,12 @@ function initTiles() {
 }
 
 let addEvent = function(object, type, callback) {
-    if (object == null || typeof(object) === "undefined") {
-        return;
-    }
-    if (object.addEventListener) {
+    if (object != null && typeof(object) !== "undefined" && object.addEventListener) {
         object.addEventListener(type, callback, false);
-    } else if (object.attachEvent) {
+    } else if (object != null && typeof(object) !== "undefined" && object.attachEvent) {
         object.attachEvent("on" + type, callback);
-    } else {
-        object["on"+type] = callback;
+    } else if (object != null && typeof(object) !== "undefined") {
+        object["on" + type] = callback;
     }
 };
 
