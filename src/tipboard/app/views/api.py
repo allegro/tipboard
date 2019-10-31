@@ -42,7 +42,7 @@ def tile(request, tile_key, unsecured=False):  # TODO: "it's better to ask forgi
 
 def update_tile_data(previousData, newData):
     for key, value in newData.items():
-        if isinstance(value, dict):
+        if isinstance(value, dict) and key != 'data':
             update_tile_data(previousData[key], value)
         else:
             previousData[key] = value
@@ -54,7 +54,7 @@ def push_tile(tile_id, tile_template, data, meta):  # pragma: no cover
     if not redis.exists(tilePrefix):
         buildFakeDataFromTemplate(tile_id, tile_template, cache)
     cachedTile = json.loads(redis.get(tilePrefix))
-    cachedTile['data'] = update_tile_data(json.loads(data), json.loads(data))
+    cachedTile['data'] = update_tile_data(cachedTile['data'], json.loads(data))
     cachedTile['modified'] = getIsoTime()
     cachedTile['tile_template'] = tile_template
     if meta is not None:  # TODO: Test the update meta
@@ -168,10 +168,11 @@ def push_unsecured(request):  # pragma: no cover
         return HttpResponseBadRequest(f"Missing data")
     tileType = postVariable.get("tile", None)
     # TODO: check the token for 'security' xD
-    data, success = updateDatav1tov2(tileType, postVariable.get("data", None))
-    if success:
+    try:
+        data = updateDatav1tov2(tileType, postVariable.get("data", None))
         return push_tile(tile_id=postVariable.get("key", None), data=data, tile_template=tileType, meta=None)
-    return HttpResponseBadRequest('Error in request')
+    except Exception:
+        return HttpResponseBadRequest('Error in request')
 
 
 def meta_unsecured(request, tile_key):  # pragma: no cover
