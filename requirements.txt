@@ -1,4 +1,4 @@
-django==2.2.6
+django==2.2.7
 django-prometheus==1.1.0
 django-cors-headers==3.1.1
 channels==2.3.1
@@ -8,6 +8,6 @@ PyYAML==5.1.2
 redis==3.3.11
 piwikapi==0.3
 twine==2.0.0
-apscheduler==3.6.1
-pytest==5.2.2
 requests==2.22.0
+apscheduler==3.6.3
+pytest==5.2.2
