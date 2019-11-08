@@ -114,8 +114,8 @@ function initTilesFliping() {
 
 function initTiles() {
     initTilesFliping();
+    // show tiles number (like: 1/3)
     $.each($("body > div"), function (rowIdx, row) {
-        // show tiles number (like: 1/3)
         $.each($(row).children("div"), function (colIdx, col) {
             Tipboard.Dashboard.addTilesCounter(col);
         });
