@@ -2,6 +2,13 @@ let predefinedColor = ['#303F9F', '#8BC34A', '#0288D1', '#E040FB', '#FF5722'];
 let predefinedLabel = ['label1', 'label2', 'label3', 'label4', 'label5'];
 let predefinedSeries = ['serie1', 'serie2', 'serie3', 'serie4', 'serie5'];
 
+/**
+ * Update for tile cumulative_flow & line_chartjs
+ * @param data
+ * @param tileType
+ * @returns {{borderColor: string[], datasets: Array, labels: string[]}}
+ */
+
 function updateDataset(data, tileType) {
     let listOfDataset = [];
     let rcx = 0;

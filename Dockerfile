@@ -12,7 +12,7 @@ COPY src/manage.py src/manage.py
 COPY requirements.txt .
 COPY entrypoint.sh entrypoint.sh
 
-RUN pip install --user -r requirements.txt
+RUN pip install --upgrade pip && pip install --user -r requirements.txt
 
 EXPOSE 8080
 
