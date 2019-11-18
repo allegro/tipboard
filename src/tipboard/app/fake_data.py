@@ -10,7 +10,7 @@ def buildBasicDataset(data=None, seriesNumber=1):
     return {
         'data': data,
         'label': f'Series {seriesNumber}',
-        'backgroundColor': COLOR_TAB[seriesNumber]
+        'backgroundColor': COLOR_TAB[seriesNumber - 1]
     }
 
 
@@ -354,8 +354,13 @@ def getFakeSimplePercentg(tile_id, template_name):
             'fading_background': False
         },
         'data': {
-            'title': 'title',
-            'description': 'description',
+            'title': 'Title',
+            'big_value': '24',
+            'subtitle': 'Subtitle',
+            'right_value': 'right_value',
+            'right_label': 'right_label',
+            'left_label': 'left_label',
+            'left_value': 'left_value'
         },
         'modified': getIsoTime(),
         'id': tile_id
@@ -420,8 +425,13 @@ def getFakeBigValue(tile_id, template_name):
             'fading_background': False
         },
         'data': {
-            'title': 'title',
-            'description': 'description',
+            'title': 'Title',
+            'description': 'Description',
+            "big-value": "25%",
+            "lower-left-label": "lower left-label",
+            "upper-left-label": "upper left-label",
+            "upper-right-label": "upper right-label",
+            "lower-right-label": "lower right-label"
         },
         'modified': getIsoTime(),
         'id': tile_id
@@ -436,8 +446,9 @@ def getFakeJustValue(tile_id, template_name):
             'fading_background': False
         },
         'data': {
-            'title': 'title',
-            'description': 'description',
+            'title': 'Title',
+            'description': 'Description',
+            'just-value': '42'
         },
         'modified': getIsoTime(),
         'id': tile_id

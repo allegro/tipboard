@@ -32,6 +32,7 @@ function initDashboard2(Tipboard) {
         /*
         *keysToUse*: list of keys, or string 'all', if 'all' then all keys used from *dataToPut*
         */
+        console.log(tileId + '.setDataByKeys => ');
         if (keysToUse === "all") {
             var allKeys = [];
             for (let data in dataToPut) {
@@ -41,8 +42,10 @@ function initDashboard2(Tipboard) {
             }
             keysToUse = allKeys;
         }
+        console.log(tileId + '.setDataByKeys => ');
         let tile = Tipboard.Dashboard.id2node(tileId);
         $.each(keysToUse, function (idx, key) {
+            console.log('key=>' + key);
             let value = dataToPut[key.toString()];
             if (typeof (value) == "undefined") {
                 console.log("WARN: No key \"" + key + "\" in data", dataToPut);
