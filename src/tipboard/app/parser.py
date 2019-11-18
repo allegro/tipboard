@@ -102,7 +102,7 @@ def parse_xml_layout(layout_name='layout_config'):
     config_path = config_file_name2path(layout_name)
     try:
         with open(config_path, 'r') as layout_config:
-            config = yaml.load(layout_config)
+            config = yaml.safe_load(layout_config)
     except FileNotFoundError:
         if ".yaml" not in config_path:
             config_path += ".yaml"
