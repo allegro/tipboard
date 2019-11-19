@@ -122,15 +122,15 @@ function initTiles() {
     });
 }
 
-let addEvent = function(object, type, callback) {
-    if (object != null && object.addEventListener) {
-        object.addEventListener(type, callback, false);
-    } else if (object != null && object.attachEvent) {
-        object.attachEvent("on" + type, callback);
-    } else if (object != null) {
-        object["on" + type] = callback;
-    }
-};
+// let addEvent = function(object, type, callback) {
+//     if (object != null && object.addEventListener) {
+//         object.addEventListener(type, callback, false);
+//     } else if (object != null && object.attachEvent) {
+//         object.attachEvent("on" + type, callback);
+//     } else if (object != null) {
+//         object["on" + type] = callback;
+//     }
+// };
 
 const getTitleForChartJSTitle = function (data) {
     try {
