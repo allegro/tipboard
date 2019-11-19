@@ -6,7 +6,10 @@
     <a href="https://gitlab.com/the-maux/tipboard/pipelines">
      <img src="https://gitlab.com/the-maux/tipboard/badges/master/pipeline.svg" alt="Gitlab"></a>
     <a href="https://tipboard.readthedocs.io/">
-     <img alt="ReadTheDocs" src="https://readthedocs.org/projects/tipboard/badge/?version=latest"></a>  </br>
+     <img alt="ReadTheDocs" src="https://readthedocs.org/projects/tipboard/badge/?version=latest"></a>  
+</br>
+    <a href="https://gitter.im/tipboard-dev/community">
+     <img alt="Chat" src="https://img.shields.io/gitter/room/DAVFoundation/DAV-Contributors.svg?style=flat-square"></a>
     <a href="https://github.com/the-maux/tipboard">
      <img alt="Github" src="https://img.shields.io/github/v/release/the-maux/tipboard"></a>
     <a href="https://pypi.org/project/tipboard2.0/">
