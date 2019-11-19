@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from datetime import datetime
-from src.tipboard.app.properties import API_KEY, DEBUG
+from src.tipboard.app.properties import API_KEY
 
 
 def getTimeStr():
@@ -17,6 +17,5 @@ def checkAccessToken(method='GET', request=None, unsecured=False):
                 request.GET.get('API_KEY', 'NO_API_KEY_FOUND') == API_KEY:  # TODO: check if it's work with delete:
             return True
     except Exception:
-        pass
-    print(f"{getTimeStr()} (-) Access Token error: {key}")
+        print(f"{getTimeStr()} (-) Access Token error: {key}")
     return False

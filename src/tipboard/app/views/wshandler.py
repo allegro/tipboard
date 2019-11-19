@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 import json
 from channels.generic.websocket import WebsocketConsumer
 from asgiref.sync import async_to_sync
@@ -28,6 +27,7 @@ class WSConsumer(WebsocketConsumer):
         if LOG:
             print(f"{getTimeStr()} (+) WS: client with channel:{self.channel_name} disconnected", flush=True)
         async_to_sync(self.channel_layer.group_discard)("event", self.channel_name)
+        self.close()
 
     def receive(self, text_data, **kwargs):  # pragma: no cover
         """ handle msg sended by client, by 2 way: update all tiles or update 1 specific tile """
@@ -62,7 +62,7 @@ class WSConsumer(WebsocketConsumer):
                 print(f'{getTimeStr()} (-) No data in key {tile_id} on Redis.', flush=True)
             return
         data = json.loads(tileData)
-        if type(data) is str:
+        if isinstance(data, str):
             data = json.loads(data)
         data['tipboard'] = tipboard_helpers
         self.send(text_data=json.dumps(data))

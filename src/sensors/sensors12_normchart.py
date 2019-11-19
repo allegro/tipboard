@@ -1,31 +1,27 @@
-# -*- coding: utf-8 -*-
-import datetime, json, requests, time
+import requests, time
 from src.tipboard.app.properties import TIPBOARD_URL
-from src.sensors.utils import getTimeStr, end, sendBVColor
+from src.sensors.utils import getTimeStr, end, buildConfigTile
 
 NAME_OF_SENSORS = "norm_chart"
 TILE_TEMPLATE = "norm_chart"
-TILE_ID = "norm_ex"
+TILE_ID = "normjs_ex"
+
 
 def executeScriptToGetData():
-    """ Simulate some actions for text tile exemple"""
     return {
         "title": "My title",
         "description": "Some description",
-        "plot_data": [[[1, 2], [3, 5.12], [5, 13.1], [7, 33.6], [9, 85.9], [11, 219.9]],
-                      [[6, 2], [3, 5.12], [5, 13.1], [7, 33.6], [9, 85.9], [11, 219.9]]]
+        "plot_data": [[[1, 2], [4, 5.12], [5, 13.1], [6, 33.6], [10, 85.9], [11, 219.9]],
+                      [[6, 2], [3, 5.12], [6.5, 13.1], [7.5, 33.6], [9, 85.9], [11, 219.9]]]
     }
 
 
 def sendDataToTipboard(data=None, tile_template=None, tile_id="", isTest=False):
-    configTile = {
-        "tile": tile_template, #tile_template name
-        "key": tile_id, #tile_template name
-        "data": json.dumps(data)
-    }
+    configTile = buildConfigTile(tile_id=tile_id, tile_template=tile_template, data=data)
     if not isTest:
         res = requests.post(TIPBOARD_URL + "/push", data=configTile)
-        print(f"{res} -> {tile_id}: {res.text}", flush=True)
+        print(f"{getTimeStr()}:{res} -> {tile_id}: {res.text}", flush=True)
+
 
 def sonde12(isTest):
     start_time = time.time()
