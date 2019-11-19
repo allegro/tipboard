@@ -27,6 +27,7 @@ class WSConsumer(WebsocketConsumer):
         if LOG:
             print(f"{getTimeStr()} (+) WS: client with channel:{self.channel_name} disconnected", flush=True)
         async_to_sync(self.channel_layer.group_discard)("event", self.channel_name)
+        self.close()
 
     def receive(self, text_data, **kwargs):  # pragma: no cover
         """ handle msg sended by client, by 2 way: update all tiles or update 1 specific tile """

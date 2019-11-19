@@ -4,7 +4,7 @@ from src.sensors.utils import end, buildConfigTile
 
 NAME_OF_SENSORS = "linechart"
 TILE_TEMPLATE = "line_chart"
-TILE_ID = "line_ex"
+TILE_ID = "line_chartjs_ex"
 
 
 def executeScriptToGetData():

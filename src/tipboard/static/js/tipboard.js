@@ -133,24 +133,28 @@ let addEvent = function(object, type, callback) {
 };
 
 const getTitleForChartJSTitle = function (data) {
-    let basic = { display: false };
-    if ((!("title" in data)) || (!("text" in data["title"]))) {
-        return basic;
-    } else if (typeof data["title"] === "string" || data["title"] instanceof String) { // ligth conf
+    try {
+        console.log('getTitleForChartJSTitle start');
+        let basic = { display: false };
+        if ((!("title" in data)) || (!("text" in data["title"]))) {
+            return basic;
+        } else {
+            return {
+                display: true,
+                text: data["title"]["text"],
+                borderColor: ("borderColor" in data) ? data["borderColor"] : "rgba(255, 255, 255, 1)",
+                color: ("color" in data) ? data["color"] : "#FFFFFF"
+            };
+        }
+    } catch (e) { // catch start if data["title"] != dict in check (!("text" in data["title"]))
         return {
             display: true,
             text: data["title"],
             color: ("color" in data) ? data["color"] : "#FFFFFF"
         };
-    } else {
-        return {
-            display: true,
-            text: data["title"]["text"],
-            borderColor: ("borderColor" in data) ? data["borderColor"] : "rgba(255, 255, 255, 1)",
-            color: ("color" in data) ? data["color"] : "#FFFFFF"
-        };
     }
 };
+
 
 /**
  *  Main function of tipboard.js
@@ -160,11 +164,16 @@ const getTitleForChartJSTitle = function (data) {
  *  Define the $(document).ready(function()
  */
 (function ($) {
-    'use strict';
-
-    addEvent(window, "resize", function(event) {
-      location.href = location.href; // location.reload(); is not working on firefox...
-    });
+    // var x = window.matchMedia("(max-width: 500px)");
+    // if (x.matches) { // If media query matches
+    //     document.body.style.backgroundColor = "yellow";
+    // } else {
+    //     document.body.style.backgroundColor = "pink";
+    //
+    // }
+    //     addEvent(window, "resize", function (event) {
+    //         location.href = location.href; // location.reload(); is not working on firefox...
+    //     });
     Tipboard.Dashboard = {
         wsSocketTimeout: 900000,
         flipIds: [],

@@ -4,14 +4,17 @@ from src.tipboard.app.applicationconfig import getRedisPrefix, getIsoTime
 COLOR_TAB = ['rgba(62, 149, 205, 0.8)', 'rgba(114, 191, 68, 0.8)']
 
 
-def buildBasicDataset(data=None, seriesNumber=1):
+def buildBasicDataset(data=None, seriesNumber=1, borderColor=False):
     if data is None:
         data = []
-    return {
-        'data': data,
-        'label': f'Series {seriesNumber}',
-        'backgroundColor': COLOR_TAB[seriesNumber - 1]
-    }
+    dataset = dict()
+    dataset['data'] = data
+    dataset['label'] = f'Series {seriesNumber}'
+    if borderColor:
+        dataset['borderColor'] = COLOR_TAB[seriesNumber - 1]
+    else:
+        dataset['backgroundColor'] = COLOR_TAB[seriesNumber - 1]
+    return dataset
 
 
 def getFakeLineChart(tile_id, template_name):

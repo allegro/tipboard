@@ -39,6 +39,12 @@ tu as rendu fonctionnelle:
 - radar
 
 tu taf la norm_chart
+Avant, ta fait le fake_data sur Just_value, big_value, sp
+Tu galeres sur Listing car il est fait en Jquery et je sais pas pk , ca marche pas...
+Donc obliger de passer par du old JS
+
+
+
 
 If we do that, we can go to sleep ez
 

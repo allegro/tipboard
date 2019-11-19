@@ -12,7 +12,8 @@ COPY src/manage.py src/manage.py
 COPY requirements.txt .
 COPY entrypoint.sh entrypoint.sh
 
-RUN pip install --upgrade pip && pip install --user -r requirements.txt
+ENV PATH="/home/app/.local/bin:${PATH}"
+RUN pip install --upgrade pip &&  pip install --user -r requirements.txt
 
 EXPOSE 8080
 

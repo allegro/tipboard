@@ -87,12 +87,8 @@ h6 {
 
 .tile > .chart-container {
     position: relative;
-    height: 85%;
-    padding-bottom: 2px;
+    height: 90%;
 }
-
-
-
 
 @keyframes fading-background-color {
     100% {
@@ -212,7 +208,7 @@ iframe {
     MEDIA QUERIES
 ------------------------------------------------------------------------------------------------------------- */
 
-@media (max-width: 500px) {
+@media (max-width: 600px) {
     .grid-group {
         display: block;
         flex: 1;

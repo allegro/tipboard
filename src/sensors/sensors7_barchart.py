@@ -4,7 +4,7 @@ from src.sensors.utils import end, buildConfigTile
 
 NAME_OF_SENSORS = "bar_chart"
 TILE_TEMPLATE = "bar_chart"
-TILE_ID = "bar_ex"
+TILE_ID = "barjs_ex"
 
 
 def executeScriptToGetData():

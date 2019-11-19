@@ -170,6 +170,7 @@ def push_unsecured(request):  # pragma: no cover
     # TODO: check the token for 'security' xD
     try:
         data = updateDatav1tov2(tileType, postVariable.get("data", None))
+        print(f"{getTimeStr()} (+) DATA MIGRATED ({tileType}): {data}")
         return push_tile(tile_id=postVariable.get("key", None), data=data, tile_template=tileType, meta=None)
     except Exception:
         return HttpResponseBadRequest('Error in request')

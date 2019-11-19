@@ -4,7 +4,7 @@ from src.sensors.utils import getTimeStr, end, buildConfigTile
 
 NAME_OF_SENSORS = "cumuleflow"
 TILE_TEMPLATE = "cumulative_flow"
-TILE_ID = "cf_ex"
+TILE_ID = "cfjs_ex"
 
 
 def executeScriptToGetData():

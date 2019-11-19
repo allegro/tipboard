@@ -3,15 +3,44 @@ from src.tipboard.app.utils import getTimeStr
 from src.tipboard.app.fake_data import buildBasicDataset
 
 
-def updateDatav1tov2_cumul(data):
+def getLabel(data):
+    extractLabel = data['plot_data'][0] if len(data['plot_data'][0]) > len(data['plot_data'][1])\
+        else data['plot_data'][1]
+    return [i[0] for i in extractLabel]
+
+
+def updateDatav1tov2_norm(data):
     data['datasets'] = list()
-    if 'plot_data' in data['plot_data']:
-        line1 = buildBasicDataset(data=data['plot_data'][0], seriesNumber=1)
-        line2 = buildBasicDataset(data=data['plot_data'][1], seriesNumber=2)
+    if 'plot_data' in data:
+        data['labels'] = getLabel(data)
+        data['plot_data'][0] = [i[1] for i in data['plot_data'][0]]
+        data['plot_data'][1] = [i[1] for i in data['plot_data'][1]]
+        line1 = buildBasicDataset(data=data['plot_data'][0], seriesNumber=1, borderColor=True)
+        line2 = buildBasicDataset(data=data['plot_data'][1], seriesNumber=2, borderColor=True)
         data['datasets'].append(line1)
         data['datasets'].append(line2)
+
         del data['plot_data']
-        print(f"{getTimeStr()} (+) AntiRegression now : {data}")
+    else:
+        data['labels'] = [x for x in range(len(data['datasets'][0]))]
+    if 'description' in data:
+        data['title'] = {
+            'text': data['description'],
+            'display': True
+        }
+        del data['description']
+    elif 'title' in data:
+        title = data['title']
+        del data['title']
+        data['title'] = {
+            'text': title,
+            'display': True
+        }
+    else:
+        data['title'] = {
+            'text': '',
+            'display': False
+        }
     return json.dumps(data)
 
 
@@ -28,7 +57,6 @@ def updateDatav1tov2_barchart(data):
             dataset['data'] = serie_list
             data['datasets'].append(dataset)
         del data['series_list']
-        print(f"{getTimeStr()} (+) AntiRegression now : {data}")
     return json.dumps(data)
 
 
@@ -43,19 +71,19 @@ def updateDatav1tov2_piechart(data):
             data['pie_data_value'].append(elem_pie_data[1])
             data['pie_data_tag'].append(elem_pie_data[0])
         del data['pie_data']
-        print(f"data is now {data}")
     return json.dumps(data)
 
 
 def updateDatav1tov2(tileType, tileData):
     tileData = json.loads(tileData)
     print(f"{getTimeStr()} (+) AntiRegression type({tileType}): {tileData}")
+    print("{getTimeStr()} (+) ----- WIP")
     if 'pie_chart' in tileType:
         return updateDatav1tov2_piechart(tileData)
     elif 'bar_chart' in tileType:
         return updateDatav1tov2_barchart(tileData)
-    elif 'cumulative_flow' in tileType:
-        updateDatav1tov2_cumul(tileData)
-    elif ('line_chart' or 'norm_chart' or 'cumulative_flow') in tileType:
+    elif 'norm_chart' in tileType:
+        updateDatav1tov2_norm(tileData)
+    elif tileType in ['line_chart', 'norm_chart', 'cumulative_flow']:
         return updateDatav1tov2_linechart(tileData)
     return json.dumps(tileData)

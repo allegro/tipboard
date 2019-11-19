@@ -4,7 +4,7 @@ from src.sensors.utils import end, buildConfigTile
 from src.tipboard.app.fake_data import getFakePieChart
 
 NAME_OF_SENSORS = "GET"
-TILE_TEMPLATE = "pie_chart"
+TILE_TEMPLATE = "pie_chartjs_ex"
 TILE_ID = "pie_ex"
 
 
