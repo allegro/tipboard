@@ -6,6 +6,8 @@ channels_redis==2.4.1
 asgiref==3.2.3
 PyYAML==5.1.2
 redis==3.3.11
+piwikapi==0.3
+twine==3.0.0
 requests==2.22.0
 apscheduler==3.6.3
 pytest==5.2.4
