@@ -11,20 +11,6 @@ function initDashboard3(Tipboard) {
             $(elem).addClass("flippable");
         });
     };
-    Tipboard.Dashboard.addTilesCounter = function (col) {
-        // var tilesTotal = $(col).children("div.tile").length;
-        // if (tilesTotal > 1) {
-        //     $.each($(col).children("div"), function (tileIdx, tile) {
-        //        console.log("Building flip for tile");
-        //        var container = $(tile).find(".tile-header");
-        //         //var title = $(container).children()[0];
-        //         $(container).addClass("flip-tile-counter");
-        //         var counter = (tileIdx + 1) + "/" + tilesTotal;
-        //         $(container).append(counter);
-        //         $(container).append("<div style=\"clear:both\"></div>");
-        //     });
-        // }
-    };
 }
 
 function initDashboard2(Tipboard) {
