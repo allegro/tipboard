@@ -1,125 +1,89 @@
 import json
 from src.tipboard.app.utils import getTimeStr
+from src.tipboard.app.fake_data import buildBasicDataset
 
 
-def updateDatav1tov2_linechart(data):
-    success = True
-    try:
-        data = None
-    except Exception:
-        print(f"{getTimeStr()} (-) Error in updateDatav1tov2_piechart")
-        success = False
-    return data, success
+def getLabel(data):
+    extractLabel = data['plot_data'][0] if len(data['plot_data'][0]) > len(data['plot_data'][1])\
+        else data['plot_data'][1]
+    return [i[0] for i in extractLabel]
 
 
-def updateDatav1tov2_cumul(data):
-    success = True
-    try:
-        data = None
-    except Exception:
-        print(f"{getTimeStr()} (-) Error in updateDatav1tov2_piechart")
-        success = False
-    return data, success
+def updateDatav1tov2_norm(data):
+    data['datasets'] = list()
+    if 'plot_data' in data:
+        data['labels'] = getLabel(data)
+        data['plot_data'][0] = [i[1] for i in data['plot_data'][0]]
+        data['plot_data'][1] = [i[1] for i in data['plot_data'][1]]
+        line1 = buildBasicDataset(data=data['plot_data'][0], seriesNumber=1, borderColor=True)
+        line2 = buildBasicDataset(data=data['plot_data'][1], seriesNumber=2, borderColor=True)
+        data['datasets'].append(line1)
+        data['datasets'].append(line2)
+
+        del data['plot_data']
+    else:
+        data['labels'] = [x for x in range(len(data['datasets'][0]))]
+    if 'description' in data:
+        data['title'] = {
+            'text': data['description'],
+            'display': True
+        }
+        del data['description']
+    elif 'title' in data:
+        title = data['title']
+        del data['title']
+        data['title'] = {
+            'text': title,
+            'display': True
+        }
+    else:
+        data['title'] = {
+            'text': '',
+            'display': False
+        }
+    return json.dumps(data)
 
 
-def updateDatav1tov2_percentage(data):
-    success = True
-    try:
-        data = None
-    except Exception:
-        print(f"{getTimeStr()} (-) Error in updateDatav1tov2_piechart")
-        success = False
-    return data, success
-
-
-def updateDatav1tov2_listing(data):
-    success = True
-    try:
-        data = None
-    except Exception:
-        print(f"{getTimeStr()} (-) Error in updateDatav1tov2_piechart")
-        success = False
-    return data, success
-
-
-def updateDatav1tov2_bigvalue(data):
-    success = True
-    try:
-        data = None
-    except Exception:
-        print(f"{getTimeStr()} (-) Error in updateDatav1tov2_piechart")
-        success = False
-    return data, success
-
-
-def updateDatav1tov2_justvalue(data):
-    success = True
-    try:
-        data = None
-    except Exception:
-        print(f"{getTimeStr()} (-) Error in updateDatav1tov2_piechart")
-        success = False
-    return data, success
-
-
-def updateDatav1tov2_normchart(data):
-    success = True
-    try:
-        data = None
-    except Exception:
-        print(f"{getTimeStr()} (-) Error in updateDatav1tov2_piechart")
-        success = False
-    return data, success
+def updateDatav1tov2_linechart(tileData):
+    return json.dumps(tileData)
 
 
 def updateDatav1tov2_barchart(data):
-    success = True
-    try:
-        data['labels'] = data['ticks']
-        data = None
-    except FutureWarning:
-        print(f"{getTimeStr()} (-) Error in updateDatav1tov2_piechart")
-        success = False
-    return data, success
+    data['labels'] = data.pop('ticks')
+    data['datasets'] = list()
+    if 'serie_list' in data['series_list']:
+        for serie_list in data['series_list']:
+            dataset = dict()
+            dataset['data'] = serie_list
+            data['datasets'].append(dataset)
+        del data['series_list']
+    return json.dumps(data)
 
 
 def updateDatav1tov2_piechart(data):
-    success = True
-#    try:
     print(f"data was {data['pie_data']}")
     data['pie_data_value'] = list()
     data['labels'] = list()
     data['pie_data_tag'] = list()
-    for elem_pie_data in data['pie_data']:
-        data['labels'].append(elem_pie_data[0])
-        data['pie_data_value'].append(elem_pie_data[1])
-        data['pie_data_tag'].append(elem_pie_data[0])
-    del data['pie_data']
-    # except FutureWarning as e:
-    #     print(f"{getTimeStr()} (-) Error in updateDatav1tov2_piechart:")
-    #     success = False
-    print(f"data is now {data}")
-    return json.dumps(data), success
+    if 'pie_data' in data['pie_data']:
+        for elem_pie_data in data['pie_data']:
+            data['labels'].append(elem_pie_data[0])
+            data['pie_data_value'].append(elem_pie_data[1])
+            data['pie_data_tag'].append(elem_pie_data[0])
+        del data['pie_data']
+    return json.dumps(data)
 
 
 def updateDatav1tov2(tileType, tileData):
     tileData = json.loads(tileData)
+    print(f"{getTimeStr()} (+) AntiRegression type({tileType}): {tileData}")
+    print("{getTimeStr()} (+) ----- WIP")
     if 'pie_chart' in tileType:
         return updateDatav1tov2_piechart(tileData)
     elif 'bar_chart' in tileType:
         return updateDatav1tov2_barchart(tileData)
     elif 'norm_chart' in tileType:
-        return updateDatav1tov2_normchart(tileData)
-    elif 'cumulative_flow' in tileType:
-        return updateDatav1tov2_cumul(tileData)
-    elif 'line_chart' in tileType:
+        updateDatav1tov2_norm(tileData)
+    elif tileType in ['line_chart', 'norm_chart', 'cumulative_flow']:
         return updateDatav1tov2_linechart(tileData)
-    elif 'big_value' in tileType:
-        return updateDatav1tov2_bigvalue(tileData)
-    elif 'listing' in tileType:
-        return updateDatav1tov2_listing(tileData)
-    elif 'simple_percentage' in tileType:
-        return updateDatav1tov2_percentage(tileData)
-    elif 'just_value' in tileType:
-        return updateDatav1tov2_justvalue(tileData)
-    return "Error type unknow", False
+    return json.dumps(tileData)
