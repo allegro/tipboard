@@ -7,6 +7,6 @@ asgiref==3.2.3
 PyYAML==5.1.2
 redis==3.3.11
 piwikapi==0.3
-twine==2.0.0
+twine==3.0.0
 apscheduler==3.6.3
 pytest==5.2.2
