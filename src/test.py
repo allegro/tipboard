@@ -5,12 +5,13 @@ from channels.testing import HttpCommunicator, ChannelsLiveServerTestCase
 from src.tipboard.app.views.wshandler import WSConsumer
 from src.tipboard.app.properties import ALLOWED_TILES
 from src.tipboard.templates.template_filter import template_tile
-from src.tipboard.app.fake_data import buildFakeDataFromTemplate
+from src.tipboard.app.FakeData.fake_data import buildFakeDataFromTemplate
 from src.tipboard.app.parser import parse_xml_layout
 from src.tipboard.app.flipboard import Flipboard
 from src.tipboard.app.cache import MyCache
 from src.tipboard.app.utils import checkAccessToken
 from src.sensors.sensors_main import launch_sensors
+
 
 class TestApp(TestCase):
 

@@ -1,6 +1,6 @@
 import json
 from src.tipboard.app.utils import getTimeStr
-from src.tipboard.app.fake_data import buildBasicDataset
+from src.tipboard.app.FakeData.fakechartJS import buildBasicDataset
 
 
 def getLabel(data):

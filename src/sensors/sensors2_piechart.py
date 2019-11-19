@@ -1,7 +1,7 @@
 import requests, time, random
 from src.tipboard.app.properties import TIPBOARD_URL
 from src.sensors.utils import end, buildConfigTile
-from src.tipboard.app.fake_data import getFakePieChart
+from src.tipboard.app.FakeData.fake_data import getFakePieChart
 
 NAME_OF_SENSORS = "GET"
 TILE_TEMPLATE = "pie_chartjs_ex"
