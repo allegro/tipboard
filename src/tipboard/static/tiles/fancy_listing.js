@@ -1,33 +1,30 @@
-/*jslint browser: true, devel: true*/
-/*global WebSocket: false, Tipboard: false*/
-
 function updateTileFancyListing(tileId, data, config, tileType) {
-    var tile = Tipboard.Dashboard.id2node(tileId);
-    var nodeToClone = FancyListing.initContainer(tile);
-    if (typeof(nodeToClone) === 'undefined') {
+    let tile = Tipboard.Dashboard.id2node(tileId);
+    let nodeToClone = FancyListing.initContainer(tile);
+    if (typeof(nodeToClone) === "undefined") {
         return false;
     }
     FancyListing.populateItems(tile, nodeToClone, data);
     FancyListing.applyConfig(tile, config);
-    if (config['vertical_center'] === true) {
+    if (config["vertical_center"] === true) {
         FancyListing.verticalCenter(tile);
     }
 }
 
-Tipboard.Dashboard.registerUpdateFunction('fancy_listing', updateTileFancyListing);
+Tipboard.Dashboard.registerUpdateFunction("fancy_listing", updateTileFancyListing);
 
 FancyListing = {
     initContainer: function(tile) {
-        var nodeToClone = $(tile).find('.fancy-listing-item')[0];
-        if (typeof(nodeToClone) === 'undefined') {
-            console.log('ABORTING - no node to clone');
+        let nodeToClone = $(tile).find(".fancy-listing-item")[0];
+        if (typeof(nodeToClone) === "undefined") {
+            console.log("ABORTING - no node to clone");
             return false;
         }
-        $(tile).find('.fancy-listing-item').slice(1).remove();
+        $(tile).find(".fancy-listing-item").slice(1).remove();
         return nodeToClone;
     },
     appendCloned: function(tile, nodeToClone) {
-        var container = $(tile).find('.tile-content')[0];
+        let container = $(tile).find(".tile-content")[0];
         $(nodeToClone).clone().appendTo(container);
     },
     populateItems: function(tile, clonedNode, data) {
@@ -37,39 +34,34 @@ FancyListing = {
         });
     },
     applyConfig: function(tile, config) {
+        let color = "#FFFFFF";
         $.each(config, function(idx, tileConfig) {
-            if (/\d+/.test(idx)) {
-                var item = $(tile).find('.fancy-listing-item')[idx];
-                // set color
-                var color = "#FFFFFF";
-                $(item).find('.fancy-listing-label').css('background-color', color);
-                // set centering
-                if (tileConfig['center'] === true) {
-                    $(item).find('.fancy-listing-def').css(
-                        'text-align', 'center'
-                    );
-                }
+            let item = $(tile).find(".fancy-listing-item")[parseInt(idx, 10)];
+            $(item).find(".fancy-listing-label").css("background-color", color);
+            // set centering
+            if (tileConfig["center"] === true) {
+                $(item).find(".fancy-listing-def").css("text-align", "center" );
             }
         });
     },
     verticalCenter: function(tile) {
         // TODO: replace it with css class and toggle the class
-        containerHeight = $(tile).find('.tile-content').height();
-        children = $(tile).find('.tile-content').children().slice(1);
-        var childrensHeight = 0;
+        let containerHeight = $(tile).find(".tile-content").height();
+        let children = $(tile).find(".tile-content").children().slice(1);
+        let childrensHeight = 0;
         $.each(children, function(idx, child) {
             childrensHeight += $(child).outerHeight(true);
         });
-        positionToSet = (containerHeight - childrensHeight) / 2;
+        let positionToSet = (containerHeight - childrensHeight) / 2;
         if (positionToSet > 0) {
-            $(children[0]).css('padding-top', positionToSet);
+            $(children[0]).css("padding-top", positionToSet);
         }
     },
     replaceData: function(tile, tileData) {
-        var lastItem = $(tile).find('.fancy-listing-item:last-child')[0];
-        $(lastItem).find('.fancy-listing-label-inside').html(tileData['label']);
-        $(lastItem).find('.fancy-listing-term').html(tileData['text']);
-        $(lastItem).find('.fancy-listing-desc').html(tileData['description']);
+        let lastItem = $(tile).find(".fancy-listing-item:last-child")[0];
+        $(lastItem).find(".fancy-listing-label-inside").html(tileData["label"]);
+        $(lastItem).find(".fancy-listing-term").html(tileData["text"]);
+        $(lastItem).find(".fancy-listing-desc").html(tileData["description"]);
     }
 };
 

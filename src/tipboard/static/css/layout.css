@@ -68,16 +68,6 @@ h6 {
     font-size: calc(15px + (24 - 15) * ((100vw - 300px) / (1600 - 300)));
 }
 
-.tile > .tile-header > .flip-tile-counter {
-    float: left;
-}
-
-.tile > .tile-header > .tile-counter {
-    font-size: 1.6rem;
-    float: right;
-    color:#666;
-}
-
 .tile > .tile-content {
     padding: 0 10px;
 }
@@ -91,17 +81,14 @@ h6 {
     color: #dcedc8;
 }
 
-.exception-message {
-    white-space: normal;
-    font-size: 3.2rem;
-    color: #DC5945;
-}
-
 /*  ---------------------------------------------------------------------------------------------------------
     TILES
 ------------------------------------------------------------------------------------------------------------- */
 
-
+.tile > .chart-container {
+    position: relative;
+    height: 90%;
+}
 
 @keyframes fading-background-color {
     100% {
@@ -221,7 +208,7 @@ iframe {
     MEDIA QUERIES
 ------------------------------------------------------------------------------------------------------------- */
 
-@media (max-width: 500px) {
+@media (max-width: 600px) {
     .grid-group {
         display: block;
         flex: 1;
