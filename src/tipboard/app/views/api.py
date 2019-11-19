@@ -5,6 +5,7 @@ from src.tipboard.app.properties import PROJECT_NAME, LAYOUT_CONFIG, REDIS_DB, L
 from src.tipboard.app.cache import getCache
 from src.tipboard.app.utils import getTimeStr, checkAccessToken
 from src.tipboard.app.ApiAntiRegression import updateDatav1tov2
+from src.tipboard.app.fake_data import buildFakeDataFromTemplate
 
 
 cache = getCache()
@@ -39,18 +40,24 @@ def tile(request, tile_key, unsecured=False):  # TODO: "it's better to ask forgi
     raise Http404
 
 
+def update_tile_data(previousData, newData):
+    for key, value in newData.items():
+        if isinstance(value, dict) and key != 'data':
+            update_tile_data(previousData[key], value)
+        else:
+            previousData[key] = value
+    return previousData
+
+
 def push_tile(tile_id, tile_template, data, meta):  # pragma: no cover
     tilePrefix = getRedisPrefix(tile_id)
     if not redis.exists(tilePrefix):
-        if cache.createTile(tile_id=tile_id, value=data, tile_template=tile_template):
-            return HttpResponse(f"{tile_id} data created successfully.")
-        else:
-            return HttpResponseBadRequest(content=f"Error when creating tile: {tile_id}")
+        buildFakeDataFromTemplate(tile_id, tile_template, cache)
     cachedTile = json.loads(redis.get(tilePrefix))
-    cachedTile['data'] = json.loads(data)
+    cachedTile['data'] = update_tile_data(cachedTile['data'], json.loads(data))
     cachedTile['modified'] = getIsoTime()
     cachedTile['tile_template'] = tile_template
-    if meta is not None: # TODO: Test the update meta
+    if meta is not None:  # TODO: Test the update meta
         if meta.get('options') is not None:
             cachedTile['meta']['options'].update(meta['options'])
         elif meta.get('backgroundColor') is not None:
@@ -141,7 +148,7 @@ def projectInfo(request):  # pragma: no cover
 
 
 # Unsecured part, don't look here ! :D
-""" This allow previous user to use their old script without migration in a insecure way :) """
+# This allow previous user to use their old script without migration in a insecure way :)
 
 
 def tile_unsecured(request, tile_key):  # pragma: no cover
@@ -161,10 +168,12 @@ def push_unsecured(request):  # pragma: no cover
         return HttpResponseBadRequest(f"Missing data")
     tileType = postVariable.get("tile", None)
     # TODO: check the token for 'security' xD
-    data, success = updateDatav1tov2(tileType, postVariable.get("data", None))
-    if success:
+    try:
+        data = updateDatav1tov2(tileType, postVariable.get("data", None))
+        print(f"{getTimeStr()} (+) DATA MIGRATED ({tileType}): {data}")
         return push_tile(tile_id=postVariable.get("key", None), data=data, tile_template=tileType, meta=None)
-    return HttpResponseBadRequest('Error in request')
+    except Exception:
+        return HttpResponseBadRequest('Error in request')
 
 
 def meta_unsecured(request, tile_key):  # pragma: no cover

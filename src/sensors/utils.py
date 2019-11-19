@@ -26,3 +26,11 @@ def sendBVColor(color, tile, fading=False):  # pragma: no cover
     res = requests.post(TIPBOARD_URL + "/tileconfig/" + tile, data=var)
     if DEBUG:
         print(f"{res}: color -> {tile}", flush=True)
+
+
+def buildConfigTile(tile_id, tile_template, data):
+    return {
+        "tile": tile_template, #tile_template name
+        "key": tile_id, #tile_template name
+        "data": json.dumps(data)
+    }

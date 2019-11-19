@@ -87,15 +87,14 @@ function initWebsocketManager() {
 }
 
 
-function initTilesFliping() {
-    // flipping tiles
-    var flipContainers = $('div[id*="flip-time-"]');
+function initTiles() {
+    let flipContainers = $("div[id*=\"flip-time-\"]");
     $.each(flipContainers, function (idx, flippingContainer) {
         Tipboard.Dashboard.autoAddFlipClasses(flippingContainer);
-        var flipInterval = getFlipTime(flippingContainer);
-        var flipIntervalId = setInterval(function () {
-            var nextFlipIdx;
-            var containerFlips = $(flippingContainer).find('.flippable');
+        let flipInterval = getFlipTime(flippingContainer);
+        let flipIntervalId = setInterval(function () {
+            let nextFlipIdx;
+            let containerFlips = $(flippingContainer).find(".flippable");
             $(containerFlips).each(function (index, tile) {
                 if ($(tile).hasClass("flippedforward")) {
                     nextFlipIdx = (index + 1) % containerFlips.length;
@@ -103,8 +102,8 @@ function initTilesFliping() {
                     return false; // break
                 }
             });
-            if (typeof (nextFlipIdx) !== 'undefined') {
-                var tileToFlip = containerFlips[nextFlipIdx];
+            if (typeof (nextFlipIdx) !== "undefined") {
+                let tileToFlip = containerFlips[parseInt(nextFlipIdx, 10)];
                 $(tileToFlip).addClass("flippedforward");
             }
         }, flipInterval);
@@ -112,40 +111,38 @@ function initTilesFliping() {
     });
 }
 
+// let addEvent = function(object, type, callback) {
+//     if (object != null && object.addEventListener) {
+//         object.addEventListener(type, callback, false);
+//     } else if (object != null && object.attachEvent) {
+//         object.attachEvent("on" + type, callback);
+//     } else if (object != null) {
+//         object["on" + type] = callback;
+//     }
+// };
 
-function initTiles() {
-    initTilesFliping();
-    $.each($("body > div"), function (rowIdx, row) {
-        // show tiles number (like: 1/3)
-        $.each($(row).children('div'), function (colIdx, col) {
-            Tipboard.Dashboard.addTilesCounter(col);
-        });
-    });
-}
-
-var addEvent = function(object, type, callback) {
-    if (object == null || typeof(object) == 'undefined') return;
-    if (object.addEventListener) {
-        object.addEventListener(type, callback, false);
-    } else if (object.attachEvent) {
-        object.attachEvent("on" + type, callback);
-    } else {
-        object["on"+type] = callback;
+const getTitleForChartJSTitle = function (data) {
+    try {
+        let basic = { display: false };
+        if ((!("title" in data)) || (!("text" in data["title"]))) {
+            return basic;
+        } else {
+            return {
+                display: true,
+                text: data["title"]["text"],
+                borderColor: ("borderColor" in data) ? data["borderColor"] : "rgba(255, 255, 255, 1)",
+                color: ("color" in data) ? data["color"] : "#FFFFFF"
+            };
+        }
+    } catch (e) { // catch start if data["title"] != dict in check (!("text" in data["title"]))
+        return {
+            display: true,
+            text: data["title"],
+            color: ("color" in data) ? data["color"] : "#FFFFFF"
+        };
     }
 };
 
-const getTitleForChartJSTitle = function (data) {
-    return (!("title" in data) || !("text" in data["title"])) ?
-        { // When no title present
-            display: false,
-        } :
-        {
-            display: true,
-            text: data["title"]["text"],
-            borderColor: ("borderColor" in data) ? data["borderColor"] : "rgba(255, 255, 255, 1)",
-            color: ("color" in data) ? data["color"] : ""
-        };
-};
 
 /**
  *  Main function of tipboard.js
@@ -155,11 +152,16 @@ const getTitleForChartJSTitle = function (data) {
  *  Define the $(document).ready(function()
  */
 (function ($) {
-    'use strict';
-
-    addEvent(window, "resize", function(event) {
-      location.href = location.href; // location.reload(); is not working on firefox...
-    });
+    // var x = window.matchMedia("(max-width: 500px)");
+    // if (x.matches) { // If media query matches
+    //     document.body.style.backgroundColor = "yellow";
+    // } else {
+    //     document.body.style.backgroundColor = "pink";
+    //
+    // }
+    //     addEvent(window, "resize", function (event) {
+    //         location.href = location.href; // location.reload(); is not working on firefox...
+    //     });
     Tipboard.Dashboard = {
         wsSocketTimeout: 900000,
         flipIds: [],
@@ -169,9 +171,9 @@ const getTitleForChartJSTitle = function (data) {
     Tipboard.Dashboard.UnknownUpdateFunction = UnknownUpdateFunction;
     Tipboard.WebSocketManager = initWebsocketManager();
     initDashboard(Tipboard);
-    Chart.defaults.global.defaultFontColor = 'rgba(255, 255, 255, 0.83)';
+    Chart.defaults.global.defaultFontColor = "rgba(255, 255, 255, 0.83)";
     $(document).ready(function () {
-        console.log('Tipboard starting');
+        console.log("Tipboard starting");
         //TODO: resize event
         Tipboard.WebSocketManager.init();
         setInterval(Tipboard.WebSocketManager.init.bind(Tipboard.WebSocketManager), Tipboard.Dashboard.wsSocketTimeout);

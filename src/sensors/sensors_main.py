@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 import datetime, time
 from apscheduler.schedulers.blocking import BlockingScheduler
 from src.sensors.sensors1_text import sonde1
@@ -14,18 +13,18 @@ from src.sensors.sensors10_justvalue import sonde10
 from src.sensors.sensors11_advancedplot import sonde11
 from src.sensors.sensors12_normchart import sonde12
 from src.sensors.sensors13_regression import sonde13
-
 from src.sensors.utils import end
 
 
 def launch_sensors(isTest=False):
+    sonde12(isTest)
     sonde1(isTest)
     sonde3(isTest)
     sonde4(isTest)
     sonde5(isTest)
     sonde6(isTest)
     sonde7(isTest)
-    sonde8(isTest)
+    sonde2(isTest)
     sonde9(isTest)
     sonde10(isTest)
     sonde11(isTest)

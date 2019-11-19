@@ -1,5 +1,7 @@
 function updateTilePiejs(tileId, data, meta, tileType) {
-    new Chart(document.getElementById(tileId + '-chart'), {
+    let chart = document.getElementById(tileId + '-chart');
+    chart.style.paddingBottom = '10px';
+    new Chart(chart, {
         type: 'pie',
         data: {
             labels: data['pie_data_tag'],
