@@ -123,7 +123,6 @@ function initTiles() {
 
 const getTitleForChartJSTitle = function (data) {
     try {
-        console.log('getTitleForChartJSTitle start');
         let basic = { display: false };
         if ((!("title" in data)) || (!("text" in data["title"]))) {
             return basic;
