@@ -148,7 +148,7 @@ def projectInfo(request):  # pragma: no cover
 
 
 # Unsecured part, don't look here ! :D
-""" This allow previous user to use their old script without migration in a insecure way :) """
+# This allow previous user to use their old script without migration in a insecure way :)
 
 
 def tile_unsecured(request, tile_key):  # pragma: no cover

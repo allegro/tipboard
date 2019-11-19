@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from datetime import datetime
-from src.tipboard.app.properties import API_KEY, DEBUG
+from src.tipboard.app.properties import API_KEY
 
 
 def getTimeStr():

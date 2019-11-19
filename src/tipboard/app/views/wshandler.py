@@ -62,7 +62,7 @@ class WSConsumer(WebsocketConsumer):
                 print(f'{getTimeStr()} (-) No data in key {tile_id} on Redis.', flush=True)
             return
         data = json.loads(tileData)
-        if type(data) is str:
+        if isinstance(data, str):
             data = json.loads(data)
         data['tipboard'] = tipboard_helpers
         self.send(text_data=json.dumps(data))
