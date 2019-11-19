@@ -1,13 +1,6 @@
   <p align="center">
   <img alt="Tipboard" src="https://i.ibb.co/Fx6FykP/image-5.png"/>
   <p align="center">
-    <a href="https://travis-ci.com/the-maux/tipboard">
-      <img alt="Travis" src="https://travis-ci.com/the-maux/tipboard.svg?branch=develop"></a>
-    <a href="https://gitlab.com/the-maux/tipboard/pipelines">
-     <img src="https://gitlab.com/the-maux/tipboard/badges/master/pipeline.svg" alt="Gitlab"></a>
-    <a href="https://tipboard.readthedocs.io/">
-     <img alt="ReadTheDocs" src="https://readthedocs.org/projects/tipboard/badge/?version=latest"></a>  
-</br>
     <a href="https://gitter.im/tipboard-dev/community">
      <img alt="Chat" src="https://img.shields.io/gitter/room/DAVFoundation/DAV-Contributors.svg?style=flat-square"></a>
     <a href="https://github.com/the-maux/tipboard">
@@ -22,7 +15,14 @@
     <a href="">
      <img alt="docker" src="https://img.shields.io/docker/pulls/themaux/tipboard"></a>
     <a href="">
-  </br>
+</br>
+    <a href="https://travis-ci.com/the-maux/tipboard">
+      <img alt="Travis" src="https://travis-ci.com/the-maux/tipboard.svg?branch=develop"></a>
+    <a href="https://gitlab.com/the-maux/tipboard/pipelines">
+     <img src="https://gitlab.com/the-maux/tipboard/badges/master/pipeline.svg" alt="Gitlab"></a>
+    <a href="https://tipboard.readthedocs.io/">
+     <img alt="ReadTheDocs" src="https://readthedocs.org/projects/tipboard/badge/?version=latest"></a>  
+</br>
 <a href="https://codebeat.co/projects/github-com-the-maux-tipboard-develop"><img alt="codebeat badge" src="https://codebeat.co/badges/9505d595-5b06-46bb-b7c6-1623090fc2f5" /></a>
     <a href="">
      <img alt="Code Quality" src="https://api.codeclimate.com/v1/badges/d8974fc0be8e2b0d4c88/maintainability"></a>
