@@ -11,7 +11,7 @@ UnknownRenderer.prototype.constructor = UnknownRenderer;
 // Define UnknownUpdateFunction exceptions definition
 var UnknownUpdateFunction = function (tileType) {
     this.name = "UnknownUpdateFunction";
-    this.message = "Couldn't find update function for: " + tileType;
+        this.message = "Couldn't find update function for: " + tileType;
 };
 UnknownUpdateFunction.prototype = new Error();
 

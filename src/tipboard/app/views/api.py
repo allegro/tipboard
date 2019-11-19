@@ -5,7 +5,7 @@ from src.tipboard.app.properties import PROJECT_NAME, LAYOUT_CONFIG, REDIS_DB, L
 from src.tipboard.app.cache import getCache
 from src.tipboard.app.utils import getTimeStr, checkAccessToken
 from src.tipboard.app.ApiAntiRegression import updateDatav1tov2
-from src.tipboard.app.fake_data import buildFakeDataFromTemplate
+from src.tipboard.app.FakeData.fake_data import buildFakeDataFromTemplate
 
 
 cache = getCache()

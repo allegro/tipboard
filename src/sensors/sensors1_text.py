@@ -1,7 +1,7 @@
 import requests, time
 from src.tipboard.app.properties import TIPBOARD_URL
 from src.sensors.utils import end, buildConfigTile
-from src.tipboard.app.fake_data import getFakeText
+from src.tipboard.app.FakeData.fake_data import getFakeText
 
 NAME_OF_SENSORS = "text_exemple"
 TILE_TEMPLATE = "text"
