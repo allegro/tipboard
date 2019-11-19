@@ -87,7 +87,7 @@ function initWebsocketManager() {
 }
 
 
-function initTilesFliping() {
+function initTiles() {
     let flipContainers = $("div[id*=\"flip-time-\"]");
     $.each(flipContainers, function (idx, flippingContainer) {
         Tipboard.Dashboard.autoAddFlipClasses(flippingContainer);
@@ -108,17 +108,6 @@ function initTilesFliping() {
             }
         }, flipInterval);
         Tipboard.Dashboard.flipIds.push(flipIntervalId);
-    });
-}
-
-
-function initTiles() {
-    initTilesFliping();
-    // show tiles number (like: 1/3)
-    $.each($("body > div"), function (rowIdx, row) {
-        $.each($(row).children("div"), function (colIdx, col) {
-            Tipboard.Dashboard.addTilesCounter(col);
-        });
     });
 }
 
