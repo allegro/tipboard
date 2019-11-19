@@ -8,4 +8,4 @@ PyYAML==5.1.2
 redis==3.3.11
 requests==2.22.0
 apscheduler==3.6.3
-pytest==5.2.2
+pytest==5.2.4
