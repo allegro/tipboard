@@ -1,26 +1,18 @@
-
-// Definition of the Exception UnknownRenderer
-var UnknownRenderer = function (rendererName) {
-    this.name = "UnknownRederer";
-    this.message = "Renderer: '" + rendererName + "' not found";
-};
 window.Tipboard = {};
-UnknownRenderer.prototype = new Error();
-UnknownRenderer.prototype.constructor = UnknownRenderer;
 
 // Define UnknownUpdateFunction exceptions definition
-var UnknownUpdateFunction = function (tileType) {
+let UnknownUpdateFunction = function (tileType) {
     this.name = "UnknownUpdateFunction";
-        this.message = "Couldn't find update function for: " + tileType;
+    this.message = "Couldn't find update function for: " + tileType;
 };
 UnknownUpdateFunction.prototype = new Error();
 
 function getFlipTime(node) {
-    var classStr = $(node).attr("class");
+    let classStr = $(node).attr("class");
     // TODO: make this flip time CUSTOM
-    var flipTime = 4200;
+    let flipTime = 4200;
     $.each(classStr.split(" "), function (idx, val) {
-        var groups = /flip-time-(\d+)/.exec(val);
+        let groups = /flip-time-(\d+)/.exec(val);
         if (Boolean(groups) && groups.length > 1) {
             flipTime = groups[1];
             flipTime = parseInt(flipTime, 10) * 1000;
@@ -30,59 +22,53 @@ function getFlipTime(node) {
     return flipTime;
 }
 
+let initWebSocket = function initWebSocket() {
+    console.log("Initializing a new Web socket manager.");
+
+    let protocol = window.location.protocol === "https:" ? "wss://" : "ws://";
+
+    let websocket = new WebSocket(protocol + window.location.host + "/communication/websocket");
+    websocket.onopen = function (evt) {
+        websocket.send("first_connection:" + window.location.pathname);
+        console.log("Websocket: " + "first_connection:" + window.location.href)
+    };
+    websocket.onclose = function (evt) {
+        Tipboard.WebSocketManager.onClose(evt);
+    };
+    websocket.onmessage = function (evt) {
+        Tipboard.WebSocketManager.onMessage(evt);
+    };
+    websocket.onerror = function (evt) {
+        Tipboard.WebSocketManager.onError(evt);
+    };
+};
 
 /**
  *
- * @returns WebSocketManager
+ * @returns {init: init, onClose: onClose, onError: onError, onMessage: onMessage}
  */
 function initWebsocketManager() {
     return {
-
         onClose: function () {
-            console.log("Web socket closed. Restarting...");
             setTimeout(Tipboard.WebSocketManager.init.bind(this), 1000);
         },
 
         onMessage: function (evt) {
-            var tileData = JSON.parse(evt.data);
+            let tileData = JSON.parse(evt.data);
             if (tileData == null) {
                 console.log("Web socket received NULL data");
             } else {
                 console.log("Web socket received data: ", tileData);
-                var tileId = Tipboard.Dashboard.escapeId(tileData.id);
-                Tipboard.Dashboard.updateTile(
-                    tileId,
-                    tileData.tile_template,
-                    tileData.data,
-                    tileData.meta,
-                    tileData.modified);
-                }
+                Tipboard.Dashboard.updateTile(Tipboard.Dashboard.escapeId(tileData.id),
+                    tileData.tile_template, tileData.data, tileData.meta, tileData.modified);
+            }
         },
 
         onError: function (evt) {
             console.log("WebSocket error: " + evt.data);
         },
 
-        init: function () {
-            console.log("Initializing a new Web socket manager.");
-
-            var protocol = window.location.protocol === "https:" ? "wss://" : "ws://";
-
-            var websocket = new WebSocket(protocol + window.location.host + "/communication/websocket");
-            websocket.onopen = function (evt) {
-                websocket.send("first_connection:" + window.location.pathname);
-                console.log("Websocket: " + "first_connection:" + window.location.href)
-            };
-            websocket.onclose = function (evt) {
-                Tipboard.WebSocketManager.onClose(evt);
-            };
-            websocket.onmessage = function (evt) {
-                Tipboard.WebSocketManager.onMessage(evt);
-            };
-            websocket.onerror = function (evt) {
-                Tipboard.WebSocketManager.onError(evt);
-            };
-        }
+        init: initWebSocket
     };
 }
 
@@ -111,29 +97,19 @@ function initTiles() {
     });
 }
 
-// let addEvent = function(object, type, callback) {
-//     if (object != null && object.addEventListener) {
-//         object.addEventListener(type, callback, false);
-//     } else if (object != null && object.attachEvent) {
-//         object.attachEvent("on" + type, callback);
-//     } else if (object != null) {
-//         object["on" + type] = callback;
-//     }
-// };
-
 const getTitleForChartJSTitle = function (data) {
     try {
-        let basic = { display: false };
         if ((!("title" in data)) || (!("text" in data["title"]))) {
-            return basic;
-        } else {
             return {
-                display: true,
-                text: data["title"]["text"],
-                borderColor: ("borderColor" in data) ? data["borderColor"] : "rgba(255, 255, 255, 1)",
-                color: ("color" in data) ? data["color"] : "#FFFFFF"
+                display: false
             };
         }
+        return {
+            display: true,
+            text: data["title"]["text"],
+            borderColor: ("borderColor" in data) ? data["borderColor"] : "rgba(255, 255, 255, 1)",
+            color: ("color" in data) ? data["color"] : "#FFFFFF"
+        };
     } catch (e) { // catch start if data["title"] != dict in check (!("text" in data["title"]))
         return {
             display: true,
