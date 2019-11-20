@@ -1,10 +1,4 @@
-/**
- * Update the html of tile regarding the key to update
- * @param tileId id of tile in redis
- * @param dataToPut data to update
- * @param keysToUse list of key in tile, to update with dataToPut
- */
-let updateKeyOfTiles = function updateKeyOfTiles(tileId, dataToPut, keysToUse) {
+function extractKeyFromTiles(keysToUse, dataToPut) {
     // keysToUse*: list of keys, or string 'all', if 'all' then all keys used from *dataToPut*
     if (keysToUse === "all") {
         let allKeys = [];
@@ -15,6 +9,17 @@ let updateKeyOfTiles = function updateKeyOfTiles(tileId, dataToPut, keysToUse) {
         }
         keysToUse = allKeys;
     }
+    return keysToUse
+}
+
+/**
+ * Update the html of tile regarding the key to update
+ * @param tileId id of tile in redis
+ * @param dataToPut data to update
+ * @param keysToUse list of key in tile, to update with dataToPut
+ */
+let updateKeyOfTiles = function updateKeyOfTiles(tileId, dataToPut, keysToUse) {
+    keysToUse = extractKeyFromTiles(keysToUse, dataToPut);
     $.each(keysToUse, function (idx, key) {
         let value = dataToPut[key.toString()];
         if (typeof (value) != "undefined") {
@@ -24,7 +29,6 @@ let updateKeyOfTiles = function updateKeyOfTiles(tileId, dataToPut, keysToUse) {
                 console.log("WARN: Not found node with id: " + dstId);
             } else {
                 $(dst).text(value);
-                console.log(dstId + ": was updated");
             }
         } else {
             console.log("WARN: No key \"" + key + "\" in data", dataToPut);
@@ -40,9 +44,9 @@ let updateKeyOfTiles = function updateKeyOfTiles(tileId, dataToPut, keysToUse) {
  * @param meta
  */
 let updateTile = function (tileId, tileType, data, meta) {
-    console.log("Update tile: ", tileId);
     let tile = Tipboard.Dashboard.id2node(tileId);
     // destroy old graph
+    console.log('updateTile' + tileId);
     let chartObj = Tipboard.Dashboard.chartsIds[tileId.toString()];
     if (typeof chartObj === "object") {
         Tipboard.Dashboard.chartsIds[tileId.toString()].destroy();
@@ -63,11 +67,9 @@ let updateTile = function (tileId, tileType, data, meta) {
             $(nodes[0]).hide();
             $(nodes[1]).show();
             nodes = $(tile).find(".tile-content");
-            $(nodes[1]).html([
-                "Tile " + tileId + " configuration error:",
+            $(nodes[1]).html(["Tile " + tileId + " configuration error:",
                 err.name || "error name: n/a",
-                err.message || "error message: n/a",
-            ].join("<br>"));
+                err.message || "error message: n/a",].join("<br>"));
         });
     }
 };
