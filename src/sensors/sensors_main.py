@@ -17,19 +17,19 @@ from src.sensors.utils import end
 
 
 def launch_sensors(isTest=False):
-    sonde12(isTest)
-    sonde1(isTest)
-    sonde3(isTest)
-    sonde4(isTest)
-    sonde5(isTest)
-    sonde6(isTest)
-    sonde7(isTest)
+    # sonde1(isTest)
     sonde2(isTest)
-    sonde9(isTest)
-    sonde10(isTest)
-    sonde11(isTest)
-    sonde12(isTest)
-    sonde13(isTest)
+    # sonde3(isTest)
+    # sonde4(isTest)
+    # sonde5(isTest)
+    # sonde6(isTest)
+    # sonde7(isTest)
+    # sonde2(isTest)
+    # sonde9(isTest)
+    # sonde10(isTest)
+    # sonde11(isTest)
+    # sonde12(isTest)
+    # sonde13(isTest)
 
 
 def scheduleYourSensors():  # pragma: no cover

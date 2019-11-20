@@ -3,16 +3,11 @@ details:
 layout:
     - row_1_of_2:
 
-        - col_1_of_4 flip-time-1:
+        - col_1_of_4:
 
             - tile_template: pie_chart
               tile_id: pie_chartjs_ex
               title: pie chart
-              classes:
-
-            - tile_template: doughnut_chart
-              tile_id: doughnut_ex
-              title: doughnut
               classes:
 
         - col_1_of_4  flip-time-1:
@@ -26,6 +21,12 @@ layout:
               tile_id: radar_ex
               title: radar chart
               classes:
+
+            - tile_template: doughnut_chart
+              tile_id: doughnut_ex
+              title: doughnut
+              classes:
+
 
         - col_1_of_4 flip-time-1:
 

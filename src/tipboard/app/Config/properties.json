@@ -1,6 +1,6 @@
 {
   "TIPBOARD_TOKEN": "abd581219b534c21be6a3ebe7ae96fda",
-  "TIPBOARD_URL": "http://0.0.0.0:8080/api/v0.1/abd581219b534c21be6a3ebe7ae96fda",
+  "TIPBOARD_URL": "http://0.0.0.0:8080/api",
   "SUPER_SECRET_KEY": "8ukir02c$==m07u2icw)#0e7e9=2k2!iiapwga%qgcb*#z#mcf",
   "API_VERSION": "v0.1",
   "PROJECT_NAME": "tipboard-python3",

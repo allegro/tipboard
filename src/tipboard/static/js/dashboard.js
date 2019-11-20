@@ -5,17 +5,13 @@
  * @returns {*} Array of String with all 'key' to update
  */
 function extractKeyFromTiles(keysToUse, dataToPut) {
-    // keysToUse*: list of keys, or string 'all', if 'all' then all keys used from *dataToPut*
-    if (keysToUse === "all") {
-        let allKeys = [];
-        for (let data in dataToPut) {
-            if ({}.hasOwnProperty.call(dataToPut, data)) {
-                allKeys.push(data);
-            }
+    let allKeys = [];
+    for (let data in dataToPut) {
+        if ({}.hasOwnProperty.call(dataToPut, data)) {
+            allKeys.push(data);
         }
-        keysToUse = allKeys;
     }
-    return keysToUse
+    return allKeys;
 }
 
 /**
@@ -25,7 +21,9 @@ function extractKeyFromTiles(keysToUse, dataToPut) {
  * @param keysToUse list of key in tile, to update with dataToPut
  */
 let updateKeyOfTiles = function updateKeyOfTiles(tileId, dataToPut, keysToUse) {
-    keysToUse = extractKeyFromTiles(keysToUse, dataToPut);
+    if (keysToUse === "all") {// keysToUse*: list of keys, or string 'all', if 'all' then all keys used from *dataToPut*
+        keysToUse = extractKeyFromTiles(keysToUse, dataToPut);
+    }
     $.each(keysToUse, function (idx, key) {
         let value = dataToPut[key.toString()];
         if (typeof (value) != "undefined") {
@@ -70,7 +68,7 @@ let onTileError = function (err, tile, tileId) {
 let updateTile = function (tileId, tileType, data, meta) {
     let tile = Tipboard.Dashboard.id2node(tileId);
     try {
-        console.log('updateTile' + tileId);
+        console.log("updateTile" + tileId);
         let chartObj = Tipboard.Dashboard.chartsIds[tileId.toString()];
         if (typeof chartObj === "object") {
             Tipboard.Dashboard.chartsIds[tileId.toString()].destroy();// destroy old graph
@@ -85,7 +83,7 @@ let updateTile = function (tileId, tileType, data, meta) {
             }
         });
     } catch (err) {
-        onTileError(err, tile, tileId)
+        onTileError(err, tile, tileId);
     }
 };
 
@@ -106,11 +104,7 @@ let getUpdateFunction = function getUpdateFunction(tileType) {
             tileType = "line_chart";
             break;
     }
-    let fn = this.updateFunctions[tileType.toString()];
-    if (typeof fn !== "function") {
-        throw new Tipboard.Dashboard.UnknownUpdateFunction(tileType);
-    }
-    return fn;
+    return this.updateFunctions[tileType.toString()];
 };
 
 let autoAddFlipClasses = function (flippingContainer) {
@@ -136,10 +130,9 @@ let escapeId = function (id) {
     return id;
 };
 
-
 function initDashboard(Tipboard) {
-    Tipboard.Dashboard.id2node = id => $("#" + id)[0];
-    Tipboard.Dashboard.tile2id = tileNode => $(tileNode).attr("id");
+    Tipboard.Dashboard.id2node = (id) => $("#" + id)[0];
+    Tipboard.Dashboard.tile2id = (tileNode) => $(tileNode).attr("id");
     Tipboard.Dashboard.registerUpdateFunction = function (name, fn) {
         this.updateFunctions[name.toString()] = fn;
     };

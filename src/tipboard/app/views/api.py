@@ -40,48 +40,6 @@ def tile(request, tile_key, unsecured=False):  # TODO: "it's better to ask forgi
     raise Http404
 
 
-def update_tile_data(previousData, newData):
-    for key, value in newData.items():
-        if isinstance(value, dict) and key != 'data':
-            update_tile_data(previousData[key], value)
-        else:
-            previousData[key] = value
-    return previousData
-
-
-def push_tile(tile_id, tile_template, data, meta):  # pragma: no cover
-    tilePrefix = getRedisPrefix(tile_id)
-    if not redis.exists(tilePrefix):
-        buildFakeDataFromTemplate(tile_id, tile_template, cache)
-    cachedTile = json.loads(redis.get(tilePrefix))
-    cachedTile['data'] = update_tile_data(cachedTile['data'], json.loads(data))
-    cachedTile['modified'] = getIsoTime()
-    cachedTile['tile_template'] = tile_template
-    if meta is not None:  # TODO: Test the update meta
-        if meta.get('options') is not None:
-            cachedTile['meta']['options'].update(meta['options'])
-        elif meta.get('backgroundColor') is not None:
-            cachedTile['meta']['backgroundColor'].update(meta['backgroundColor'])
-    cache.set(tilePrefix, json.dumps(cachedTile))
-    return HttpResponse(f"{tile_id} data updated successfully. -> {json.dumps(cachedTile)}")
-
-
-def push(request, unsecured=False):  # pragma: no cover
-    """ Update the content of a tile(widget) """
-    if request.method == "POST":
-        if not checkAccessToken(method="POST", request=request, unsecured=unsecured):
-            return HttpResponse("API KEY incorrect", status=401)
-        if not request.POST.get("key", None) or \
-                not request.POST.get("data", None) or \
-                not request.POST.get("tile", None):
-            return HttpResponseBadRequest(f"Missing data")
-        return push_tile(request.POST.get("key", None),
-                         request.POST.get("data", None),
-                         request.POST.get("tile", None),
-                         request.POST.get("meta", None))
-    raise Http404
-
-
 def update_tile_meta(request, tilePrefix, tile_key):  # pragma: no cover
     cachedTile = json.loads(redis.get(tilePrefix))
     options = json.loads(request.body.decode("utf-8"))
@@ -144,6 +102,51 @@ def projectInfo(request):  # pragma: no cover
             'redis_db': REDIS_DB,
         }
         return JsonResponse(response)
+    raise Http404
+
+
+def update_tile_data(previousData, newData):
+    for key, value in newData.items():
+        if isinstance(value, dict) and key != 'data' and key in previousData:
+            update_tile_data(previousData[key], value)
+        else:
+            previousData[key] = value
+    return previousData
+
+
+def push_tile(tile_id, tile_template, data, meta):  # pragma: no cover
+    tilePrefix = getRedisPrefix(tile_id)
+    if not redis.exists(tilePrefix):
+        buildFakeDataFromTemplate(tile_id, tile_template, cache)
+    cachedTile = json.loads(redis.get(tilePrefix))
+    cachedTile['data'] = update_tile_data(cachedTile['data'], json.loads(data))
+    cachedTile['modified'] = getIsoTime()
+    cachedTile['tile_template'] = tile_template
+    if meta is not None:  # TODO: Test the update meta
+        if meta.get('options') is not None:
+            cachedTile['meta']['options'].update(meta['options'])
+        elif meta.get('backgroundColor') is not None:
+            cachedTile['meta']['backgroundColor'].update(meta['backgroundColor'])
+    cache.set(tilePrefix, json.dumps(cachedTile))
+    return HttpResponse(f"{tile_id} data updated successfully. -> {json.dumps(cachedTile)}")
+
+
+def push(request, unsecured=False):  # pragma: no cover
+    """ Update the content of a tile(widget) """
+    if request.method == "POST":
+        if not checkAccessToken(method="POST", request=request, unsecured=unsecured):
+            return HttpResponse("API KEY incorrect", status=401)
+        if not request.POST.get("key", None) or \
+                not request.POST.get("data", None) or \
+                not request.POST.get("tile", None):
+            return HttpResponseBadRequest(f"Missing data")
+        data = request.POST.get("data", None)
+        if 'data' in json.loads(data):
+            data = json.dumps(json.loads(data)['data'])
+        return push_tile(tile_id=request.POST.get("key", None),
+                         tile_template=request.POST.get("tile", None),
+                         data=data,
+                         meta=request.POST.get("meta", None))
     raise Http404
 
 

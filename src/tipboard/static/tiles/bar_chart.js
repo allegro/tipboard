@@ -8,8 +8,6 @@ function buildDatasets(data) {
             data: ('data' in dataset) ? dataset['data'] : [],
             backgroundColor: ('backgroundColor' in dataset) ? dataset['backgroundColor'] : predefinedColor[rcx++]
         };
-        console.log("new dataset:", datasetTmp);
-
         listOfDataset.push(datasetTmp);
     });
     return listOfDataset;
@@ -18,7 +16,6 @@ function buildDatasets(data) {
 function updateBarChartjs(tileId, data, meta, tileType) {
     console.log("bar_chartjs::type(" + tileType +")::updateTile::start");
     meta['options']['title'] = getTitleForChartJSTitle(data);
-    console.log('getTitleForChartJSTitle end');
     new Chart(document.getElementById(tileId + '-chart'), {
             type: (tileType === 'vbar_chart') ? 'bar' : 'horizontalBar',
             data: {

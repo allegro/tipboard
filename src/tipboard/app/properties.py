@@ -38,7 +38,7 @@ ALLOWED_TILES = ["text", "fancy_listing", "simple_percentage", "listing", "big_v
                  "doughnut_chart", "pie_chart", "radar_chart", "polararea_chart",  # ChartJS
                  "empty"]  # chartjs lib
 
-
+COLOR_TAB = ['rgba(62, 149, 205, 0.8)', 'rgba(114, 191, 68, 0.8)']
 TIPBOARD_CSS_STYLES = [
     'css/layout.css',
 ]

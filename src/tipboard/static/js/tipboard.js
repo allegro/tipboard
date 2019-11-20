@@ -1,12 +1,5 @@
 window.Tipboard = {};
 
-// Define UnknownUpdateFunction exceptions definition
-let UnknownUpdateFunction = function (tileType) {
-    this.name = "UnknownUpdateFunction";
-    this.message = "Couldn't find update function for: " + tileType;
-};
-UnknownUpdateFunction.prototype = new Error();
-
 function getFlipTime(node) {
     let classStr = $(node).attr("class");
     // TODO: make this flip time CUSTOM
@@ -103,23 +96,33 @@ function initTiles() {
 }
 
 /**
- *
+ * detect when no title & when title is in dict
  * @param data
  * @returns {*}
  */
-const getTitleForChartJSTitle = function (data) {
-    try {
-        if ((!("title" in data)) || (!("text" in data["title"]))) {
-            return {
-                display: false
-            };
-        }
+function getTitleForChartJSTitleAsString(data) {
+    if (!((!("title" in data)) || (!("text" in data["title"])))) {
+        return {
+            display: false
+        };
+    } else {
         return {
             display: true,
             text: data["title"]["text"],
             borderColor: ("borderColor" in data) ? data["borderColor"] : "rgba(255, 255, 255, 1)",
             color: ("color" in data) ? data["color"] : "#FFFFFF"
         };
+    }
+}
+
+/**
+ * Extract tile depending the type of the data
+ * @param data
+ * @returns {*}
+ */
+const getTitleForChartJSTitle = function (data) {
+    try {
+        getTitleForChartJSTitleAsString(data);
     } catch (e) { // catch start if data["title"] != dict in check (!("text" in data["title"]))
         return {
             display: true,
@@ -150,7 +153,6 @@ const getTitleForChartJSTitle = function (data) {
         updateFunctions: {},
         chartsIds: {},
     };
-    Tipboard.Dashboard.UnknownUpdateFunction = UnknownUpdateFunction;
     Tipboard.WebSocketManager = initWebsocketManager();
     initDashboard(Tipboard);
     Chart.defaults.global.defaultFontColor = "rgba(255, 255, 255, 0.83)";
@@ -162,4 +164,3 @@ const getTitleForChartJSTitle = function (data) {
         initTiles()
     });
 }($));
-

@@ -4,8 +4,8 @@ from src.sensors.utils import end, buildConfigTile
 from src.tipboard.app.FakeData.fake_data import getFakePieChart
 
 NAME_OF_SENSORS = "GET"
-TILE_TEMPLATE = "pie_chartjs_ex"
-TILE_ID = "pie_ex"
+TILE_TEMPLATE = "pie_chart"
+TILE_ID = "pie_chartjs_ex"
 
 
 def executeScriptToGetData():
@@ -24,6 +24,7 @@ def executeScriptToGetData():
 def sendDataToTipboard(data=None, tile_template=None, tile_id="", isTest=False):
     configTile = buildConfigTile(tile_id=tile_id, tile_template=tile_template, data=data)
     if not isTest:
+        print(TIPBOARD_URL + "/push")
         res = requests.post(TIPBOARD_URL + "/push", data=configTile)
         print(f"{res} -> {tile_id}: {res.text}", flush=True)
 

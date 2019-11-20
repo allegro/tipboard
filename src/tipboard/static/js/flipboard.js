@@ -1,31 +1,10 @@
-function ready() {
-    console.log("Flipboard starting:");
-    $.ajax({
-        method: "post",
-        url: "/flipboard/getDashboardsPaths",
-        success: function (data) {
-            console.log("loading layout:" + data.paths);
-            Flipboard.init(data.paths);
-            Flipboard.showNextDashboard();
-            let flipInterval = $("iframe").attr("data-fliptime-interval");
-            if (parseInt(flipInterval, 10) > 0) {
-                setInterval(function () {
-                    Flipboard.showNextDashboard();
-                }, flipInterval * 1000);
-            }
-        },
-        error: function (request, textStatus, error) {
-            console.log(request, textStatus, error);
-            $(".error-message").html(["Error occured.", "For more details check javascript logs."].join("<br>"));
-            $("iframe").hide();
-            $(".error-wrapper").show();
-        }
-    });
-}
-
+/**
+ * show the next dashboard loaded from .yaml files
+ * @returns {boolean}
+ */
 let showNext = function showNextDashboard() {
-    let nextDashboardPath = this.getNextDashboardPath();
     $(".error-wrapper").hide();
+    let nextDashboardPath = this.getNextDashboardPath();
     let activeIframe = $($("iframe")[0]);
     if (nextDashboardPath === $(activeIframe).attr("src")) {
         console.log("same dashboard - SKIPPING");
@@ -38,8 +17,12 @@ let showNext = function showNextDashboard() {
         $(activeIframe).remove();
         $(clonedIframe).addClass("fadeIn");
     });
+    return true;
 };
 
+/**
+ * Init Flipboard object
+ */
 function initFlipboard() {
     window.Flipboard = {
         currentPathIdx: -1,
@@ -64,5 +47,29 @@ function initFlipboard() {
 
 (function ($) {
     initFlipboard();
-    $(document).ready(ready());
+    $(document).ready(
+        function () {
+            $.ajax({
+                method: "post",
+                url: "/flipboard/getDashboardsPaths",
+                success: function (data) {
+                    console.log("loading layout:" + data.paths);
+                    Flipboard.init(data.paths);
+                    Flipboard.showNextDashboard();
+                    let flipInterval = $("iframe").attr("data-fliptime-interval");
+                    if (parseInt(flipInterval, 10) > 0) {
+                        setInterval(function () {
+                            Flipboard.showNextDashboard();
+                        }, flipInterval * 1000);
+                    }
+                },
+                error: function (request, textStatus, error) {
+                    console.log(request, textStatus, error);
+                    $(".error-message").html(["Error occured.", "For more details check javascript logs."].join("<br>"));
+                    $("iframe").hide();
+                    $(".error-wrapper").show();
+                }
+            });
+        }
+    );
 }($));

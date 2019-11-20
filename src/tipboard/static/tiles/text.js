@@ -1,3 +1,10 @@
+/**
+ * Update text tile, font, color & value
+ * @param id
+ * @param data
+ * @param meta
+ * @param tileType
+ */
 function updateTileText(id, data, meta, tileType) {
     let tile = $("#" + id)[0];
     let containers = $(tile).find(id);

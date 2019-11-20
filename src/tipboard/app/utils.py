@@ -19,3 +19,15 @@ def checkAccessToken(method='GET', request=None, unsecured=False):
     except Exception:
         print(f"{getTimeStr()} (-) Access Token error: {key}")
     return False
+
+def buildBasicDataset(data=None, seriesNumber=1, borderColor=False):
+    if data is None:
+        data = []
+    dataset = dict()
+    dataset['data'] = data
+    dataset['label'] = f'Series {seriesNumber}'
+    if borderColor:
+        dataset['borderColor'] = COLOR_TAB[seriesNumber - 1]
+    else:
+        dataset['backgroundColor'] = COLOR_TAB[seriesNumber - 1]
+    return dataset
