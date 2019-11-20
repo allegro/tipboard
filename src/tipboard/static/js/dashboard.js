@@ -1,3 +1,9 @@
+/**
+ * extract the Html div id of value in tile
+ * @param keysToUse
+ * @param dataToPut
+ * @returns {*} Array of String with all 'key' to update
+ */
 function extractKeyFromTiles(keysToUse, dataToPut) {
     // keysToUse*: list of keys, or string 'all', if 'all' then all keys used from *dataToPut*
     if (keysToUse === "all") {
@@ -37,7 +43,25 @@ let updateKeyOfTiles = function updateKeyOfTiles(tileId, dataToPut, keysToUse) {
 };
 
 /**
- * destroy previous tile and create a new to refresh value
+ * Print a tile to indicate the type of error
+ * @param err Exception Object
+ * @param tile tile_template
+ * @param tileId id of tile
+ */
+let onTileError = function (err, tile, tileId) {
+    $.each([".tile-content"], function (idx, klass) {
+        let nodes = $(tile).find(klass);
+        $(nodes[0]).hide();
+        $(nodes[1]).show();
+        nodes = $(tile).find(".tile-content");
+        $(nodes[1]).html(["Tile " + tileId + " configuration error:",
+            err.name || "error name: n/a",
+            err.message || "error message: n/a",].join("<br>"));
+    });
+};
+
+/**
+ * Destroy previous tile and create a new to refresh value
  * @param tileId
  * @param tileType
  * @param data
@@ -45,14 +69,13 @@ let updateKeyOfTiles = function updateKeyOfTiles(tileId, dataToPut, keysToUse) {
  */
 let updateTile = function (tileId, tileType, data, meta) {
     let tile = Tipboard.Dashboard.id2node(tileId);
-    // destroy old graph
-    console.log('updateTile' + tileId);
-    let chartObj = Tipboard.Dashboard.chartsIds[tileId.toString()];
-    if (typeof chartObj === "object") {
-        Tipboard.Dashboard.chartsIds[tileId.toString()].destroy();
-    }
     try {
-        // its a ptr to function, calling the right update function for the right tile
+        console.log('updateTile' + tileId);
+        let chartObj = Tipboard.Dashboard.chartsIds[tileId.toString()];
+        if (typeof chartObj === "object") {
+            Tipboard.Dashboard.chartsIds[tileId.toString()].destroy();// destroy old graph
+        }
+        // ptr to function, call the tile update function
         Tipboard.Dashboard.getUpdateFunction(tileType)(tileId, data, meta, tileType);
         $.each([".tile-content"], function (idx, klass) {
             let node = $(tile).find(klass);
@@ -62,20 +85,12 @@ let updateTile = function (tileId, tileType, data, meta) {
             }
         });
     } catch (err) {
-        $.each([".tile-content"], function (idx, klass) {
-            let nodes = $(tile).find(klass);
-            $(nodes[0]).hide();
-            $(nodes[1]).show();
-            nodes = $(tile).find(".tile-content");
-            $(nodes[1]).html(["Tile " + tileId + " configuration error:",
-                err.name || "error name: n/a",
-                err.message || "error message: n/a",].join("<br>"));
-        });
+        onTileError(err, tile, tileId)
     }
 };
 
 /**
- * return the Js func for a specific tile_template
+ * Return the Js func for a specific tile_template
  * @param tileType tile_template name
  * @returns {Function} js func to update html tile
  */
@@ -108,7 +123,7 @@ let autoAddFlipClasses = function (flippingContainer) {
 };
 
 /**
- * the Tipboard application allows user to use eg. '.' in tiles' ids, jquery requires such chars to be escaped
+ * Tipboard application allows user to use eg. '.' in tiles' ids, jquery requires such chars to be escaped
  * @param id
  * @returns {*}
  */
@@ -133,6 +148,4 @@ function initDashboard(Tipboard) {
     Tipboard.Dashboard.updateTile = updateTile;
     Tipboard.Dashboard.getUpdateFunction = getUpdateFunction;
     Tipboard.Dashboard.autoAddFlipClasses = autoAddFlipClasses;
-
-
 }

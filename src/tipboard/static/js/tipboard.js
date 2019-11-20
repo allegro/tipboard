@@ -22,6 +22,9 @@ function getFlipTime(node) {
     return flipTime;
 }
 
+/**
+ * Config the WebSocket Object
+ */
 let initWebSocket = function initWebSocket() {
     console.log("Initializing a new Web socket manager.");
 
@@ -44,7 +47,7 @@ let initWebSocket = function initWebSocket() {
 };
 
 /**
- *
+ * Init the WebSocket Interface
  * @returns {init: init, onClose: onClose, onError: onError, onMessage: onMessage}
  */
 function initWebsocketManager() {
@@ -72,7 +75,9 @@ function initWebsocketManager() {
     };
 }
 
-
+/**
+ * Init flip behavior for every tiles
+ */
 function initTiles() {
     let flipContainers = $("div[id*=\"flip-time-\"]");
     $.each(flipContainers, function (idx, flippingContainer) {
@@ -97,6 +102,11 @@ function initTiles() {
     });
 }
 
+/**
+ *
+ * @param data
+ * @returns {*}
+ */
 const getTitleForChartJSTitle = function (data) {
     try {
         if ((!("title" in data)) || (!("text" in data["title"]))) {
@@ -119,13 +129,9 @@ const getTitleForChartJSTitle = function (data) {
     }
 };
 
-
 /**
- *  Main function of tipboard.js
- *  Define the Palette object used for custom color
- *  Define the WebsocketClient connection (how to update tile by websocket)
- *  Define the Dashboard object behavior (flip time, register tiles func, etc)
- *  Define the $(document).ready(function()
+ * Main function of tipboard.js
+ * Define the $(document).ready(function()
  */
 (function ($) {
     // var x = window.matchMedia("(max-width: 500px)");
