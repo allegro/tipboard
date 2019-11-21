@@ -30,7 +30,14 @@ def sendBVColor(color, tile, fading=False):  # pragma: no cover
 
 def buildConfigTile(tile_id, tile_template, data):
     return {
-        "tile": tile_template, #tile_template name
-        "key": tile_id, #tile_template name
+        "tile": tile_template,  # tile_template name
+        "key": tile_id,  # tile_template name
         "data": json.dumps(data)
     }
+
+
+def sendDataToTipboard(data=None, tile_template=None, tile_id="", isTest=False):
+    configTile = buildConfigTile(tile_id=tile_id, tile_template=tile_template, data=data)
+    if not isTest:
+        res = requests.post(TIPBOARD_URL + "/push", data=configTile)
+        print(f"{getTimeStr()}:{res} -> {tile_id}: {res.text}", flush=True)

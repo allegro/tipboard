@@ -1,4 +1,4 @@
-import datetime, time
+import time
 from apscheduler.schedulers.blocking import BlockingScheduler
 from src.sensors.sensors1_text import sonde1
 from src.sensors.sensors2_piechart import sonde2
@@ -10,9 +10,8 @@ from src.sensors.sensors7_barchart import sonde7
 from src.sensors.sensors8_fancylisting import sonde8
 from src.sensors.sensors9_bigvalue import sonde9
 from src.sensors.sensors10_justvalue import sonde10
-from src.sensors.sensors11_advancedplot import sonde11
-from src.sensors.sensors12_normchart import sonde12
-from src.sensors.sensors13_regression import sonde13
+# from src.sensors.sensors12_normchart import sonde12
+# from src.sensors.sensors13_regression import sonde13
 from src.sensors.utils import end
 
 
@@ -45,7 +44,7 @@ def scheduleYourSensors():  # pragma: no cover
     scheduler.add_job(sonde8, 'interval', hours=1, minutes=30, seconds=20)
     scheduler.add_job(sonde9, 'interval', hours=1, minutes=30)
     scheduler.add_job(sonde10, 'interval', hours=1)
-    scheduler.add_job(sonde11, 'interval', days=1, next_run_time=datetime.datetime.now())
+#    scheduler.add_job(sonde11, 'interval', days=1, next_run_time=datetime.datetime.now())
     print(f"(+) Tipboard starting schedul task", flush=True)
     scheduler.start()
     return True

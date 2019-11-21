@@ -250,7 +250,7 @@ def getFakePolarareaChart(tile_id, template_name):
                         'color': ['#525252', '#525252', '#525252', '#525252', '#525252', '#525252', '#525252']
                     },
                     'angleLines': {'color': '#525252'},
-                    'ticks': {'display': False }
+                    'ticks': {'display': False}
                 }
             }
         }

@@ -1,6 +1,6 @@
-import requests, time
-from src.tipboard.app.properties import TIPBOARD_URL
-from src.sensors.utils import end, buildConfigTile
+import time
+from src.sensors.utils import end
+from src.sensors.utils import sendDataToTipboard
 
 NAME_OF_SENSORS = "fancy_listing"
 TILE_TEMPLATE = "fancy_listing"
@@ -14,13 +14,6 @@ def executeScriptToGetData():
         {"label": "My label 2", "text": "Dolor sit", "description": "yet another"},
         {"label": "My label 3", "text": "Amet", "description": ""}
     ]
-
-
-def sendDataToTipboard(data=None, tile_template=None, tile_id="", isTest=False):
-    configTile = buildConfigTile(tile_id=tile_id, tile_template=tile_template, data=data)
-    if not isTest:
-        res = requests.post(TIPBOARD_URL + "/push", data=configTile)
-        print(f"{res} -> {tile_id}: {res.text}", flush=True)
 
 
 def sonde8(isTest):

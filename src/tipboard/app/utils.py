@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from datetime import datetime
 from src.tipboard.app.properties import API_KEY
+from src.tipboard.app.properties import COLOR_TAB
 
 
 def getTimeStr():
@@ -19,6 +20,7 @@ def checkAccessToken(method='GET', request=None, unsecured=False):
     except Exception:
         print(f"{getTimeStr()} (-) Access Token error: {key}")
     return False
+
 
 def buildBasicDataset(data=None, seriesNumber=1, borderColor=False):
     if data is None:

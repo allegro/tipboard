@@ -23,8 +23,8 @@ def getDataLikeTipboard2():
 
 def sendDataToTipboard2(data=None, tile_template=None, tile_id="", isTest=False):
     configTile = {
-        "tile": tile_template, #tile_template name
-        "key": tile_id, #tile_template name
+        "tile": tile_template,  # tile_template name
+        "key": tile_id,  # tile_template name
         "data": json.dumps(data)
     }
     if not isTest:
@@ -44,8 +44,8 @@ def getDataLikeTipboard1():
 
 def sendDataToTipboard1(data=None, tile_template=None, tile_id="", isTest=False):
     configTile = {
-        "tile": tile_template, #tile_template name
-        "key": tile_id, #tile_template name
+        "tile": tile_template,  # tile_template name
+        "key": tile_id,  # tile_template name
         "data": json.dumps(data)
     }
     res = requests.post(TIPBOARD_URL + "/push", data=configTile)
@@ -64,4 +64,4 @@ def sonde13(isTest=False):
 
     end(title=f"sensors Test Regression -> {TILE_ID}", start_time=start_time)
 
-#Tester si la maniere de push en Tipboard 1.0 est toujours ok
+# Tester si la maniere de push en Tipboard 1.0 est toujours ok

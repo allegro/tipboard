@@ -25,7 +25,7 @@ def updateDatav1tov2_norm(data):
     elif 'title' in data:
         title = data['title']
         del data['title']
-        data['title'] = {'text': title,'display': True}
+        data['title'] = {'text': title, 'display': True}
     else:
         data['title'] = {'text': '', 'display': False}
     return json.dumps(data)
