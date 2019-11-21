@@ -1,4 +1,4 @@
-name: Tipboard test by Github
+name: Flake8 check by Github
 
 on: [push]
 
