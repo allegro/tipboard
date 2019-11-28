@@ -44,20 +44,11 @@ function getGenericColor(Palette) {
  * @param fading
  */
 initFading = function (node, color, fading) {
-    if (typeof color === "undefined" && typeof fading === "undefined") {
-        node.style.backgroundColor = "rgba(0, 0, 0, 0)";
-        node.classList.remove("fading-background-color");
+    node.style.backgroundColor = color;
+    if (fading === true) {
+        node.classList.add("fading-background-color");
     } else {
-        if (typeof color === "undefined") {
-            color = node.style.backgroundColor;
-        }
-        node.style.backgroundColor = color;
-        if (fading === true) {
-            node.classList.add("fading-background-color");
-        }
-        if (fading === false) {
-            node.classList.remove("fading-background-color");
-        }
+        node.classList.remove("fading-background-color");
     }
 };
 

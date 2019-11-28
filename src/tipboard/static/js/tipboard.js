@@ -101,18 +101,17 @@ function initTiles() {
  * @returns {*}
  */
 function getTitleForChartJSTitleAsString(data) {
-    if (!((!("title" in data)) || (!("text" in data["title"])))) {
+    if (!((!("title" in data)) || (!("text" in data["title"])))) { // # Codacy quality
         return {
             display: false
         };
-    } else {
-        return {
-            display: true,
-            text: data["title"]["text"],
-            borderColor: ("borderColor" in data) ? data["borderColor"] : "rgba(255, 255, 255, 1)",
-            color: ("color" in data) ? data["color"] : "#FFFFFF"
-        };
     }
+    return {
+        display: true,
+        text: data["title"]["text"],
+        borderColor: ("borderColor" in data) ? data["borderColor"] : "rgba(255, 255, 255, 1)",
+        color: ("color" in data) ? data["color"] : "#FFFFFF"
+    };
 }
 
 /**

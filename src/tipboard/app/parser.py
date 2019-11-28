@@ -1,6 +1,6 @@
 import glob, os, yaml
 from src.tipboard.app import properties
-
+from src.tipboard.app.utils import getTimeStr
 
 class WrongSumOfRows(Exception):
     pass
@@ -92,15 +92,15 @@ def analyse_cols(tiles_dict, tiles_id, tiles_templates):
 
 def find_tiles_names(cols_data):
     tiles_templates, tiles_id = list(), list()
+    print(f"{getTimeStr()} (+) Parsing Config file")
     for col_dict in cols_data:
-        for col_name, tiles_dict in col_dict.items():
+        for tiles_dict in list(col_dict.values()):
             analyse_cols(tiles_dict, tiles_id, tiles_templates)
     return tiles_templates, tiles_id
 
 
 def parse_xml_layout(layout_name='layout_config'):
     config_path = config_file_name2path(layout_name)
-    config = dict()
     try:
         with open(config_path, 'r') as layout_config:
             config = yaml.safe_load(layout_config)
@@ -109,12 +109,11 @@ def parse_xml_layout(layout_name='layout_config'):
             config_path += ".yaml"
         with open(config_path, 'r') as layout_config:
             config = yaml.safe_load(layout_config)
-    finally:
-        rows = [row for row in get_rows(config['layout'])]
-        cols = [col for col in [get_cols(row) for row in rows]]
-        cols_data = [colsValue for colsList in cols for colsValue in colsList]
-        config['tiles_names'], config['tiles_keys'] = find_tiles_names(cols_data)
-        return config
+    rows = [row for row in get_rows(config['layout'])]
+    cols = [col for col in [get_cols(row) for row in rows]]
+    cols_data = [colsValue for colsList in cols for colsValue in colsList]
+    config['tiles_names'], config['tiles_keys'] = find_tiles_names(cols_data)
+    return config
 
 
 def getSrcJssForTilesInLayout(tiles_name):
