@@ -1,6 +1,6 @@
 import glob, os, yaml
 from src.tipboard.app import properties
-from src.tipboard.app.utils import getTimeStr
+
 
 class WrongSumOfRows(Exception):
     pass

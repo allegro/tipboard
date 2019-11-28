@@ -1,3 +1,6 @@
+/**
+ * To see % inside the pie
+ */
 function buildPlugin() {
     return {
         labels: {

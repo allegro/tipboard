@@ -1,8 +1,7 @@
 function updateTileSimplePercentage(tileId, data, config, tileType) {
     Tipboard.Dashboard.setDataByKeys(tileId, data, "all");
-    // update background color regarding the config["fading_value"] if conf["fading_"] is true
-    // var highlighterNode = $("#" + tileId + "-big_value").parent();
-    // var tile = Tipboard.Dashboard.id2node(tileId);
+    Tipboard.Palette.applyFading(document.getElementById('body-' + tileId),
+        config['big_value_color'], config['fading_background'])
 }
 
 Tipboard.Dashboard.registerUpdateFunction("simple_percentage", updateTileSimplePercentage);

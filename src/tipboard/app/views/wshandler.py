@@ -3,16 +3,11 @@ from channels.generic.websocket import WebsocketConsumer
 from asgiref.sync import async_to_sync
 from src.tipboard.app.applicationconfig import getRedisPrefix
 from src.tipboard.app.cache import getCache
-from src.tipboard.app.properties import COLORS, JS_LOG_LEVEL, LOG
+from src.tipboard.app.properties import LOG
 from src.tipboard.app.FakeData.fake_data import buildFakeDataFromTemplate
 from src.tipboard.app.utils import getTimeStr
 
-
 cache = getCache()
-tipboard_helpers = {  # TODO: merge in properties.py
-    'color': COLORS,
-    'log_level': JS_LOG_LEVEL,
-}
 
 
 class WSConsumer(WebsocketConsumer):
@@ -64,5 +59,4 @@ class WSConsumer(WebsocketConsumer):
         data = json.loads(tileData)
         if isinstance(data, str):
             data = json.loads(data)
-        data['tipboard'] = tipboard_helpers
         self.send(text_data=json.dumps(data))

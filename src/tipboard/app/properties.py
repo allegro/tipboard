@@ -43,7 +43,7 @@ TIPBOARD_CSS_STYLES = [
     'css/layout.css',
 ]
 TIPBOARD_JAVASCRIPTS = [
-    'js/dashboard.js', 'js/tipboard.js'
+    'js/dashboard.js', 'js/palette.js', 'js/tipboard.js'
 ]
 
 # Javascript log level ('1' for 'standard', '2' for 'debug')
@@ -53,17 +53,3 @@ JS_LOG_LEVEL = 2
 FLIPBOARD_INTERVAL = 0
 # file name(s) of EXISTING layouts without extension, eg. ['layout_config']
 FLIPBOARD_SEQUENCE = []
-
-# Our default color palette
-COLORS = {
-    'black': '#000000',
-    'white': '#FFFFFF',
-    'tile_background': '#15282d',
-    'red': '#d50000',
-    'yellow': '#ffea00',
-    'green': '#00c853',
-    'blue': '#0091ea',
-    'violet': '#aa00ff',
-    'orange': '#ff6d00',
-    'naval': '#00bfa5',
-}

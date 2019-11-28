@@ -155,7 +155,7 @@ const getTitleForChartJSTitle = function (data) {
     };
     Tipboard.WebSocketManager = initWebsocketManager();
     initDashboard(Tipboard);
-    Chart.defaults.global.defaultFontColor = "rgba(255, 255, 255, 0.83)";
+    initPalette(Tipboard);
     $(document).ready(function () {
         console.log("Tipboard starting");
         //TODO: resize event

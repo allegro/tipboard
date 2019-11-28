@@ -1,4 +1,3 @@
-let predefinedColor = ['#303F9F', '#8BC34A', '#0288D1', '#E040FB', '#FF5722'];
 let predefinedLabel = ['label1', 'label2', 'label3', 'label4', 'label5'];
 let predefinedSeries = ['serie1', 'serie2', 'serie3', 'serie4', 'serie5'];
 
@@ -18,8 +17,10 @@ function updateDataset(data, tileType) {
             label: ('label' in dataset) ? dataset['label'] : predefinedLabel[rcx++],
             data: ('data' in dataset) ? dataset['data'] : [1, 2, 3, 4, 5],
             fill: (tileType === 'cumulative_flow'),
-            backgroundColor: ('backgroundColor' in dataset) ? dataset['backgroundColor'] : predefinedColor[rcx++],
-            borderColor: ('backgroundColor' in dataset) ? dataset['backgroundColor'] : predefinedColor[rcx++],
+            backgroundColor: ('backgroundColor' in dataset) ?
+                dataset['backgroundColor'] : Tipboard.Palette.tabColor[rcx++],
+            borderColor: ('backgroundColor' in dataset) ?
+                dataset['backgroundColor'] : Tipboard.Palette.tabColor[rcx++],
         };
         if (tileType === 'cumulative_flow') {
             tileData['trendlineLinear'] = {'lineStyle': 'dotted', 'width': 2}
@@ -36,7 +37,7 @@ function updateDataset(data, tileType) {
 }
 
 /**
- * This will update the line chart & the cummulative flow
+ * update the line_chart tile & the cummulative_flow tile
  */
 function updateTileLinejs(tileId, data, meta, tileType) {
     console.log("line_chartjs::updateTile::start" + tileId);

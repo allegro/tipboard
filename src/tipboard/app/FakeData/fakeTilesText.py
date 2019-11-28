@@ -77,7 +77,7 @@ def getFakeBigValue(tile_id, template_name):
         'tile_template': template_name,
         'meta': {
             'big_value_color': '#4CAF50',
-            'fading_background': False
+            'fading_background': True
         },
         'data': {
             'title': 'Title',
@@ -97,13 +97,13 @@ def getFakeJustValue(tile_id, template_name):
     return {
         'tile_template': template_name,
         'meta': {
-            'big_value_color': '#4CAF50',
-            'fading_background': False
+            'big_value_color': '#d50000',
+            'fading_background': True
         },
         'data': {
             'title': 'Title',
             'description': 'Description',
-            'just-value': '42'
+            'just-value': '51'
         },
         'modified': getIsoTime(),
         'id': tile_id
