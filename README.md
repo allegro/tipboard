@@ -17,28 +17,35 @@
     <a href="">
 </br>
     <a href="https://travis-ci.com/the-maux/tipboard">
-      <img alt="Travis" src="https://travis-ci.com/the-maux/tipboard.svg?branch=develop"></a>
+     <img alt="Travis" src="https://travis-ci.com/the-maux/tipboard.svg?branch=develop"></a>
     <a href="https://gitlab.com/the-maux/tipboard/pipelines">
      <img src="https://gitlab.com/the-maux/tipboard/badges/master/pipeline.svg" alt="Gitlab"></a>
     <a href="https://tipboard.readthedocs.io/">
      <img alt="ReadTheDocs" src="https://readthedocs.org/projects/tipboard/badge/?version=latest"></a>  
 </br>
-    <a href="https://semaphoreci.com/the-maux/tipboard">
-     <img alt="Semaphore" src="https://semaphoreci.com/api/v1/the-maux/tipboard/branches/wip/badge.svg"></a>
+   <a href="https://semaphoreci.com/the-maux/tipboard">
+    <img alt="Semaphore" src="https://semaphoreci.com/api/v1/the-maux/tipboard/branches/wip/badge.svg"></a>
+   <a href="https://codeclimate.com/github/the-maux/tipboard/code">
     <img alt="Code Coverage" src="https://api.codeclimate.com/v1/badges/d8974fc0be8e2b0d4c88/test_coverage"></a>
-     <a href="https://www.codacy.com/manual/the-maux/tipboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=the-maux/tipboard&amp;utm_campaign=Badge_Grade">
 </br>
-<a href="https://codebeat.co/projects/github-com-the-maux-tipboard-develop"><img alt="codebeat badge" src="https://codebeat.co/badges/9505d595-5b06-46bb-b7c6-1623090fc2f5" /></a>
-    <a href="">
+   <a href="https://www.codefactor.io/repository/github/the-maux/tipboard">
+     <img src="https://www.codefactor.io/repository/github/the-maux/tipboard/badge" alt="CodeFactor" /></a>
+   <a href="https://codebeat.co/projects/github-com-the-maux-tipboard-develop">
+     <img alt="codebeat badge" src="https://codebeat.co/badges/9505d595-5b06-46bb-b7c6-1623090fc2f5" /></a>
+   <a href="https://codeclimate.com/github/the-maux/tipboard/maintainability">
      <img alt="Code Quality" src="https://api.codeclimate.com/v1/badges/d8974fc0be8e2b0d4c88/maintainability"></a>
-    <a href="https://codeclimate.com/github/the-maux/tipboard/maintainability">
-     <img alt="Codacy" src="https://api.codacy.com/project/badge/Grade/b28af36f50584bd29612b66bc42ce0c3"></a>
 </br>
-    <a href="https://snyk.io/test/github/the-maux/tipboard?targetFile=requirements.txt">
-     <img alt="Snyk" src="https://snyk.io/test/github/the-maux/tipboard/badge.svg?targetFile=requirements.txt"></a>
-     <a href="https://pyup.io/account/repos/github/the-maux/tipboard/">
+   <a href="https://app.codacy.com/manual/the-maux/tipboard/dashboard?bid=14574464">
+     <img alt="Codacy" src="https://api.codacy.com/project/badge/Grade/b28af36f50584bd29612b66bc42ce0c3"></a>
+   <a href="https://deepscan.io/dashboard#view=project&tid=6043&pid=7901&bid=87511">
+     <img src="https://deepscan.io/api/teams/6043/projects/7901/branches/87511/badge/grade.svg" alt="DeepScan grade"></a>
+    <a href="https://bettercodehub.com">
+     <img src='https://bettercodehub.com/edge/badge/the-maux/tipboard?branch=develop'></a>
+</br>
+   <a href="https://snyk.io/test/github/the-maux/tipboard?targetFile=requirements.txt">
+    <img alt="Snyk" src="https://snyk.io/test/github/the-maux/tipboard/badge.svg?targetFile=requirements.txt"></a>
+   <a href="https://pyup.io/account/repos/github/the-maux/tipboard/">
     <img alt="PyUp" src="https://pyup.io/repos/github/the-maux/tipboard/shield.svg"></a>
-
 </br>
 </p>
 </p>
