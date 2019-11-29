@@ -101,11 +101,10 @@ function initTiles() {
  * @returns {*}
  */
 function getTitleForChartJSTitleAsString(data) {
-    if (!((!("title" in data)) || (!("text" in data["title"])))) { // # Codacy quality
+    if (!((!("title" in data)) || (!("text" in data["title"])))) // # Codacy quality
         return {
             display: false
         };
-    }
     return {
         display: true,
         text: data["title"]["text"],

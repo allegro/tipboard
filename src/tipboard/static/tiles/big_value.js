@@ -20,7 +20,7 @@ function updateTileBigValue(tileId, data, config, tileType) {
         description.className = "text-white";
     }
     Tipboard.Palette.applyFading(document.getElementById("body-" + tileId),
-        config["big_value_color"], config["fading_background"])
+        config["big_value_color"], config["fading_background"]);
 }
 
 Tipboard.Dashboard.registerUpdateFunction("big_value", updateTileBigValue);
