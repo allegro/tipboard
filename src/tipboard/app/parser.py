@@ -1,6 +1,7 @@
 import glob, os, yaml
 from src.tipboard.app import properties
 from src.tipboard.app.utils import getTimeStr
+from src.tipboard.app.properties import DEBUG
 
 
 class WrongSumOfRows(Exception):
@@ -84,7 +85,7 @@ def get_tiles_configs():
     return tiles_configs
 
 
-def analyse_cols(tiles_dict, tiles_id, tiles_templates):
+def analyse_cols(tiles_id, tiles_templates, tiles_dict):
     for tile_dict in tiles_dict:
         if tile_dict['tile_id'] not in tiles_id:
             tiles_id.append(tile_dict['tile_id'])
@@ -93,10 +94,12 @@ def analyse_cols(tiles_dict, tiles_id, tiles_templates):
 
 def find_tiles_names(cols_data):
     tiles_templates, tiles_id = list(), list()
-    print(f"{getTimeStr()} (+) Parsing Config file")
     for col_dict in cols_data:
         for tiles_dict in list(col_dict.values()):
-            analyse_cols(tiles_dict, tiles_id, tiles_templates)
+            analyse_cols(tiles_id, tiles_templates, tiles_dict)
+    if DEBUG:
+        print(f"{getTimeStr()} (+) Parsing Config file with {len(tiles_id)} tiles parsed "
+              f"and {len(tiles_templates)} tiles templates")
     return tiles_templates, tiles_id
 
 

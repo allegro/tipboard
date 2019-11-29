@@ -16,9 +16,9 @@ function buildDatasets(data) {
 }
 
 function updateBarChartjs(tileId, data, meta, tileType) {
-    console.log("bar_chartjs::type(" + tileType + ")::updateTile::start");
+    let chart = document.getElementById(tileId + '-chart');
     meta['options']['title'] = getTitleForChartJSTitle(data);
-    new Chart(document.getElementById(tileId + '-chart'), {
+    new Chart(chart, {
         type: (tileType === 'vbar_chart') ? 'bar' : 'horizontalBar',
         data: {
             labels: data['labels'],
@@ -26,7 +26,6 @@ function updateBarChartjs(tileId, data, meta, tileType) {
         },
         options: meta['options']
     });
-    console.log("bar_chartjs::type(" + tileType + ")::updateTile::end " + tileId);
 }
 
 Tipboard.Dashboard.registerUpdateFunction('bar_chart', updateBarChartjs);

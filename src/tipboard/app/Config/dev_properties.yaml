@@ -62,7 +62,7 @@ layout:
     - row_1_of_2:
         - col_1_of_4:
             - tile_template: simple_percentage
-              tile_id: sp_ex
+              tile_id: sp_ex2
               title: Percentage
               classes:
 

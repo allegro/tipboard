@@ -67,6 +67,6 @@ function initPalette(Tipboard) {
 
 /**
  ** Tu as ajouté la le fading et construit la base de la palette
- ** la big_value marche, mais pas les autres
+ ** la big_value marche, mais pas les autres (fir:ok chr: ko)
  **
 **/

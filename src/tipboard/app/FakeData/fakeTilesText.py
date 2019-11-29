@@ -6,7 +6,7 @@ def getFakeSimplePercentg(tile_id, template_name):
         'tile_template': template_name,
         'meta': {
             'big_value_color': '#4CAF50',
-            'fading_background': False
+            'fading_background': True
         },
         'data': {
             'title': 'Title',
@@ -49,7 +49,7 @@ def getFakeText(tile_id, template_name):
             'fading_background': False
         },
         'data': {
-            'text': 42
+            'text': 'Text from sensors'
         },
         'modified': getIsoTime(),
         'id': tile_id

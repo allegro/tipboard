@@ -35,7 +35,7 @@ function buildOption(meta) {
 
 function updateTilePiejs(tileId, data, meta, tileType) {
     let chart = document.getElementById(tileId + '-chart');
-    chart.style.paddingBottom = '10px';
+    chart.style.paddingBottom = '8%';
     new Chart(chart, {
         type: 'pie',
         data: {

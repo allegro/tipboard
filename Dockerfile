@@ -1,7 +1,6 @@
 FROM bitnami/python:3.7
 
 RUN apt-get update \
- && apt-get upgrade -y \
  && apt-get install redis-server sqlite3 -y --no-install-recommends \
  && apt-get clean \
  && rm -rf /var/lib/apt/lists/*

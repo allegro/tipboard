@@ -1,7 +1,7 @@
 import time, random
 from src.sensors.utils import end
 from src.tipboard.app.FakeData.fake_data import getFakePieChart
-from src.sensors.utils import sendDataToTipboard
+from src.sensors.utils import sendDataToTipboard, getTimeStr
 
 NAME_OF_SENSORS = "GET"
 TILE_TEMPLATE = "pie_chart"
@@ -22,7 +22,8 @@ def executeScriptToGetData():
 
 
 def sonde2(isTest):
+    print(f"{getTimeStr()} (+) Starting sensors 2", flush=True)
     start_time = time.time()
     data = executeScriptToGetData()
-    sendDataToTipboard(data, tile_template=TILE_TEMPLATE, tile_id=TILE_ID, isTest=isTest)
-    end(title=f"sensors2 -> {TILE_ID}", start_time=start_time)
+    tipboardAnswer = sendDataToTipboard(data, tile_template=TILE_TEMPLATE, tile_id=TILE_ID, isTest=isTest)
+    end(title=f"sensors2 -> {TILE_ID}", start_time=start_time, tipboardAnswer=tipboardAnswer, TILE_ID=TILE_ID)

@@ -1,6 +1,5 @@
 import time
-from src.sensors.utils import end
-from src.sensors.utils import sendDataToTipboard
+from src.sensors.utils import end, sendDataToTipboard, getTimeStr
 
 NAME_OF_SENSORS = "simple_percentage"
 TILE_TEMPLATE = "simple_percentage"
@@ -17,7 +16,8 @@ def executeScriptToGetData():
 
 
 def sonde5(isTest):
+    print(f"{getTimeStr()} (+) Starting sensors 5", flush=True)
     start_time = time.time()
     data = executeScriptToGetData()
-    sendDataToTipboard(data, tile_template=TILE_TEMPLATE, tile_id=TILE_ID, isTest=isTest)
-    end(title=f"sensors5 -> {TILE_ID}", start_time=start_time)
+    tipboardAnswer = sendDataToTipboard(data, tile_template=TILE_TEMPLATE, tile_id=TILE_ID, isTest=isTest)
+    end(title=f"sensors5 -> {TILE_ID}", start_time=start_time, tipboardAnswer=tipboardAnswer, TILE_ID=TILE_ID)

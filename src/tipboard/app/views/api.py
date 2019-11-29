@@ -7,7 +7,6 @@ from src.tipboard.app.utils import getTimeStr, checkAccessToken
 from src.tipboard.app.ApiAntiRegression import updateDatav1tov2
 from src.tipboard.app.FakeData.fake_data import buildFakeDataFromTemplate
 
-
 cache = getCache()
 redis = cache.redis
 
@@ -73,7 +72,7 @@ def isThereMetaUpdate(request, tile_id):  # pragma: no cover
     except Exception as e:
         if LOG:
             print(f"{getTimeStr()} (-) No meta value for update tile {tile_id}: {e}", flush=True)
-        return HttpResponseBadRequest(f"{tile_id} data updated successfully.")
+        return HttpResponseBadRequest(f"{tile_id} meta was not update (meta is missing)")
     return HttpResponse(f"{tile_id} data updated successfully.")
 
 
@@ -128,7 +127,8 @@ def push_tile(tile_id, tile_template, data, meta):  # pragma: no cover
         elif meta.get('backgroundColor') is not None:
             cachedTile['meta']['backgroundColor'].update(meta['backgroundColor'])
     cache.set(tilePrefix, json.dumps(cachedTile))
-    return HttpResponse(f"{tile_id} data updated successfully. -> {json.dumps(cachedTile)}")
+    return HttpResponse(f"{tile_id} data updated successfully.")
+    # return HttpResponse(f"{tile_id} data updated successfully." + f"-> {json.dumps(cachedTile)}" if DEBUG else "")
 
 
 def push(request, unsecured=False):  # pragma: no cover
