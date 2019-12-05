@@ -101,10 +101,11 @@ function initTiles() {
  * @returns {*}
  */
 function getTitleForChartJSTitleAsString(data) {
-    if (!((!("title" in data)) || (!("text" in data["title"])))) // # Codacy quality
+    if (!((!("title" in data)) || (!("text" in data["title"])))) { // # Codacy quality
         return {
             display: false
         };
+    }
     return {
         display: true,
         text: data["title"]["text"],
@@ -159,6 +160,6 @@ const getTitleForChartJSTitle = function (data) {
         //TODO: resize event
         Tipboard.WebSocketManager.init();
         setInterval(Tipboard.WebSocketManager.init.bind(Tipboard.WebSocketManager), Tipboard.Dashboard.wsSocketTimeout);
-        initTiles()
+        initTiles();
     });
 }($));
