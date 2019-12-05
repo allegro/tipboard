@@ -57,7 +57,6 @@ CORS_ALLOW_HEADERS = (
     'enctype',
 )
 
-LANGUAGE_CODE = 'fr-FR'
 TIME_ZONE = 'Europe/Paris'
 USE_I18N = True
 USE_L10N = True

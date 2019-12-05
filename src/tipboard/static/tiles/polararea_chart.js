@@ -1,7 +1,7 @@
 function updateTilePolararea(tileId, data, meta, tileType) {
     meta['options']['title'] = getTitleForChartJSTitle(data);
     let chart = document.getElementById(tileId + '-chart');
-    chart.style.paddingBottom = '4%';
+    chart.parentElement.style.paddingBottom = '10%';
     new Chart(chart, {
         type: 'polarArea',
         data: {

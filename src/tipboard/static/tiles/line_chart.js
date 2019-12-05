@@ -41,8 +41,10 @@ function updateDataset(data, tileType) {
  */
 function updateTileLinejs(tileId, data, meta, tileType) {
     console.log("line_chartjs::updateTile::start" + tileId);
+    let chart = document.getElementById(tileId + '-chart');
     meta['options']['title'] = getTitleForChartJSTitle(data);
-    new Chart(document.getElementById(tileId + '-chart'), {
+    chart.parentElement.style.paddingBottom = '8%';
+    new Chart(chart, {
         type: 'line',
         data: updateDataset(data, tileType),
         options: meta['options']

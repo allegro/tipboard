@@ -96,8 +96,8 @@ def getFakeBarChart(tile_id, template_name):
         },
         'meta': {
             'options': {
-                'responsive': True,
-                'maintainAspectRatio': False,
+                # 'responsive': True,
+                # 'maintainAspectRatio': False,
                 'legend': {'display': False},
                 'scales': {
                     'xAxes': [{'gridLines': {'color': '#525252'}}],
