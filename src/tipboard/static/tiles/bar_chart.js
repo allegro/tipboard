@@ -24,25 +24,26 @@ function buildDatasets(data) {
 
 function buildMeta(meta) {
     return {
-                'scale': {
-                    'gridLines': {
-                        'color': ['#525252', '#525252', '#525252', '#525252', '#525252', '#525252', '#525252']
-                    },
-                    'angleLines': {'color': '#525252'},
-                    'ticks': {'display': false}
+        'options': {
+            'scale': {
+                'gridLines': {
+                    'color': ['#525252', '#525252', '#525252', '#525252', '#525252', '#525252', '#525252']
                 },
-                'responsive': true,
-                'maintainAspectRatio': false,
-            };
-    // if (meta['options']['backgroundColor']) {
-    //
-    // }
-    // return meta['options'];
+                'angleLines': {'color': '#525252'},
+                'ticks': {'display': false}
+            },
+            'responsive': true,
+            'maintainAspectRatio': false,
+        }
+    }
 }
 
 function updateBarChartjs(tileId, data, meta, tileType) {
     let chart = document.getElementById(tileId + '-chart');
    // meta['options']['title'] = getTitleForChartJSTitle(data);
+    chart.parentElement.style.paddingBottom = '9%';
+    chart.height = '80%';
+    chart.widget = '100%';
     new Chart(chart, {
         type: (tileType === 'vbar_chart') ? 'bar' : 'horizontalBar',
         data: {

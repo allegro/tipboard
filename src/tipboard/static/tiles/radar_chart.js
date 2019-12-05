@@ -7,7 +7,7 @@
  */
 function updateTileRadarjs(tileId, data, meta, tileType) {
     let chart = document.getElementById(tileId + '-chart');
-    chart.parentElement.style.paddingBottom = '8%';
+    chart.parentElement.style.paddingBottom = '9%';
     meta['options']['title'] = getTitleForChartJSTitle(data);
     new Chart(chart, {
         type: (tileType === 'doughnut_chart') ? 'doughnut' : 'radar',
