@@ -95,22 +95,31 @@ function initTiles() {
     });
 }
 
+// function getTitleForChartJSTitleAsString(data) {
+//     if (!((!("title" in data)) || (!("text" in data["title"])))) { // # Codacy quality
+//         return {
+//             display: false
+//         };
+//     }
+//     return {
+//         display: true,
+//         text: data["title"]["text"],
+//         borderColor: ("borderColor" in data) ? data["borderColor"] : "rgba(255, 255, 255, 1)",
+//         color: ("color" in data) ? data["color"] : "#FFFFFF"
+//     };
+// }
+
 /**
- * detect when no title & when title is in dict
- * @param data
- * @returns {*}
+ * detect when no title & when title is in dict: affect values on specific tiles template type
+ * @param data: value from redis for tile
  */
 function getTitleForChartJSTitleAsString(data) {
-    if (!((!("title" in data)) || (!("text" in data["title"])))) { // # Codacy quality
-        return {
-            display: false
-        };
-    }
+    let isTitle = ((!("title" in data)) || (!("text" in data["title"])));
     return {
-        display: true,
-        text: data["title"]["text"],
-        borderColor: ("borderColor" in data) ? data["borderColor"] : "rgba(255, 255, 255, 1)",
-        color: ("color" in data) ? data["color"] : "#FFFFFF"
+        display: !isTitle,
+        text: (isTitle ? '' : data["title"]["text"]),
+        borderColor: (isTitle ? '': ("borderColor" in data) ? data["borderColor"] : "rgba(255, 255, 255, 1)"),
+        color: (isTitle ? '' : ("color" in data) ? data["color"] : "#FFFFFF")
     };
 }
 
