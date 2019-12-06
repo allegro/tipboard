@@ -1,11 +1,11 @@
-import requests, time, random
-from src.tipboard.app.properties import TIPBOARD_URL
-from src.sensors.utils import end, buildConfigTile
+import time, random
+from src.sensors.utils import end
 from src.tipboard.app.FakeData.fake_data import getFakePieChart
+from src.sensors.utils import sendDataToTipboard, getTimeStr
 
 NAME_OF_SENSORS = "GET"
-TILE_TEMPLATE = "pie_chartjs_ex"
-TILE_ID = "pie_ex"
+TILE_TEMPLATE = "pie_chart"
+TILE_ID = "pie_chartjs_ex"
 
 
 def executeScriptToGetData():
@@ -21,15 +21,9 @@ def executeScriptToGetData():
     return pieData
 
 
-def sendDataToTipboard(data=None, tile_template=None, tile_id="", isTest=False):
-    configTile = buildConfigTile(tile_id=tile_id, tile_template=tile_template, data=data)
-    if not isTest:
-        res = requests.post(TIPBOARD_URL + "/push", data=configTile)
-        print(f"{res} -> {tile_id}: {res.text}", flush=True)
-
-
 def sonde2(isTest):
+    print(f"{getTimeStr()} (+) Starting sensors 2", flush=True)
     start_time = time.time()
     data = executeScriptToGetData()
-    sendDataToTipboard(data, tile_template=TILE_TEMPLATE, tile_id=TILE_ID, isTest=isTest)
-    end(title=f"sensors2 -> {TILE_ID}", start_time=start_time)
+    tipboardAnswer = sendDataToTipboard(data, tile_template=TILE_TEMPLATE, tile_id=TILE_ID, isTest=isTest)
+    end(title=f"sensors2 -> {TILE_ID}", start_time=start_time, tipboardAnswer=tipboardAnswer, TILE_ID=TILE_ID)

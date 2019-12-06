@@ -1,6 +1,8 @@
 function updateTileNorm(tileId, data, meta, tileType) {
+    let chart = document.getElementById(tileId + '-chart');
     meta['options']['title'] = getTitleForChartJSTitle(data);
-    new Chart(document.getElementById(tileId + '-chart'), {
+    chart.parentElement.style.paddingBottom = '8%';
+    new Chart(chart, {
         type: 'line',
         data: {
             labels: data['labels'],

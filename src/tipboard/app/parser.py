@@ -1,7 +1,7 @@
-# -*- coding: utf-8 -*-
 import glob, os, yaml
-
 from src.tipboard.app import properties
+from src.tipboard.app.utils import getTimeStr
+from src.tipboard.app.properties import DEBUG
 
 
 class WrongSumOfRows(Exception):
@@ -85,17 +85,22 @@ def get_tiles_configs():
     return tiles_configs
 
 
-def find_tiles_names(layout):
-    name_list, key_list = [], []
-    for row in get_rows(layout):
-        for col in get_cols(row):
-            for tile_dict in list(col.values())[0]:
-                name = tile_dict['tile_template']
-                key = tile_dict['tile_id']
-                if key not in key_list:
-                    key_list.append(key)
-                    name_list.append(name)
-    return name_list, key_list
+def analyse_cols(tiles_id, tiles_templates, tiles_dict):
+    for tile_dict in tiles_dict:
+        if tile_dict['tile_id'] not in tiles_id:
+            tiles_id.append(tile_dict['tile_id'])
+            tiles_templates.append(tile_dict['tile_template'])
+
+
+def find_tiles_names(cols_data):
+    tiles_templates, tiles_id = list(), list()
+    for col_dict in cols_data:
+        for tiles_dict in list(col_dict.values()):
+            analyse_cols(tiles_id, tiles_templates, tiles_dict)
+    if DEBUG:
+        print(f"{getTimeStr()} (+) Parsing Config file with {len(tiles_id)} tiles parsed "
+              f"and {len(tiles_templates)} tiles templates")
+    return tiles_templates, tiles_id
 
 
 def parse_xml_layout(layout_name='layout_config'):
@@ -108,8 +113,10 @@ def parse_xml_layout(layout_name='layout_config'):
             config_path += ".yaml"
         with open(config_path, 'r') as layout_config:
             config = yaml.safe_load(layout_config)
-    layout = config['layout']
-    config['tiles_names'], config['tiles_keys'] = find_tiles_names(layout)
+    rows = [row for row in get_rows(config['layout'])]
+    cols = [col for col in [get_cols(row) for row in rows]]
+    cols_data = [colsValue for colsList in cols for colsValue in colsList]
+    config['tiles_names'], config['tiles_keys'] = find_tiles_names(cols_data)
     return config
 
 

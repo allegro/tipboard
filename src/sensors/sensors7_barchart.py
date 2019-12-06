@@ -1,6 +1,5 @@
-import requests, time
-from src.tipboard.app.properties import TIPBOARD_URL
-from src.sensors.utils import end, buildConfigTile
+import time
+from src.sensors.utils import end, sendDataToTipboard, getTimeStr
 
 NAME_OF_SENSORS = "bar_chart"
 TILE_TEMPLATE = "bar_chart"
@@ -17,15 +16,9 @@ def executeScriptToGetData():
     }
 
 
-def sendDataToTipboard(data=None, tile_template=None, tile_id="", isTest=False):
-    configTile = buildConfigTile(tile_id=tile_id, tile_template=tile_template, data=data)
-    if not isTest:
-        res = requests.post(TIPBOARD_URL + "/push", data=configTile)
-        print(f"{res} -> {tile_id}: {res.text}", flush=True)
-
-
 def sonde7(isTest):
+    print(f"{getTimeStr()} (+) Starting sensors 7", flush=True)
     start_time = time.time()
     data = executeScriptToGetData()
-    sendDataToTipboard(data, tile_template=TILE_TEMPLATE, tile_id=TILE_ID, isTest=isTest)
-    end(title=f"sensors7 -> {TILE_ID}", start_time=start_time)
+    tipboardAnswer = sendDataToTipboard(data, tile_template=TILE_TEMPLATE, tile_id=TILE_ID, isTest=isTest)
+    end(title=f"sensors7 -> {TILE_ID}", start_time=start_time, tipboardAnswer=tipboardAnswer, TILE_ID=TILE_ID)

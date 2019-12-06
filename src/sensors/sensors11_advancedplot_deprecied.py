@@ -1,6 +1,6 @@
 import requests, time
 from src.tipboard.app.properties import TIPBOARD_URL
-from src.sensors.utils import getTimeStr, end,buildConfigTile
+from src.sensors.utils import getTimeStr, end, buildConfigTile
 
 NAME_OF_SENSORS = "advanced_plot"
 TILE_TEMPLATE = "advanced_plot"

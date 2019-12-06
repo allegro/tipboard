@@ -87,7 +87,7 @@ h6 {
 
 .tile > .chart-container {
     position: relative;
-    height: 90%;
+    height: 95%;
 }
 
 @keyframes fading-background-color {

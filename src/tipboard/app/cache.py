@@ -3,7 +3,7 @@ import json, redis
 from asgiref.sync import async_to_sync
 from src.tipboard.app.parser import parse_xml_layout
 from src.tipboard.app.applicationconfig import getRedisPrefix, getIsoTime
-from src.tipboard.app.properties import REDIS_DB, REDIS_PASSWORD, REDIS_HOST, REDIS_PORT, LOCAL, LOG
+from src.tipboard.app.properties import REDIS_DB, REDIS_PASSWORD, REDIS_HOST, REDIS_PORT, LOG
 from src.tipboard.app.utils import getTimeStr
 from channels.layers import get_channel_layer
 
@@ -46,7 +46,7 @@ class MyCache:
         # if LOG:
         #     print(f"cache.get({tile_id})", flush=True)
         prefix = tile_id
-        if  self.isRedisConnected and self.redis.exists(prefix):
+        if self.isRedisConnected and self.redis.exists(prefix):
             return json.dumps(self.redis.get(prefix))
         if LOG:
             print(f"{getTimeStr()} (-) tile: {prefix} not found in redis", flush=True)

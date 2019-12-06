@@ -1,6 +1,5 @@
-import requests, time
-from src.tipboard.app.properties import TIPBOARD_URL
-from src.sensors.utils import getTimeStr, end, buildConfigTile
+import time
+from src.sensors.utils import end, sendDataToTipboard, getTimeStr
 
 NAME_OF_SENSORS = "cumuleflow"
 TILE_TEMPLATE = "cumulative_flow"
@@ -14,15 +13,9 @@ def executeScriptToGetData():
     return {"title": "My title:", "series_list": [label1, label2]}
 
 
-def sendDataToTipboard(data=None, tile_template=None, tile_id="", isTest=False):
-    configTile = buildConfigTile(tile_id=tile_id, tile_template=tile_template, data=data)
-    if not isTest:
-        res = requests.post(TIPBOARD_URL + "/push", data=configTile)
-        print(f"{getTimeStr()}:{res} -> {tile_id}: {res.text}", flush=True)
-
-
 def sonde4(isTest):
+    print(f"{getTimeStr()} (+) Starting sensors 4", flush=True)
     start_time = time.time()
     data = executeScriptToGetData()
-    sendDataToTipboard(data, tile_template=TILE_TEMPLATE, tile_id=TILE_ID, isTest=isTest)
-    end(title=f"sensors4 -> {TILE_ID}", start_time=start_time)
+    tipboardAnswer = sendDataToTipboard(data, tile_template=TILE_TEMPLATE, tile_id=TILE_ID, isTest=isTest)
+    end(title=f"sensors4 -> {TILE_ID}", start_time=start_time, tipboardAnswer=tipboardAnswer, TILE_ID=TILE_ID)

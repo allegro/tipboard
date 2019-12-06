@@ -1,6 +1,5 @@
 import json
-from src.tipboard.app.utils import getTimeStr
-from src.tipboard.app.FakeData.fakechartJS import buildBasicDataset
+from src.tipboard.app.utils import getTimeStr, buildBasicDataset
 
 
 def getLabel(data):
@@ -15,32 +14,20 @@ def updateDatav1tov2_norm(data):
         data['labels'] = getLabel(data)
         data['plot_data'][0] = [i[1] for i in data['plot_data'][0]]
         data['plot_data'][1] = [i[1] for i in data['plot_data'][1]]
-        line1 = buildBasicDataset(data=data['plot_data'][0], seriesNumber=1, borderColor=True)
-        line2 = buildBasicDataset(data=data['plot_data'][1], seriesNumber=2, borderColor=True)
-        data['datasets'].append(line1)
-        data['datasets'].append(line2)
-
+        data['datasets'].append(buildBasicDataset(data=data['plot_data'][0], seriesNumber=1, borderColor=True))
+        data['datasets'].append(buildBasicDataset(data=data['plot_data'][1], seriesNumber=2, borderColor=True))
         del data['plot_data']
     else:
         data['labels'] = [x for x in range(len(data['datasets'][0]))]
     if 'description' in data:
-        data['title'] = {
-            'text': data['description'],
-            'display': True
-        }
+        data['title'] = {'text': data['description'], 'display': True}
         del data['description']
     elif 'title' in data:
         title = data['title']
         del data['title']
-        data['title'] = {
-            'text': title,
-            'display': True
-        }
+        data['title'] = {'text': title, 'display': True}
     else:
-        data['title'] = {
-            'text': '',
-            'display': False
-        }
+        data['title'] = {'text': '', 'display': False}
     return json.dumps(data)
 
 
@@ -51,7 +38,7 @@ def updateDatav1tov2_linechart(tileData):
 def updateDatav1tov2_barchart(data):
     data['labels'] = data.pop('ticks')
     data['datasets'] = list()
-    if 'serie_list' in data['series_list']:
+    if 'serie_list' in data:
         for serie_list in data['series_list']:
             dataset = dict()
             dataset['data'] = serie_list
@@ -65,7 +52,7 @@ def updateDatav1tov2_piechart(data):
     data['pie_data_value'] = list()
     data['labels'] = list()
     data['pie_data_tag'] = list()
-    if 'pie_data' in data['pie_data']:
+    if 'pie_data' in data:
         for elem_pie_data in data['pie_data']:
             data['labels'].append(elem_pie_data[0])
             data['pie_data_value'].append(elem_pie_data[1])
