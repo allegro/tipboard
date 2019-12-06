@@ -5,26 +5,14 @@
  * @param meta
  * @param tileType
  */
-function updateTileText(id, data, meta, tileType) {
-    let tile = $("#" + id)[0];
-    let containers = $(tile).find(id);
-    if (containers.length !== 1) {
-        console.log("tile " + tile + "does not include ONE: " + "span.text-container");
+function updateTileText(tileId, data, meta, tileType) {
+    console.log("updateTileText::updateTile::start" + tileId);
+    let title = document.getElementById(tileId + '-title');
+    let body = document.getElementById(tileId + '-body');
+    if ("title" in data) {
+        title.innerHTML = data["title"];
     }
-    let nodeWithText = containers[0];
-    $(nodeWithText).html(data["text"]);
-
-    let textSelector = "#" + id + " .text-container";
-    if (meta.font_size) {
-        $(textSelector).css("font-size", meta.font_size);
-    }
-    if (meta.font_color) {
-        $(textSelector).css(
-            "color", Tipboard.DisplayUtils.replaceFromPalette(meta.font_color)
-        );
-    }
-    if (meta.font_weight) {
-        $(".text-container").css("font-weight", meta.font_weight);
-    }
+    body.innerHTML = data["text"];
 }
-Tipboard.Dashboard.updateFunctions["text"] = updateTileText;
+
+Tipboard.Dashboard.registerUpdateFunction('text', updateTileText);

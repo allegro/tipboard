@@ -136,16 +136,7 @@ const getTitleForChartJSTitle = function (data) {
  * Define the $(document).ready(function()
  */
 (function ($) {
-    // var x = window.matchMedia("(max-width: 500px)");
-    // if (x.matches) { // If media query matches
-    //     document.body.style.backgroundColor = "yellow";
-    // } else {
-    //     document.body.style.backgroundColor = "pink";
-    //
-    // }
-    //     addEvent(window, "resize", function (event) {
-    //         location.href = location.href; // location.reload(); is not working on firefox...
-    //     });
+
     Tipboard.Dashboard = {
         wsSocketTimeout: 900000,
         flipIds: [],
@@ -163,3 +154,13 @@ const getTitleForChartJSTitle = function (data) {
         initTiles();
     });
 }($));
+    // var x = window.matchMedia("(max-width: 500px)");
+    // if (x.matches) { // If media query matches
+    //     document.body.style.backgroundColor = "yellow";
+    // } else {
+    //     document.body.style.backgroundColor = "pink";
+    //
+    // }
+    //     addEvent(window, "resize", function (event) {
+    //         location.href = location.href; // location.reload(); is not working on firefox...
+    //     });
