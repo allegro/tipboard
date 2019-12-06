@@ -109,17 +109,21 @@ function initTiles() {
 //     };
 // }
 
+function isTitle(data) {
+    return ((!("title" in data)) || (!("text" in data["title"])));
+}
+
 /**
  * detect when no title & when title is in dict: affect values on specific tiles template type
  * @param data: value from redis for tile
  */
 function getTitleForChartJSTitleAsString(data) {
-    let isTitle = ((!("title" in data)) || (!("text" in data["title"])));
+    let isTitle = isTitle(data);
     return {
         display: !isTitle,
-        text: (isTitle ? '' : data["title"]["text"]),
-        borderColor: (isTitle ? '': ("borderColor" in data) ? data["borderColor"] : "rgba(255, 255, 255, 1)"),
-        color: (isTitle ? '' : ("color" in data) ? data["color"] : "#FFFFFF")
+        text: (isTitle ? "" : data["title"]["text"]),
+        borderColor: (isTitle ? "": ("borderColor" in data) ? data["borderColor"] : "rgba(255, 255, 255, 1)"),
+        color: (isTitle ? "" : ("color" in data) ? data["color"] : "#FFFFFF")
     };
 }
 
