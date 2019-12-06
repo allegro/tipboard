@@ -134,7 +134,6 @@ function initDashboard(Tipboard) {
     Tipboard.Dashboard.id2node = (id) => $("#" + id)[0];
     Tipboard.Dashboard.tile2id = (tileNode) => $(tileNode).attr("id");
     Tipboard.Dashboard.registerUpdateFunction = function (name, fn) {
-        console.log('registered: ' + name);
         this.updateFunctions[name.toString()] = fn;
     };
     Tipboard.Dashboard.escapeId = escapeId;
