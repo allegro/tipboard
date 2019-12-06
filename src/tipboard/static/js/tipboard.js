@@ -118,12 +118,12 @@ function isTitle(data) {
  * @param data: value from redis for tile
  */
 function getTitleForChartJSTitleAsString(data) {
-    let isTitle = isTitle(data);
+    let isTitleInTile = isTitle(data);
     return {
-        display: !isTitle,
-        text: (isTitle ? "" : data["title"]["text"]),
-        borderColor: (isTitle ? "": ("borderColor" in data) ? data["borderColor"] : "rgba(255, 255, 255, 1)"),
-        color: (isTitle ? "" : ("color" in data) ? data["color"] : "#FFFFFF")
+        display: !isTitleInTile,
+        text: (isTitleInTile ? "" : data["title"]["text"]),
+        borderColor: (isTitleInTile ? "": ("borderColor" in data) ? data["borderColor"] : "rgba(255, 255, 255, 1)"),
+        color: (isTitleInTile ? "" : ("color" in data) ? data["color"] : "#FFFFFF")
     };
 }
 
