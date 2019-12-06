@@ -95,55 +95,17 @@ function initTiles() {
     });
 }
 
-// function getTitleForChartJSTitleAsString(data) {
-//     if (!((!("title" in data)) || (!("text" in data["title"])))) { // # Codacy quality
-//         return {
-//             display: false
-//         };
-//     }
-//     return {
-//         display: true,
-//         text: data["title"]["text"],
-//         borderColor: ("borderColor" in data) ? data["borderColor"] : "rgba(255, 255, 255, 1)",
-//         color: ("color" in data) ? data["color"] : "#FFFFFF"
-//     };
-// }
-
-/**
- * detect when no title & when title is in dict: affect values on specific tiles template type
- * @param data: value from redis for tile
- */
-function getTitleForChartJSTitleAsString(data) {
-    let isTitle = (!("title" in data)) || (!("text" in data["title"]));
-    let titleValue = {
-        display: isTitle,
-        text: "",
-        borderColor: "",
-        color: ""
-    };
-    if (isTitle) {
-        titleValue['text'] = data["title"]["text"];
-        titleValue['borderColor'] = ("borderColor" in data) ? data["borderColor"] : "rgba(255, 255, 255, 1)";
-        titleValue['color'] = ("color" in data) ? data["color"] : "#FFFFFF";
-    }
-    return titleValue;
-}
-
 /**
  * Extract tile depending the type of the data
  * @param data
  * @returns {*}
  */
 const getTitleForChartJSTitle = function (data) {
-    try {
-        getTitleForChartJSTitleAsString(data);
-    } catch (e) { // catch start if data["title"] != dict in check (!("text" in data["title"]))
-        return {
-            display: true,
-            text: data["title"],
-            color: ("color" in data) ? data["color"] : "#FFFFFF"
-        };
-    }
+    return {
+        display: true,
+        text: data["title"],
+        color: ("color" in data) ? data["color"] : "#FFFFFF"
+    };
 };
 
 /**
