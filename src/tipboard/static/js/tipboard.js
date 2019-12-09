@@ -101,11 +101,16 @@ function initTiles() {
  * @returns {*}
  */
 const getTitleForChartJSTitle = function (data) {
-    return {
-        display: true,
-        text: data["title"],
-        color: ("color" in data) ? data["color"] : "#FFFFFF"
+    let title = {
+        display: false,
+        text: "",
     };
+    if (data !== null) {
+        title["display"] = true;
+        title["color"] = ("color" in data) ? data["color"] : "#FFFFFF";
+        title["text"] = data["title"]["text"];
+    }
+    return title
 };
 
 /**

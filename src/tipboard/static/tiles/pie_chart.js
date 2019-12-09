@@ -4,7 +4,7 @@
 function buildPlugin() {
     return {
         labels: {
-            fontColor: 'rgba(255, 255, 255, 0.80)',
+            fontColor: "rgba(255, 255, 255, 0.80)",
         },
         datalabels: {
             formatter: (value, ctx) => {
@@ -17,14 +17,22 @@ function buildPlugin() {
     };
 }
 
-function buildOption(meta) {
+function buildOption(data) {
+    let title = {
+        "display": false,
+        "text": ""
+    };
+    if ("title" in data) {
+        title["display"] = true;
+        title["text"] = data["title"]
+    }
     return {
         responsive: true,
         legend: {
             display: true,
-            position: 'top',
+            position: "top",
         },
-        title: getTitleForChartJSTitle(meta),
+        title: title,
         maintainAspectRatio: false,
         tooltips: {
             enabled: false
@@ -34,22 +42,22 @@ function buildOption(meta) {
 }
 
 function updateTilePiejs(tileId, data, meta, tileType) {
-    let chart = document.getElementById(tileId + '-chart');
-    chart.parentElement.style.paddingBottom = '10%';
+    let chart = document.getElementById(tileId + "-chart");
+    chart.parentElement.style.paddingBottom = "10%";
     new Chart(chart, {
-        type: 'pie',
+        type: "pie",
         data: {
-            labels: data['pie_data_tag'],
+            labels: data["pie_data_tag"],
             datasets: [{
-                label: data['label'],
-                backgroundColor: meta['backgroundColor'],
-                data: data['pie_data_value'],
-                borderColor: data['borderColor'],
-                borderWidth: data['borderWidth'],
+                label: data["label"],
+                backgroundColor: meta["backgroundColor"],
+                data: data["pie_data_value"],
+                borderColor: data["borderColor"],
+                borderWidth: data["borderWidth"],
             }]
         },
-        options: buildOption(meta)
+        options: buildOption(data)
     });
 }
 
-Tipboard.Dashboard.registerUpdateFunction('pie_chart', updateTilePiejs);
+Tipboard.Dashboard.registerUpdateFunction("pie_chart", updateTilePiejs);
