@@ -1,4 +1,4 @@
-import time
+import time, random
 from src.sensors.utils import end, sendDataToTipboard, getTimeStr
 
 NAME_OF_SENSORS = "listing"
@@ -6,16 +6,30 @@ TILE_TEMPLATE = "listing"
 TILE_ID = "listing_ex"
 
 
+def getItemExemple(index):
+    if index % 2 == 0:
+        return {
+            "items":
+                [f"Leader: {random.randrange(1, 5)}",
+                 f"Product Owner: {random.randrange(1, 2)}",
+                 f"Scrum Master: {random.randrange(1, 2)}",
+                 f"Developer: {random.randrange(1, 5)}"
+                 ]
+        }
+    else:
+        return {
+            "items":
+                [f"Major incident: {random.randrange(1, 5)}",
+                 f"N2 incident: {random.randrange(2, 50)}",
+                 f"+3month incident: {random.randrange(10, 59)}",
+                 f"Resolved incident: {random.randrange(1, 50)}"
+                 ]
+        }
+
+
 def executeScriptToGetData():
     """ Simulate some actions for text tile exemple"""
-    return {
-        "items":
-            ["Leader: 5",
-             "Product Owner: 0",
-             "Scrum Master: 3",
-             "Developer: 0"
-             ]
-    }
+    return getItemExemple(random.randrange(0, 3))
 
 
 def sonde6(isTest):

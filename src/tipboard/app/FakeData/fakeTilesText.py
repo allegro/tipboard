@@ -49,7 +49,7 @@ def getFakeText(tile_id, template_name):
             'fading_background': False
         },
         'data': {
-            'text': 'Text from sensors'
+            'text': 'Text auto generated'
         },
         'modified': getIsoTime(),
         'id': tile_id

@@ -1,4 +1,4 @@
-import time
+import time, random
 from src.sensors.utils import end, sendDataToTipboard, getTimeStr
 
 NAME_OF_SENSORS = "big_value"
@@ -8,18 +8,23 @@ TILE_ID = "bv_ex"
 
 def executeScriptToGetData():
     """ Simulate some actions for text tile exemple"""
+    ulv = random.randrange(42, 420)
+    llv = random.randrange(42, 420)
+    urv = random.randrange(42, 420)
+    lrv = ulv + llv + urv
+    bv = lrv - random.randrange(42)
     return {
-        "title": "Tickets",
-        "description": "number of blockers",
-        "big-value": "314",
-        "upper-left-label": "critical:",
-        "upper-left-value": "1020",
-        "lower-left-label": "major:",
-        "lower-left-value": "8609",
-        "upper-right-label": "minor:",
-        "upper-right-value": "7532",
-        "lower-right-label": "all:",
-        "lower-right-value": "19 853"
+        "title": "Sensors title",
+        "description": "Sensors description",
+        "big-value": random.randrange(214, 514),
+        "upper-left-label": "Critical:",
+        "upper-left-value": ulv,
+        "lower-left-label": "Major:",
+        "lower-left-value": llv,
+        "upper-right-label": "Minor:",
+        "upper-right-value": urv,
+        "lower-right-label": "All:",
+        "lower-right-value": lrv
     }
 
 

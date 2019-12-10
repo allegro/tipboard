@@ -1,4 +1,4 @@
-import time
+import time, random
 from src.sensors.utils import end, sendDataToTipboard, getTimeStr
 
 NAME_OF_SENSORS = "simple_percentage"
@@ -8,11 +8,14 @@ TILE_ID = "sp_ex"
 
 def executeScriptToGetData():
     """ Simulate some actions for text tile exemple"""
-    return {"title": "My title",
-            "subtitle": "My subtitle",
-            "big_value": "100%",
-            "left_label": "smaller label 1", "left_value": "50%",
-            "right_label": "smaller label 2", "right_value": "25%"}
+    lv = random.randrange(1, 49)
+    rl = random.randrange(1, 49)
+    bv = lv + rl
+    return {"title": "Sensor title",
+            "subtitle": "Sensor subtitle",
+            "big_value": f"{bv}%",
+            "left_label": "Random label 1", "left_value": f"{lv}%",
+            "right_label": "Random label 2", "right_value": f"{rl}%"}
 
 
 def sonde5(isTest):

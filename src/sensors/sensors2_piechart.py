@@ -16,8 +16,8 @@ def executeScriptToGetData():
     limit = 100 - value1
     value2 = random.randrange(10, limit)
     value3 = 100 - value2 - value1
-    pieData['data']['pie_data_value'] = [value1, value2, value3]
     pieData['data']['labels'] = ["Fake 1", "Fake 2", "Fake 3"]
+    pieData['data']['pie_data_value'] = [value1, value2, value3]
     return pieData
 
 

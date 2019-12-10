@@ -1,4 +1,4 @@
-import time
+import time, random
 from src.sensors.utils import end, sendDataToTipboard, getTimeStr
 
 NAME_OF_SENSORS = "GET"
@@ -9,9 +9,9 @@ TILE_ID = "jv_ex"
 def executeScriptToGetData():
     """ Simulate some actions for text tile exemple"""
     return {
-        "title": "Next release:",
-        "description": "(days remaining)",
-        "just-value": "23"
+        "title": "Sensors title",
+        "description": "Sensors description",
+        "just-value": random.randrange(0, 100)
     }
 
 
