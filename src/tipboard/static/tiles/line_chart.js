@@ -29,6 +29,7 @@ function updateDataset(data, tileType) {
         listOfDataset.push(datasetTmp);
         rcx = rcx + 1;
     });
+    console.log(listOfDataset);
     return {
         labels: ("labels" in data) ? data["labels"] : predefinedSeries,
         datasets: listOfDataset,

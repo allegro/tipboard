@@ -25,7 +25,7 @@ def sendDataToTipboard(data=None, tile_template=None, tile_id="", isTest=False):
         print(f"{getTimeStr()}:{res} -> {tile_id}: {res.text}", flush=True)
 
 
-def sonde11(isTest):
+def sonde11(isTest=False):
     start_time = time.time()
     data = executeScriptToGetData()
     sendDataToTipboard(data, tile_template=TILE_TEMPLATE, tile_id=TILE_ID, isTest=isTest)

@@ -28,22 +28,22 @@ layout:
               classes:
 
 
-        - col_1_of_4 flip-time-1:
+        - col_1_of_4:
 
-            - tile_template: vbar_chart
-              tile_id: vbarjs_ex
-              title: vertical bar
-              classes:
-
-            - tile_template: bar_chart
-              tile_id: barjs_ex
-              title: bar tile's
-              classes:
-
-            - tile_template: norm_chart
-              tile_id: normjs_ex
-              title: norm tile's
-              classes:
+#            - tile_template: vbar_chart
+#              tile_id: vbarjs_ex
+#              title: vertical bar
+#              classes:
+#
+#            - tile_template: bar_chart
+#              tile_id: barjs_ex
+#              title: bar tile's
+#              classes:
+#
+#            - tile_template: norm_chart
+#              tile_id: normjs_ex
+#              title: norm tile's
+#              classes:
 
             - tile_template: cumulative_flow
               tile_id: cfjs_ex

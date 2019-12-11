@@ -28,7 +28,7 @@ def executeScriptToGetData():
     }
 
 
-def sonde9(isTest):
+def sonde9(isTest=False):
     print(f"{getTimeStr()} (+) Starting sensors 9", flush=True)
     start_time = time.time()
     data = executeScriptToGetData()

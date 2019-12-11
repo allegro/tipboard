@@ -21,7 +21,7 @@ def executeScriptToGetData():
     return pieData
 
 
-def sonde2(isTest):
+def sonde2(isTest=False):
     print(f"{getTimeStr()} (+) Starting sensors 2", flush=True)
     start_time = time.time()
     data = executeScriptToGetData()

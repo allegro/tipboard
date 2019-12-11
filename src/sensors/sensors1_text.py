@@ -19,7 +19,7 @@ def sendDataToTipboard(data=None, tile_template=None, tile_id="", isTest=False):
         return requests.post(TIPBOARD_URL + "/push", data=configTile)
 
 
-def sonde1(isTest):
+def sonde1(isTest=False):
     print(f"----------------------------------------------------------------------------------------------", flush=True)
     print(f"{getTimeStr()} (+) Starting sensors 1", flush=True)
     start_time = time.time()

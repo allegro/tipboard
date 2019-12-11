@@ -36,7 +36,6 @@ def getFakeLineChart(tile_id, template_name):
                         'display': True,
                         'ticks': {
                             'beginAtZero': True,
-                            'max': 40
                         },
                         'gridLines': {
                             'color': '#525252',

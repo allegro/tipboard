@@ -32,7 +32,7 @@ def executeScriptToGetData():
     return getItemExemple(random.randrange(0, 3))
 
 
-def sonde6(isTest):
+def sonde6(isTest=False):
     print(f"{getTimeStr()} (+) Starting sensors 6", flush=True)
     start_time = time.time()
     data = executeScriptToGetData()

@@ -16,7 +16,7 @@ def executeScriptToGetData():
     ]
 
 
-def sonde8(isTest):
+def sonde8(isTest=False):
     start_time = time.time()
     data = executeScriptToGetData()
     sendDataToTipboard(data, tile_template=TILE_TEMPLATE, tile_id=TILE_ID, isTest=isTest)

@@ -18,7 +18,7 @@ def executeScriptToGetData():
             "right_label": "Random label 2", "right_value": f"{rl}%"}
 
 
-def sonde5(isTest):
+def sonde5(isTest=False):
     print(f"{getTimeStr()} (+) Starting sensors 5", flush=True)
     start_time = time.time()
     data = executeScriptToGetData()
