@@ -130,6 +130,17 @@ let escapeId = function (id) {
     return id;
 };
 
+let clearChartJsTile = function (chart) {
+    console.log("pop:labels:" + chart.data);
+    chart.data.labels.pop();
+    console.log("pop:datasets");
+    chart.data.datasets.forEach((dataset) => {
+        dataset.data.pop();
+    });
+    console.log("pop:update");
+    chart.update();
+};
+
 function initDashboard(Tipboard) {
     Tipboard.Dashboard.id2node = (id) => $("#" + id)[0];
     Tipboard.Dashboard.tile2id = (tileNode) => $(tileNode).attr("id");
@@ -141,4 +152,5 @@ function initDashboard(Tipboard) {
     Tipboard.Dashboard.updateTile = updateTile;
     Tipboard.Dashboard.getUpdateFunction = getUpdateFunction;
     Tipboard.Dashboard.autoAddFlipClasses = autoAddFlipClasses;
+    Tipboard.Dashboard.clearChartJsTile = clearChartJsTile;
 }

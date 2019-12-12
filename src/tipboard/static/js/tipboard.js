@@ -45,9 +45,8 @@ let initWebSocket = function initWebSocket() {
  */
 function initWebsocketManager() {
     return {
-        onClose: function () {
-            setTimeout(Tipboard.WebSocketManager.init.bind(this), 1000);
-        },
+
+        init: initWebSocket,
 
         onMessage: function (evt) {
             let tileData = JSON.parse(evt.data);
@@ -60,11 +59,34 @@ function initWebsocketManager() {
             }
         },
 
+        /**
+         * Test if server is back, when online starting again WS client
+         */
+        testApiAlive: function () {
+            const Http = new XMLHttpRequest();
+            const url = window.location.protocol + "/api/info";
+            Http.open("GET", url);
+            Http.onload = () => {
+                if (Http.status === 200) {
+                    Tipboard.WebSocketManager.init();
+                    Tipboard.WebSocketManager.init.bind(Tipboard.WebSocketManager);
+                }
+            };
+            Http.onerror = () => {
+                setTimeout(Tipboard.WebSocketManager.testApiAlive, 5000)
+            };
+            Http.send();
+        },
+
         onError: function (evt) {
             console.log("WebSocket error: " + evt.data);
         },
 
-        init: initWebSocket
+        onClose: function () {
+            console.log("WebSocket closed: Waiting the API to be back, every 5s");
+            setTimeout(Tipboard.WebSocketManager.testApiAlive, 5000)
+        },
+
     };
 }
 
@@ -95,6 +117,8 @@ function initTiles() {
     });
 }
 
+
+
 /**
  * Extract tile depending the type of the data
  * @param data
@@ -118,31 +142,19 @@ const getTitleForChartJSTitle = function (data) {
  * Define the $(document).ready(function()
  */
 (function ($) {
-
     Tipboard.Dashboard = {
         wsSocketTimeout: 900000,
         flipIds: [],
         updateFunctions: {},
         chartsIds: {},
     };
-    Tipboard.WebSocketManager = initWebsocketManager();
     initDashboard(Tipboard);
     initPalette(Tipboard);
+    Tipboard.WebSocketManager = initWebsocketManager();
     $(document).ready(function () {
         console.log("Tipboard starting");
-        //TODO: resize event
         Tipboard.WebSocketManager.init();
-        setInterval(Tipboard.WebSocketManager.init.bind(Tipboard.WebSocketManager), Tipboard.Dashboard.wsSocketTimeout);
+        Tipboard.WebSocketManager.init.bind(Tipboard.WebSocketManager);
         initTiles();
     });
 }($));
-    // var x = window.matchMedia("(max-width: 500px)");
-    // if (x.matches) { // If media query matches
-    //     document.body.style.backgroundColor = "yellow";
-    // } else {
-    //     document.body.style.backgroundColor = "pink";
-    //
-    // }
-    //     addEvent(window, "resize", function (event) {
-    //         location.href = location.href; // location.reload(); is not working on firefox...
-    //     });
