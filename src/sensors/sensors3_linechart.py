@@ -11,7 +11,7 @@ TILE_ID = "line_chartjs_ex"
 
 def executeScriptToGetData():
     """ Simulate some actions for text tile exemple"""
-    labelLenght = random.randrange(9, 23)
+    labelLenght = random.randrange(9, 100)
     data = dict()
     data['title'] = {
         "text": "LineChart sensors",

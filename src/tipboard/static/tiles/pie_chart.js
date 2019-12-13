@@ -1,3 +1,6 @@
+let chartElement = null;
+let chart = null;
+
 /**
  * To see % inside the pie
  */
@@ -41,10 +44,8 @@ function buildOption(data) {
     }
 }
 
-function updateTilePiejs(tileId, data, meta, tileType) {
-    let chart = document.getElementById(tileId + "-chart");
-    chart.parentElement.style.paddingBottom = "10%";
-    new Chart(chart, {
+function buildPieChart(data, meta) {
+    chart = new Chart(chartElement, {
         type: "pie",
         data: {
             labels: data["pie_data_tag"],
@@ -58,6 +59,20 @@ function updateTilePiejs(tileId, data, meta, tileType) {
         },
         options: buildOption(data)
     });
+}
+
+function updateTilePiejs(tileId, data, meta, tileType) {
+    console.log("piechart::type(" + tileType +")::updateTile start " + tileId);
+    if (chartElement == null) {
+        chartElement = document.getElementById(tileId + "-chart");
+        chartElement.parentElement.style.paddingBottom = "10%";
+        buildPieChart(chart, data, meta);
+    } else {
+        Tipboard.Dashboard.clearChartJsTile(chart);
+        chart.data = data;
+        chart.update();
+    }
+    console.log("piechart::type(" + tileType +")::updateTile end " + tileId);
 }
 
 Tipboard.Dashboard.registerUpdateFunction("pie_chart", updateTilePiejs);

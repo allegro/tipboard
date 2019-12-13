@@ -154,3 +154,6 @@ function initDashboard(Tipboard) {
     Tipboard.Dashboard.autoAddFlipClasses = autoAddFlipClasses;
     Tipboard.Dashboard.clearChartJsTile = clearChartJsTile;
 }
+// dans radar_chart, tu test l'update de chart sans faire de new Chart
+// tu envoyais le nodeElem, au lieu de l'object Chart
+// il faut affiner maintenant le remove & l'update

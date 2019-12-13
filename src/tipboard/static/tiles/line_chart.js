@@ -7,7 +7,6 @@ let predefinedSeries = ["serie1", "serie2", "serie3", "serie4", "serie5"];
  * @param tileType fillDataset = True || False => CumulativeFlow
  * @returns {{borderColor: string[], datasets: Array, labels: string[]}}
  */
-
 function updateDataset(data, tileType) {
     let listOfDataset = [];
     let rcx = 0;
@@ -55,3 +54,7 @@ function updateTileLinejs(tileId, data, meta, tileType) {
 
 Tipboard.Dashboard.registerUpdateFunction("line_chart", updateTileLinejs);
 
+/*
+    TODO: tu update les new Chart vs updateChart, '"
+    TODO: la radar marche, mais faut aporter la méchanique à toute les chartJS now
+ */

@@ -86,7 +86,6 @@ function initWebsocketManager() {
             console.log("WebSocket closed: Waiting the API to be back, every 5s");
             setTimeout(Tipboard.WebSocketManager.testApiAlive, 5000)
         },
-
     };
 }
 
@@ -116,8 +115,6 @@ function initTiles() {
         Tipboard.Dashboard.flipIds.push(flipIntervalId);
     });
 }
-
-
 
 /**
  * Extract tile depending the type of the data
@@ -151,10 +148,8 @@ const getTitleForChartJSTitle = function (data) {
     initDashboard(Tipboard);
     initPalette(Tipboard);
     Tipboard.WebSocketManager = initWebsocketManager();
-    $(document).ready(function () {
-        console.log("Tipboard starting");
-        Tipboard.WebSocketManager.init();
-        Tipboard.WebSocketManager.init.bind(Tipboard.WebSocketManager);
-        initTiles();
-    });
+    console.log("Tipboard starting");
+    Tipboard.WebSocketManager.init();
+    Tipboard.WebSocketManager.init.bind(Tipboard.WebSocketManager);
+    initTiles();
 }($));

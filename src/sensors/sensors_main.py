@@ -18,8 +18,8 @@ from src.sensors.utils import end
 
 
 def launch_sensors(isTest=False):
-    sonde14(isTest)
-    # scheduleYourSensors()  # If you need actualized data :)
+    #sonde14(isTest)
+    scheduleYourSensors()  # If you need actualized data :)
 
     # import sys
     # sys.exit(0)
@@ -46,7 +46,7 @@ def scheduleYourSensors():  # pragma: no cover
     #     scheduler.add_job(sonde7, 'interval', minutes=42)
     scheduler.add_job(sonde9, 'interval', seconds=5)
     scheduler.add_job(sonde10, 'interval', seconds=6)
-    scheduler.add_job(sonde14, 'interval', seconds=7)
+    scheduler.add_job(sonde14, 'interval', seconds=2)
     #     scheduler.add_job(sonde12, 'interval', days=1, next_run_time=datetime.datetime.now())
     #     print(f"(+) Tipboard starting schedul task", flush=True)
     scheduler.start()
