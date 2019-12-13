@@ -11,7 +11,7 @@ TILE_ID = "radar_ex"
 
 def executeScriptToGetData():
     """ Simulate some actions for text tile exemple"""
-    labelLenght = random.randrange(3, 11)
+    labelLenght = random.randrange(4, 11)
     data = dict()
     data['title'] = {
         "text": "RadarChart sensors",

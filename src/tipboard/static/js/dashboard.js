@@ -131,14 +131,28 @@ let escapeId = function (id) {
 };
 
 let clearChartJsTile = function (chart) {
-    console.log("pop:labels:" + chart.data);
-    chart.data.labels.pop();
-    console.log("pop:datasets");
-    chart.data.datasets.forEach((dataset) => {
-        dataset.data.pop();
-    });
-    console.log("pop:update");
-    chart.update();
+    let isUpdate = false;
+    if ("labels" in chart.data) {
+        console.log("pop:labels:" + chart.data.labels);
+        chart.data.labels.pop();
+        isUpdate = true;
+    }
+    if ("datasets" in chart.data) {
+        console.log("pop:datasets");
+        chart.data.datasets.forEach((dataset) => {
+            dataset.data.pop();
+        });
+        isUpdate = true;
+    }
+    if ("pie_data_value" in chart.data) {
+        console.log("pop:pie_data_value");
+        chart.data.pie_data_value.pop();
+        isUpdate = true;
+    }
+    if (isUpdate) {
+        console.log("pop:update");
+        chart.update();
+    }
 };
 
 function initDashboard(Tipboard) {

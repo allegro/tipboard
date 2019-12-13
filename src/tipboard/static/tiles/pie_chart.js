@@ -1,6 +1,3 @@
-let chartElement = null;
-let chart = null;
-
 /**
  * To see % inside the pie
  */
@@ -44,8 +41,9 @@ function buildOption(data) {
     }
 }
 
-function buildPieChart(data, meta) {
-    chart = new Chart(chartElement, {
+function buildPieChart(chartElement, data, meta) {
+    //TODO: Add concept for mutiple dataset
+    return new Chart(chartElement, {
         type: "pie",
         data: {
             labels: data["pie_data_tag"],
@@ -63,14 +61,16 @@ function buildPieChart(data, meta) {
 
 function updateTilePiejs(tileId, data, meta, tileType) {
     console.log("piechart::type(" + tileType +")::updateTile start " + tileId);
-    if (chartElement == null) {
-        chartElement = document.getElementById(tileId + "-chart");
+    if (!(tileId + '-chart' in Tipboard.chartJsTile)) {
+        console.log("piechart::type(" + tileType +")::create ChartJS " + tileId);
+        let chartElement = document.getElementById(tileId + "-chart");
         chartElement.parentElement.style.paddingBottom = "10%";
-        buildPieChart(chart, data, meta);
+        Tipboard.chartJsTile[tileId + '-chart'] = buildPieChart(chartElement, data, meta);
     } else {
-        Tipboard.Dashboard.clearChartJsTile(chart);
-        chart.data = data;
-        chart.update();
+        let chart = Tipboard.chartJsTile[tileId + '-chart'];
+        chart.data.datasets[0].labels = data.labels;
+        chart.data.datasets[0].data = data.pie_data_value;
+        Tipboard.chartJsTile[tileId + '-chart'].update();
     }
     console.log("piechart::type(" + tileType +")::updateTile end " + tileId);
 }

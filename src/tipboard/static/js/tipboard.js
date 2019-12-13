@@ -16,80 +16,6 @@ function getFlipTime(node) {
 }
 
 /**
- * Config the WebSocket Object
- */
-let initWebSocket = function initWebSocket() {
-    console.log("Initializing a new Web socket manager.");
-
-    let protocol = window.location.protocol === "https:" ? "wss://" : "ws://";
-
-    let websocket = new WebSocket(protocol + window.location.host + "/communication/websocket");
-    websocket.onopen = function (evt) {
-        websocket.send("first_connection:" + window.location.pathname);
-        console.log("Websocket: " + "first_connection:" + window.location.href)
-    };
-    websocket.onclose = function (evt) {
-        Tipboard.WebSocketManager.onClose(evt);
-    };
-    websocket.onmessage = function (evt) {
-        Tipboard.WebSocketManager.onMessage(evt);
-    };
-    websocket.onerror = function (evt) {
-        Tipboard.WebSocketManager.onError(evt);
-    };
-};
-
-/**
- * Init the WebSocket Interface
- * @returns {init: init, onClose: onClose, onError: onError, onMessage: onMessage}
- */
-function initWebsocketManager() {
-    return {
-
-        init: initWebSocket,
-
-        onMessage: function (evt) {
-            let tileData = JSON.parse(evt.data);
-            if (tileData == null) {
-                console.log("Web socket received NULL data");
-            } else {
-                console.log("Web socket received data: ", tileData);
-                Tipboard.Dashboard.updateTile(Tipboard.Dashboard.escapeId(tileData.id),
-                    tileData.tile_template, tileData.data, tileData.meta, tileData.modified);
-            }
-        },
-
-        /**
-         * Test if server is back, when online starting again WS client
-         */
-        testApiAlive: function () {
-            const Http = new XMLHttpRequest();
-            const url = window.location.protocol + "/api/info";
-            Http.open("GET", url);
-            Http.onload = () => {
-                if (Http.status === 200) {
-                    Tipboard.WebSocketManager.init();
-                    Tipboard.WebSocketManager.init.bind(Tipboard.WebSocketManager);
-                }
-            };
-            Http.onerror = () => {
-                setTimeout(Tipboard.WebSocketManager.testApiAlive, 5000)
-            };
-            Http.send();
-        },
-
-        onError: function (evt) {
-            console.log("WebSocket error: " + evt.data);
-        },
-
-        onClose: function () {
-            console.log("WebSocket closed: Waiting the API to be back, every 5s");
-            setTimeout(Tipboard.WebSocketManager.testApiAlive, 5000)
-        },
-    };
-}
-
-/**
  * Init flip behavior for every tiles
  */
 function initTiles() {
@@ -140,16 +66,14 @@ const getTitleForChartJSTitle = function (data) {
  */
 (function ($) {
     Tipboard.Dashboard = {
-        wsSocketTimeout: 900000,
         flipIds: [],
         updateFunctions: {},
         chartsIds: {},
     };
+    Tipboard.chartJsTile = {};
     initDashboard(Tipboard);
     initPalette(Tipboard);
-    Tipboard.WebSocketManager = initWebsocketManager();
-    console.log("Tipboard starting");
-    Tipboard.WebSocketManager.init();
-    Tipboard.WebSocketManager.init.bind(Tipboard.WebSocketManager);
+    initWebsocketManager(Tipboard);
     initTiles();
+    console.log("Tipboard starting");
 }($));

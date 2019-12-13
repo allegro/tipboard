@@ -54,7 +54,8 @@ function updateTileLinejs(tileId, data, meta, tileType) {
 
 Tipboard.Dashboard.registerUpdateFunction("line_chart", updateTileLinejs);
 
-/*
-    TODO: tu update les new Chart vs updateChart, '"
-    TODO: la radar marche, mais faut aporter la méchanique à toute les chartJS now
- */
+/**
+ * Tu remplace les new Chart par des updateChart
+ * donc il faut update les fields présent dans data dans la chartJS
+ * il ne doit pas manquer de données ! sinon la chart ne se re-créer pas
+ **/

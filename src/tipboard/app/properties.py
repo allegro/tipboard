@@ -43,7 +43,7 @@ TIPBOARD_CSS_STYLES = [
     'css/layout.css',
 ]
 TIPBOARD_JAVASCRIPTS = [
-    'js/dashboard.js', 'js/palette.js', 'js/tipboard.js'
+    'js/dashboard.js', 'js/palette.js', 'js/websocket.js', 'js/tipboard.js'
 ]
 
 # Javascript log level ('1' for 'standard', '2' for 'debug')
