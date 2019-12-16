@@ -10,22 +10,22 @@ layout:
               title: pie chart
               classes:
 
-        - col_1_of_4  flip-time-1:
+        - col_1_of_4  :
 
-            - tile_template: polararea_chart
-              tile_id: polararea_ex
-              title: polar-area
-              classes:
+#            - tile_template: polararea_chart
+#              tile_id: polararea_ex
+#              title: polar-area
+#              classes:
 
             - tile_template: radar_chart
               tile_id: radar_ex
               title: radar chart
               classes:
 
-            - tile_template: doughnut_chart
-              tile_id: doughnut_ex
-              title: doughnut
-              classes:
+#            - tile_template: doughnut_chart
+#              tile_id: doughnut_ex
+#              title: doughnut
+#              classes:
 
 
         - col_1_of_4:
@@ -40,10 +40,6 @@ layout:
 #              title: bar tile's
 #              classes:
 #
-#            - tile_template: norm_chart
-#              tile_id: normjs_ex
-#              title: norm tile's
-#              classes:
 
             - tile_template: cumulative_flow
               tile_id: cfjs_ex
@@ -76,19 +72,18 @@ layout:
               title: Just value
               classes:
 
-        - col_1_of_4 flip-time-1:
-            - tile_template: listing
-              tile_id: listing_ex
-              title: listing
+        - col_1_of_4:
+            - tile_template: norm_chart
+              tile_id: normjs_ex
+              title: norm tile's
               classes:
 
-            - tile_template: text
-              tile_id: txt_ex
-              title: text
-              classes:
-
-
-
-
-
-
+#            - tile_template: listing
+#              tile_id: listing_ex
+#              title: listing
+#              classes:
+#
+#            - tile_template: text
+#              tile_id: txt_ex
+#              title: text
+#              classes:

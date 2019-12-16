@@ -11,13 +11,10 @@ TILE_ID = "pie_chartjs_ex"
 def executeScriptToGetData():
     """ Simulate some actions for text Pie chart exemple"""
     pieData = getFakePieChart(tile_id=TILE_ID, template_name=TILE_TEMPLATE)
+    labelLenght = random.randrange(2, 5)
     pieData['data']['title'] = 'Sensors title'
-    value1 = random.randrange(10, 80)
-    limit = 100 - value1
-    value2 = random.randrange(10, limit)
-    value3 = 100 - value2 - value1
-    pieData['data']['labels'] = ["Fake 1", "Fake 2", "Fake 3"]
-    pieData['data']['pie_data_value'] = [value1, value2, value3]
+    pieData['labels'] = [f"Label {i}" for i in range(1, labelLenght)]
+    pieData['data']['pie_data_value'] = [random.randrange(4, 50) for i in range(labelLenght)]
     return pieData
 
 

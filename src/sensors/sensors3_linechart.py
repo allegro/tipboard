@@ -10,28 +10,27 @@ TILE_ID = "line_chartjs_ex"
 
 
 def executeScriptToGetData():
-    """ Simulate some actions for text tile exemple"""
-    labelLenght = random.randrange(9, 100)
+    """ Simulate some actions for linechart tile exemple"""
+    labelLenght = random.randrange(9, 50)
     data = dict()
     data['title'] = {
         "text": "LineChart sensors",
         "color": "#FFFFFF"
     }
-    data['labels'] = [f"{i}h" for i in range(9, labelLenght)]
+    data['labels'] = [f"{i}" for i in range(1, labelLenght)]
     data['datasets'] = [
         {
             'label': 'Serie 1',
             'backgroundColor': 'rgba(114, 191, 68, 0.8)',
-            'data': [random.randrange(500, 1000) for i in range(labelLenght)]
+            'data': [random.randrange(100, 1000) for i in range(labelLenght)]
         },
         {
             'label': 'Serie 2',
             'backgroundColor': 'rgba(62, 149, 205, 0.8)',
-            'data': [random.randrange(500, 1000) for i in range(labelLenght)]
+            'data': [random.randrange(100, 1000) for i in range(labelLenght)]
         }
 
     ]
-    print(data)
     return data
 
 

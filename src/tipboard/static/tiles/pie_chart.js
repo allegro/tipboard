@@ -42,7 +42,7 @@ function buildOption(data) {
 }
 
 function buildPieChart(chartElement, data, meta) {
-    //TODO: Add concept for mutiple dataset
+    //TODO: Add concept for mutiple dataset !
     return new Chart(chartElement, {
         type: "pie",
         data: {
@@ -67,10 +67,11 @@ function updateTilePiejs(tileId, data, meta, tileType) {
         chartElement.parentElement.style.paddingBottom = "10%";
         Tipboard.chartJsTile[tileId + '-chart'] = buildPieChart(chartElement, data, meta);
     } else {
-        let chart = Tipboard.chartJsTile[tileId + '-chart'];
-        chart.data.datasets[0].labels = data.labels;
-        chart.data.datasets[0].data = data.pie_data_value;
-        Tipboard.chartJsTile[tileId + '-chart'].update();
+        // let chart = Tipboard.chartJsTile[tileId + '-chart'];
+        // chart.data.datasets[0].labels = data.labels;
+        // chart.data.datasets[0].data = data.pie_data_value;
+        // Tipboard.chartJsTile[tileId + '-chart'].update();
+        Tipboard.Dashboard.updateDataOfChartJS(Tipboard.chartJsTile[tileId + "-chart"], data);
     }
     console.log("piechart::type(" + tileType +")::updateTile end " + tileId);
 }

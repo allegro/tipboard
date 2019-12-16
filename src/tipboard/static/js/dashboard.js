@@ -21,7 +21,7 @@ function extractKeyFromTiles(keysToUse, dataToPut) {
  * @param keysToUse list of key in tile, to update with dataToPut
  */
 let updateKeyOfTiles = function updateKeyOfTiles(tileId, dataToPut, keysToUse) {
-    if (keysToUse === "all") {// keysToUse*: list of keys, or string 'all', if 'all' then all keys used from *dataToPut*
+    if (keysToUse === "all") { // keysToUse*: list of keys, or string 'all', if 'all' then all keys used from *dataToPut*
         keysToUse = extractKeyFromTiles(keysToUse, dataToPut);
     }
     $.each(keysToUse, function (idx, key) {
@@ -149,10 +149,19 @@ let clearChartJsTile = function (chart) {
         chart.data.pie_data_value.pop();
         isUpdate = true;
     }
-    if (isUpdate) {
-        console.log("pop:update");
-        chart.update();
-    }
+    // if (isUpdate) {
+    //     console.log("pop:update");
+    //     chart.update();
+    // }
+};
+
+let updateDataOfChartJS = function (chart, data) {
+    console.log("clear previous data");
+    Tipboard.Dashboard.clearChartJsTile(chart);
+    console.log("update data");
+    updateData(chart.data, data);
+    console.log("update");
+    chart.update();
 };
 
 function initDashboard(Tipboard) {
@@ -167,6 +176,7 @@ function initDashboard(Tipboard) {
     Tipboard.Dashboard.getUpdateFunction = getUpdateFunction;
     Tipboard.Dashboard.autoAddFlipClasses = autoAddFlipClasses;
     Tipboard.Dashboard.clearChartJsTile = clearChartJsTile;
+    Tipboard.Dashboard.updateDataOfChartJS = updateDataOfChartJS;
 }
 // dans radar_chart, tu test l'update de chart sans faire de new Chart
 // tu envoyais le nodeElem, au lieu de l'object Chart

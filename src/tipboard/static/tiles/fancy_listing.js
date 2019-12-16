@@ -6,7 +6,7 @@ function updateTileFancyListing(tileId, data, config, tileType) {
     }
     FancyListing.populateItems(tile, nodeToClone, data);
     FancyListing.applyConfig(tile, config);
-    if (config["vertical_center"] === true) {
+    if (config.vertical_center === true) {
         FancyListing.verticalCenter(tile);
     }
 }
@@ -39,7 +39,7 @@ FancyListing = {
             let item = $(tile).find(".fancy-listing-item")[parseInt(idx, 10)];
             $(item).find(".fancy-listing-label").css("background-color", color);
             // set centering
-            if (tileConfig["center"] === true) {
+            if (tileConfig.center === true) {
                 $(item).find(".fancy-listing-def").css("text-align", "center" );
             }
         });
@@ -59,9 +59,9 @@ FancyListing = {
     },
     replaceData: function(tile, tileData) {
         let lastItem = $(tile).find(".fancy-listing-item:last-child")[0];
-        $(lastItem).find(".fancy-listing-label-inside").html(tileData["label"]);
-        $(lastItem).find(".fancy-listing-term").html(tileData["text"]);
-        $(lastItem).find(".fancy-listing-desc").html(tileData["description"]);
+        $(lastItem).find(".fancy-listing-label-inside").html(tileData.label);
+        $(lastItem).find(".fancy-listing-term").html(tileData.text);
+        $(lastItem).find(".fancy-listing-desc").html(tileData.description);
     }
 };
 
