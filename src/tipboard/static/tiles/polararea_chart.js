@@ -7,15 +7,13 @@
  */
 function updateTilePolararea(tileId, data, meta, tileType) {
     meta.options.title = getTitleForChartJSTitle(data);
+    let chartId = `${tileId}-chart`;
     if (tileId + "-chart" in Tipboard.chartJsTile) {
-        let chart = Tipboard.chartJsTile[tileId + "-chart"];
-        chart.data.datasets[0].labels = data.labels;
-        chart.data.datasets[0].data = data.data;
-        Tipboard.chartJsTile[tileId + "-chart"].update();
+        Tipboard.Dashboard.updateDataOfChartJS(Tipboard.chartJsTile[chartId], data);
     } else {
-        let chart = document.getElementById(tileId + "-chart");
+        let chart = document.getElementById(chartId);
         chart.parentElement.style.paddingBottom = "10%";
-        Tipboard.chartJsTile[tileId + "-chart"] = new Chart(chart, {
+        Tipboard.chartJsTile[chartId] = new Chart(chart, {
             type: "polarArea",
             data: {
                 labels: data.labels,

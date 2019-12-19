@@ -170,6 +170,10 @@ function updateData(oldDict, newDict) {
     }
 }
 
+// quand tu n'envois la couleur dans la sondes, les couleurs non plus de valeur
+// dans les backgroundColor des datasetsa
+// alors que tu ne les supprimes plus et que tu es censé n'override les valeurs que si celle sont présente
+
 let updateDataOfChartJS = function (chart, data) {
     Tipboard.Dashboard.clearChartJsTile(chart);
     updateData(chart.data, data);

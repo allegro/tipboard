@@ -1,5 +1,6 @@
 import time, random
 from src.sensors.utils import end, sendDataToTipboard, getTimeStr
+from src.tipboard.app.properties import COLOR_TAB
 
 NAME_OF_SENSORS = 'doughnut sensors'
 TILE_TEMPLATE = 'doughnut_chart'
@@ -8,19 +9,15 @@ TILE_ID = 'doughnut_ex'
 
 def executeScriptToGetData():
     ''' Simulate some actions for text tile exemple'''
-    labelLenght = random.randrange(3, 5)
+    datasetLength = random.randrange(2, 8)
     data = dict()
-    data['title'] = {
-        'text': 'NormChart sensors',
-        'color': '#FFFFFF'
-    }
-    data['labels'] = [f'label {i}' for i in range(1, labelLenght)]
-    data['title'] = {'display': True, 'text': 'Doughnut Sensors'}
-    data['datasets'] = [
-        {
-            'data': [random.randrange(20, 50) for i in range(labelLenght)]
-        }
-    ]
+    data['title'] = dict(text='Doughnut sensors', color='#FFFFFF', display=True)
+    data['labels'] = [f'Serie {i + 1}' for i in range(datasetLength)]
+    data['datasets'] = list()
+#    for index in range(datasetLength):
+    data['datasets'].append(
+        dict(data=[random.randrange(100, 1000) for i in range(datasetLength)],
+             backgroundColor=COLOR_TAB))
     return data
 
 
