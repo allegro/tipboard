@@ -61,17 +61,17 @@ function buildPieChart(chartElement, data, meta) {
 
 function updateTilePiejs(tileId, data, meta, tileType) {
     console.log("piechart::type(" + tileType +")::updateTile start " + tileId);
-    if (!(tileId + '-chart' in Tipboard.chartJsTile)) {
-        console.log("piechart::type(" + tileType +")::create ChartJS " + tileId);
+    if (tileId + '-chart' in Tipboard.chartJsTile) {
+        let chart = Tipboard.chartJsTile[tileId + '-chart'];
+        chart.data.datasets[0].labels = data.labels;
+        chart.data.datasets[0].data = data.pie_data_value;
+        Tipboard.chartJsTile[tileId + '-chart'].update();
+        //Tipboard.Dashboard.updateDataOfChartJS(Tipboard.chartJsTile[tileId + "-chart"], data);
+    } else {
+        console.log("piechart::type(" + tileType + ")::create ChartJS " + tileId);
         let chartElement = document.getElementById(tileId + "-chart");
         chartElement.parentElement.style.paddingBottom = "10%";
         Tipboard.chartJsTile[tileId + '-chart'] = buildPieChart(chartElement, data, meta);
-    } else {
-        // let chart = Tipboard.chartJsTile[tileId + '-chart'];
-        // chart.data.datasets[0].labels = data.labels;
-        // chart.data.datasets[0].data = data.pie_data_value;
-        // Tipboard.chartJsTile[tileId + '-chart'].update();
-        Tipboard.Dashboard.updateDataOfChartJS(Tipboard.chartJsTile[tileId + "-chart"], data);
     }
     console.log("piechart::type(" + tileType +")::updateTile end " + tileId);
 }

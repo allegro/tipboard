@@ -22,7 +22,7 @@ function updateTileListing(id, data, meta, tileType) {
     }
 }
 
-Tipboard.Dashboard.registerUpdateFunction('listing', updateTileListing);
+Tipboard.Dashboard.registerUpdateFunction("listing", updateTileListing);
 
 
 

@@ -10,36 +10,29 @@ layout:
               title: pie chart
               classes:
 
-        - col_1_of_4  :
+        - col_1_of_4 flip-time-2:
 
-#            - tile_template: polararea_chart
-#              tile_id: polararea_ex
-#              title: polar-area
-#              classes:
-
-            - tile_template: radar_chart
-              tile_id: radar_ex
-              title: radar chart
+            - tile_template: polararea_chart
+              tile_id: polararea_ex
+              title: polar-area
               classes:
 
-#            - tile_template: doughnut_chart
-#              tile_id: doughnut_ex
-#              title: doughnut
-#              classes:
 
 
-        - col_1_of_4:
 
-#            - tile_template: vbar_chart
-#              tile_id: vbarjs_ex
-#              title: vertical bar
-#              classes:
-#
-#            - tile_template: bar_chart
-#              tile_id: barjs_ex
-#              title: bar tile's
-#              classes:
-#
+
+        - col_1_of_4 flip-time-2:
+
+            - tile_template: vbar_chart
+              tile_id: vbarjs_ex
+              title: vertical bar
+              classes:
+
+            - tile_template: bar_chart
+              tile_id: barjs_ex
+              title: bar tile's
+              classes:
+
 
             - tile_template: cumulative_flow
               tile_id: cfjs_ex
@@ -55,35 +48,46 @@ layout:
 
     - row_1_of_2:
         - col_1_of_4:
-            - tile_template: simple_percentage
-              tile_id: sp_ex
-              title: Percentage
+#            - tile_template: simple_percentage
+#              tile_id: sp_ex
+#              title: Percentage
+#              classes:
+
+            - tile_template: radar_chart
+              tile_id: radar_ex
+              title: radar chart
               classes:
 
         - col_1_of_4:
-            - tile_template: big_value
-              tile_id: bv_ex
-              title: Big value
+
+            - tile_template: doughnut_chart
+              tile_id: doughnut_ex
+              title: doughnut
               classes:
+#            - tile_template: big_value
+#              tile_id: bv_ex
+#              title: Big value
+#              classes:
 
         - col_1_of_4 :
-            - tile_template: just_value
-              tile_id: jv_ex
-              title: Just value
-              classes:
+#            - tile_template: just_value
+#              tile_id: jv_ex
+#              title: Just value
+#              classes:
 
-        - col_1_of_4:
             - tile_template: norm_chart
               tile_id: normjs_ex
               title: norm tile's
               classes:
 
-#            - tile_template: listing
-#              tile_id: listing_ex
-#              title: listing
-#              classes:
-#
-#            - tile_template: text
-#              tile_id: txt_ex
-#              title: text
-#              classes:
+        - col_1_of_4 flip-time-2:
+
+            - tile_template: listing
+              tile_id: listing_ex
+              title: listing
+              classes:
+
+            - tile_template: text
+              tile_id: txt_ex
+              title: text
+              classes:

@@ -26,7 +26,7 @@ function updateDataset(data, tileType) {
             delete datasetTmp.backgroundColor
         }
         listOfDataset.push(datasetTmp);
-        rcx = rcx + 1;
+        //rcx = rcx + 1;
     });
     console.log(listOfDataset);
     return {
@@ -37,26 +37,6 @@ function updateDataset(data, tileType) {
 }
 
 
-function updateData(oldDict, newDict) {
-    for (let key in newDict) {
-        if (key === "datasets") {
-            console.log("Update dataset");
-            let rcx = 0;
-            for (; rcx < oldDict.datasets.length; rcx++) {
-                for (let keyDataset in newDict.datasets[rcx]) {
-                    console.log("Update key:[" + keyDataset + "] with " + newDict.datasets[rcx]);
-                    oldDict.datasets[rcx][keyDataset] = newDict.datasets[rcx][keyDataset];
-                }
-            }
-            oldDict.datasets.splice(rcx, oldDict.datasets.length); // delete previous data
-            console.log("Update dataset over");
-        } else {
-            console.log("Update key:[" + key + "] with " + newDict[key]);
-            oldDict[key] = newDict[key];
-        }
-    }
-}
-
 /**
  * update the line_chart tile & the cummulative_flow tile
  * @param tileId
@@ -66,7 +46,9 @@ function updateData(oldDict, newDict) {
  */
 function updateTileLinejs(tileId, data, meta, tileType) {
     console.log("line_chartjs::updateTile::start" + tileId);
-    if (!(tileId + "-chart" in Tipboard.chartJsTile)) {
+    if (tileId + "-chart" in Tipboard.chartJsTile) {
+        Tipboard.Dashboard.updateDataOfChartJS(Tipboard.chartJsTile[tileId + "-chart"], data);
+    } else {
         let chart = document.getElementById(tileId + "-chart");
         meta.options.title = getTitleForChartJSTitle(data);
         chart.parentElement.style.paddingBottom = "8%";
@@ -75,8 +57,6 @@ function updateTileLinejs(tileId, data, meta, tileType) {
             data: updateDataset(data, tileType),
             options: meta.options
         });
-    } else {
-        Tipboard.Dashboard.updateDataOfChartJS(Tipboard.chartJsTile[tileId + "-chart"], data);
     }
     console.log("linejs::type(" + tileType + ")::updateTile " + tileId);
 }

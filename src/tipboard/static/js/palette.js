@@ -62,11 +62,5 @@ function initPalette(Tipboard) {
     Tipboard.Palette = {};
     getGenericColor(Tipboard.Palette);
     chooseMode(Tipboard.Palette);
-        Tipboard.Palette.applyFading = initFading;
+    Tipboard.Palette.applyFading = initFading;
 }
-
-/**
- ** Tu as ajouté la le fading et construit la base de la palette
- ** la big_value marche, mais pas les autres (fir:ok chr: ko)
- **
-**/

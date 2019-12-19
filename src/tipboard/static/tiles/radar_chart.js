@@ -1,22 +1,23 @@
 /**
+ * Update Radar & Doughnut chart
  * @param tileId
  * @param data
  * @param meta
  * @param tileType
  */
 function updateTileRadarjs(tileId, data, meta, tileType) {
-    meta.options.title = getTitleForChartJSTitle(data);
-    if (!(tileId + "-chart" in Tipboard.chartJsTile)) {
-        console.log("radar_chartjs::type(" + tileType +")::create ChartJS" + tileId);
-        let chartElement = document.getElementById(tileId + "-chart");
+    let chartId = `${tileId}-chart`;
+    if (chartId in Tipboard.chartJsTile) {
+        Tipboard.Dashboard.updateDataOfChartJS(Tipboard.chartJsTile[chartId], data);
+    } else {
+        let chartElement = document.getElementById(chartId);
         chartElement.parentElement.style.paddingBottom = "9%";
-        Tipboard.chartJsTile[tileId + "-chart"] = new Chart(chartElement, {
+        meta.options.title = getTitleForChartJSTitle(data);
+        Tipboard.chartJsTile[chartId] = new Chart(chartElement, {
             type: (tileType === "doughnut_chart") ? "doughnut" : "radar",
             data: data,
             options: meta.options
         });
-    } else {
-        Tipboard.Dashboard.updateDataOfChartJS(Tipboard.chartJsTile[tileId + "-chart"], data);
     }
     console.log("radar_chartjs::type(" + tileType +")::updateTile end " + tileId);
 }

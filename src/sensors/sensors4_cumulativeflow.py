@@ -25,11 +25,13 @@ def executeScriptToGetData():
         {
             'label': 'Serie 1',
             'backgroundColor': 'rgba(114, 191, 68, 0.8)',
+            'borderColor': 'rgba(114, 191, 68, 0.8)',
             'data': [random.randrange(200, 1000) for i in range(labelLenght)]
         },
         {
             'label': 'Serie 2',
             'backgroundColor': 'rgba(62, 149, 205, 0.8)',
+            'borderColor': 'rgba(62, 149, 205, 0.8)',
             'data': [random.randrange(200, 1000) for i in range(labelLenght)]
         }
 

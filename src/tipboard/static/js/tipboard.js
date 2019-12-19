@@ -53,12 +53,17 @@ const getTitleForChartJSTitle = function (data) {
         text: "",
     };
     if (data !== null) {
-        title["display"] = true;
-        title["color"] = ("color" in data) ? data["color"] : "#FFFFFF";
-        title["text"] = data["title"]["text"];
+        title.display = true;
+        title.color = ("color" in data) ? data.color : "#FFFFFF";
+        title.text = data.title.text;
     }
     return title
 };
+
+function startClientConnection() {
+    initTiles();
+    initWebsocketManager(Tipboard);
+}
 
 /**
  * Main function of tipboard.js
@@ -73,7 +78,6 @@ const getTitleForChartJSTitle = function (data) {
     Tipboard.chartJsTile = {};
     initDashboard(Tipboard);
     initPalette(Tipboard);
-    initWebsocketManager(Tipboard);
-    initTiles();
+    setTimeout(startClientConnection, 420); // to let server start
     console.log("Tipboard starting");
 }($));

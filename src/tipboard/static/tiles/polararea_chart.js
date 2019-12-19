@@ -7,7 +7,12 @@
  */
 function updateTilePolararea(tileId, data, meta, tileType) {
     meta.options.title = getTitleForChartJSTitle(data);
-    if (!(tileId + "-chart" in Tipboard.chartJsTile)) {
+    if (tileId + "-chart" in Tipboard.chartJsTile) {
+        let chart = Tipboard.chartJsTile[tileId + "-chart"];
+        chart.data.datasets[0].labels = data.labels;
+        chart.data.datasets[0].data = data.data;
+        Tipboard.chartJsTile[tileId + "-chart"].update();
+    } else {
         let chart = document.getElementById(tileId + "-chart");
         chart.parentElement.style.paddingBottom = "10%";
         Tipboard.chartJsTile[tileId + "-chart"] = new Chart(chart, {
@@ -18,11 +23,6 @@ function updateTilePolararea(tileId, data, meta, tileType) {
             },
             options: meta.options
         });
-    } else {
-        let chart = Tipboard.chartJsTile[tileId + "-chart"];
-        chart.data.datasets[0].labels = data.labels;
-        chart.data.datasets[0].data = data.data;
-        Tipboard.chartJsTile[tileId + "-chart"].update();
     }
     console.log("updateTilePolararea::type(" + tileType + ")::updateTile end " + tileId);
 }

@@ -131,34 +131,47 @@ let escapeId = function (id) {
 };
 
 let clearChartJsTile = function (chart) {
-    let isUpdate = false;
+    console.log("clear previous data");
     if ("labels" in chart.data) {
         console.log("pop:labels:" + chart.data.labels);
         chart.data.labels.pop();
-        isUpdate = true;
     }
-    if ("datasets" in chart.data) {
-        console.log("pop:datasets");
-        chart.data.datasets.forEach((dataset) => {
-            dataset.data.pop();
-        });
-        isUpdate = true;
-    }
+    // if ("datasets" in chart.data) {
+    //     console.log("pop:datasets");
+    //     console.log(chart.data.datasets);
+    //     chart.data.datasets.forEach((dataset) => {
+    //         dataset.data = []
+    //     });
+    //     console.log(chart.data.datasets);
+    // }
     if ("pie_data_value" in chart.data) {
         console.log("pop:pie_data_value");
         chart.data.pie_data_value.pop();
-        isUpdate = true;
     }
-    // if (isUpdate) {
-    //     console.log("pop:update");
-    //     chart.update();
-    // }
 };
 
+function updateData(oldDict, newDict) {
+    for (let key in newDict) {
+        if (key === "datasets") {
+            console.log("Update dataset");
+            let rcx = 0;
+            for (; rcx < oldDict.datasets.length; rcx++) {
+                for (let keyDataset in newDict.datasets[rcx]) {
+                    console.log("Update key:[" + keyDataset + "] with " + newDict.datasets[rcx][keyDataset]);
+                    oldDict.datasets[rcx][keyDataset] = newDict.datasets[rcx][keyDataset];
+                }
+            }
+            oldDict.datasets.splice(rcx, oldDict.datasets.length); // delete previous data
+            console.log("Update dataset over");
+        } else {
+            console.log("Update key:[" + key + "] with " + newDict[key]);
+            oldDict[key] = newDict[key];
+        }
+    }
+}
+
 let updateDataOfChartJS = function (chart, data) {
-    console.log("clear previous data");
     Tipboard.Dashboard.clearChartJsTile(chart);
-    console.log("update data");
     updateData(chart.data, data);
     console.log("update");
     chart.update();

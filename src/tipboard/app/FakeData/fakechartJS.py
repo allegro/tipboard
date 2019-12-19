@@ -83,6 +83,38 @@ def getFakeCumulFlow(tile_id, template_name):
     }
 
 
+def getFakeNormChart(tile_id, template_name):
+    return {
+        'id': tile_id, 'tile_template': template_name, 'modified': getIsoTime(),
+        'data': {
+            'title': {'display': True, 'text': 'Curve Comparaison'},
+            'labels': [1, 3, 5, 7, 9, 11],
+            'datasets': [{
+                'data': [2, 20, 13, 33, 85, 100],
+                'label': 'Series 2',
+                'borderColor': COLOR_TAB[0],
+                'fill': False
+            }, {
+                'data': [2, 8, 10, 15, 80, 120],
+                'label': 'Series 1',
+                'borderColor': COLOR_TAB[1],
+                'fill': False
+            }]
+        },
+        'meta': {
+            'backgroundColor': COLOR_TAB,
+            'options': {
+                'responsive': True,
+                'maintainAspectRatio': False,
+                'scales': {
+                    'xAxes': [{'gridLines': {'color': '#525252'}}],
+                    'yAxes': [{'gridLines': {'color': '#525252'}}]
+                }
+            }
+        }
+    }
+
+
 def getFakeBarChart(tile_id, template_name):
     return {
         'id': tile_id, 'tile_template': template_name, 'modified': getIsoTime(),
@@ -111,50 +143,18 @@ def getFakeVbarChart(tile_id, template_name):
     return getFakeBarChart(tile_id, template_name)
 
 
-def getFakeNormChart(tile_id, template_name):
-    return {
-        'id': tile_id, 'tile_template': template_name, 'modified': getIsoTime(),
-        'data': {
-            'title': {'display': True, 'text': 'Curve Comparaison'},
-            'labels': [1, 3, 5, 7, 9, 11],
-            'datasets': [{
-                'data': [2, 20, 13, 33, 85, 100],
-                'label': 'Series 2',
-                'borderColor': '#3e95cd',
-                'fill': False
-            }, {
-                'data': [2, 8, 10, 15, 80, 120],
-                'label': 'Series 1',
-                'borderColor': '#8e5ea2',
-                'fill': False
-            }]
-        },
-        'meta': {
-            'backgroundColor': ['#3e95cd', '#8e5ea2'],
-            'options': {
-                'responsive': True,
-                'maintainAspectRatio': False,
-                'scales': {
-                    'xAxes': [{'gridLines': {'color': '#525252'}}],
-                    'yAxes': [{'gridLines': {'color': '#525252'}}]
-                }
-            }
-        }
-    }
-
-
 def getFakePieChart(tile_id, template_name):
     return {
         'id': tile_id, 'tile_template': template_name, 'modified': getIsoTime(),
         'data': {
             'title': tile_id,
-            'labels': ['Label 1', 'Label 2', 'label 3'],
-            'pie_data_value': [55, 12, 33],
+            'labels': ['Label 1', 'Label 2', 'Label 3', 'Label 4', 'Label 5'],
+            'pie_data_value': [2478, 5267, 734, 1056, 895],
             'borderColor': 'rgba(255, 255, 255, 0.72)',
             'borderWidth': 1.0
         },
         'meta': {
-            'backgroundColor': ['#303F9F', '#8BC34A', '#0288D1', '#E040FB', '#FF5722'],
+            'backgroundColor': COLOR_TAB,
             'elements': {'arc': {}}
         }
     }
@@ -165,11 +165,11 @@ def getFakeDoughnutChart(tile_id, template_name):
         'id': tile_id, 'tile_template': template_name, 'modified': getIsoTime(),
         'data': {
             'title': {'display': True, 'text': 'Doughnut Demo'},
-            'labels': ['Label 1', 'Label 2', 'Label 3'],
+            'labels': ['Label 1', 'Label 2', 'Label 3', 'Label 4', 'Label 5', 'Label 6', 'Label 7', 'Label 8'],
             'datasets': [
                 {
-                    'backgroundColor': ['#3e95cd', '#72bf44', '#8e5ea2'],
-                    'data': [2478, 5267, 734],
+                    'backgroundColor': COLOR_TAB,
+                    'data': [895,1478, 1267, 895, 734, 1056, 895,   1056],
                 }
             ]
         },
@@ -234,7 +234,7 @@ def getFakePolarareaChart(tile_id, template_name):
             'datasets': [
                 {
                     'label': 'Series',
-                    'backgroundColor': ['#3e95cd', '#8e5ea2', '#3cba9f', '#e8c3b9', '#c45850'],
+                    'backgroundColor': COLOR_TAB,
                     'data': [10, 29, 40],
                 }
             ]
