@@ -26,13 +26,11 @@ function updateDataset(data, tileType) {
             delete datasetTmp.backgroundColor
         }
         listOfDataset.push(datasetTmp);
-        //rcx = rcx + 1;
     });
     console.log(listOfDataset);
     return {
         labels: ("labels" in data) ? data.labels : predefinedSeries,
         datasets: listOfDataset,
-        borderColor: ["red", "green", "blue"]
     };
 }
 
@@ -46,13 +44,15 @@ function updateDataset(data, tileType) {
  */
 function updateTileLinejs(tileId, data, meta, tileType) {
     console.log("line_chartjs::updateTile::start" + tileId);
-    if (tileId + "-chart" in Tipboard.chartJsTile) {
-        Tipboard.Dashboard.updateDataOfChartJS(Tipboard.chartJsTile[tileId + "-chart"], data);
+    let chartId = `${tileId}-chart`;
+    if (chartId in Tipboard.chartJsTile) {
+        Tipboard.Dashboard.updateDataOfChartJS(Tipboard.chartJsTile[chartId],
+            updateDataset(data, tileType));
     } else {
-        let chart = document.getElementById(tileId + "-chart");
+        let chart = document.getElementById(chartId);
         meta.options.title = getTitleForChartJSTitle(data);
         chart.parentElement.style.paddingBottom = "8%";
-        Tipboard.chartJsTile[tileId + "-chart"] = new Chart(chart, {
+        Tipboard.chartJsTile[chartId] = new Chart(chart, {
             type: "line",
             data: updateDataset(data, tileType),
             options: meta.options

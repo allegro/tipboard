@@ -1,4 +1,4 @@
-FROM bitnami/python:3.7
+FROM bitnami/python:3.8
 
 RUN apt-get update \
  && apt-get install redis-server sqlite3 -y --no-install-recommends \
@@ -21,4 +21,3 @@ RUN pip install --upgrade pip &&  pip install --user -r requirements.txt
 EXPOSE 8080
 
 CMD ["bash", "entrypoint.sh"]
-#CMD ["python", "manage.py", "runserver", "0.0.0.0:8080", "--noreload"]

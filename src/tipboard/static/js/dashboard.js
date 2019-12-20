@@ -136,14 +136,6 @@ let clearChartJsTile = function (chart) {
         console.log("pop:labels:" + chart.data.labels);
         chart.data.labels.pop();
     }
-    // if ("datasets" in chart.data) {
-    //     console.log("pop:datasets");
-    //     console.log(chart.data.datasets);
-    //     chart.data.datasets.forEach((dataset) => {
-    //         dataset.data = []
-    //     });
-    //     console.log(chart.data.datasets);
-    // }
     if ("pie_data_value" in chart.data) {
         console.log("pop:pie_data_value");
         chart.data.pie_data_value.pop();
@@ -170,10 +162,6 @@ function updateData(oldDict, newDict) {
     }
 }
 
-// quand tu n'envois la couleur dans la sondes, les couleurs non plus de valeur
-// dans les backgroundColor des datasetsa
-// alors que tu ne les supprimes plus et que tu es censé n'override les valeurs que si celle sont présente
-
 let updateDataOfChartJS = function (chart, data) {
     Tipboard.Dashboard.clearChartJsTile(chart);
     updateData(chart.data, data);
@@ -195,6 +183,4 @@ function initDashboard(Tipboard) {
     Tipboard.Dashboard.clearChartJsTile = clearChartJsTile;
     Tipboard.Dashboard.updateDataOfChartJS = updateDataOfChartJS;
 }
-// dans radar_chart, tu test l'update de chart sans faire de new Chart
-// tu envoyais le nodeElem, au lieu de l'object Chart
-// il faut affiner maintenant le remove & l'update
+

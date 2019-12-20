@@ -40,9 +40,7 @@ def updateDatav1tov2_barchart(data):
     data['datasets'] = list()
     if 'serie_list' in data:
         for serie_list in data['series_list']:
-            dataset = dict()
-            dataset['data'] = serie_list
-            data['datasets'].append(dataset)
+            data['datasets'].append(dict(data=serie_list))
         del data['series_list']
     return json.dumps(data)
 

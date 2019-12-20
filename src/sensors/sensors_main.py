@@ -22,7 +22,8 @@ from src.sensors.utils import end
 
 def launch_sensors(isTest=False):
     # sonde2(isTest)
-    # sonde3(isTest)
+
+    sonde3(isTest)
     # sonde4(isTest)
     # sonde5(isTest)
     # sonde7(isTest, isHorizontal=True)
@@ -34,7 +35,7 @@ def launch_sensors(isTest=False):
     # sonde15(isTest)
     # sonde16(isTest)
     # sonde13(isTest)
-    scheduleYourSensors()  # If you need actualized data :)
+    # scheduleYourSensors()  # If you need actualized data :)
 
 
 def addSchedule(scheduler, sonde, timeToRun=datetime.now()):

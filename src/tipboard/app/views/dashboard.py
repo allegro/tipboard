@@ -31,19 +31,23 @@ def getDashboardsPaths(request):  # pragma: no cover
 
 
 def dashboardRendererHandler(request, layout_name='layout_config'):  # pragma: no cover
-    if LOG:
-        print(f"{getTimeStr()} GET dashboardRendererHandler /{layout_name}", flush=True)
     try:
+        if LOG:
+            print(f"{getTimeStr()} GET dashboardRendererHandler /{layout_name}", flush=True)
         config = parse_xml_layout(layout_name)
         tiles_template = getSrcJssForTilesInLayout(config['tiles_names'])
-        data = {
-            "details": config['details'],
-            "layout": config['layout'],
-            "tipboard_css": TIPBOARD_CSS_STYLES,
-            "tipboard_js": TIPBOARD_JAVASCRIPTS,
-            "tiles_css": ["tiles/" + '.'.join((name, 'css')) for name in tiles_template],
-            "tiles_js": ["tiles/" + '.'.join((name, 'js')) for name in tiles_template],
-        }
+        data = dict(details=config['details'],
+                    layout=config['layout'],
+                    tipboard_css=TIPBOARD_CSS_STYLES,
+                    tipboard_js=TIPBOARD_JAVASCRIPTS,
+                    tiles_css=["tiles/" + '.'.join((name, 'css')) for name in tiles_template],
+                    tiles_js=["tiles/" + '.'.join((name, 'js')) for name in tiles_template])
+        tiles_css = list()
+        for tile_css in data['tiles_css']:
+            if finders.find(tile_css):
+                tiles_css.append(tile_css)
+        data['tiles_css'] = tiles_css
+        return render(request, 'layout.html', data)
     except FileNotFoundError as e:
         if LOG:
             print(f"{getTimeStr()}: (+)Config file:{layout_name} not found", flush=True)
@@ -51,9 +55,3 @@ def dashboardRendererHandler(request, layout_name='layout_config'):  # pragma: n
             f'No config file found for dashboard: {layout_name} ' \
             f'Make sure that file: "{e.filename}" exists. </div>'
         return HttpResponse(msg, status=404)
-    tiles_css = list()
-    for tile_css in data['tiles_css']:
-        if finders.find(tile_css):
-            tiles_css.append(tile_css)
-    data['tiles_css'] = tiles_css
-    return render(request, 'layout.html', data)

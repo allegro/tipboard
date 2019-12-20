@@ -94,12 +94,10 @@ def update(request, unsecured=False):  # TODO: "it's better to ask forgiveness t
 
 def projectInfo(request):  # pragma: no cover
     if request.method == "GET":
-        response = {
-            'tipboard_version': "v0.1",
-            'project_name': PROJECT_NAME,
-            'project_layout_config': LAYOUT_CONFIG,
-            'redis_db': REDIS_DB,
-        }
+        response = dict(tipboard_version="v0.1",
+                        project_name=PROJECT_NAME,
+                        project_layout_config=LAYOUT_CONFIG,
+                        redis_db=REDIS_DB)
         return JsonResponse(response)
     raise Http404
 

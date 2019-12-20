@@ -62,4 +62,4 @@ JS_LOG_LEVEL = 2
 # how many seconds dashboard is displayed before is flipped
 FLIPBOARD_INTERVAL = 0
 # file name(s) of EXISTING layouts without extension, eg. ['layout_config']
-FLIPBOARD_SEQUENCE = []
+FLIPBOARD_SEQUENCE = list()

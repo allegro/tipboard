@@ -3,11 +3,6 @@ from src.tipboard.app.applicationconfig import getIsoTime
 
 def getFakeSimplePercentg(tile_id, template_name):
     return {
-        'tile_template': template_name,
-        'meta': {
-            'big_value_color': '#4CAF50',
-            'fading_background': True
-        },
         'data': {
             'title': 'Title',
             'big_value': '24',
@@ -17,6 +12,8 @@ def getFakeSimplePercentg(tile_id, template_name):
             'left_label': 'left_label',
             'left_value': 'left_value'
         },
+        'meta': dict(big_value_color='#4CAF50', fading_background=True),
+        'tile_template': template_name,
         'modified': getIsoTime(),
         'id': tile_id
     }
@@ -24,10 +21,6 @@ def getFakeSimplePercentg(tile_id, template_name):
 
 def getFakeListing(tile_id, template_name):
     return {
-        'tile_template': template_name,
-        'meta': {
-            'fading_background': False
-        },
         'data': {
             'items': [
                 'Leader: 42',
@@ -37,6 +30,8 @@ def getFakeListing(tile_id, template_name):
                 'U.X: 1'
             ]
         },
+        'meta': dict(big_value_color='#4CAF50', fading_background=False),
+        'tile_template': template_name,
         'modified': getIsoTime(),
         'id': tile_id
     }
@@ -44,13 +39,9 @@ def getFakeListing(tile_id, template_name):
 
 def getFakeText(tile_id, template_name):
     return {
+        'data': dict(text='Text auto generated'),
+        'meta': dict(big_value_color='#4CAF50', fading_background=False),
         'tile_template': template_name,
-        'meta': {
-            'fading_background': False
-        },
-        'data': {
-            'text': 'Text auto generated'
-        },
         'modified': getIsoTime(),
         'id': tile_id
     }
@@ -58,15 +49,9 @@ def getFakeText(tile_id, template_name):
 
 def getFakeFancyListing(tile_id, template_name):
     return {
+        'data': dict(title='title', description='description'),
+        'meta': dict(big_value_color='#4CAF50', fading_background=False),
         'tile_template': template_name,
-        'meta': {
-            'big_value_color': '#4CAF50',
-            'fading_background': False
-        },
-        'data': {
-            'title': 'title',
-            'description': 'description',
-        },
         'modified': getIsoTime(),
         'id': tile_id
     }
@@ -74,11 +59,6 @@ def getFakeFancyListing(tile_id, template_name):
 
 def getFakeBigValue(tile_id, template_name):
     return {
-        'tile_template': template_name,
-        'meta': {
-            'big_value_color': '#4CAF50',
-            'fading_background': True
-        },
         'data': {
             'title': 'Title',
             'description': 'Description',
@@ -88,6 +68,8 @@ def getFakeBigValue(tile_id, template_name):
             "upper-right-label": "upper right-label",
             "lower-right-label": "lower right-label"
         },
+        'meta': dict(big_value_color='#4CAF50', fading_background=True),
+        'tile_template': template_name,
         'modified': getIsoTime(),
         'id': tile_id
     }
@@ -95,16 +77,13 @@ def getFakeBigValue(tile_id, template_name):
 
 def getFakeJustValue(tile_id, template_name):
     return {
-        'tile_template': template_name,
-        'meta': {
-            'big_value_color': '#d50000',
-            'fading_background': True
-        },
         'data': {
             'title': 'Title',
             'description': 'Description',
             'just-value': '51'
         },
+        'meta': dict(big_value_color='#d50000', fading_background=True),
+        'tile_template': template_name,
         'modified': getIsoTime(),
         'id': tile_id
     }

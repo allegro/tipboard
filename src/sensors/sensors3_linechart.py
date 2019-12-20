@@ -1,42 +1,28 @@
 import time, random
 from src.sensors.utils import end, sendDataToTipboard, getTimeStr
-
-NAME_OF_SENSORS = 'linechart'
-TILE_TEMPLATE = 'line_chart'
-TILE_ID = 'line_chartjs_ex'
-
-# STATIC_DATA = 'data': [8326, 260630, 240933, 229639, 190240, 125272, 3685]
-# STATIC_DATA = 'data': [3685, 125272, 190240, 229639, 240933, 260630, 108326]
+from src.tipboard.app.properties import COLOR_TAB
 
 
 def executeScriptToGetData():
-    ''' Simulate some actions for linechart tile exemple '''
-    labelLenght = random.randrange(9, 50)
+    """ Simulate some actions for linechart tile exemple """
+    labelLenght = random.randrange(1, 5)
+    nbrData = random.randrange(9, 50)
     data = dict()
-    data['title'] = {
-        'text': 'LineChart sensors',
-        'color': '#FFFFFF'
-    }
-    data['labels'] = [f'{i}' for i in range(1, labelLenght)]
-    data['datasets'] = [
-        {
-            'label': 'Serie 1',
-            'backgroundColor': 'rgba(114, 191, 68, 0.8)',
-            'borderColor': 'rgba(114, 191, 68, 0.8)',
-            'data': [random.randrange(100, 1000) for i in range(labelLenght)]
-        },
-        {
-            'label': 'Serie 2',
-            'backgroundColor': 'rgba(62, 149, 205, 0.8)',
-            'borderColor': 'rgba(62, 149, 205, 0.8)',
-            'data': [random.randrange(100, 1000) for i in range(labelLenght)]
-        }
+    data['title'] = dict(text='LineChart sensors', color='#FFFFFF')
+    data['labels'] = [f'{i}' for i in range(1, nbrData)]
+    data['datasets'] = list()
+    for index in range(labelLenght):
+        data['datasets'].append(
+            dict(label=f'Serie {index + 1}',
+                 data=[random.randrange(100, 1000) for i in range(nbrData)],
+                 backgroundColor=COLOR_TAB[index], borderColor=COLOR_TAB[index]))
 
-    ]
     return data
 
 
 def sonde3(isTest=False):
+    TILE_TEMPLATE = 'line_chart'
+    TILE_ID = 'line_chartjs_ex'
     print(f'{getTimeStr()} (+) Starting sensors 3', flush=True)
     start_time = time.time()
     data = executeScriptToGetData()

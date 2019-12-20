@@ -34,17 +34,7 @@ class MyCache:
             self.isRedisConnected = False
         pass
 
-    def delete(self, tile_id, value=None, tile=None):
-        if self.redis.exists(getRedisPrefix(tile_id=tile_id)):
-            self.redis.delete(getRedisPrefix(tile_id=tile_id))
-            return True
-        if LOG:
-            print(f"{getTimeStr()}(-) tile: {tile_id} not found in redis", flush=True)
-        return False
-
     def get(self, tile_id):
-        # if LOG:
-        #     print(f"cache.get({tile_id})", flush=True)
         prefix = tile_id
         if self.isRedisConnected and self.redis.exists(prefix):
             return json.dumps(self.redis.get(prefix))
@@ -59,39 +49,40 @@ class MyCache:
             self.redis.set(tile_id, dumped_value)
             tile_id = tile_id.split(":")[-1]
             channel_layer = get_channel_layer()
-            async_to_sync(channel_layer.group_send)("event", {"type": "update.tile", "tile_id": tile_id})
+            async_to_sync(channel_layer.group_send)("event", dict(type="update.tile", tile_id=tile_id))
+
+    def delete(self, tile_id, value=None, tile=None):
+        if self.redis.exists(getRedisPrefix(tile_id=tile_id)):
+            self.redis.delete(getRedisPrefix(tile_id=tile_id))
+            return True
+        if LOG:
+            print(f"{getTimeStr()}(-) tile: {tile_id} not found in redis", flush=True)
+        return False
+
+    def createTile(self, tile_id, value, tile_template):
+        try:
+            if self.isRedisConnected:
+                cache.set(getRedisPrefix(tile_id), json.dumps(dict(
+                    id=tile_id,
+                    tile_template=tile_template,
+                    data=json.loads(value),
+                    meta={},
+                    modified=getIsoTime(),
+                )))
+            return True, None
+        except Exception as e:
+            return False, e
 
     def listOfTilesCached(self):
-        listOfTiles = list()
-        if self.isRedisConnected:
-            for key in self.redis.keys(getRedisPrefix()):
-                listOfTiles.append(key)
-        return listOfTiles
+        return [key for key in self.redis.keys(getRedisPrefix())] if self.isRedisConnected else list()
 
     def listOfTilesFromLayout(self, layout_name="layout_config"):
         rcx = 0
         listOfTiles = list()
         config = parse_xml_layout(layout_name)
         for tile in config['tiles_keys']:
-            tileObj = {
-                "tile_id": tile,
-                "tile_template": config['tiles_names'][rcx]
-            }
-            listOfTiles.append(tileObj)
+            listOfTiles.append(dict(tile_id=tile, tile_template=config['tiles_names'][rcx]))
             rcx += 1
         return listOfTiles
 
-    def createTile(self, tile_id, value, tile_template):
-        try:
-            dumped_value = json.dumps(dict(
-                id=tile_id,
-                tile_template=tile_template,
-                data=json.loads(value),
-                meta={},
-                modified=getIsoTime(),
-            ))
-            if self.isRedisConnected:
-                cache.set(getRedisPrefix(tile_id), dumped_value)
-            return True, None
-        except Exception as e:
-            return False, e
+
