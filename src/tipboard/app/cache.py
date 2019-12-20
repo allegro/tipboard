@@ -84,5 +84,3 @@ class MyCache:
             listOfTiles.append(dict(tile_id=tile, tile_template=config['tiles_names'][rcx]))
             rcx += 1
         return listOfTiles
-
-

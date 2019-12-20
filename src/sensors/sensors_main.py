@@ -1,6 +1,5 @@
-import time, datetime
+import time
 from datetime import datetime, timedelta
-# import datetime
 from apscheduler.schedulers.blocking import BlockingScheduler
 # from src.sensors.sensors1_text import sonde1
 from src.sensors.sensors2_piechart import sonde2
@@ -22,8 +21,7 @@ from src.sensors.utils import end
 
 def launch_sensors(isTest=False):
     # sonde2(isTest)
-
-    sonde3(isTest)
+    # sonde3(isTest)
     # sonde4(isTest)
     # sonde5(isTest)
     # sonde7(isTest, isHorizontal=True)
@@ -35,7 +33,7 @@ def launch_sensors(isTest=False):
     # sonde15(isTest)
     # sonde16(isTest)
     # sonde13(isTest)
-    # scheduleYourSensors()  # If you need actualized data :)
+    scheduleYourSensors()  # If you need actualized data :)
 
 
 def addSchedule(scheduler, sonde, timeToRun=datetime.now()):

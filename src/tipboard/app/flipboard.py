@@ -1,5 +1,5 @@
 from src.tipboard.app.utils import getTimeStr
-from src.tipboard.app.properties import LOG, FLIPBOARD_SEQUENCE
+from src.tipboard.app.properties import FLIPBOARD_SEQUENCE
 from src.tipboard.app.parser import get_config_files_names, parse_xml_layout
 
 
@@ -25,7 +25,7 @@ class Flipboard(object):
         if len(config_names) != self.last_found_configs_number:
             self.paths = list()
             for name in config_names:
-                self.paths.append('/' + name)            
+                self.paths.append('/' + name)
             self.last_found_configs_number = len(config_names)
         return self.paths
 
@@ -33,15 +33,13 @@ class Flipboard(object):
         """ Returns title to display as a html title. """
         title = ''
         config_names = get_config_names()
-        if len(config_names) == 1:
-            config = parse_xml_layout(config_names[0])
-            try:
+        try:
+            if len(config_names) == 1:
+                config = parse_xml_layout(config_names[0])
                 title = config['details']['page_title']
-            except KeyError:
-                msg = f'config {config_names[0]} has no key: details/page_title'
-                if LOG:
-                    print(f"{getTimeStr()} (+) {msg}", flush=True)
-        elif len(config_names) > 1:
-            # TODO: put here more suitable title?
-            title = 'Flipboard Mode'
+            else:
+                # TODO: put here more suitable title?
+                title = 'Flipboard Mode'
+        except KeyError:
+            print(f"{getTimeStr()} (+) config {config_names[0]} has no key: details/page_title'", flush=True)
         return title

@@ -2,15 +2,13 @@ import time, random
 from src.sensors.utils import end, sendDataToTipboard, getTimeStr
 from src.tipboard.app.properties import COLOR_TAB
 
+
 def executeScriptToGetData():
     ''' Simulate some actions for text tile exemple'''
     labelLenght = random.randrange(2, 4)
     nbrData = random.randrange(1, 4)
     data = dict()
-    data['title'] = {
-        'text': 'NormChart sensors',
-        'color': '#FFFFFF'
-    }
+    data['title'] = dict(text='BarChart sensors', color='#FFFFFF', display=True)
     data['labels'] = [f'{i}' for i in range(1, nbrData)]
     data['datasets'] = list()
     for index in range(labelLenght):
@@ -24,7 +22,6 @@ def executeScriptToGetData():
 
 
 def sonde7(isTest=False, isHorizontal=False):
-    NAME_OF_SENSORS = 'bar sensors' if isHorizontal else 'bar_chart'
     TILE_TEMPLATE = 'bar_chart' if isHorizontal else 'vbar_chart'
     TILE_ID = 'barjs_ex' if isHorizontal else 'vbarjs_ex'
     print(f'{getTimeStr()} (+) Starting sensors 7', flush=True)

@@ -169,7 +169,7 @@ def getFakeDoughnutChart(tile_id, template_name):
             'datasets': [
                 {
                     'backgroundColor': COLOR_TAB,
-                    'data': [895,1478, 1267, 895, 734, 1056, 895,   1056],
+                    'data': [895, 1478, 1267, 895, 734, 1056, 895, 1056],
                 }
             ]
         },
