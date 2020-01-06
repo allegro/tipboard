@@ -5,18 +5,18 @@ from src.tipboard.app.properties import COLOR_TAB
 
 def executeScriptToGetData():
     """ Simulate some actions for linechart tile exemple """
-    labelLenght = random.randrange(1, 5)
+    nbrDataset = random.randrange(1, 5)
     nbrData = random.randrange(9, 50)
     data = dict()
     data['title'] = dict(text='LineChart sensors', color='#FFFFFF')
     data['labels'] = [f'{i}' for i in range(1, nbrData)]
     data['datasets'] = list()
-    for index in range(labelLenght):
+    for index in range(nbrDataset):
         data['datasets'].append(
             dict(label=f'Serie {index + 1}',
                  data=[random.randrange(100, 1000) for i in range(nbrData)],
                  backgroundColor=COLOR_TAB[index], borderColor=COLOR_TAB[index]))
-
+    print(f'{getTimeStr()} (+) Generated {nbrDataset} datasets with labels [{data["labels"]}]', flush=True)
     return data
 
 

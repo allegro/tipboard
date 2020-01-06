@@ -1,48 +1,29 @@
 import time, random
 from src.sensors.utils import end, sendDataToTipboard, getTimeStr
+from src.tipboard.app.properties import COLOR_TAB
 
-NAME_OF_SENSORS = "cumuleflow"
-TILE_TEMPLATE = "cumulative_flow"
-TILE_ID = "cfjs_ex"
-
-
-# def executeScriptToGetData():
-#     """ Simulate some actions for text tile exemple"""
-#     label1 = {"label": "label 1", "series": [0, 0, 0, 0, 1, 1, 2, 2, 1, 1, 1, 0, 0, 2, 0]}
-#     label2 = {"label": "label 2", "series": [0, 5, 0, 0, 1, 0, 0, 3, 0, 0, 0, 7, 8, 9, 1]}
-#     return {"title": "My title:", "series_list": [label1, label2]}
 
 def executeScriptToGetData():
-    """ Simulate some actions for text tile exemple"""
-    labelLenght = random.randrange(9, 50)
+    """ Simulate some actions for text tile exemple """
+    datasetLength = random.randrange(1, 3)
+    labelLenght = random.randrange(5, 15)
     data = dict()
-    data['title'] = {
-        "text": "LineChart sensors",
-        "color": "#FFFFFF"
-    }
+    data['title'] = dict(text='Cumulative sensors', color='#FFFFFF')
     data['labels'] = [f"{i}" for i in range(1, labelLenght)]
-    data['datasets'] = [
-        {
-            'label': 'Serie 1',
-            'backgroundColor': 'rgba(114, 191, 68, 0.8)',
-            'borderColor': 'rgba(114, 191, 68, 0.8)',
-            'data': [random.randrange(200, 1000) for i in range(labelLenght)]
-        },
-        {
-            'label': 'Serie 2',
-            'backgroundColor': 'rgba(62, 149, 205, 0.8)',
-            'borderColor': 'rgba(62, 149, 205, 0.8)',
-            'data': [random.randrange(200, 1000) for i in range(labelLenght)]
-        }
-
-    ]
-    print(data)
+    data['datasets'] = list()
+    for index in range(datasetLength):
+        data['datasets'].append(
+            dict(label=f'Serie {index + 1}',
+                 data=[random.randrange(200, 1000) for i in range(labelLenght)],
+                 borderColor=COLOR_TAB[index], backgroundColor=COLOR_TAB[index]))
+    print(f'{getTimeStr()} (+) Generated {datasetLength} datasets with labels [{data["labels"]}]', flush=True)
     return data
 
 
 def sonde4(isTest=False):
+    TILE_ID = "cfjs_ex"
     print(f"{getTimeStr()} (+) Starting sensors 4", flush=True)
     start_time = time.time()
     data = executeScriptToGetData()
-    tipboardAnswer = sendDataToTipboard(data, tile_template=TILE_TEMPLATE, tile_id=TILE_ID, isTest=isTest)
+    tipboardAnswer = sendDataToTipboard(data, tile_template="cumulative_flow", tile_id=TILE_ID, isTest=isTest)
     end(title=f"sensors4 -> {TILE_ID}", start_time=start_time, tipboardAnswer=tipboardAnswer, TILE_ID=TILE_ID)

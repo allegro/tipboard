@@ -3,7 +3,7 @@ window.Tipboard = {};
 function getFlipTime(node) {
     let classStr = $(node).attr("class");
     // TODO: make this flip time CUSTOM
-    let flipTime = 10000;
+    let flipTime = 13000;
     return flipTime;
 }
 

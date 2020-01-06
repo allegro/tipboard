@@ -133,33 +133,34 @@ let escapeId = function (id) {
 let clearChartJsTile = function (chart) {
     console.log("clear previous data");
     if ("labels" in chart.data) {
-        console.log("pop:labels:" + chart.data.labels);
-        chart.data.labels.pop();
+        console.log("clear:labels:" + chart.data.labels);
+        chart.data.labels = [];
     }
     if ("pie_data_value" in chart.data) {
-        console.log("pop:pie_data_value");
-        chart.data.pie_data_value.pop();
+        console.log("clear:pie_data_value");
+        chart.data.pie_data_value = []
     }
 };
 
 function updateData(oldDict, newDict) {
     for (let key in newDict) {
         if (key === "datasets") {
-            console.log("Update dataset");
+            console.log("Update dataset from " + oldDict.datasets.length + " dataset to " + newDict.datasets.length + " datasets");
             let rcx = 0;
             for (; rcx < newDict.datasets.length; rcx++) {
+                console.log("\tUpdate dataset[" + rcx + "]");
                 for (let keyDataset in newDict.datasets[rcx]) {
-                    console.log("Update key:[" + keyDataset + "] with " + newDict.datasets[rcx][keyDataset]);
+                    if (oldDict.datasets.length <= rcx) {
+                        console.log("\tcreate new dataset");
+                        oldDict.datasets.push({})
+                    }
+                    console.log("\tUpdate key:[" + keyDataset + "] with " + newDict.datasets[rcx][keyDataset]);
                     oldDict.datasets[rcx][keyDataset] = newDict.datasets[rcx][keyDataset];
                 }
+                console.log("\t-------------");
             }
             if (oldDict.datasets.length > newDict.datasets.length) {
                 oldDict.datasets.splice(rcx, oldDict.datasets.length); // delete previous dataset
-            } else if (oldDict.datasets.length < newDict.datasets.length) { // no equal
-                for (;rcx < newDict.datasets.length; rcx++) {
-                    console.log("add dataset");
-                    oldDict.datasets.push(newDict.datasets[rcx])
-                }
             }
             console.log("Update dataset over");
         } else {
@@ -170,41 +171,25 @@ function updateData(oldDict, newDict) {
 }
 
 let updateDataOfChartJS = function (chart, data) {
-    Tipboard.Dashboard.clearChartJsTile(chart);
-
-    updateData(chart.data, data);
-    console.log("Previous LABEL: " + chart.data.labels);
-    if ("labels" in data) {
-        chart.data.labels.pop();
-        chart.update();
-        chart.data.labels.push(data.labels);
-        chart.update();
+    try {
+        console.log("Previous LABEL: " + chart.data.labels);
+        Tipboard.Dashboard.clearChartJsTile(chart);
+        updateData(chart.data, data);
+        console.log("News LABEL: " + chart.data.labels);
+    } catch (e) {
+        console.trace();
+        console.log("ERROR WHEN UPDATE TILE")
     }
-     console.log("News LABEL: " + chart.data.labels);
-    // if ("datasets" in data) {
-    //     chart.data.datasets.forEach((dataset) => {
-    //         dataset.data.pop();
-    //
-    //     });
-    //     data.datasets.forEach((dataset) => {
-    //         //     for (let keyDataset in newDict.datasets[rcx]) {
-    //         //         console.log("Update key:[" + keyDataset + "] with " + newDict.datasets[rcx][keyDataset]);
-    //         //         oldDict.datasets[rcx][keyDataset] = newDict.datasets[rcx][keyDataset];
-    //         //     }
-    //
-    //        chart.data.datasets.push(dataset)
-    //     });
-    // }
     console.log("update");
     chart.update();
 };
 
+let registerUpdateFunc = function (name, fn) { this.updateFunctions[name.toString()] = fn; };
+
 function initDashboard(Tipboard) {
     Tipboard.Dashboard.id2node = (id) => $("#" + id)[0];
     Tipboard.Dashboard.tile2id = (tileNode) => $(tileNode).attr("id");
-    Tipboard.Dashboard.registerUpdateFunction = function (name, fn) {
-        this.updateFunctions[name.toString()] = fn;
-    };
+    Tipboard.Dashboard.registerUpdateFunction = registerUpdateFunc;
     Tipboard.Dashboard.escapeId = escapeId;
     Tipboard.Dashboard.setDataByKeys = updateKeyOfTiles;
     Tipboard.Dashboard.updateTile = updateTile;

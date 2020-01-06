@@ -39,17 +39,17 @@ layout:
               title: bar tile's
               classes:
 
-        - col_1_of_4 :
+        - col_1_of_4 flip-time-15:
 
-#            - tile_template: line_chart
-#              tile_id: line_chartjs_ex
-#              title: line tile's
-#              classes:
+            - tile_template: line_chart
+              tile_id: line_chartjs_ex
+              title: line tile's
+              classes:
 
-#            - tile_template: cumulative_flow
-#              tile_id: cfjs_ex
-#              title: cumulflow
-#              classes:
+            - tile_template: cumulative_flow
+              tile_id: cfjs_ex
+              title: cumulflow
+              classes:
 
             - tile_template: norm_chart
               tile_id: normjs_ex

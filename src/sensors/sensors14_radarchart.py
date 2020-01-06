@@ -31,15 +31,14 @@ def executeScriptToGetData():
             'data': [random.randrange(4, 30) for i in range(labelLenght)]
         }
     ]
-    print(data)
+
     return data
 
 
 def sonde14(isTest=False):
-    TILE_TEMPLATE = 'radar_chart'
     TILE_ID = 'radar_ex'
     print(f'{getTimeStr()} (+) Starting sensors 14', flush=True)
     start_time = time.time()
     data = executeScriptToGetData()
-    tipboardAnswer = sendDataToTipboard(data, tile_template=TILE_TEMPLATE, tile_id=TILE_ID, isTest=isTest)
+    tipboardAnswer = sendDataToTipboard(data, tile_template='radar_chart', tile_id=TILE_ID, isTest=isTest)
     end(title=f'sensors3 -> {TILE_ID}', start_time=start_time, tipboardAnswer=tipboardAnswer, TILE_ID=TILE_ID)
