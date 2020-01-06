@@ -6,7 +6,7 @@ from src.tipboard.app.properties import COLOR_TAB
 def executeScriptToGetData():
     """ Simulate some actions for text tile exemple """
     datasetLength = random.randrange(1, 3)
-    labelLenght = random.randrange(5, 15)
+    labelLenght = random.randrange(8, 15)
     data = dict()
     data['title'] = dict(text='Cumulative sensors', color='#FFFFFF')
     data['labels'] = [f"{i}" for i in range(1, labelLenght)]

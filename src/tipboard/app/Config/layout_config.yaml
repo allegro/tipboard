@@ -80,10 +80,7 @@ layout:
               title: text
               classes:
 
-            - tile_template: listing
-              tile_id: listing_ex
-              title: listing
-              classes:
+
 
 
 

@@ -6,7 +6,7 @@ from src.tipboard.app.properties import COLOR_TAB
 def executeScriptToGetData():
     """ Simulate some actions for linechart tile exemple """
     nbrDataset = random.randrange(1, 5)
-    nbrData = random.randrange(9, 50)
+    nbrData = random.randrange(9, 20)
     data = dict()
     data['title'] = dict(text='LineChart sensors', color='#FFFFFF')
     data['labels'] = [f'{i}' for i in range(1, nbrData)]

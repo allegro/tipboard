@@ -3,7 +3,7 @@ from django.conf.urls.static import static
 from django.views.generic.base import RedirectView
 from django.conf.urls import url
 from src.tipboard.app.views.api import push, projectInfo, tile, meta, update
-from src.tipboard.app.views.api_unsecured    import push_unsecured, tile_unsecured, meta_unsecured, update_unsecured
+from src.tipboard.app.views.api_unsecured import push_unsecured, tile_unsecured, meta_unsecured, update_unsecured
 from src.tipboard.app.views.dashboard import renderHtmlForTiles, getDashboardsPaths, renderFlipboardHtml
 from src.tipboard.app.properties import API_KEY, API_VERSION
 
