@@ -1,16 +1,15 @@
 import requests, time, random
+import lorem
 from src.tipboard.app.properties import TIPBOARD_URL
 from src.sensors.utils import end, buildConfigTile, getTimeStr
 from src.tipboard.app.FakeData.fake_data import getFakeText
 
-NAME_OF_SENSORS = "text_exemple"
-TILE_TEMPLATE = "text"
-TILE_ID = "txt_ex"
-
 
 def executeScriptToGetData(tile_id=None, tile_template=None):
     """ Replace getFakeText with your script to GET text tile data """
-    return getFakeText(tile_id=tile_id, template_name=tile_template)
+    tile = getFakeText(tile_id=tile_id, template_name=tile_template)
+    tile['data']['text'] = "\n".join([lorem.sentence() for i in range(6)])
+    return tile
 
 
 def sendDataToTipboard(data=None, tile_template=None, tile_id="", isTest=False):
@@ -20,6 +19,8 @@ def sendDataToTipboard(data=None, tile_template=None, tile_id="", isTest=False):
 
 
 def sonde1(isTest=False):
+    TILE_TEMPLATE = "text"
+    TILE_ID = "txt_ex"
     print(f"----------------------------------------------------------------------------------------------", flush=True)
     print(f"{getTimeStr()} (+) Starting sensors 1", flush=True)
     start_time = time.time()

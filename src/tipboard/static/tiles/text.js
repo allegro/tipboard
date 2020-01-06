@@ -15,7 +15,6 @@ function updateTileText(tileId, data, meta, tileType) {
     for (const tag of tags) {
         body.appendChild(tag);
     }
-
 }
 
 Tipboard.Dashboard.registerUpdateFunction("text", updateTileText);

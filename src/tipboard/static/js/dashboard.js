@@ -147,13 +147,20 @@ function updateData(oldDict, newDict) {
         if (key === "datasets") {
             console.log("Update dataset");
             let rcx = 0;
-            for (; rcx < oldDict.datasets.length; rcx++) {
+            for (; rcx < newDict.datasets.length; rcx++) {
                 for (let keyDataset in newDict.datasets[rcx]) {
                     console.log("Update key:[" + keyDataset + "] with " + newDict.datasets[rcx][keyDataset]);
                     oldDict.datasets[rcx][keyDataset] = newDict.datasets[rcx][keyDataset];
                 }
             }
-            oldDict.datasets.splice(rcx, oldDict.datasets.length); // delete previous data
+            if (oldDict.datasets.length > newDict.datasets.length) {
+                oldDict.datasets.splice(rcx, oldDict.datasets.length); // delete previous dataset
+            } else if (oldDict.datasets.length < newDict.datasets.length) { // no equal
+                for (;rcx < newDict.datasets.length; rcx++) {
+                    console.log("add dataset");
+                    oldDict.datasets.push(newDict.datasets[rcx])
+                }
+            }
             console.log("Update dataset over");
         } else {
             console.log("Update key:[" + key + "] with " + newDict[key]);
@@ -164,7 +171,30 @@ function updateData(oldDict, newDict) {
 
 let updateDataOfChartJS = function (chart, data) {
     Tipboard.Dashboard.clearChartJsTile(chart);
+
     updateData(chart.data, data);
+    console.log("Previous LABEL: " + chart.data.labels);
+    if ("labels" in data) {
+        chart.data.labels.pop();
+        chart.update();
+        chart.data.labels.push(data.labels);
+        chart.update();
+    }
+     console.log("News LABEL: " + chart.data.labels);
+    // if ("datasets" in data) {
+    //     chart.data.datasets.forEach((dataset) => {
+    //         dataset.data.pop();
+    //
+    //     });
+    //     data.datasets.forEach((dataset) => {
+    //         //     for (let keyDataset in newDict.datasets[rcx]) {
+    //         //         console.log("Update key:[" + keyDataset + "] with " + newDict.datasets[rcx][keyDataset]);
+    //         //         oldDict.datasets[rcx][keyDataset] = newDict.datasets[rcx][keyDataset];
+    //         //     }
+    //
+    //        chart.data.datasets.push(dataset)
+    //     });
+    // }
     console.log("update");
     chart.update();
 };

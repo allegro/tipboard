@@ -12,3 +12,4 @@ requests==2.22.0
 apscheduler==3.6.3
 pytest-django==3.7.0
 pytest==5.3.1
+lorem==0.1.1

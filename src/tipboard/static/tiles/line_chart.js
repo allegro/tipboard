@@ -1,5 +1,4 @@
-const predefinedLabel = ["label1", "label2", "label3", "label4", "label5"];
-const predefinedSeries = ["serie1", "serie2", "serie3", "serie4", "serie5"];
+
 
 /**
  * Update for tile cumulative_flow & line_chartjs
@@ -8,6 +7,8 @@ const predefinedSeries = ["serie1", "serie2", "serie3", "serie4", "serie5"];
  * @returns
  */
 function updateDataset(data, tileType) {
+    const predefinedLabel = ["label1", "label2", "label3", "label4", "label5"];
+    const predefinedSeries = ["serie1", "serie2", "serie3", "serie4", "serie5"];
     let listOfDataset = [];
     let rcx = 0;
     $.each(data.datasets, function (index, dataset) {

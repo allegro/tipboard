@@ -1,7 +1,7 @@
 import time
 from datetime import datetime, timedelta
 from apscheduler.schedulers.blocking import BlockingScheduler
-# from src.sensors.sensors1_text import sonde1
+from src.sensors.sensors1_text import sonde1
 from src.sensors.sensors2_piechart import sonde2
 from src.sensors.sensors3_linechart import sonde3
 from src.sensors.sensors4_cumulativeflow import sonde4
@@ -20,6 +20,7 @@ from src.sensors.utils import end
 
 
 def launch_sensors(isTest=False):
+    # sonde1(isTest)
     # sonde2(isTest)
     # sonde3(isTest)
     # sonde4(isTest)
@@ -42,23 +43,23 @@ def addSchedule(scheduler, sonde, timeToRun=datetime.now()):
 
 def scheduleYourSensors():  # pragma: no cover
     scheduler = BlockingScheduler()
-    # scheduler.add_job(sonde1, 'interval', seconds=42)
     now = datetime.now()
-    addSchedule(scheduler, sonde2, timeToRun=now + timedelta(milliseconds=100))
-    addSchedule(scheduler, sonde3, timeToRun=now + timedelta(milliseconds=200))
-    addSchedule(scheduler, sonde4, timeToRun=now + timedelta(milliseconds=300))
-    addSchedule(scheduler, sonde5, timeToRun=now + timedelta(milliseconds=400))
-    # scheduler.add_job(sonde6, 'interval', hours=42 * 60)
-    scheduler.add_job(sonde7, 'interval', seconds=2,
-                      next_run_time=now + timedelta(milliseconds=500), args=[False, False])
-    scheduler.add_job(sonde7, 'interval', seconds=2,
-                      next_run_time=now + timedelta(milliseconds=600), args=[False, True])
-    addSchedule(scheduler, sonde9, timeToRun=now + timedelta(milliseconds=700))
-    addSchedule(scheduler, sonde10, timeToRun=now + timedelta(milliseconds=800))
+    # scheduler.add_job(sonde1, 'interval', seconds=2)
+    # addSchedule(scheduler, sonde2, timeToRun=now + timedelta(milliseconds=100))
+    # addSchedule(scheduler, sonde3, timeToRun=now + timedelta(milliseconds=200))
+    # addSchedule(scheduler, sonde4, timeToRun=now + timedelta(milliseconds=300))
+    # addSchedule(scheduler, sonde5, timeToRun=now + timedelta(milliseconds=400))
+    # # scheduler.add_job(sonde6, 'interval', hours=42 * 60)
+    # scheduler.add_job(sonde7, 'interval', seconds=2,
+    #                   next_run_time=now + timedelta(milliseconds=500), args=[False, False])
+    # scheduler.add_job(sonde7, 'interval', seconds=2,
+    #                   next_run_time=now + timedelta(milliseconds=600), args=[False, True])
+    # addSchedule(scheduler, sonde9, timeToRun=now + timedelta(milliseconds=700))
+    # addSchedule(scheduler, sonde10, timeToRun=now + timedelta(milliseconds=800))
     addSchedule(scheduler, sonde12, timeToRun=now + timedelta(milliseconds=900))
-    addSchedule(scheduler, sonde14, timeToRun=now + timedelta(milliseconds=150))
-    addSchedule(scheduler, sonde15, timeToRun=now + timedelta(milliseconds=250))
-    addSchedule(scheduler, sonde16, timeToRun=now + timedelta(milliseconds=350))
+    # addSchedule(scheduler, sonde14, timeToRun=now + timedelta(milliseconds=150))
+    # addSchedule(scheduler, sonde15, timeToRun=now + timedelta(milliseconds=250))
+    # addSchedule(scheduler, sonde16, timeToRun=now + timedelta(milliseconds=350))
     print(f"(+) Tipboard starting schedul task", flush=True)
     scheduler.start()
     return True

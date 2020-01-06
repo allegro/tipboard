@@ -41,20 +41,20 @@ layout:
 
         - col_1_of_4 :
 
-            - tile_template: line_chart
-              tile_id: line_chartjs_ex
-              title: line tile's
-              classes:
+#            - tile_template: line_chart
+#              tile_id: line_chartjs_ex
+#              title: line tile's
+#              classes:
 
-#            - tile_template: cumulative_flow flip-time-15
+#            - tile_template: cumulative_flow
 #              tile_id: cfjs_ex
 #              title: cumulflow
 #              classes:
-#
-#            - tile_template: norm_chart
-#              tile_id: normjs_ex
-#              title: norm tile's
-#              classes:
+
+            - tile_template: norm_chart
+              tile_id: normjs_ex
+              title: norm tile's
+              classes:
 
     - row_1_of_2:
 
@@ -77,12 +77,7 @@ layout:
               title: Just value
               classes:
 
-        - col_1_of_4 flip-time-15:
-
-            - tile_template: listing
-              tile_id: listing_ex
-              title: listing
-              classes:
+        - col_1_of_4 :
 
             - tile_template: text
               tile_id: txt_ex

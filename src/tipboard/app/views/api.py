@@ -102,8 +102,11 @@ def projectInfo(request):  # pragma: no cover
 
 
 def update_tile_data(previousData, newData):
+    if isinstance(newData, str):
+        previousData['text'] = newData
+        return previousData
     for key, value in newData.items():
-        if isinstance(value, dict) and key != 'data' and key in previousData:
+        if isinstance(value, dict) and key != 'data' and key in previousData and key != 'datasets':
             update_tile_data(previousData[key], value)
         else:
             previousData[key] = value

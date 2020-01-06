@@ -15,12 +15,13 @@ def executeScriptToGetData():
             dict(label=f'Serie {index + 1}',
                  data=[random.randrange(100, 1000) for i in range(nbrData)],
                  borderColor=COLOR_TAB[index]))
+    print(f'{getTimeStr()} (+) Generated {datasetLength} datasets', flush=True)
     return data
 
 
 def sonde12(isTest=False):
     TILE_ID = 'normjs_ex'
-    print(f'{getTimeStr()} (+) Starting sensors 12', flush=True)
+
     start_time = time.time()
     data = executeScriptToGetData()
     tipboardAnswer = sendDataToTipboard(data, tile_template='norm_chart', tile_id=TILE_ID, isTest=isTest)
