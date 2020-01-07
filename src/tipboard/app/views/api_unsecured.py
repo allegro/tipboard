@@ -9,7 +9,7 @@ from src.tipboard.app.views.api import tile, push_tile, meta, update
 
 
 def tile_unsecured(request, tile_key):  # pragma: no cover
-    print(f"{getTimeStr()} (~) Using unsecured tile url")
+    print(f'{getTimeStr()} (~) Using unsecured tile url')
     if not DEBUG:
         raise Http404
     else:
@@ -17,24 +17,24 @@ def tile_unsecured(request, tile_key):  # pragma: no cover
 
 
 def push_unsecured(request):  # pragma: no cover
-    print(f"{getTimeStr()} (~) Using unsecured push url")
+    print(f'{getTimeStr()} (~) Using unsecured push url')
     if not DEBUG:
         raise Http404
     postVariable = request.POST
-    if not postVariable.get("key", None) or not postVariable.get("data", None) or not postVariable.get("tile", None):
-        return HttpResponseBadRequest(f"Missing data")
-    tileType = postVariable.get("tile", None)
+    if not postVariable.get('key', None) or not postVariable.get('data', None) or not postVariable.get('tile', None):
+        return HttpResponseBadRequest(f'Missing data')
+    tileType = postVariable.get('tile', None)
     # TODO: check the token for 'security' xD
     try:
-        data = updateDatav1tov2(tileType, postVariable.get("data", None))
-        print(f"{getTimeStr()} (+) DATA MIGRATED ({tileType}): {data}")
-        return push_tile(tile_id=postVariable.get("key", None), data=data, tile_template=tileType, meta=None)
+        data = updateDatav1tov2(tileType, postVariable.get('data', None))
+        print(f'{getTimeStr()} (+) DATA MIGRATED ({tileType}): {data}')
+        return push_tile(tile_id=postVariable.get('key', None), data=data, tile_template=tileType, meta=None)
     except Exception:
         return HttpResponseBadRequest('Error in request')
 
 
 def meta_unsecured(request, tile_key):  # pragma: no cover
-    print(f"{getTimeStr()} (~) Using unsecured meta url")
+    print(f'{getTimeStr()} (~) Using unsecured meta url')
     if not DEBUG:
         raise Http404
     else:
@@ -42,7 +42,7 @@ def meta_unsecured(request, tile_key):  # pragma: no cover
 
 
 def update_unsecured(request):  # pragma: no cover
-    print(f"{getTimeStr()} (~) Using unsecured update url")
+    print(f'{getTimeStr()} (~) Using unsecured update url')
     if not DEBUG:
         raise Http404
     else:

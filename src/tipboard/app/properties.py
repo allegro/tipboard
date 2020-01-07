@@ -18,12 +18,12 @@ conf = json.load(open(dir_path + '/Config/properties.json'))
 API_VERSION = conf['API_VERSION']
 API_KEY = conf['TIPBOARD_TOKEN']
 PROJECT_NAME = conf['PROJECT_NAME']
-SUPER_SECRET_KEY = conf["SUPER_SECRET_KEY"]
+SUPER_SECRET_KEY = conf['SUPER_SECRET_KEY']
 
 DEBUG = conf['DEBUG']
 LOG = conf['LOG']
-VERSION = conf["VERSION"]
-SITE_ENV = conf["SITE_ENV"]
+VERSION = conf['VERSION']
+SITE_ENV = conf['SITE_ENV']
 LOCAL = conf['LOCAL']
 TIPBOARD_URL = conf['TIPBOARD_URL']
 CDN_URL = conf['CDN_URL']  # if you are in production and need a CDN for media and static file
@@ -33,10 +33,10 @@ REDIS_PORT = conf['REDIS_PORT']
 REDIS_PASSWORD = conf['REDIS_PASSWORD']
 REDIS_DB = conf['REDIS_DB']
 
-ALLOWED_TILES = ["text", "fancy_listing", "simple_percentage", "listing", "big_value", "just_value",  # Homemade
-                 "norm_chart", "line_chart", "cumulative_flow", "bar_chart", "vbar_chart",  # ChartJS
-                 "doughnut_chart", "pie_chart", "radar_chart", "polararea_chart",  # ChartJS
-                 "empty"]  # chartjs lib
+ALLOWED_TILES = ['text', 'fancy_listing', 'simple_percentage', 'listing', 'big_value', 'just_value',  # Homemade
+                 'norm_chart', 'line_chart', 'cumulative_flow', 'bar_chart', 'vbar_chart',  # ChartJS
+                 'doughnut_chart', 'pie_chart', 'radar_chart', 'polararea_chart',  # ChartJS
+                 'empty']  # chartjs lib
 
 COLOR_TAB = [
     'rgba(66, 165, 245, 0.8)',

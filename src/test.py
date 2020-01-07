@@ -24,22 +24,22 @@ class TestApp(TestCase):
         """ Test template generation """
 
         for tile in self.ALLOWED_TILES:
-            tile_data = {'title': f"{tile}_ex", 'tile_template': tile}
+            tile_data = dict(title=f'{tile}_ex', tile_template=tile)
             tileTemplate = template_tile(tile_data['title'], tile_data)
             self.assertTrue('role="alert"' not in tileTemplate)
-        tileTemplate = template_tile("test_unknown_tile", {'title': 'unknown', 'tile_template': 'tile'})
+        tileTemplate = template_tile('test_unknown_tile', dict(title='unknown', tile_template='tile'))
         self.assertTrue(tileTemplate is not None)
 
     def test_0020_fake_data(self):
         """ Test fake_data generation """
 
         for tile in self.ALLOWED_TILES:
-            if tile != "text" and tile != "empty":
-                tileData = buildFakeDataFromTemplate(f"test_{tile}", template_name=tile, cache=None)
-                self.assertTrue("meta" in tileData)
-                self.assertTrue("data" in tileData)
-                self.assertTrue("id" in tileData)
-                self.assertTrue("tile_template" in tileData)
+            if tile != 'text' and tile != 'empty':
+                tileData = buildFakeDataFromTemplate(f'test_{tile}', template_name=tile, cache=None)
+                self.assertTrue('meta' in tileData)
+                self.assertTrue('data' in tileData)
+                self.assertTrue('id' in tileData)
+                self.assertTrue('tile_template' in tileData)
 
     def test_0030_parser(self):
         """ Test XmlParser for layout """
@@ -83,6 +83,6 @@ class SomeLiveTests(ChannelsLiveServerTestCase):
 
     @pytest.mark.asyncio
     async def test_0090_test_consumer(self):
-        communicator = HttpCommunicator(WSConsumer, "GET", "/communication/websocket")
+        communicator = HttpCommunicator(WSConsumer, 'GET', '/communication/websocket')
         response = await communicator.get_response()
-        self.assertTrue(response["status"] == 200)
+        self.assertTrue(response['status'] == 200)

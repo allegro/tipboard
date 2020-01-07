@@ -10,24 +10,24 @@ def executeScriptToGetData():
     lrv = ulv + llv + urv
     # bv = lrv - random.randrange(42)
     return {
-        "title": "Sensors title",
-        "description": "Sensors description",
-        "big-value": random.randrange(214, 514),
-        "upper-left-label": "Critical:",
-        "upper-left-value": ulv,
-        "lower-left-label": "Major:",
-        "lower-left-value": llv,
-        "upper-right-label": "Minor:",
-        "upper-right-value": urv,
-        "lower-right-label": "All:",
-        "lower-right-value": lrv
+        'title': 'Sensors title',
+        'description': 'Sensors description',
+        'big-value': random.randrange(214, 514),
+        'upper-left-label': 'Critical:',
+        'upper-left-value': ulv,
+        'lower-left-label': 'Major:',
+        'lower-left-value': llv,
+        'upper-right-label': 'Minor:',
+        'upper-right-value': urv,
+        'lower-right-label': 'All:',
+        'lower-right-value': lrv
     }
 
 
 def sonde9(isTest=False):
-    TILE_ID = "bv_ex"
-    print(f"{getTimeStr()} (+) Starting sensors 9", flush=True)
+    TILE_ID = 'bv_ex'
+    print(f'{getTimeStr()} (+) Starting sensors 9', flush=True)
     start_time = time.time()
     data = executeScriptToGetData()
-    tipboardAnswer = sendDataToTipboard(data, tile_template="big_value", tile_id=TILE_ID, isTest=isTest)
-    end(title=f"sensors9 -> {TILE_ID}", start_time=start_time, tipboardAnswer=tipboardAnswer, TILE_ID=TILE_ID)
+    tipboardAnswer = sendDataToTipboard(data, tile_template='big_value', tile_id=TILE_ID, isTest=isTest)
+    end(title=f'sensors9 -> {TILE_ID}', start_time=start_time, tipboardAnswer=tipboardAnswer, TILE_ID=TILE_ID)

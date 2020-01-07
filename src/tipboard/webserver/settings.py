@@ -15,7 +15,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'channels',
-    FROM_PIP + 'tipboard.app.Config'
+    FROM_PIP + 'tipboard.app.Config',
 ]
 
 MIDDLEWARE = [

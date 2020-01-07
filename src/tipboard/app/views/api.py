@@ -93,7 +93,7 @@ def update(request, unsecured=False):  # TODO: "it's better to ask forgiveness t
     if request.method == 'POST':
         if not checkAccessToken(method='POST', request=request, unsecured=unsecured):
             return HttpResponse('API KEY incorrect', status=401)
-        tile_id = request.POST.get('key', None)
+        tile_id = request.POST.get('tile_id', None)
         data = request.POST.get('data', None)  # Test if var is present
         if data is None:
             print('No data')
@@ -132,23 +132,22 @@ def push_tile(tile_id, tile_template, data, meta):  # pragma: no cover
         elif meta.get('backgroundColor') is not None:
             cachedTile['meta']['backgroundColor'].update(meta['backgroundColor'])
     cache.set(tilePrefix, json.dumps(cachedTile))
-    return HttpResponse(f"{tile_id} data updated successfully.")
+    return HttpResponse(f'{tile_id} data updated successfully.')
 
 
 def push(request, unsecured=False):  # pragma: no cover
-    """ Update the content of a tile(widget) """
+    """ Update the content of a tile (widget) """
     if request.method == 'POST':
         if not checkAccessToken(method='POST', request=request, unsecured=unsecured):
             return HttpResponse('API KEY incorrect', status=401)
-        if not request.POST.get('key', None) or \
-                not request.POST.get('data', None) or \
-                not request.POST.get('tile', None):
-            return HttpResponseBadRequest(f'Missing data')
+        if not request.POST.get('tile_id', None) or not request.POST.get('tile_template', None) or \
+                not request.POST.get('data', None):
+            return HttpResponseBadRequest('Missing data')
         data = request.POST.get('data', None)
         if 'data' in json.loads(data):
             data = json.dumps(json.loads(data)['data'])
-        return push_tile(tile_id=request.POST.get('key', None),
-                         tile_template=request.POST.get('tile', None),
+        return push_tile(tile_id=request.POST.get('tile_id', None),
+                         tile_template=request.POST.get('tile_template', None),
                          data=data,
                          meta=request.POST.get('meta', None))
     raise Http404

@@ -1,7 +1,7 @@
 from django.conf import settings
 from django.conf.urls.static import static
 from django.views.generic.base import RedirectView
-from django.conf.urls import url
+from django.conf.urls import url, include
 from src.tipboard.app.views.api import push, projectInfo, tile, meta, update
 from src.tipboard.app.views.api_unsecured import push_unsecured, tile_unsecured, meta_unsecured, update_unsecured
 from src.tipboard.app.views.dashboard import renderHtmlForTiles, getDashboardsPaths, renderFlipboardHtml
@@ -28,5 +28,4 @@ urlpatterns = [
     url(r'^api/' + API_VERSION + '/' + API_KEY + '/tileconfig/([a-zA-Z0-9_-]+)$', meta_unsecured),
     url(r'^api/' + API_VERSION + '/' + API_KEY + '/push$', push_unsecured),
     url(r'^api/' + API_VERSION + '/' + API_KEY + '/update$', update_unsecured),
-
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
