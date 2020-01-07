@@ -6,7 +6,6 @@ SECRET_KEY = SUPER_SECRET_KEY
 DEBUG = DEBUG
 ALLOWED_HOSTS = ['*']
 
-
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -33,29 +32,12 @@ MIDDLEWARE = [
 
 CORS_ORIGIN_ALLOW_ALL = True
 CORS_ALLOW_CREDENTIALS = True
-CORS_ORIGIN_REGEX_WHITELIST = (
-    '*',
-)
+CORS_ORIGIN_REGEX_WHITELIST = tuple('*')
 
-CORS_ALLOW_METHODS = (
-    'GET',
-    'POST'
-)
+CORS_ALLOW_METHODS = ('GET', 'POST')
 
-CORS_ALLOW_HEADERS = (
-    'accept',
-    'accept-encoding',
-    'authorization',
-    'multipart/form-data',
-    'content-type',
-    'dnt',
-    'origin',
-    'user-agent',
-    'x-csrftoken',
-    'x-requested-with',
-    'Set-Cookie',
-    'enctype',
-)
+CORS_ALLOW_HEADERS = ('accept', 'accept-encoding', 'authorization', 'multipart/form-data', 'content-type',
+                      'dnt', 'origin', 'user-agent', 'x-csrftoken', 'x-requested-with', 'Set-Cookie', 'enctype')
 
 TIME_ZONE = 'Europe/Paris'
 USE_I18N = True

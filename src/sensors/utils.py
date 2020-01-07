@@ -29,19 +29,19 @@ def getTimeStr():
     return datetime.datetime.now().strftime('%Hh%M')
 
 
-def sendBVColor(color, tile, fading=False):  # pragma: no cover
+def sendBVColor(color, tile_id, fading=False):  # pragma: no cover
     """ Modify meta of tile: update the color and/or fading of a specific tile """
-    var = {'value': json.dumps({'big_value_color': color, 'fading_background': fading})}
-    res = requests.post(TIPBOARD_URL + '/tileconfig/' + tile, data=var)
+    var = dict(value=json.dumps({'big_value_color': color, 'fading_background': fading}))
+    res = requests.post(TIPBOARD_URL + '/tileconfig/' + tile_id, data=var)
     if DEBUG:
-        print(f'{res}: color -> {tile}', flush=True)
+        print(f'{res}: color -> {tile_id}', flush=True)
 
 
 def buildConfigTile(tile_id, tile_template, data):
     return dict(tile_template=tile_template, tile_id=tile_id, data=json.dumps(data))
 
 
-def sendDataToTipboard(data=None, tile_template=None, tile_id='', isTest=False):
+def sendDataToTipboard(tile_id=None, data=None, tile_template=None, isTest=False):
     configTile = buildConfigTile(tile_id=tile_id, tile_template=tile_template, data=data)
     if not isTest:
         return requests.post(TIPBOARD_URL + '/push', data=configTile)

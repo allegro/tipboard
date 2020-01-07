@@ -49,12 +49,10 @@ COLOR_TAB = [
     'rgba(96, 125, 139, 0.8)'
 ]
 
-TIPBOARD_CSS_STYLES = [
-    'css/layout.css',
-]
-TIPBOARD_JAVASCRIPTS = [
-    'js/dashboard.js', 'js/palette.js', 'js/websocket.js', 'js/tipboard.js'
-]
+BACKGROUND_TAB = ['#4caf50', '#ff6d00', '#d50000']
+
+TIPBOARD_CSS_STYLES = ['css/layout.css']
+TIPBOARD_JAVASCRIPTS = ['js/dashboard.js', 'js/palette.js', 'js/websocket.js', 'js/tipboard.js']
 
 # Javascript log level ('1' for 'standard', '2' for 'debug')
 JS_LOG_LEVEL = 2

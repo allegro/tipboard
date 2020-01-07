@@ -1,5 +1,6 @@
 import time, random
-from src.sensors.utils import end, sendDataToTipboard, getTimeStr
+from src.sensors.utils import end, sendDataToTipboard, getTimeStr, sendBVColor
+from src.tipboard.app.properties import BACKGROUND_TAB
 
 
 def executeScriptToGetData():
@@ -29,5 +30,7 @@ def sonde9(isTest=False):
     print(f'{getTimeStr()} (+) Starting sensors 9', flush=True)
     start_time = time.time()
     data = executeScriptToGetData()
-    tipboardAnswer = sendDataToTipboard(data, tile_template='big_value', tile_id=TILE_ID, isTest=isTest)
+    tipboardAnswer = sendDataToTipboard(tile_id=TILE_ID, data=data, tile_template='big_value', isTest=isTest)
+    fade = False if not random.randrange(0, 1) else True
+    sendBVColor(tile_id=TILE_ID, color=BACKGROUND_TAB[random.randrange(0, 3)], fading=fade)
     end(title=f'sensors9 -> {TILE_ID}', start_time=start_time, tipboardAnswer=tipboardAnswer, TILE_ID=TILE_ID)
