@@ -7,19 +7,7 @@ from src.tipboard.app.views.api_unsecured import push_unsecured, tile_unsecured,
 from src.tipboard.app.views.dashboard import renderHtmlForTiles, getDashboardsPaths, renderFlipboardHtml
 from src.tipboard.app.properties import API_KEY, API_VERSION
 
-favicon_view = RedirectView.as_view(url="/static/" + 'favicon.ico', permanent=True)
-
-url_tiledata = r'^api/tiledata/([a-zA-Z0-9_-]+)$'
-url_meta = r'^api/tileconfig/([a-zA-Z0-9_-]+)$'
-url_info = r'^api/info$'
-url_push = r'^api/push$'
-url_update = r'^api/update$'
-
-# To not depreciate previous script(of people using tipboard1.0), dont destroy this security issue :D
-url_tiledata_unsecured = r'^api/' + API_VERSION + '/' + API_KEY + '/tileconfig/([a-zA-Z0-9_-]+)$'
-url_meta_unsecured = r'^api/' + API_VERSION + '/' + API_KEY + '/tileconfig/([a-zA-Z0-9_-]+)$'
-url_push_unsecured = r'^api/' + API_VERSION + '/' + API_KEY + '/push$'
-url_update_unsecured = r'^api/' + API_VERSION + '/' + API_KEY + '/update$'
+favicon_view = RedirectView.as_view(url='/static/favicon.ico', permanent=True)
 
 urlpatterns = [
     # Render View for client
@@ -28,16 +16,17 @@ urlpatterns = [
     url(r'^([a-zA-Z0-9_-]*)$', renderHtmlForTiles),
 
     # API interaction
-    url(url_tiledata, tile),
-    url(url_meta, meta),
-    url(url_push, push),
-    url(url_info, projectInfo),
-    url(url_update, update),
+    url(r'^api/tiledata/([a-zA-Z0-9_-]+)$', tile),
+    url(r'^api/tileconfig/([a-zA-Z0-9_-]+)$', meta),
+    url(r'^api/push$', push),
+    url(r'^api/update$', update),
+    url(r'^api/info$', projectInfo),
 
     # Unsecured API interaction
-    url(url_tiledata_unsecured, tile_unsecured),
-    url(url_meta_unsecured, meta_unsecured),
-    url(url_push_unsecured, push_unsecured),
-    url(url_update_unsecured, update_unsecured),
+    # To not depreciate previous script(of people using tipboard1.0), dont destroy this security issue :D
+    url(r'^api/' + API_VERSION + '/' + API_KEY + '/tileconfig/([a-zA-Z0-9_-]+)$', tile_unsecured),
+    url(r'^api/' + API_VERSION + '/' + API_KEY + '/tileconfig/([a-zA-Z0-9_-]+)$', meta_unsecured),
+    url(r'^api/' + API_VERSION + '/' + API_KEY + '/push$', push_unsecured),
+    url(r'^api/' + API_VERSION + '/' + API_KEY + '/update$', update_unsecured),
 
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

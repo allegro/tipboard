@@ -7,7 +7,19 @@ from src.tipboard.app.utils import getTimeStr, checkAccessToken
 from src.tipboard.app.FakeData.fake_data import buildFakeDataFromTemplate
 
 
+def projectInfo(request):  # pragma: no cover
+    """ Return info of server tipboard """
+    if request.method == 'GET':
+        response = dict(tipboard_version='v0.1',
+                        project_name=PROJECT_NAME,
+                        project_layout_config=LAYOUT_CONFIG,
+                        redis_db=REDIS_DB)
+        return JsonResponse(response)
+    raise Http404
+
+
 def get_tile(request, tile_key, unsecured=False):  # pragma: no cover
+    """ Return Json from redis for tile_key """
     if not checkAccessToken(method='GET', request=request, unsecured=unsecured):
         return HttpResponse('API KEY incorrect', status=401)
     redis = getCache().redis
@@ -18,6 +30,7 @@ def get_tile(request, tile_key, unsecured=False):  # pragma: no cover
 
 
 def delete_tile(request, tile_key, unsecured=False):  # pragma: no cover
+    """ Delete in redis """
     if not checkAccessToken(method='DELETE', request=request, unsecured=unsecured):
         return HttpResponse('API KEY incorrect', status=401)
     redis = getCache().redis
@@ -91,17 +104,8 @@ def update(request, unsecured=False):  # TODO: "it's better to ask forgiveness t
     raise Http404
 
 
-def projectInfo(request):  # pragma: no cover
-    if request.method == 'GET':
-        response = dict(tipboard_version='v0.1',
-                        project_name=PROJECT_NAME,
-                        project_layout_config=LAYOUT_CONFIG,
-                        redis_db=REDIS_DB)
-        return JsonResponse(response)
-    raise Http404
-
-
 def update_tile_data(previousData, newData):
+    """ update value of tile with new data """
     if isinstance(newData, str):
         previousData['text'] = newData
         return previousData

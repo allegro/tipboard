@@ -144,8 +144,10 @@ let clearChartJsTile = function (chart) {
 
 function updateData(oldDict, newDict) {
     for (let key in newDict) {
+        key = key.toString();
         if (key === "datasets") {
-            console.log("Update dataset from " + oldDict.datasets.length + " dataset to " + newDict.datasets.length + " datasets");
+            console.log("Update dataset from " + oldDict.datasets.length +
+                " dataset to " + newDict.datasets.length + " datasets");
             let rcx = 0;
             for (; rcx < newDict.datasets.length; rcx++) {
                 console.log("\tUpdate dataset[" + rcx + "]");
@@ -154,6 +156,7 @@ function updateData(oldDict, newDict) {
                         console.log("\tcreate new dataset");
                         oldDict.datasets.push({})
                     }
+                    keyDataset = keyDataset.toString();
                     console.log("\tUpdate key:[" + keyDataset + "] with " + newDict.datasets[rcx][keyDataset]);
                     oldDict.datasets[rcx][keyDataset] = newDict.datasets[rcx][keyDataset];
                 }
@@ -198,4 +201,3 @@ function initDashboard(Tipboard) {
     Tipboard.Dashboard.clearChartJsTile = clearChartJsTile;
     Tipboard.Dashboard.updateDataOfChartJS = updateDataOfChartJS;
 }
-

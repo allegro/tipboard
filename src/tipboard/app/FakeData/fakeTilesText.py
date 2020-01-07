@@ -62,11 +62,11 @@ def getFakeBigValue(tile_id, template_name):
         'data': {
             'title': 'Title',
             'description': 'Description',
-            "big-value": "25%",
-            "lower-left-label": "lower left-label",
-            "upper-left-label": "upper left-label",
-            "upper-right-label": "upper right-label",
-            "lower-right-label": "lower right-label"
+            'big-value': '25%',
+            'lower-left-label': 'lower left-label',
+            'upper-left-label': 'upper left-label',
+            'upper-right-label': 'upper right-label',
+            'lower-right-label': 'lower right-label'
         },
         'meta': dict(big_value_color='#4CAF50', fading_background=True),
         'tile_template': template_name,
