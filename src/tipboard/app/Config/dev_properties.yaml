@@ -77,9 +77,14 @@ layout:
               title: Just value
               classes:
 
-        - col_1_of_4 :
+        - col_1_of_4 flip-time-15:
 
             - tile_template: text
               tile_id: txt_ex
               title: text
+              classes:
+
+            - tile_template: listing
+              tile_id: listing_ex
+              title: listing
               classes:

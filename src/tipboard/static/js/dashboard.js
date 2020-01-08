@@ -142,33 +142,36 @@ let clearChartJsTile = function (chart) {
     }
 };
 
-function updateData(oldDict, newDict) {
+function updateData(chart, newDict) {
     for (let key in newDict) {
         key = key.toString();
         if (key === "datasets") {
-            console.log("Update dataset from " + oldDict.datasets.length +
+            console.log("Update dataset from " + chart.data.datasets.length +
                 " dataset to " + newDict.datasets.length + " datasets");
             let rcx = 0;
             for (; rcx < newDict.datasets.length; rcx++) {
                 console.log("\tUpdate dataset[" + rcx + "]");
                 for (let keyDataset in newDict.datasets[rcx]) {
-                    if (oldDict.datasets.length <= rcx) {
+                    if (chart.data.datasets.length <= rcx) {
                         console.log("\tcreate new dataset");
-                        oldDict.datasets.push({})
+                        chart.data.datasets.push({})
                     }
                     keyDataset = keyDataset.toString();
                     console.log("\tUpdate key:[" + keyDataset + "] with " + newDict.datasets[rcx][keyDataset]);
-                    oldDict.datasets[rcx][keyDataset] = newDict.datasets[rcx][keyDataset];
+                    chart.data.datasets[rcx][keyDataset] = newDict.datasets[rcx][keyDataset];
                 }
                 console.log("\t-------------");
             }
-            if (oldDict.datasets.length > newDict.datasets.length) {
-                oldDict.datasets.splice(rcx, oldDict.datasets.length); // delete previous dataset
+            if (chart.data.datasets.length > newDict.datasets.length) {
+                chart.data.datasets.splice(rcx, chart.data.datasets.length); // delete previous dataset
             }
             console.log("Update dataset over");
+        } else if (key === "title") {
+            console.log("Update title:[" + key + "] with ", newDict[key]);
+            chart.options.title.text = newDict[key].text;
         } else {
-            console.log("Update key:[" + key + "] with " + newDict[key]);
-            oldDict[key] = newDict[key];
+            console.log("Update key:[" + key + "] with ", newDict[key]);
+            chart.data[key] = newDict[key];
         }
     }
 }
@@ -177,14 +180,17 @@ let updateDataOfChartJS = function (chart, data) {
     try {
         console.log("Previous LABEL: " + chart.data.labels);
         Tipboard.Dashboard.clearChartJsTile(chart);
-        updateData(chart.data, data);
-        console.log("News LABEL: " + chart.data.labels);
+        console.log("Previous title: ", chart.data.title);
+        chart.data.title = data.title;
+        updateData(chart, data);
+        console.log("New title: ", chart.data.title);
+        console.log("New LABEL: " + chart.data.labels);
     } catch (e) {
-        console.trace();
-        console.log("ERROR WHEN UPDATE TILE")
+        console.log("ERROR WHEN UPDATE TILE", e);
+    } finally {
+        console.log("update");
+        chart.update();
     }
-    console.log("update");
-    chart.update();
 };
 
 let registerUpdateFunc = function (name, fn) { this.updateFunctions[name.toString()] = fn; };
@@ -201,3 +207,4 @@ function initDashboard(Tipboard) {
     Tipboard.Dashboard.clearChartJsTile = clearChartJsTile;
     Tipboard.Dashboard.updateDataOfChartJS = updateDataOfChartJS;
 }
+//TODO: TITLE CHART JS DONT UPDATE

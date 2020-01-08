@@ -19,7 +19,7 @@ def executeScriptToGetData():
             'borderColor': 'rgba(114, 191, 68, 0.8)',
             'pointBorderColor': 'rgba(114, 191, 68, 0.95)',
             'pointBackgroundColor': 'rgba(255, 255, 255, 0.5)',
-            'data': [random.randrange(4, 30) for i in range(labelLenght)]
+            'data': [random.randrange(4, 30) for _ in range(labelLenght)]
         },
         {
             'label': 'Series 2',
@@ -28,7 +28,7 @@ def executeScriptToGetData():
             'borderColor': 'rgba(62, 149, 205, 0.8)',
             'pointBorderColor': 'rgba(62, 149, 205, 0.95)',
             'pointBackgroundColor': 'rgba(255, 255, 255, 0.5)',
-            'data': [random.randrange(4, 30) for i in range(labelLenght)]
+            'data': [random.randrange(4, 30) for _ in range(labelLenght)]
         }
     ]
 
@@ -40,5 +40,5 @@ def sonde14(isTest=False):
     print(f'{getTimeStr()} (+) Starting sensors 14', flush=True)
     start_time = time.time()
     data = executeScriptToGetData()
-    tipboardAnswer = sendDataToTipboard(data, tile_template='radar_chart', tile_id=TILE_ID, isTest=isTest)
+    tipboardAnswer = sendDataToTipboard(data=data, tile_template='radar_chart', tile_id=TILE_ID, isTest=isTest)
     end(title=f'sensors3 -> {TILE_ID}', start_time=start_time, tipboardAnswer=tipboardAnswer, TILE_ID=TILE_ID)

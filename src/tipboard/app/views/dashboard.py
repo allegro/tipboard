@@ -1,10 +1,14 @@
-from django.http import JsonResponse, HttpResponse
+from django.http import JsonResponse, HttpResponse, Http404, HttpResponseRedirect
 from django.contrib.staticfiles import finders
 from django.shortcuts import render
 from src.tipboard.app.flipboard import Flipboard
 from src.tipboard.app.parser import parse_xml_layout
 from src.tipboard.app.properties import TIPBOARD_CSS_STYLES, FLIPBOARD_INTERVAL, LOG, TIPBOARD_JAVASCRIPTS
 from src.tipboard.app.utils import getTimeStr
+from src.sensors.sensors_main import scheduleYourSensors, stopTheSensors
+from apscheduler.schedulers.background import BackgroundScheduler
+
+scheduler = BackgroundScheduler()
 
 
 def renderFlipboardHtml(request):  # pragma: no cover
@@ -67,3 +71,15 @@ def renderHtmlForTiles(request, layout_name='layout_config'):  # pragma: no cove
             f'No config file found for dashboard: {layout_name} ' \
             f"Make sure that file: '{e.filename}' exists. </div>"
         return HttpResponse(msg, status=404)
+
+
+def demo_controller(request, flagSensors):
+    """ activate or not the sensors by api  """
+    if request.method == 'GET':
+        print('Starting the demo: ' + flagSensors)
+        if flagSensors == "on":
+            scheduleYourSensors(scheduler)
+        elif flagSensors == "off":
+            stopTheSensors(scheduler)
+        return HttpResponseRedirect('/')
+    raise Http404

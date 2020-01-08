@@ -9,7 +9,6 @@ def executeScriptToGetData():
     llv = random.randrange(42, 420)
     urv = random.randrange(42, 420)
     lrv = ulv + llv + urv
-    # bv = lrv - random.randrange(42)
     return {
         'title': 'Sensors title',
         'description': 'Sensors description',

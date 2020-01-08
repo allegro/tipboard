@@ -14,7 +14,7 @@ def executeScriptToGetData():
     for index in range(labelLenght):
         data['datasets'].append(
             dict(labels=f'Serie {index + 1}',
-                 data=[random.randrange(100, 1000) for i in range(1, nbrData)],
+                 data=[random.randrange(100, 1000) for _ in range(1, nbrData)],
                  backgroundColor=COLOR_TAB))
     return data
 
@@ -23,7 +23,7 @@ def sonde15(isTest=False):
     print(f'{getTimeStr()} (+) Starting sensors 15', flush=True)
     start_time = time.time()
     data = executeScriptToGetData()
-    tipboardAnswer = sendDataToTipboard(data, tile_template='polararea_chart', tile_id='polararea_ex', isTest=isTest)
+    tipboardAnswer = sendDataToTipboard(data=data, tile_template='polararea_chart', tile_id='polararea_ex', isTest=isTest)
     end(title=f'sensors3 -> polararea_ex',
         start_time=start_time,
         tipboardAnswer=tipboardAnswer,

@@ -33,5 +33,5 @@ def sonde6(isTest=False):
     print(f'{getTimeStr()} (+) Starting sensors 6', flush=True)
     start_time = time.time()
     data = executeScriptToGetData()
-    tipboardAnswer = sendDataToTipboard(data, tile_template='listing', tile_id=TILE_ID, isTest=isTest)
+    tipboardAnswer = sendDataToTipboard(data=data, tile_template='listing', tile_id=TILE_ID, isTest=isTest)
     end(title=f'sensors6 -> {TILE_ID}', start_time=start_time, tipboardAnswer=tipboardAnswer, TILE_ID=TILE_ID)

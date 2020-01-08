@@ -4,7 +4,8 @@ from django.views.generic.base import RedirectView
 from django.conf.urls import url, include
 from src.tipboard.app.views.api import push_api, project_info, tile_rest, meta_api, update_api
 from src.tipboard.app.views.api_unsecured import push_unsecured, tile_unsecured, meta_unsecured, update_unsecured
-from src.tipboard.app.views.dashboard import renderHtmlForTiles, getDashboardsPaths, renderFlipboardHtml
+from src.tipboard.app.views.dashboard import renderHtmlForTiles, getDashboardsPaths
+from src.tipboard.app.views.dashboard import renderFlipboardHtml, demo_controller
 from src.tipboard.app.properties import API_KEY, API_VERSION
 
 favicon_view = RedirectView.as_view(url='/static/favicon.ico', permanent=True)
@@ -21,6 +22,8 @@ urlpatterns = [
     url(r'^api/push$', push_api),
     url(r'^api/update$', update_api),
     url(r'^api/info$', project_info),
+
+    url(r'^demo/([a-zA-Z0-9_-]+)$', demo_controller),
 
     # Unsecured API interaction
     # To not depreciate previous script(of people using tipboard1.0), dont destroy this security issue :D
