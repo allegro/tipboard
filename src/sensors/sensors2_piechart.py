@@ -9,6 +9,8 @@ def executeScriptToGetData(TILE_ID="ex_pie", TILE_TEMPLATE='pie_chart'):
     pieData = getFakePieChart(tile_id=TILE_ID, template_name=TILE_TEMPLATE)
     labelLenght = random.randrange(2, 5)
     pieData['data']['title'] = 'Sensors title'
+    pieData['title'] = dict(text=f'by sensors', color='#FFFFFF', display=random.choice([True, False]))
+    pieData['legend'] = dict(display=False if labelLenght > 6 else random.choice([True, False]))
     pieData['labels'] = [f"Label {i}" for i in range(1, labelLenght)]
     pieData['data']['pie_data_value'] = [random.randrange(4, 50) for i in range(labelLenght)]
     return pieData

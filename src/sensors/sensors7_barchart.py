@@ -8,7 +8,8 @@ def executeScriptToGetData():
     labelLenght = random.randrange(2, 4)
     nbrData = random.randrange(1, 4)
     data = dict()
-    data['title'] = dict(text='BarChart sensors', color='#FFFFFF', display=True)
+    data['title'] = dict(text=f'{labelLenght} label by sensors', color='#FFFFFF', display=random.choice([True, False]))
+    data['legend'] = dict(display=False if labelLenght > 6 else random.choice([True, False]))
     data['labels'] = [f'{i}' for i in range(1, nbrData)]
     data['datasets'] = list()
     for index in range(labelLenght):

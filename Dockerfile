@@ -10,8 +10,11 @@ RUN mkdir /home/app && chown 1001 /home/app
 USER 1001
 WORKDIR /app
 
-COPY src/tipboard src/tipboard
-COPY src/manage.py src/manage.py
+#COPY src/tipboard src/tipboard
+#COPY src/manage.py src/manage.py
+
+COPY src/ src/
+
 COPY requirements.txt .
 COPY entrypoint.sh entrypoint.sh
 

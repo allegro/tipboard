@@ -10,7 +10,8 @@ def executeScriptToGetData():
     if labelLenght % 2 != 0:
         datasetLength = 1
     data = dict()
-    data['title'] = dict(text=f'{datasetLength} dataset', color='#FFFFFF', display=True)
+    data['title'] = dict(text=f'{datasetLength} dataset', color='#FFFFFF', display=random.choice([True, False]))
+    data['legend'] = dict(display=False if labelLenght > 6 else random.choice([True, False]))
     data['labels'] = [f'Serie {i + 1}' for i in range(labelLenght)]
     data['datasets'] = list()
     for index in range(datasetLength):

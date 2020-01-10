@@ -1,9 +1,16 @@
 window.Tipboard = {};
 
 function getFlipTime(node) {
-    // let classStr = $(node).attr("class");
-    // TODO: make this flip time CUSTOM
-    let flipTime = 13000;
+    let classStr = $(node).attr("class");
+    let flipTime = 10000;
+    $.each(classStr.split(' '), function(idx, val) {
+        let groups = /flip-time-(\d+)/.exec(val);
+        if (Boolean(groups) && groups.length > 1) {
+            flipTime = groups[1];
+            flipTime = parseInt(flipTime, 10) * 1000;
+            return false;
+        }
+    });
     return flipTime;
 }
 

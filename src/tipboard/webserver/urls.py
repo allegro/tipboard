@@ -1,7 +1,7 @@
 from django.conf import settings
 from django.conf.urls.static import static
 from django.views.generic.base import RedirectView
-from django.conf.urls import url, include
+from django.conf.urls import url
 from src.tipboard.app.views.api import push_api, project_info, tile_rest, meta_api, update_api
 from src.tipboard.app.views.api_unsecured import push_unsecured, tile_unsecured, meta_unsecured, update_unsecured
 from src.tipboard.app.views.dashboard import renderHtmlForTiles, getDashboardsPaths

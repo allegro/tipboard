@@ -166,9 +166,9 @@ function updateData(chart, newDict) {
                 chart.data.datasets.splice(rcx, chart.data.datasets.length); // delete previous dataset
             }
             console.log("Update dataset over");
-        } else if (key === "title") {
+        } else if (key === "title" || key === "legend") {
             console.log("Update title:[" + key + "] with ", newDict[key]);
-            chart.options.title.text = newDict[key].text;
+            chart.options[key] = newDict[key];
         } else {
             console.log("Update key:[" + key + "] with ", newDict[key]);
             chart.data[key] = newDict[key];
@@ -178,17 +178,12 @@ function updateData(chart, newDict) {
 
 let updateDataOfChartJS = function (chart, data) {
     try {
-        console.log("Previous LABEL: " + chart.data.labels);
         Tipboard.Dashboard.clearChartJsTile(chart);
-        console.log("Previous title: ", chart.data.title);
         chart.data.title = data.title;
         updateData(chart, data);
-        console.log("New title: ", chart.data.title);
-        console.log("New LABEL: " + chart.data.labels);
     } catch (e) {
         console.log("ERROR WHEN UPDATE TILE", e);
     } finally {
-        console.log("update");
         chart.update();
     }
 };
@@ -207,4 +202,3 @@ function initDashboard(Tipboard) {
     Tipboard.Dashboard.clearChartJsTile = clearChartJsTile;
     Tipboard.Dashboard.updateDataOfChartJS = updateDataOfChartJS;
 }
-//TODO: TITLE CHART JS DONT UPDATE

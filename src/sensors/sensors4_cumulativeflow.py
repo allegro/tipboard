@@ -8,7 +8,8 @@ def executeScriptToGetData():
     datasetLength = random.randrange(1, 3)
     labelLenght = random.randrange(8, 15)
     data = dict()
-    data['title'] = dict(text='Cumulative sensors', color='#FFFFFF')
+    data['title'] = dict(text=f'{datasetLength} dataset by sensors', color='#FFFFFF', display=random.choice([True, False]))
+    data['legend'] = dict(display=random.choice([True, False]))
     data['labels'] = [f"{i}" for i in range(1, labelLenght)]
     data['datasets'] = list()
     for index in range(datasetLength):

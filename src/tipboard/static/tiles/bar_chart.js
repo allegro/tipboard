@@ -23,19 +23,32 @@ function buildDatasets(data) {
  */
 function buildMeta(meta) {
     return {
-        "options": {
-            "scale": {
-                "gridLines": {
-                    "color": ["#525252", "#525252", "#525252", "#525252", "#525252", "#525252", "#525252"]
+        options: {
+            scale: {
+                gridLines: {
+                    color: ["#525252", "#525252", "#525252", "#525252", "#525252", "#525252", "#525252"]
                 },
-                "angleLines": {"color": "#525252"},
-                "ticks": {"display": false}
+                angleLines: {color: "#525252"},
+                ticks: {display: true}
             },
-            "responsive": true,
-            "maintainAspectRatio": false,
+            legend: {
+                display: false,
+                position: "bottom"
+            },
+            tooltips: {
+                callbacks: {
+                    label: function (tooltipItem) {
+                        return tooltipItem.yLabel;
+                    }
+                }
+            },
+            responsive: true,
+            maintainAspectRatio: false,
         }
     }
 }
+
+
 
 /**
  * Update bar & vbar tile
@@ -65,3 +78,4 @@ function updateBarChartjs(tileId, data, meta, tileType) {
 }
 
 Tipboard.Dashboard.registerUpdateFunction("bar_chart", updateBarChartjs);
+// les configs de bar chart ne fonctionne pas
