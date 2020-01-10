@@ -12,8 +12,7 @@ def tile_unsecured(request, tile_key):  # pragma: no cover
     print(f'{getTimeStr()} (~) Using unsecured tile url')
     if not DEBUG:
         raise Http404
-    else:
-        return tile_rest(request=request, tile_key=tile_key, unsecured=True)
+    return tile_rest(request=request, tile_key=tile_key, unsecured=True)
 
 
 def push_unsecured(request):  # pragma: no cover
@@ -37,13 +36,11 @@ def meta_unsecured(request, tile_key):  # pragma: no cover
     print(f'{getTimeStr()} (~) Using unsecured meta url')
     if not DEBUG:
         raise Http404
-    else:
-        return meta_api(request=request, tile_key=tile_key, unsecured=True)
+    return meta_api(request=request, tile_key=tile_key, unsecured=True)
 
 
 def update_unsecured(request):  # pragma: no cover
     print(f'{getTimeStr()} (~) Using unsecured update url')
     if not DEBUG:
         raise Http404
-    else:
-        return update_api(request=request, unsecured=True)
+    return update_api(request=request, unsecured=True)

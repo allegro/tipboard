@@ -17,6 +17,16 @@ def getCache():
     return cache
 
 
+def listOfTilesFromLayout(layout_name='layout_config'):
+    rcx = 0
+    listOfTiles = list()
+    config = parse_xml_layout(layout_name)
+    for tile in config['tiles_keys']:
+        listOfTiles.append(dict(tile_id=tile, tile_template=config['tiles_names'][rcx]))
+        rcx += 1
+    return listOfTiles
+
+
 class MyCache:
     def __init__(self):
         try:
@@ -75,12 +85,3 @@ class MyCache:
 
     def listOfTilesCached(self):
         return [key for key in self.redis.keys(getRedisPrefix())] if self.isRedisConnected else list()
-
-    def listOfTilesFromLayout(self, layout_name='layout_config'):
-        rcx = 0
-        listOfTiles = list()
-        config = parse_xml_layout(layout_name)
-        for tile in config['tiles_keys']:
-            listOfTiles.append(dict(tile_id=tile, tile_template=config['tiles_names'][rcx]))
-            rcx += 1
-        return listOfTiles

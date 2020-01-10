@@ -25,8 +25,7 @@ def get_tile(request, tile_key, unsecured=False):  # pragma: no cover
     redis = getCache().redis
     if redis.exists(tile_key):
         return HttpResponse(redis.get(tile_key))
-    else:
-        return HttpResponseBadRequest(f'{tile_key} key does not exist.')
+    return HttpResponseBadRequest(f'{tile_key} key does not exist.')
 
 
 def delete_tile(request, tile_key, unsecured=False):  # pragma: no cover
@@ -37,15 +36,14 @@ def delete_tile(request, tile_key, unsecured=False):  # pragma: no cover
     if redis.exists(tile_key):
         redis.delete(tile_key)
         return HttpResponse('Tile\'s data deleted.')
-    else:
-        return HttpResponseBadRequest(f'{tile_key} key does not exist.')
+    return HttpResponseBadRequest(f'{tile_key} key does not exist.')
 
 
 def tile_rest(request, tile_key, unsecured=False):  # TODO: "it's better to ask forgiveness than permission" ;)
     """ Handles reading and deleting of tile's data """
     if request.method == 'GET':
         return get_tile(request, tile_key, unsecured)
-    elif request.method == 'DELETE':
+    if request.method == 'DELETE':
         return delete_tile(request, tile_key, unsecured)
     raise Http404
 

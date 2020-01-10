@@ -11,6 +11,8 @@ from src.tipboard.app.flipboard import Flipboard
 from src.tipboard.app.cache import MyCache
 from src.tipboard.app.utils import checkAccessToken
 from src.sensors.sensors_main import launch_sensors
+from src.tipboard.app.cache import listOfTilesFromLayout
+from src.tipboard.app.flipboard import get_flipboard_title
 
 
 class TestApp(TestCase):
@@ -50,14 +52,14 @@ class TestApp(TestCase):
     def test_0040_flipboard(self):
         """ Test Flipboard object """
         flipboard = Flipboard()
-        self.assertTrue(flipboard.get_flipboard_title() is not None)
+        self.assertTrue(get_flipboard_title() is not None)
         self.assertTrue(flipboard.get_paths() is not None)
 
     def test_0050_cache(self):
         cache = MyCache()
         self.assertTrue(cache is not None)
         cache.listOfTilesCached()
-        self.assertTrue(len(cache.listOfTilesFromLayout()) > 0)
+        self.assertTrue(len(listOfTilesFromLayout()) > 0)
         cache.get(tile_id='test')
         cache.set(tile_id='test', dumped_value=json.dumps({'testValue': True}))
         cache.createTile(tile_id='test', value={'test': True}, tile_template='test')

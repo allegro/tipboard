@@ -2,6 +2,7 @@ import time, random
 from src.sensors.utils import end, sendDataToTipboard, getTimeStr, sendBVColor
 from src.tipboard.app.properties import BACKGROUND_TAB
 
+
 def executeScriptToGetData():
     """ Simulate some actions for text tile exemple """
     return {

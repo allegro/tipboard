@@ -48,8 +48,6 @@ function buildMeta(meta) {
     }
 }
 
-
-
 /**
  * Update bar & vbar tile
  * @param tileId

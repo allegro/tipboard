@@ -1,6 +1,6 @@
 let onMessage = function (evt) {
     let tileData = JSON.parse(evt.data);
-    if (tileData == null) {
+    if (tileData === null) {
         console.log("Web socket received NULL data");
     } else {
         console.log("Web socket received data: ", tileData);
@@ -21,14 +21,14 @@ let testApiIsBack = function () {
         }
     };
     Http.onerror = () => {
-        setTimeout(Tipboard.WebSocketManager.waitForAPI, 5000)
+        setTimeout(Tipboard.WebSocketManager.waitForAPI, 5000);
     };
     Http.send();
 };
 
 let onClose = function () {
     console.log("WebSocket closed: Waiting the API to be back, every 5s");
-    setTimeout(Tipboard.WebSocketManager.waitForAPI, 5000)
+    setTimeout(Tipboard.WebSocketManager.waitForAPI, 5000);
 };
 
 let onError = function (evt) {
@@ -41,10 +41,9 @@ let onError = function (evt) {
 let buildSocket = function () {
     let protocol = window.location.protocol === "https:" ? "wss://" : "ws://";
     let websocket = new WebSocket(protocol + window.location.host + "/communication/websocket");
-
     websocket.onopen = function () {
         websocket.send("first_connection:" + window.location.pathname);
-        console.log("Websocket: " + "Asking data to server" + window.location.href)
+        console.log("Websocket: " + "Asking data to server" + window.location.href);
     };
     websocket.onclose = onClose;
     websocket.onmessage = onMessage;

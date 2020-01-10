@@ -3,7 +3,7 @@ window.Tipboard = {};
 function getFlipTime(node) {
     let classStr = $(node).attr("class");
     let flipTime = 10000;
-    $.each(classStr.split(' '), function(idx, val) {
+    $.each(classStr.split(" "), function(idx, val) {
         let groups = /flip-time-(\d+)/.exec(val);
         if (Boolean(groups) && groups.length > 1) {
             flipTime = groups[1];
@@ -56,7 +56,7 @@ const getTitleForChartJSTitle = function (data) {
         title.color = ("color" in data) ? data.color : "#FFFFFF";
         title.text = data.title.text;
     }
-    return title
+    return title;
 };
 
 function startClientConnection() {

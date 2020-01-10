@@ -13,6 +13,22 @@ def get_config_names():
     return config_names
 
 
+def get_flipboard_title():
+    """ Returns title to display as a html title. """
+    title = ''
+    config_names = get_config_names()
+    try:
+        if len(config_names) == 1:
+            config = parse_xml_layout(config_names[0])
+            title = config['details']['page_title']
+        else:
+            # TODO: put here more suitable title?
+            title = 'Flipboard Mode'
+    except KeyError:
+        print(f"{getTimeStr()} (+) config {config_names[0]} has no key: details/page_title'", flush=True)
+    return title
+
+
 class Flipboard(object):
 
     def __init__(self):
@@ -28,18 +44,3 @@ class Flipboard(object):
                 self.paths.append('/' + name)
             self.last_found_configs_number = len(config_names)
         return self.paths
-
-    def get_flipboard_title(self):
-        """ Returns title to display as a html title. """
-        title = ''
-        config_names = get_config_names()
-        try:
-            if len(config_names) == 1:
-                config = parse_xml_layout(config_names[0])
-                title = config['details']['page_title']
-            else:
-                # TODO: put here more suitable title?
-                title = 'Flipboard Mode'
-        except KeyError:
-            print(f"{getTimeStr()} (+) config {config_names[0]} has no key: details/page_title'", flush=True)
-        return title

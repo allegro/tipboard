@@ -38,11 +38,11 @@ def launch_sensors(isTest=False):
 
 
 def addSchedule(scheduler, sonde, timeToRun=datetime.now(), second=8):
+    second = 5
     scheduler.add_job(sonde, 'interval', seconds=second, next_run_time=timeToRun)
 
 
 def scheduleYourSensors(scheduler):  # pragma: no cover
-    localScheduler = scheduler
     now = datetime.now()
     scheduler.add_job(sonde1, 'interval', seconds=2)
     addSchedule(scheduler, sonde2, timeToRun=now + timedelta(milliseconds=100), second=40)

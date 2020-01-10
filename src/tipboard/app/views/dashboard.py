@@ -7,6 +7,7 @@ from src.tipboard.app.properties import TIPBOARD_CSS_STYLES, FLIPBOARD_INTERVAL,
 from src.tipboard.app.utils import getTimeStr
 from src.sensors.sensors_main import scheduleYourSensors, stopTheSensors
 from apscheduler.schedulers.background import BackgroundScheduler
+from tipboard.app.flipboard import get_flipboard_title
 
 scheduler = BackgroundScheduler()
 
@@ -15,7 +16,7 @@ def renderFlipboardHtml(request):  # pragma: no cover
     """ Render the Html Flipboard, wich start the js tipboard mecanism """
     return render(request,
                   'flipboard.html',
-                  dict(page_title=Flipboard().get_flipboard_title(),
+                  dict(page_title=get_flipboard_title(),
                        flipboard_interval=FLIPBOARD_INTERVAL,
                        tipboard_css=TIPBOARD_CSS_STYLES,
                        tipboard_js=['js/flipboard.js']))

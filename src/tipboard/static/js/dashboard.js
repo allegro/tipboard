@@ -144,34 +144,36 @@ let clearChartJsTile = function (chart) {
 
 function updateData(chart, newDict) {
     for (let key in newDict) {
-        key = key.toString();
-        if (key === "datasets") {
-            console.log("Update dataset from " + chart.data.datasets.length +
-                " dataset to " + newDict.datasets.length + " datasets");
-            let rcx = 0;
-            for (; rcx < newDict.datasets.length; rcx++) {
-                console.log("\tUpdate dataset[" + rcx + "]");
-                for (let keyDataset in newDict.datasets[rcx]) {
-                    if (chart.data.datasets.length <= rcx) {
-                        console.log("\tcreate new dataset");
-                        chart.data.datasets.push({})
+        if ({}.hasOwnProperty.call(newDict, key)) {
+            key = key.toString();
+            if (key === "datasets") {
+                console.log("Update dataset from " + chart.data.datasets.length +
+                    " dataset to " + newDict.datasets.length + " datasets");
+                let rcx = 0;
+                for (; rcx < newDict.datasets.length; rcx++) {
+                    console.log("\tUpdate dataset[" + rcx + "]");
+                    for (let keyDataset in newDict.datasets[parseInt(rcx, 10)]) {
+                        if (chart.data.datasets.length <= rcx) {
+                            console.log("\tcreate new dataset");
+                            chart.data.datasets.push({});
+                        }
+                        keyDataset = keyDataset.toString();
+                        console.log("\tUpdate key:[" + keyDataset + "] with " + newDict.datasets[rcx][keyDataset]);
+                        chart.data.datasets[rcx][keyDataset.toString()] = newDict.datasets[rcx][keyDataset.toString()];
                     }
-                    keyDataset = keyDataset.toString();
-                    console.log("\tUpdate key:[" + keyDataset + "] with " + newDict.datasets[rcx][keyDataset]);
-                    chart.data.datasets[rcx][keyDataset] = newDict.datasets[rcx][keyDataset];
+                    console.log("\t-------------");
                 }
-                console.log("\t-------------");
+                if (chart.data.datasets.length > newDict.datasets.length) {
+                    chart.data.datasets.splice(rcx, chart.data.datasets.length); // delete previous dataset
+                }
+                console.log("Update dataset over");
+            } else if (key === "title" || key === "legend") {
+                console.log("Update title:[" + key + "] with ", newDict[key.toString()]);
+                chart.options[key.toString()] = newDict[key.toString()];
+            } else {
+                console.log("Update key:[" + key.toString() + "] with ", newDict[key.toString()]);
+                chart.data[key.toString()] = newDict[key.toString()];
             }
-            if (chart.data.datasets.length > newDict.datasets.length) {
-                chart.data.datasets.splice(rcx, chart.data.datasets.length); // delete previous dataset
-            }
-            console.log("Update dataset over");
-        } else if (key === "title" || key === "legend") {
-            console.log("Update title:[" + key + "] with ", newDict[key]);
-            chart.options[key] = newDict[key];
-        } else {
-            console.log("Update key:[" + key + "] with ", newDict[key]);
-            chart.data[key] = newDict[key];
         }
     }
 }

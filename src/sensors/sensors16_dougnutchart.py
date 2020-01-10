@@ -14,7 +14,7 @@ def executeScriptToGetData():
     data['legend'] = dict(display=False if labelLenght > 6 else random.choice([True, False]))
     data['labels'] = [f'Serie {i + 1}' for i in range(labelLenght)]
     data['datasets'] = list()
-    for index in range(datasetLength):
+    for _ in range(datasetLength):
         data['datasets'].append(
             dict(data=[random.randrange(100, 1000) for _ in range(labelLenght)],
                  backgroundColor=COLOR_TAB))
