@@ -3,28 +3,28 @@ details:
 layout:
     - row_1_of_2:
 
-        - col_1_of_4:
+        - col_1_of_4 flip-time-5:
 
             - tile_template: doughnut_chart
               tile_id: doughnut_ex
               title: doughnut
               classes:
 
-        - col_1_of_4 flip-time-5:
-
             - tile_template: polararea_chart
               tile_id: polararea_ex
               title: polar-area
               classes:
 
-            - tile_template: radar_chart
-              tile_id: radar_ex
-              title: radar chart
-              classes:
-
             - tile_template: pie_chart
               tile_id: pie_chartjs_ex
               title: pie chart
+              classes:
+
+        - col_1_of_4:
+
+            - tile_template: radar_chart
+              tile_id: radar_ex
+              title: radar chart
               classes:
 
         - col_1_of_4 flip-time-7:
@@ -39,25 +39,21 @@ layout:
               title: bar tile's
               classes:
 
-        - col_1_of_4 flip-time-8:
+        - col_1_of_4:
 
             - tile_template: line_chart
               tile_id: line_chartjs_ex
               title: line tile's
               classes:
 
-            - tile_template: cumulative_flow
-              tile_id: cfjs_ex
-              title: cumulflow
-              classes:
-
 
     - row_1_of_2:
 
         - col_1_of_4:
-            - tile_template: simple_percentage
-              tile_id: sp_ex
-              title: Percentage
+
+            - tile_template: cumulative_flow
+              tile_id: cfjs_ex
+              title: cumulflow
               classes:
 
         - col_1_of_4:
@@ -77,6 +73,11 @@ layout:
             - tile_template: big_value
               tile_id: bv_ex
               title: Big value
+              classes:
+
+            - tile_template: simple_percentage
+              tile_id: sp_ex
+              title: Percentage
               classes:
 
         - col_1_of_4 flip-time-9:

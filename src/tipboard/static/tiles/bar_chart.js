@@ -58,13 +58,15 @@ function buildMeta(meta) {
 function updateBarChartjs(tileId, data, meta, tileType) {
     let chartId = `${tileId}-chart`;
     if (chartId in Tipboard.chartJsTile) {
+        console.log("Bar chart update");
         Tipboard.Dashboard.updateDataOfChartJS(Tipboard.chartJsTile[chartId], data);
     } else {
+        console.log("Bar chart create");
         let chart = document.getElementById(chartId);
         chart.parentElement.style.paddingBottom = "9%";
         chart.height = "80%";
         chart.widget = "100%";
-        new Chart(chart, {
+        Tipboard.chartJsTile[chartId] = new Chart(chart, {
             type: (tileType === "vbar_chart") ? "bar" : "horizontalBar",
             data: {
                 labels: data["labels"],

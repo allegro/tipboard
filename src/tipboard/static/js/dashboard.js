@@ -150,9 +150,9 @@ function updateData(chart, newDict) {
                 console.log("Update dataset from " + chart.data.datasets.length +
                     " dataset to " + newDict.datasets.length + " datasets");
                 let rcx = 0;
-                for (; rcx < newDict.datasets.length; rcx++) {
+                for (;rcx < newDict.datasets.length; rcx++) {
                     console.log("\tUpdate dataset[" + rcx + "]");
-                    for (let keyDataset in newDict.datasets[parseInt(rcx, 10)]) {
+                    for (let keyDataset in newDict.datasets[rcx]) {
                         if (chart.data.datasets.length <= rcx) {
                             console.log("\tcreate new dataset");
                             chart.data.datasets.push({});
@@ -180,8 +180,8 @@ function updateData(chart, newDict) {
 
 let updateDataOfChartJS = function (chart, data) {
     try {
+        console.log("UPDATE DATA");
         Tipboard.Dashboard.clearChartJsTile(chart);
-        chart.data.title = data.title;
         updateData(chart, data);
     } catch (e) {
         console.log("ERROR WHEN UPDATE TILE", e);

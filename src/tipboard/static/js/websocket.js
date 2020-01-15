@@ -1,11 +1,15 @@
+/**
+ * Handle when data is receive
+ * @param evt
+ */
 let onMessage = function (evt) {
     let tileData = JSON.parse(evt.data);
-    if (tileData === null) {
-        console.log("Web socket received NULL data");
-    } else {
+    if (tileData !== null) {
         console.log("Web socket received data: ", tileData);
         Tipboard.Dashboard.updateTile(Tipboard.Dashboard.escapeId(tileData.id),
             tileData.tile_template, tileData.data, tileData.meta, tileData.modified);
+    } else {
+        console.log("Web socket received NULL data");
     }
 };
 

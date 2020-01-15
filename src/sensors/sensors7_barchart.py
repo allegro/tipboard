@@ -4,21 +4,18 @@ from src.tipboard.app.properties import COLOR_TAB
 
 
 def executeScriptToGetData():
-    ''' Simulate some actions for text tile exemple'''
-    labelLenght = random.randrange(2, 4)
-    nbrData = random.randrange(1, 4)
+    """ Simulate some actions for text tile exemple """
+    nbrDataset = random.randrange(2, 4)
+    nbrLabel = random.randrange(1, 4)
     data = dict()
-    data['title'] = dict(text=f'{labelLenght} label by sensors', color='#FFFFFF', display=random.choice([True, False]))
-    data['legend'] = dict(display=False if labelLenght > 6 else random.choice([True, False]))
-    data['labels'] = [f'{i}' for i in range(1, nbrData)]
+    data['title'] = dict(text=f'{nbrDataset} dataset & {nbrLabel} labels',
+                         color='#FFFFFF', display=random.choice([True, False]))
+    data['legend'] = dict(display=False if nbrDataset > 6 else random.choice([True, False]))
+    data['labels'] = [f'{i + 1}/{nbrLabel}' for i in range(nbrLabel)]
     data['datasets'] = list()
-    for index in range(labelLenght):
-        newDataset = {
-            'label': f'Serie {index + 1}',
-            'data': [random.randrange(100, 1000) for i in range(nbrData)],
-            'backgroundColor': COLOR_TAB[index]
-        }
-        data['datasets'].append(newDataset)
+    for index in range(nbrDataset):
+        data['datasets'].append(dict(label=f'Dataset {index + 1}', backgroundColor=COLOR_TAB[index],
+                                     data=[random.randrange(100, 1000) for _ in range(nbrLabel)]))
     return data
 
 

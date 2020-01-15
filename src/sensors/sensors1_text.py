@@ -1,7 +1,6 @@
-import requests, time, random
-import lorem
+import requests, time, random, lorem, json
 from src.tipboard.app.properties import TIPBOARD_URL
-from src.sensors.utils import end, buildConfigTile, getTimeStr
+from src.sensors.utils import end, getTimeStr
 from src.tipboard.app.FakeData.fake_data import getFakeText
 
 
@@ -13,7 +12,7 @@ def executeScriptToGetData(tile_id=None, tile_template=None):
 
 
 def sendDataToTipboard(data=None, tile_template=None, tile_id='', isTest=False):
-    configTile = buildConfigTile(tile_id=tile_id, tile_template=tile_template, data=data['data']['text'])
+    configTile = dict(tile_id=tile_id, tile_template=tile_template, data=json.dumps(data['data']['text']))
     if not isTest:
         return requests.post(TIPBOARD_URL + '/push', data=configTile)
 

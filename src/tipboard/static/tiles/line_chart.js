@@ -28,11 +28,17 @@ function updateDataset(data, tileType) {
         }
         listOfDataset.push(datasetTmp);
     });
-    console.log(listOfDataset);
-    return {
+    let tile = {
         labels: ("labels" in data) ? data.labels : predefinedSeries,
         datasets: listOfDataset,
     };
+    if ("title" in data) {
+        tile.title = data.title;
+    }
+    if ("legend" in data) {
+        tile.legend = data.legend;
+    }
+    return tile;
 }
 
 
@@ -47,8 +53,7 @@ function updateTileLinejs(tileId, data, meta, tileType) {
     console.log("line_chartjs::updateTile::start" + tileId);
     let chartId = `${tileId}-chart`;
     if (chartId in Tipboard.chartJsTile) {
-        Tipboard.Dashboard.updateDataOfChartJS(Tipboard.chartJsTile[chartId],
-            updateDataset(data, tileType));
+        Tipboard.Dashboard.updateDataOfChartJS(Tipboard.chartJsTile[chartId], updateDataset(data, tileType));
     } else {
         let chart = document.getElementById(chartId);
         meta.options.title = getTitleForChartJSTitle(data);
