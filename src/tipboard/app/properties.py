@@ -27,7 +27,6 @@ SITE_ENV = conf['SITE_ENV']
 LOCAL = conf['LOCAL']
 TIPBOARD_URL = conf['TIPBOARD_URL']
 CDN_URL = conf['CDN_URL']  # if you are in production and need a CDN for media and static file
-
 REDIS_HOST = conf['REDIS_HOST']
 REDIS_PORT = conf['REDIS_PORT']
 REDIS_PASSWORD = conf['REDIS_PASSWORD']
@@ -39,23 +38,28 @@ ALLOWED_TILES = ['text', 'fancy_listing', 'simple_percentage', 'listing', 'big_v
                  'empty']  # chartjs lib
 
 COLOR_TAB = [
-    'rgba(66, 165, 245, 0.8)',
-    'rgba(114, 191, 68, 0.8)',
-    'rgba(0, 150, 136, 0.8)',
-    'rgba(255, 234, 0, 0.8)',
-    'rgba(149, 117, 205, 0.8)',
-    'rgba(255, 152, 0, 0.8)',
-    'rgba(121, 85, 72, 0.8)',
-    'rgba(96, 125, 139, 0.8)'
+    'rgba(66, 165, 245, 0.8)',  # blue #42a5f5
+    'rgba(114, 191, 68, 0.8)',  # green #72bf44
+    'rgba(0, 150, 136, 0.8)',   # teal #009688
+    'rgba(255, 234, 0, 0.8)',   # yellow #ffea00
+    'rgba(255, 152, 0, 0.8)',   # orange #ff9800
+    'rgba(213, 0, 0, 0.8)',     # red #d50000
+    'rgb(240, 98, 146)',        # pink #f06292
+    'rgba(224, 224, 224, 0.8)',       # Grey #e0e0e0
+    'rgb(177, 208, 225)',       # Light Blue #b1d0e1
+    'rgba(121, 85, 72, 0.8)',   # Marron #795548
+    'rgba(149, 117, 205, 0.8)',  # purple #9575cd
+    'rgb(224, 64, 251)',  # Light Purple #e040fb
+    'rgb(48, 79, 254)',  # Indigo #304ffe
+    'rgb(33, 33, 33)'  # Black #212121
 ]
 
-BACKGROUND_TAB = ['#4caf50', '#ff6d00', '#d50000']
+BACKGROUND_TAB = ['#4caf50',
+                  '#ff6d00',
+                  '#d50000']
 
 TIPBOARD_CSS_STYLES = ['css/layout.css']
 TIPBOARD_JAVASCRIPTS = ['js/dashboard.js', 'js/palette.js', 'js/websocket.js', 'js/tipboard.js']
-
-# Javascript log level ('1' for 'standard', '2' for 'debug')
-JS_LOG_LEVEL = 2
 
 # how many seconds dashboard is displayed before is flipped
 FLIPBOARD_INTERVAL = 0

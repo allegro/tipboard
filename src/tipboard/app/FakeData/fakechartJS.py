@@ -120,10 +120,12 @@ def getFakeBarChart(tile_id, template_name):
         },
         'meta': {
             'options': {
+                'responsive': True,
+                'maintainAspectRatio': False,
                 'legend': {'display': False},
                 'scales': {
-                    'xAxes': [{'gridLines': {'color': '#525252'}}],
-                    'yAxes': [{'gridLines': {'color': '#525252'}, 'ticks': {'beginAtZero': True}}]
+                    'xAxes': [{'gridLines': {'color': '#ffffff', 'display': False}}],
+                    'yAxes': [{'gridLines': {'color': '#ffffff'}}]
                 }
             }
         }
@@ -146,7 +148,9 @@ def getFakePieChart(tile_id, template_name):
         },
         'meta': {
             'backgroundColor': COLOR_TAB,
-            'elements': {'arc': {}}
+            'elements': {'arc': {}},
+            'responsive': True,
+            'maintainAspectRatio': False,
         }
     }
 
