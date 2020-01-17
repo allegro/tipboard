@@ -64,9 +64,7 @@ layout:
               tile_id: sp_ex
               title: Percentage
               classes:
-                  
-                  
-                  
+
         - col_1_of_7:
             - tile_template: listing
               tile_id: listing_ex

@@ -41,7 +41,7 @@ class WSConsumer(WebsocketConsumer):
             data = buildFakeDataFromTemplate(tile_id, template_name, cache)
         else:
             data = json.loads(tileData)
-        if type(data) is str:
+        if isinstance(data, str):
             data = json.loads(data)
         self.send(text_data=json.dumps(data))
 

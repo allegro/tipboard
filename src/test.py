@@ -22,7 +22,7 @@ class TestApp(TestCase):
         self.fakeClient = Client()
         self.ALLOWED_TILES = ALLOWED_TILES
 
-    def test_0001_template_tiles(self):
+    def test_0009_template_tiles(self):
         """ Test template generation """
 
         for tile in self.ALLOWED_TILES:
@@ -81,10 +81,10 @@ class TestApp(TestCase):
         launch_sensors(isTest=True)
 
 
-# class SomeLiveTests(ChannelsLiveServerTestCase):
-#
-#     @pytest.mark.asyncio
-#     async def test_0009_test_consumer(self):
-#         communicator = HttpCommunicator(WSConsumer, 'GET', '/communication/websocket')
-#         response = await communicator.get_response()
-#         self.assertTrue(response['status'] == 200)
+class SomeLiveTests(ChannelsLiveServerTestCase):
+
+    @pytest.mark.asyncio
+    async def test_0001_test_consumer(self):
+        communicator = HttpCommunicator(WSConsumer, 'GET', '/communication/websocket')
+        response = await communicator.get_response()
+        self.assertTrue(response['status'] == 200)

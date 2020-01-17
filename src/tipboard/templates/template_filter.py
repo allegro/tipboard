@@ -23,10 +23,9 @@ def template_tile(tile_id, tile_data):
     data = dict(tile_id=tile_id,
                 tile_template=tile_data['tile_template'],
                 title=tile_data['title'])
-    if type(tile_data) is dict and tile_data['tile_template'] in ALLOWED_TILES:
+    if isinstance(tile_data, dict) and tile_data['tile_template'] in ALLOWED_TILES:
         if isChartJS_tile(tile_data['tile_template']):
             return render_to_string(f'tiles/chartJS_template.html', data)
-        else:
-            return render_to_string(f'tiles/{tile_data["tile_template"]}.html', data)
+        return render_to_string(f'tiles/{tile_data["tile_template"]}.html', data)
     data['reason'] = 'not found'
     return render_to_string(f'tiles/notfound_tiles.html', data)

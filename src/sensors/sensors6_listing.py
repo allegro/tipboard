@@ -12,15 +12,14 @@ def getItemExemple(index):
                  f'Developer: {random.randrange(1, 5)}'
                  ]
         }
-    else:
-        return {
-            'items':
-                [f'Major incident: {random.randrange(1, 5)}',
-                 f'N2 incident: {random.randrange(2, 50)}',
-                 f'+3month incident: {random.randrange(10, 59)}',
-                 f'Resolved incident: {random.randrange(1, 50)}'
-                 ]
-        }
+    return {
+        'items':
+            [f'Major incident: {random.randrange(1, 5)}',
+             f'N2 incident: {random.randrange(2, 50)}',
+             f'+3month incident: {random.randrange(10, 59)}',
+             f'Resolved incident: {random.randrange(1, 50)}'
+             ]
+    }
 
 
 def executeScriptToGetData():
