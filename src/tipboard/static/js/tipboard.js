@@ -2,9 +2,8 @@ window.Tipboard = {};
 
 function getFlipTime(node) {
     let classStr = $(node).attr("class");
-    // TODO: make this flip time CUSTOM
-    let flipTime = 4200;
-    $.each(classStr.split(" "), function (idx, val) {
+    let flipTime = 10000;
+    $.each(classStr.split(" "), function(idx, val) {
         let groups = /flip-time-(\d+)/.exec(val);
         if (Boolean(groups) && groups.length > 1) {
             flipTime = groups[1];
@@ -13,59 +12,6 @@ function getFlipTime(node) {
         }
     });
     return flipTime;
-}
-
-/**
- * Config the WebSocket Object
- */
-let initWebSocket = function initWebSocket() {
-    console.log("Initializing a new Web socket manager.");
-
-    let protocol = window.location.protocol === "https:" ? "wss://" : "ws://";
-
-    let websocket = new WebSocket(protocol + window.location.host + "/communication/websocket");
-    websocket.onopen = function (evt) {
-        websocket.send("first_connection:" + window.location.pathname);
-        console.log("Websocket: " + "first_connection:" + window.location.href)
-    };
-    websocket.onclose = function (evt) {
-        Tipboard.WebSocketManager.onClose(evt);
-    };
-    websocket.onmessage = function (evt) {
-        Tipboard.WebSocketManager.onMessage(evt);
-    };
-    websocket.onerror = function (evt) {
-        Tipboard.WebSocketManager.onError(evt);
-    };
-};
-
-/**
- * Init the WebSocket Interface
- * @returns {init: init, onClose: onClose, onError: onError, onMessage: onMessage}
- */
-function initWebsocketManager() {
-    return {
-        onClose: function () {
-            setTimeout(Tipboard.WebSocketManager.init.bind(this), 1000);
-        },
-
-        onMessage: function (evt) {
-            let tileData = JSON.parse(evt.data);
-            if (tileData == null) {
-                console.log("Web socket received NULL data");
-            } else {
-                console.log("Web socket received data: ", tileData);
-                Tipboard.Dashboard.updateTile(Tipboard.Dashboard.escapeId(tileData.id),
-                    tileData.tile_template, tileData.data, tileData.meta, tileData.modified);
-            }
-        },
-
-        onError: function (evt) {
-            console.log("WebSocket error: " + evt.data);
-        },
-
-        init: initWebSocket
-    };
 }
 
 /**
@@ -101,43 +47,36 @@ function initTiles() {
  * @returns {*}
  */
 const getTitleForChartJSTitle = function (data) {
-    return {
-        display: true,
-        text: data["title"],
-        color: ("color" in data) ? data["color"] : "#FFFFFF"
+    let title = {
+        display: false,
+        text: "",
     };
+    if (data !== null) {
+        title.display = true;
+        title.color = ("color" in data) ? data.color : "#FFFFFF";
+        title.text = data.title.text;
+    }
+    return title;
 };
+
+function startClientConnection() {
+    initTiles();
+    initWebsocketManager(Tipboard);
+}
 
 /**
  * Main function of tipboard.js
  * Define the $(document).ready(function()
  */
 (function ($) {
-
     Tipboard.Dashboard = {
-        wsSocketTimeout: 900000,
         flipIds: [],
         updateFunctions: {},
         chartsIds: {},
     };
-    Tipboard.WebSocketManager = initWebsocketManager();
+    Tipboard.chartJsTile = {};
     initDashboard(Tipboard);
     initPalette(Tipboard);
-    $(document).ready(function () {
-        console.log("Tipboard starting");
-        //TODO: resize event
-        Tipboard.WebSocketManager.init();
-        setInterval(Tipboard.WebSocketManager.init.bind(Tipboard.WebSocketManager), Tipboard.Dashboard.wsSocketTimeout);
-        initTiles();
-    });
+    setTimeout(startClientConnection, 420); // to let server start
+    console.log("Tipboard starting");
 }($));
-    // var x = window.matchMedia("(max-width: 500px)");
-    // if (x.matches) { // If media query matches
-    //     document.body.style.backgroundColor = "yellow";
-    // } else {
-    //     document.body.style.backgroundColor = "pink";
-    //
-    // }
-    //     addEvent(window, "resize", function (event) {
-    //         location.href = location.href; // location.reload(); is not working on firefox...
-    //     });

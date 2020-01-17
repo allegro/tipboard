@@ -21,7 +21,7 @@ function extractKeyFromTiles(keysToUse, dataToPut) {
  * @param keysToUse list of key in tile, to update with dataToPut
  */
 let updateKeyOfTiles = function updateKeyOfTiles(tileId, dataToPut, keysToUse) {
-    if (keysToUse === "all") {// keysToUse*: list of keys, or string 'all', if 'all' then all keys used from *dataToPut*
+    if (keysToUse === "all") { // keysToUse*: list of keys, or string 'all', if 'all' then all keys used from *dataToPut*
         keysToUse = extractKeyFromTiles(keysToUse, dataToPut);
     }
     $.each(keysToUse, function (idx, key) {
@@ -130,15 +130,66 @@ let escapeId = function (id) {
     return id;
 };
 
+let clearChartJsTile = function (chart) {
+    console.log("clear previous data");
+    if ("labels" in chart.data) {
+        console.log("clear:labels:" + chart.data.labels);
+        chart.data.labels = [];
+    }
+};
+
+function updateDataset(chart, newDict) {
+    let rcx = 0;
+    for (; rcx < newDict.datasets.length; rcx++) {
+        for (let keyDataset in newDict.datasets[rcx]) {
+            if ({}.hasOwnProperty.call(newDict.datasets[rcx], keyDataset)) {
+                if (chart.data.datasets.length <= rcx) {
+                    chart.data.datasets.push({});
+                }
+                keyDataset = keyDataset.toString();
+                chart.data.datasets[rcx][keyDataset.toString()] = newDict.datasets[rcx][keyDataset.toString()];
+            }
+        }
+    }
+    if (chart.data.datasets.length > newDict.datasets.length) {
+        chart.data.datasets.splice(rcx, chart.data.datasets.length); // delete previous dataset
+    }
+}
+
+function updateData(chart, newDict) {
+    for (let key in newDict) {
+        if ({}.hasOwnProperty.call(newDict, key)) {
+            key = key.toString();
+            if (key === "datasets") {
+                updateDataset(chart, newDict)
+            } else if (key === "title" || key === "legend") {
+                chart.options[key.toString()] = newDict[key.toString()];
+            } else {
+                chart.data[key.toString()] = newDict[key.toString()];
+            }
+        }
+    }
+}
+
+let updateDataOfChartJS = function (chart, data) {
+    Tipboard.Dashboard.clearChartJsTile(chart);
+    updateData(chart, data);
+    chart.update();
+};
+
+let registerUpdateFunc = function (name, fn) {
+    this.updateFunctions[name.toString()] = fn;
+};
+
 function initDashboard(Tipboard) {
     Tipboard.Dashboard.id2node = (id) => $("#" + id)[0];
     Tipboard.Dashboard.tile2id = (tileNode) => $(tileNode).attr("id");
-    Tipboard.Dashboard.registerUpdateFunction = function (name, fn) {
-        this.updateFunctions[name.toString()] = fn;
-    };
+    Tipboard.Dashboard.registerUpdateFunction = registerUpdateFunc;
     Tipboard.Dashboard.escapeId = escapeId;
     Tipboard.Dashboard.setDataByKeys = updateKeyOfTiles;
     Tipboard.Dashboard.updateTile = updateTile;
     Tipboard.Dashboard.getUpdateFunction = getUpdateFunction;
     Tipboard.Dashboard.autoAddFlipClasses = autoAddFlipClasses;
+    Tipboard.Dashboard.clearChartJsTile = clearChartJsTile;
+    Tipboard.Dashboard.updateDataOfChartJS = updateDataOfChartJS;
 }

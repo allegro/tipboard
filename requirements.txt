@@ -10,5 +10,6 @@ piwikapi==0.3
 twine==3.1.1
 requests==2.22.0
 apscheduler==3.6.3
+lorem==0.1.1
 pytest-django==3.8.0
 pytest==5.3.2

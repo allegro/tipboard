@@ -4,192 +4,162 @@ from src.tipboard.app.applicationconfig import getRedisPrefix, getIsoTime
 from src.tipboard.app.properties import PROJECT_NAME, LAYOUT_CONFIG, REDIS_DB, LOG, DEBUG
 from src.tipboard.app.cache import getCache
 from src.tipboard.app.utils import getTimeStr, checkAccessToken
-from src.tipboard.app.ApiAntiRegression import updateDatav1tov2
 from src.tipboard.app.FakeData.fake_data import buildFakeDataFromTemplate
+from src.tipboard.app.FakeData.datasetbuilder import buildGenericDataset
 
-cache = getCache()
-redis = cache.redis
+
+def project_info(request):  # pragma: no cover
+    """ Return info of server tipboard """
+    if request.method == 'GET':
+        response = dict(tipboard_version='v0.1',
+                        project_name=PROJECT_NAME,
+                        project_layout_config=LAYOUT_CONFIG,
+                        redis_db=REDIS_DB)
+        return JsonResponse(response)
+    raise Http404
 
 
 def get_tile(request, tile_key, unsecured=False):  # pragma: no cover
-    if not checkAccessToken(method="GET", request=request, unsecured=unsecured):
-        return HttpResponse("API KEY incorrect", status=401)
+    """ Return Json from redis for tile_key """
+    if not checkAccessToken(method='GET', request=request, unsecured=unsecured):
+        return HttpResponse('API KEY incorrect', status=401)
+    redis = getCache().redis
     if redis.exists(tile_key):
         return HttpResponse(redis.get(tile_key))
-    else:
-        return HttpResponseBadRequest(f"{tile_key} key does not exist.")
+    return HttpResponseBadRequest(f'{tile_key} key does not exist.')
 
 
 def delete_tile(request, tile_key, unsecured=False):  # pragma: no cover
-    if not checkAccessToken(method="DELETE", request=request, unsecured=unsecured):
-        return HttpResponse("API KEY incorrect", status=401)
+    """ Delete in redis """
+    if not checkAccessToken(method='DELETE', request=request, unsecured=unsecured):
+        return HttpResponse('API KEY incorrect', status=401)
+    redis = getCache().redis
     if redis.exists(tile_key):
         redis.delete(tile_key)
-        return HttpResponse("Tile's data deleted.")
-    else:
-        return HttpResponseBadRequest(f"{tile_key} key does not exist.")
+        return HttpResponse('Tile\'s data deleted.')
+    return HttpResponseBadRequest(f'{tile_key} key does not exist.')
 
 
-def tile(request, tile_key, unsecured=False):  # TODO: "it's better to ask forgiveness than permission" ;)
+def tile_rest(request, tile_key, unsecured=False):  # TODO: "it's better to ask forgiveness than permission" ;)
     """ Handles reading and deleting of tile's data """
-    if request.method == "GET":
+    if request.method == 'GET':
         return get_tile(request, tile_key, unsecured)
-    elif request.method == "DELETE":
+    if request.method == 'DELETE':
         return delete_tile(request, tile_key, unsecured)
     raise Http404
 
 
 def update_tile_meta(request, tilePrefix, tile_key):  # pragma: no cover
-    cachedTile = json.loads(redis.get(tilePrefix))
-    options = json.loads(request.body.decode("utf-8"))
+    cachedTile = json.loads(getCache().redis.get(tilePrefix))
+    options = json.loads(request.POST.get('value', None))
     try:
         for metaItem in options.keys():
             cachedTile['meta'][metaItem] = options[metaItem]
     except Exception as e:
-        return HttpResponseBadRequest(f"Invalid Json data: {e}")
-    cache.set(tilePrefix, json.dumps(cachedTile))
-    return HttpResponse(f"{tile_key} data updated successfully.")
+        return HttpResponseBadRequest(f'Invalid Json data: {e}')
+    getCache().set(tilePrefix, json.dumps(cachedTile))
+    return HttpResponse(f'{tile_key} data updated successfully.')
 
 
-def meta(request, tile_key, unsecured=False):  # pragma: no cover
+def meta_api(request, tile_key, unsecured=False):  # pragma: no cover
     """ Update the meta(config) of a tile(widget) """
-    if request.method == "POST":
-        if not checkAccessToken(method="POST", request=request, unsecured=unsecured):
-            return HttpResponse("API KEY incorrect", status=401)
+    if request.method == 'POST':
+        if not checkAccessToken(method='POST', request=request, unsecured=unsecured):
+            return HttpResponse('API KEY incorrect', status=401)
         tilePrefix = getRedisPrefix(tile_key)
-        if not redis.exists(tilePrefix):
-            return HttpResponseBadRequest(f"{tile_key} is not present in cache")
+        if not getCache().redis.exists(tilePrefix):
+            return HttpResponseBadRequest(f'{tile_key} is not present in cache')
         return update_tile_meta(request, tilePrefix, tile_key)
     raise Http404
 
 
-def isThereMetaUpdate(request, tile_id):  # pragma: no cover
-    try:
-        request.POST.get("value", None)
-        httpResponse = meta(request, tile_id)
-        if httpResponse.status_code != 200:
-            return httpResponse
-    except Exception as e:
-        if LOG:
-            print(f"{getTimeStr()} (-) No meta value for update tile {tile_id}: {e}", flush=True)
-        return HttpResponseBadRequest(f"{tile_id} meta was not update (meta is missing)")
-    return HttpResponse(f"{tile_id} data updated successfully.")
+def update_dataset_from_tiles(value, previousData, key, tile_template):
+    rcx = 0
+    for dataset in value:
+        print(f"Updating Dataset:{rcx}")
+        if rcx >= len(previousData[key]):
+            previousData[key].append(buildGenericDataset(tile_template=tile_template))
+        update_tile_data_from_redis(previousData[key][rcx], dataset, tile_template)
+        rcx = rcx + 1
+    previousData[key] = previousData[key][0:len(value)]
 
 
-def update(request, unsecured=False):  # TODO: "it's better to ask forgiveness than permission" ;)
-    """ Update the meta(config) AND the content of a tile(widget) """
-    if request.method == "POST":
-        if not checkAccessToken(method="POST", request=request, unsecured=unsecured):
-            return HttpResponse("API KEY incorrect", status=401)
-        tile_id = request.POST.get("key", None)
-        data = request.POST.get("data", None)  # Test if var is present
-        if data is None:
-            print("No data")
-        httpResponse = push(request)
-        if httpResponse.status_code != 200:
-            return httpResponse
-        isThereMetaUpdate(request, tile_id)
-    raise Http404
-
-
-def projectInfo(request):  # pragma: no cover
-    if request.method == "GET":
-        response = {
-            'tipboard_version': "v0.1",
-            'project_name': PROJECT_NAME,
-            'project_layout_config': LAYOUT_CONFIG,
-            'redis_db': REDIS_DB,
-        }
-        return JsonResponse(response)
-    raise Http404
-
-
-def update_tile_data(previousData, newData):
+def update_tile_data_from_redis(previousData, newData, tile_template):
+    """ update value of tile with new data """
+    if isinstance(newData, str):
+        previousData['text'] = newData
+        return previousData
     for key, value in newData.items():
         if isinstance(value, dict) and key != 'data' and key in previousData:
-            update_tile_data(previousData[key], value)
+            update_tile_data_from_redis(previousData[key], value, tile_template)
+        elif isinstance(value, list) and key == 'datasets':
+            update_dataset_from_tiles(value, previousData, key, tile_template)
         else:
             previousData[key] = value
     return previousData
 
 
-def push_tile(tile_id, tile_template, data, meta):  # pragma: no cover
+def save_tile_ToRedis(tile_id, tile_template, data, meta):  # pragma: no cover
+    cache = getCache()
     tilePrefix = getRedisPrefix(tile_id)
-    if not redis.exists(tilePrefix):
+    if not cache.redis.exists(tilePrefix) and DEBUG:  # if tile don't exist, create it with template, DEBUG mode only
         buildFakeDataFromTemplate(tile_id, tile_template, cache)
-    cachedTile = json.loads(redis.get(tilePrefix))
-    cachedTile['data'] = update_tile_data(cachedTile['data'], json.loads(data))
+    cachedTile = json.loads(cache.redis.get(tilePrefix))
+    cachedTile['data'] = update_tile_data_from_redis(cachedTile['data'], json.loads(data), tile_template)
     cachedTile['modified'] = getIsoTime()
     cachedTile['tile_template'] = tile_template
-    if meta is not None:  # TODO: Test the update meta
-        if meta.get('options') is not None:
-            cachedTile['meta']['options'].update(meta['options'])
-        elif meta.get('backgroundColor') is not None:
-            cachedTile['meta']['backgroundColor'].update(meta['backgroundColor'])
     cache.set(tilePrefix, json.dumps(cachedTile))
-    return HttpResponse(f"{tile_id} data updated successfully.")
-    # return HttpResponse(f"{tile_id} data updated successfully." + f"-> {json.dumps(cachedTile)}" if DEBUG else "")
+    return HttpResponse(f'{tile_id} data updated successfully.')
 
 
-def push(request, unsecured=False):  # pragma: no cover
-    """ Update the content of a tile(widget) """
-    if request.method == "POST":
-        if not checkAccessToken(method="POST", request=request, unsecured=unsecured):
-            return HttpResponse("API KEY incorrect", status=401)
-        if not request.POST.get("key", None) or \
-                not request.POST.get("data", None) or \
-                not request.POST.get("tile", None):
-            return HttpResponseBadRequest(f"Missing data")
-        data = request.POST.get("data", None)
+def push_api(request, unsecured=False):  # pragma: no cover
+    """ Update the content of a tile (widget) """
+    if request.method == 'POST':
+        if not checkAccessToken(method='POST', request=request, unsecured=unsecured):
+            return HttpResponse('API KEY incorrect', status=401)
+        HttpData = request.POST
+        if not HttpData.get('tile_id', None) or not HttpData.get('tile_template', None) or \
+                not HttpData.get('data', None):
+            return HttpResponseBadRequest('Missing data')
+        data = HttpData.get('data', None)
         if 'data' in json.loads(data):
             data = json.dumps(json.loads(data)['data'])
-        return push_tile(tile_id=request.POST.get("key", None),
-                         tile_template=request.POST.get("tile", None),
-                         data=data,
-                         meta=request.POST.get("meta", None))
+        return save_tile_ToRedis(tile_id=HttpData.get('tile_id', None),
+                                 tile_template=HttpData.get('tile_template', None),
+                                 data=data,
+                                 meta=HttpData.get('meta', None))
     raise Http404
 
 
-# Unsecured part, don't look here ! :D
-# This allow previous user to use their old script without migration in a insecure way :)
-
-
-def tile_unsecured(request, tile_key):  # pragma: no cover
-    print(f"{getTimeStr()} (~) Using unsecured tile url")
-    if not DEBUG:
-        raise Http404
-    else:
-        return tile(request=request, tile_key=tile_key, unsecured=True)
-
-
-def push_unsecured(request):  # pragma: no cover
-    print(f"{getTimeStr()} (~) Using unsecured push url")
-    if not DEBUG:
-        raise Http404
-    postVariable = request.POST
-    if not postVariable.get("key", None) or not postVariable.get("data", None) or not postVariable.get("tile", None):
-        return HttpResponseBadRequest(f"Missing data")
-    tileType = postVariable.get("tile", None)
-    # TODO: check the token for 'security' xD
+def is_meta_present_in_request(request, tile_id):  # pragma: no cover
+    """ Check in the request if there is new meta value for /update """
     try:
-        data = updateDatav1tov2(tileType, postVariable.get("data", None))
-        print(f"{getTimeStr()} (+) DATA MIGRATED ({tileType}): {data}")
-        return push_tile(tile_id=postVariable.get("key", None), data=data, tile_template=tileType, meta=None)
-    except Exception:
-        return HttpResponseBadRequest('Error in request')
+        request.POST.get('value', None)
+        httpResponse = meta_api(request, tile_id)
+        if httpResponse.status_code != 200:
+            return httpResponse
+    except Exception as e:
+        if LOG:
+            print(f'{getTimeStr()} (-) No meta value for update tile {tile_id}: {e}', flush=True)
+        return HttpResponseBadRequest(f'{tile_id} meta was not update (meta is missing)')
+    return HttpResponse(f'{tile_id} data updated successfully.')
 
 
-def meta_unsecured(request, tile_key):  # pragma: no cover
-    print(f"{getTimeStr()} (~) Using unsecured meta url")
-    if not DEBUG:
-        raise Http404
-    else:
-        return meta(request=request, tile_key=tile_key, unsecured=True)
+def update_api(request, unsecured=False):  # TODO: "it's better to ask forgiveness than permission" ;)
+    """ Update the meta(config) AND the content of a tile(widget) """
+    if request.method == 'POST':
+        if not checkAccessToken(method='POST', request=request, unsecured=unsecured):
+            return HttpResponse('API KEY incorrect', status=401)
+        tile_id = request.POST.get('tile_id', None)
+        data = request.POST.get('data', None)  # Test if var is present
+        if data is None:
+            print('No data')
+        httpResponse = push_api(request)
+        return httpResponse if httpResponse.status_code != 200 else is_meta_present_in_request(request, tile_id)
+    raise Http404
 
-
-def update_unsecured(request):  # pragma: no cover
-    print(f"{getTimeStr()} (~) Using unsecured update url")
-    if not DEBUG:
-        raise Http404
-    else:
-        return update(request=request, unsecured=True)
+# if meta is not None:  # TODO: Test the update meta
+#     if meta.get('options') is not None:
+#         cachedTile['meta']['options'].update_api(meta['options'])
+#     elif meta.get('backgroundColor') is not None:
+#         cachedTile['meta']['backgroundColor'].update_api(meta['backgroundColor'])

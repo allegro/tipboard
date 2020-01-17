@@ -21,14 +21,11 @@ def get_cols(rows):
 
 
 def get_rows(layout):
-    """Validates and returns number of rows."""
-    rows_data = []
-    rows_class = []
-    for row in layout:
-        rows_data.append(row)
-        rows_class.append(list(row.keys()))
+    """ Validates and returns number of rows."""
     rows_count = 0
-    sum_of_rows = []
+    sum_of_rows = list()
+    rows_data = [row for row in layout]
+    rows_class = [list(row.keys()) for row in layout]
     for row_class in rows_class:
         splited_class = row_class[0].split('_')  # ex: row_1_of_2
         row = splited_class[1]
@@ -46,11 +43,8 @@ def get_rows(layout):
 
 
 def get_config_files_names():
-    """
-    Return all configs files' names (without '.yaml' ext.) from user space
-    (.tipboard/)
-    """
-    configs_names = []
+    """ Return all configs files' names (without '.yaml' ext.) from user space (.tipboard/) """
+    configs_names = list()
     configs_dir = os.path.join(properties.user_config_dir, '*.yaml')
     for config_path in glob.glob(configs_dir):
         filename = os.path.basename(config_path)
@@ -59,24 +53,9 @@ def get_config_files_names():
     return configs_names
 
 
-def config_file_name2path(config_name):
-    """
-    Return file path to *config_name* (eg. 'layout_config')
-    """
-    path = os.path.join(
-        properties.user_config_dir, ''.join([config_name])
-    )
-    return path
-
-
 def get_tiles_configs():
-    """
-    Return dict with tiles keys and ids from all available configs
-    """
-    tiles_configs = {
-        'tiles_keys': set(),
-        'tiles_names': set()
-    }
+    """ Return dict with tiles keys and ids from all available configs """
+    tiles_configs = dict(tiles_keys=set(), tiles_names=set())
     configs_names = get_config_files_names()
     for config_name in configs_names:
         parsed_config = parse_xml_layout(config_name)
@@ -104,7 +83,7 @@ def find_tiles_names(cols_data):
 
 
 def parse_xml_layout(layout_name='layout_config'):
-    config_path = config_file_name2path(layout_name)
+    config_path = os.path.join(properties.user_config_dir, ''.join([layout_name]))
     try:
         with open(config_path, 'r') as layout_config:
             config = yaml.safe_load(layout_config)
@@ -118,17 +97,3 @@ def parse_xml_layout(layout_name='layout_config'):
     cols_data = [colsValue for colsList in cols for colsValue in colsList]
     config['tiles_names'], config['tiles_keys'] = find_tiles_names(cols_data)
     return config
-
-
-def getSrcJssForTilesInLayout(tiles_name):
-    listOfTiles = list()
-    for name_tile in tiles_name:
-        if not listOfTiles.__contains__(name_tile):
-            if name_tile == "vbar_chart":
-                name_tile = "bar_chart"
-            elif name_tile == "cumulative_flow":
-                name_tile = "line_chart"
-            elif name_tile == "doughnut_chart":
-                name_tile = "radar_chart"
-            listOfTiles.append(name_tile)
-    return listOfTiles

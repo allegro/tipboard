@@ -10,25 +10,14 @@ layout:
               title: pie chart
               classes:
 
-        - col_1_of_4  flip-time-1:
-
-            - tile_template: polararea_chart
-              tile_id: polararea_ex
-              title: polar-area
-              classes:
+        - col_1_of_4:
 
             - tile_template: radar_chart
               tile_id: radar_ex
               title: radar chart
               classes:
 
-            - tile_template: doughnut_chart
-              tile_id: doughnut_ex
-              title: doughnut
-              classes:
-
-
-        - col_1_of_4 flip-time-1:
+        - col_1_of_4 flip-time-9:
 
             - tile_template: vbar_chart
               tile_id: vbarjs_ex
@@ -40,7 +29,12 @@ layout:
               title: bar tile's
               classes:
 
-        - col_1_of_4 flip-time-1:
+        - col_1_of_4 flip-time-10:
+
+            - tile_template: line_chart
+              tile_id: line_chartjs_ex
+              title: line tile's
+              classes:
 
             - tile_template: norm_chart
               tile_id: normjs_ex
@@ -52,45 +46,49 @@ layout:
               title: cumulflow
               classes:
 
-            - tile_template: line_chart
-              tile_id: line_chartjs_ex
-              title: line tile's
-              classes:
-
-
-
     - row_1_of_2:
+
         - col_1_of_4:
-            - tile_template: simple_percentage
-              tile_id: sp_ex2
-              title: Percentage
+
+            - tile_template: doughnut_chart
+              tile_id: doughnut_ex
+              title: doughnut
               classes:
 
         - col_1_of_4:
-            - tile_template: big_value
-              tile_id: bv_ex42
-              title: Big value
+
+            - tile_template: polararea_chart
+              tile_id: polararea_ex
+              title: polar-area
               classes:
 
-        - col_1_of_4 :
+
+        - col_1_of_4 flip-time-10:
             - tile_template: just_value
-              tile_id: jv_ex2
+              tile_id: jv_ex
               title: Just value
               classes:
 
-        - col_1_of_4 flip-time-1:
-            - tile_template: listing
-              tile_id: listing_ex
-              title: listing
+            - tile_template: big_value
+              tile_id: bv_ex
+              title: Big value
               classes:
+
+            - tile_template: simple_percentage
+              tile_id: sp_ex
+              title: Percentage
+              classes:
+
+        - col_1_of_4 flip-time-10:
 
             - tile_template: text
               tile_id: txt_ex
               title: text
               classes:
 
-
-
-
+            - tile_template: listing
+              tile_id: listing_ex
+              title: listing
+              classes:
 
 

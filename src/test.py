@@ -11,6 +11,8 @@ from src.tipboard.app.flipboard import Flipboard
 from src.tipboard.app.cache import MyCache
 from src.tipboard.app.utils import checkAccessToken
 from src.sensors.sensors_main import launch_sensors
+from src.tipboard.app.cache import listOfTilesFromLayout
+from src.tipboard.app.flipboard import get_flipboard_title
 
 
 class TestApp(TestCase):
@@ -20,54 +22,54 @@ class TestApp(TestCase):
         self.fakeClient = Client()
         self.ALLOWED_TILES = ALLOWED_TILES
 
-    def test_0010_template_tiles(self):
+    def test_0009_template_tiles(self):
         """ Test template generation """
 
         for tile in self.ALLOWED_TILES:
-            tile_data = {'title': f"{tile}_ex", 'tile_template': tile}
+            tile_data = dict(title=f'{tile}_ex', tile_template=tile)
             tileTemplate = template_tile(tile_data['title'], tile_data)
             self.assertTrue('role="alert"' not in tileTemplate)
-        tileTemplate = template_tile("test_unknown_tile", {'title': 'unknown', 'tile_template': 'tile'})
+        tileTemplate = template_tile('test_unknown_tile', dict(title='unknown', tile_template='tile'))
         self.assertTrue(tileTemplate is not None)
 
-    def test_0020_fake_data(self):
+    def test_0002_fake_data(self):
         """ Test fake_data generation """
 
         for tile in self.ALLOWED_TILES:
-            if tile != "text" and tile != "empty":
-                tileData = buildFakeDataFromTemplate(f"test_{tile}", template_name=tile, cache=None)
-                self.assertTrue("meta" in tileData)
-                self.assertTrue("data" in tileData)
-                self.assertTrue("id" in tileData)
-                self.assertTrue("tile_template" in tileData)
+            if tile != 'text' and tile != 'empty':
+                tileData = buildFakeDataFromTemplate(f'test_{tile}', template_name=tile, cache=None)
+                self.assertTrue('meta' in tileData)
+                self.assertTrue('data' in tileData)
+                self.assertTrue('id' in tileData)
+                self.assertTrue('tile_template' in tileData)
 
-    def test_0030_parser(self):
+    def test_0003_parser(self):
         """ Test XmlParser for layout """
         config = parse_xml_layout()
         title = config['details']['page_title']
         self.assertTrue(title is not None)
 
-    def test_0040_flipboard(self):
+    def test_0004_flipboard(self):
         """ Test Flipboard object """
         flipboard = Flipboard()
-        self.assertTrue(flipboard.get_flipboard_title() is not None)
+        self.assertTrue(get_flipboard_title() is not None)
         self.assertTrue(flipboard.get_paths() is not None)
 
-    def test_0050_cache(self):
+    def test_0005_cache(self):
         cache = MyCache()
         self.assertTrue(cache is not None)
         cache.listOfTilesCached()
-        self.assertTrue(len(cache.listOfTilesFromLayout()) > 0)
+        self.assertTrue(len(listOfTilesFromLayout()) > 0)
         cache.get(tile_id='test')
         cache.set(tile_id='test', dumped_value=json.dumps({'testValue': True}))
         cache.createTile(tile_id='test', value={'test': True}, tile_template='test')
 
-    def test_0060_checkToken(self):
+    def test_0006_checkToken(self):
         request = self.fakeClient.get('')
         checkAccessToken(method='GET', request=request, unsecured=True)
         checkAccessToken(method='GET', request=request, unsecured=False)
 
-    def test_0070_api(self):
+    def test_0007_api(self):
         from src.tipboard.app.properties import API_KEY, API_VERSION
         self.fakeClient.post('api/' + API_VERSION + '/' + API_KEY + '/update')
         self.fakeClient.post('api/' + API_VERSION + '/' + API_KEY + '/tileconfig/' + 'TEST_TILE')
@@ -75,14 +77,14 @@ class TestApp(TestCase):
         self.fakeClient.post('api/' + API_VERSION + '/' + API_KEY + '/update')
         self.assertTrue(True)
 
-    def test_0080_test_sensors(self):
+    def test_0008_test_sensors(self):
         launch_sensors(isTest=True)
 
 
 class SomeLiveTests(ChannelsLiveServerTestCase):
 
     @pytest.mark.asyncio
-    async def test_0090_test_consumer(self):
-        communicator = HttpCommunicator(WSConsumer, "GET", "/communication/websocket")
+    async def test_0001_test_consumer(self):
+        communicator = HttpCommunicator(WSConsumer, 'GET', '/communication/websocket')
         response = await communicator.get_response()
-        self.assertTrue(response["status"] == 200)
+        self.assertTrue(response['status'] == 200)

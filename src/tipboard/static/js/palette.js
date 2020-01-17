@@ -1,5 +1,8 @@
 function initGlobalColor() {
     Chart.defaults.global.defaultFontColor = "rgba(255, 255, 255, 0.83)";
+    Chart.defaults.global.elements.line.backgroundColor = "#FFFFFF";
+    Chart.defaults.scale.gridLines.display = true;
+    Chart.defaults.scale.gridLines.color = "#525252";
 }
 
 /**
@@ -62,11 +65,5 @@ function initPalette(Tipboard) {
     Tipboard.Palette = {};
     getGenericColor(Tipboard.Palette);
     chooseMode(Tipboard.Palette);
-        Tipboard.Palette.applyFading = initFading;
+    Tipboard.Palette.applyFading = initFading;
 }
-
-/**
- ** Tu as ajouté la le fading et construit la base de la palette
- ** la big_value marche, mais pas les autres (fir:ok chr: ko)
- **
-**/

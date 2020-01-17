@@ -1,5 +1,4 @@
-import os
-import django
+import os, django
 from channels.routing import get_default_application
 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'webserver.settings')

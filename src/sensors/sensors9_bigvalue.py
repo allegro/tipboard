@@ -1,31 +1,35 @@
-import time
-from src.sensors.utils import end, sendDataToTipboard, getTimeStr
-
-NAME_OF_SENSORS = "big_value"
-TILE_TEMPLATE = "big_value"
-TILE_ID = "bv_ex"
+import time, random
+from src.sensors.utils import end, sendDataToTipboard, getTimeStr, sendBVColor
+from src.tipboard.app.properties import BACKGROUND_TAB
 
 
 def executeScriptToGetData():
-    """ Simulate some actions for text tile exemple"""
+    """ Simulate some actions for text tile exemple """
+    ulv = random.randrange(42, 420)
+    llv = random.randrange(42, 420)
+    urv = random.randrange(42, 420)
+    lrv = ulv + llv + urv
     return {
-        "title": "Tickets",
-        "description": "number of blockers",
-        "big-value": "314",
-        "upper-left-label": "critical:",
-        "upper-left-value": "1020",
-        "lower-left-label": "major:",
-        "lower-left-value": "8609",
-        "upper-right-label": "minor:",
-        "upper-right-value": "7532",
-        "lower-right-label": "all:",
-        "lower-right-value": "19 853"
+        'title': 'Sensors title',
+        'description': 'Sensors description',
+        'big-value': random.randrange(214, 514),
+        'upper-left-label': 'Critical:',
+        'upper-left-value': ulv,
+        'lower-left-label': 'Major:',
+        'lower-left-value': llv,
+        'upper-right-label': 'Minor:',
+        'upper-right-value': urv,
+        'lower-right-label': 'All:',
+        'lower-right-value': lrv
     }
 
 
-def sonde9(isTest):
-    print(f"{getTimeStr()} (+) Starting sensors 9", flush=True)
+def sonde9(isTest=False):
+    TILE_ID = 'bv_ex'
+    print(f'{getTimeStr()} (+) Starting sensors 9', flush=True)
     start_time = time.time()
     data = executeScriptToGetData()
-    tipboardAnswer = sendDataToTipboard(data, tile_template=TILE_TEMPLATE, tile_id=TILE_ID, isTest=isTest)
-    end(title=f"sensors9 -> {TILE_ID}", start_time=start_time, tipboardAnswer=tipboardAnswer, TILE_ID=TILE_ID)
+    tipboardAnswer = sendDataToTipboard(tile_id=TILE_ID, data=data, tile_template='big_value', isTest=isTest)
+    fade = False if not random.randrange(0, 1) else True
+    sendBVColor(tile_id=TILE_ID, color=BACKGROUND_TAB[random.randrange(0, 3)], fading=fade, isTest=isTest)
+    end(title=f'sensors9 -> {TILE_ID}', start_time=start_time, tipboardAnswer=tipboardAnswer, TILE_ID=TILE_ID)
