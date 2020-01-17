@@ -20,21 +20,20 @@ from src.sensors.utils import end
 
 
 def launch_sensors(isTest=False):
-    # sonde1(isTest)
-    # sonde2(isTest)
-    # sonde3(isTest)
-    # sonde4(isTest)
-    # sonde5(isTest)
-    # sonde7(isTest, isHorizontal=True)
-    # sonde7(isTest, isHorizontal=False)
-    # sonde9(isTest)
-    # sonde10(isTest)
-    # sonde12(isTest)
-    # sonde14(isTest)
-    # sonde15(isTest)
-    # sonde16(isTest)
-    # sonde13(isTest)
-    scheduleYourSensors(BlockingScheduler())  # If you need actualized data :)
+    sonde1(isTest)
+    sonde2(isTest)
+    sonde3(isTest)
+    sonde4(isTest)
+    sonde5(isTest)
+    sonde7(isTest, isHorizontal=True)
+    sonde7(isTest, isHorizontal=False)
+    sonde9(isTest)
+    sonde10(isTest)
+    sonde12(isTest)
+    sonde14(isTest)
+    sonde15(isTest)
+    sonde16(isTest)
+    #scheduleYourSensors(BlockingScheduler())  # If you need actualized data :)
 
 
 def addSchedule(scheduler, sonde, timeToRun=datetime.now(), second=8):

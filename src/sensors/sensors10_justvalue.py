@@ -19,5 +19,5 @@ def sonde10(isTest=False):
     data = executeScriptToGetData()
     tipboardAnswer = sendDataToTipboard(tile_id=TILE_ID, data=data, tile_template='just_value', isTest=isTest)
     fade = False if not random.randrange(0, 1) else True
-    sendBVColor(tile_id=TILE_ID, color=BACKGROUND_TAB[random.randrange(0, 3)], fading=fade)
+    sendBVColor(tile_id=TILE_ID, color=BACKGROUND_TAB[random.randrange(0, 3)], fading=fade, isTest=isTest)
     end(title=f'sensors10 -> {TILE_ID}', start_time=start_time, tipboardAnswer=tipboardAnswer, TILE_ID=TILE_ID)

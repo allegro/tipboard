@@ -29,12 +29,13 @@ def getTimeStr():
     return datetime.datetime.now().strftime('%Hh%M')
 
 
-def sendBVColor(color, tile_id, fading=False):  # pragma: no cover
+def sendBVColor(color, tile_id, fading=False, isTest=False):  # pragma: no cover
     """ Modify meta of tile: update the color and/or fading of a specific tile """
     var = dict(value=json.dumps({'big_value_color': color, 'fading_background': fading}))
-    res = requests.post(TIPBOARD_URL + '/tileconfig/' + tile_id, data=var)
-    if DEBUG:
-        print(f'{res}: color -> {tile_id}', flush=True)
+    if not isTest:
+        res = requests.post(TIPBOARD_URL + '/tileconfig/' + tile_id, data=var)
+        if DEBUG:
+            print(f'{res}: color -> {tile_id}', flush=True)
 
 
 def sendDataToTipboard(tile_id=None, data=None, tile_template=None, isTest=False):
