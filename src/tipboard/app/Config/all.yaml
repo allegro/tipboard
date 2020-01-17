@@ -9,7 +9,7 @@ layout:
               title: doughnut
               classes:
 
-        - col_1_of_7:        
+        - col_1_of_7:
             - tile_template: polararea_chart
               tile_id: polararea_ex
               title: polar-area

@@ -33,7 +33,7 @@ def launch_sensors(isTest=False):
     sonde14(isTest)
     sonde15(isTest)
     sonde16(isTest)
-    #scheduleYourSensors(BlockingScheduler())  # If you need actualized data :)
+    # scheduleYourSensors(BlockingScheduler())  # If you need actualized data :)
 
 
 def addSchedule(scheduler, sonde, timeToRun=datetime.now(), second=8):
