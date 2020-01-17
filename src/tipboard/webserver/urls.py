@@ -3,10 +3,8 @@ from django.conf.urls.static import static
 from django.views.generic.base import RedirectView
 from django.conf.urls import url
 from src.tipboard.app.views.api import push_api, project_info, tile_rest, meta_api, update_api
-#from src.tipboard.app.views.api_unsecured import push_unsecured, tile_unsecured, meta_unsecured, update_unsecured
 from src.tipboard.app.views.dashboard import renderHtmlForTiles, getDashboardsPaths
 from src.tipboard.app.views.dashboard import renderFlipboardHtml, demo_controller
-from src.tipboard.app.properties import API_KEY, API_VERSION
 
 favicon_view = RedirectView.as_view(url='/static/favicon.ico', permanent=True)
 

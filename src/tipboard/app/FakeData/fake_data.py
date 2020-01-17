@@ -35,15 +35,3 @@ def buildFakeDataFromTemplate(tile_id, template_name, cache):
         if cache is not None:
             cache.redis.set(name=getRedisPrefix(tile_id), value=json.dumps(data))
     return data
-
-
-def buildFakeData(tile_id, template_name):
-    data = dict()
-    ptrToFake = buildSwicthPythonFfso_o()
-    if template_name in ptrToFake:
-        if template_name in ptrToFake:
-            data = ptrToFake[template_name](tile_id, template_name)
-    # le but cest de généré un max de dataset pour répondre au besoin lorsqu'on update une chart
-    # il faudra mettre un nombre max de dataset du coup
-    # dans fakeChartJS il faudra update les methode de creation de chart pour modifier le nombre de dataset
-    return

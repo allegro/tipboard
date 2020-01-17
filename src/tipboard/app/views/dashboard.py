@@ -27,7 +27,7 @@ def getDashboardsPaths(request):  # pragma: no cover
     return JsonResponse(dict(paths=Flipboard().get_paths()), safe=False)
 
 
-def hijackNamesTiles(tiles_name):
+def replaceNameTiles(tiles_name):
     """ Replace name_tile when it's the same JS tile :), duplicate code is bad """
     listOfTiles = list()
     for name_tile in tiles_name:
@@ -45,7 +45,7 @@ def hijackNamesTiles(tiles_name):
 def getTilesDependency(layout_name):
     """ Build CSS / JS tiles dependency from the tile referenced in layout.yaml """
     config = parse_xml_layout(layout_name)
-    tiles_template = hijackNamesTiles(config['tiles_names'])
+    tiles_template = replaceNameTiles(config['tiles_names'])
     data = dict(details=config['details'],
                 layout=config['layout'],
                 tipboard_css=TIPBOARD_CSS_STYLES,

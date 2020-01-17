@@ -7,6 +7,7 @@ from src.tipboard.app.utils import getTimeStr, checkAccessToken
 from src.tipboard.app.FakeData.fake_data import buildFakeDataFromTemplate
 from src.tipboard.app.FakeData.datasetbuilder import buildGenericDataset
 
+
 def project_info(request):  # pragma: no cover
     """ Return info of server tipboard """
     if request.method == 'GET':
@@ -72,6 +73,17 @@ def meta_api(request, tile_key, unsecured=False):  # pragma: no cover
     raise Http404
 
 
+def update_dataset_from_tiles(value, previousData, key, tile_template):
+    rcx = 0
+    for dataset in value:
+        print(f"Updating Dataset:{rcx}")
+        if rcx >= len(previousData[key]):
+            previousData[key].append(buildGenericDataset(tile_template=tile_template))
+        update_tile_data_from_redis(previousData[key][rcx], dataset, tile_template)
+        rcx = rcx + 1
+    previousData[key] = previousData[key][0:len(value)]
+
+
 def update_tile_data_from_redis(previousData, newData, tile_template):
     """ update value of tile with new data """
     if isinstance(newData, str):
@@ -81,14 +93,7 @@ def update_tile_data_from_redis(previousData, newData, tile_template):
         if isinstance(value, dict) and key != 'data' and key in previousData:
             update_tile_data_from_redis(previousData[key], value, tile_template)
         elif isinstance(value, list) and key == 'datasets':
-            rcx = 0
-            for dataset in value:
-                print(f"Updating Dataset:{rcx}")
-                if rcx >= len(previousData[key]):
-                    previousData[key].append(buildGenericDataset(tile_template=tile_template))
-                update_tile_data_from_redis(previousData[key][rcx], dataset, tile_template)
-                rcx = rcx + 1
-            previousData[key] = previousData[key][0:len(value)]
+            update_dataset_from_tiles(value, previousData, key, tile_template)
         else:
             previousData[key] = value
     return previousData

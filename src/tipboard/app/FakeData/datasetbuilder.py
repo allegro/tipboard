@@ -63,4 +63,3 @@ def buildGenericDataset(tile_template):
                 radar_chart=buildDatasetRadar,
                 polararea_chart=buildDatasetPolararea,
                 vbar_chart=buildDatasetBar)[tile_template](index=0, randomData=True, labelLenght=5)
-

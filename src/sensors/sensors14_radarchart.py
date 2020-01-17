@@ -1,4 +1,4 @@
-import time, random
+import time
 from src.sensors.utils import end, sendDataToTipboard, getTimeStr, buildChartUpdateRandomly
 from src.tipboard.app.properties import COLOR_TAB
 
@@ -17,6 +17,3 @@ def sonde14(isTest=False):
         index = index + 1
     tipboardAnswer = sendDataToTipboard(data=data, tile_template='radar_chart', tile_id=TILE_ID, isTest=isTest)
     end(title=f'sensors14 -> {TILE_ID}', start_time=start_time, tipboardAnswer=tipboardAnswer, TILE_ID=TILE_ID)
-# il faut add ces valeur(pointBorderColor) dans les fake buildGenericChart
-# dans radar il n'y a plus que la serie 1 qui est affiché, meme lorsqu'il y en a plus
-# il faut régler la pie_chart aussi
