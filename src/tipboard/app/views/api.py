@@ -5,7 +5,7 @@ from src.tipboard.app.properties import PROJECT_NAME, LAYOUT_CONFIG, REDIS_DB, L
 from src.tipboard.app.cache import getCache
 from src.tipboard.app.utils import getTimeStr, checkAccessToken
 from src.tipboard.app.FakeData.fake_data import buildFakeDataFromTemplate
-
+from src.tipboard.app.FakeData.datasetbuilder import buildGenericDataset
 
 def project_info(request):  # pragma: no cover
     """ Return info of server tipboard """
@@ -72,14 +72,23 @@ def meta_api(request, tile_key, unsecured=False):  # pragma: no cover
     raise Http404
 
 
-def update_tile_data_from_redis(previousData, newData):
+def update_tile_data_from_redis(previousData, newData, tile_template):
     """ update value of tile with new data """
     if isinstance(newData, str):
         previousData['text'] = newData
         return previousData
     for key, value in newData.items():
-        if isinstance(value, dict) and key != 'data' and key in previousData and key != 'datasets':
-            update_tile_data_from_redis(previousData[key], value)
+        if isinstance(value, dict) and key != 'data' and key in previousData:
+            update_tile_data_from_redis(previousData[key], value, tile_template)
+        elif isinstance(value, list) and key == 'datasets':
+            rcx = 0
+            for dataset in value:
+                print(f"Updating Dataset:{rcx}")
+                if rcx >= len(previousData[key]):
+                    previousData[key].append(buildGenericDataset(tile_template=tile_template))
+                update_tile_data_from_redis(previousData[key][rcx], dataset, tile_template)
+                rcx = rcx + 1
+            previousData[key] = previousData[key][0:len(value)]
         else:
             previousData[key] = value
     return previousData
@@ -91,7 +100,7 @@ def save_tile_ToRedis(tile_id, tile_template, data, meta):  # pragma: no cover
     if not cache.redis.exists(tilePrefix) and DEBUG:  # if tile don't exist, create it with template, DEBUG mode only
         buildFakeDataFromTemplate(tile_id, tile_template, cache)
     cachedTile = json.loads(cache.redis.get(tilePrefix))
-    cachedTile['data'] = update_tile_data_from_redis(cachedTile['data'], json.loads(data))
+    cachedTile['data'] = update_tile_data_from_redis(cachedTile['data'], json.loads(data), tile_template)
     cachedTile['modified'] = getIsoTime()
     cachedTile['tile_template'] = tile_template
     cache.set(tilePrefix, json.dumps(cachedTile))

@@ -3,7 +3,7 @@ from django.conf.urls.static import static
 from django.views.generic.base import RedirectView
 from django.conf.urls import url
 from src.tipboard.app.views.api import push_api, project_info, tile_rest, meta_api, update_api
-from src.tipboard.app.views.api_unsecured import push_unsecured, tile_unsecured, meta_unsecured, update_unsecured
+#from src.tipboard.app.views.api_unsecured import push_unsecured, tile_unsecured, meta_unsecured, update_unsecured
 from src.tipboard.app.views.dashboard import renderHtmlForTiles, getDashboardsPaths
 from src.tipboard.app.views.dashboard import renderFlipboardHtml, demo_controller
 from src.tipboard.app.properties import API_KEY, API_VERSION
@@ -27,9 +27,9 @@ urlpatterns = [
 
     # Unsecured API interaction
     # To not depreciate previous script(of people using tipboard1.0), dont destroy this security issue :D
-    url(r'^api/' + API_VERSION + '/' + API_KEY + '/tileconfig/([a-zA-Z0-9_-]+)$', tile_unsecured),
-    url(r'^api/' + API_VERSION + '/' + API_KEY + '/tileconfig/([a-zA-Z0-9_-]+)$', meta_unsecured),
-    url(r'^api/' + API_VERSION + '/' + API_KEY + '/push$', push_unsecured),
-    url(r'^api/' + API_VERSION + '/' + API_KEY + '/update$', update_unsecured),
+    # url(r'^api/' + API_VERSION + '/' + API_KEY + '/tileconfig/([a-zA-Z0-9_-]+)$', tile_unsecured),
+    # url(r'^api/' + API_VERSION + '/' + API_KEY + '/tileconfig/([a-zA-Z0-9_-]+)$', meta_unsecured),
+    # url(r'^api/' + API_VERSION + '/' + API_KEY + '/push$', push_unsecured),
+    # url(r'^api/' + API_VERSION + '/' + API_KEY + '/update$', update_unsecured),
 
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

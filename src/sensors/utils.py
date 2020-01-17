@@ -43,7 +43,7 @@ def buildChartUpdateRandomly(nbrDataset=None, nbrLabel=None, colorTabIndataset=F
             dict(label=f'Serie {index + 1}',
                  data=[random.randrange(100, 1000) for _ in range(nbrLabel)] if data is None else data,
                  backgroundColor=COLOR_TAB[index] if colorTabIndataset is False else COLOR_TAB,
-                 borderColor=COLOR_TAB[index]))
+                 borderColor=COLOR_TAB[index] if colorTabIndataset is False else '#525252'))
     print(tileData)
     return tileData
 

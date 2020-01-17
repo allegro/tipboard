@@ -1,29 +1,11 @@
 import time, random
 from src.sensors.utils import end, sendDataToTipboard, getTimeStr, buildChartUpdateRandomly
-from src.tipboard.app.properties import COLOR_TAB
-
-
-def executeScriptToGetData():
-    """ Simulate some actions for text tile exemple """
-    labelLenght = 1
-    nbrData = random.randrange(3, 7)
-    data = dict()
-    data['title'] = dict(text=f'{labelLenght} label by sensors', color='#FFFFFF', display=random.choice([True, False]))
-    data['legend'] = dict(display=False if labelLenght > 6 else random.choice([True, False]))
-    data['labels'] = [f'Label {i}' for i in range(1, nbrData)]
-    data['datasets'] = list()
-    for index in range(labelLenght):
-        data['datasets'].append(
-            dict(labels=f'Serie {index + 1}',
-                 data=[random.randrange(100, 1000) for _ in range(1, nbrData)],
-                 backgroundColor=COLOR_TAB))
-    return data
 
 
 def sonde15(isTest=False):
     print(f'{getTimeStr()} (+) Starting sensors 15', flush=True)
     start_time = time.time()
-    data = buildChartUpdateRandomly(nbrDataset=1, nbrLabel=random.randrange(3, 7), colorTabIndataset=True)
+    data = buildChartUpdateRandomly(nbrDataset=1, nbrLabel=random.randrange(3, 10), colorTabIndataset=True)
     tipboardAnswer = sendDataToTipboard(data=data, tile_template='polararea_chart', tile_id='polararea_ex', isTest=isTest)
     end(title=f'sensors3 -> polararea_ex',
         start_time=start_time,
