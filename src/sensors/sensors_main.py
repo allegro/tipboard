@@ -38,7 +38,7 @@ def launch_sensors(isTest=False):
 
 
 def addSchedule(scheduler, sonde, timeToRun=datetime.now(), second=8):
-    second = 1
+    second = 5
     scheduler.add_job(sonde, 'interval', seconds=second, next_run_time=timeToRun)
 
 
@@ -48,14 +48,14 @@ def scheduleYourSensors(scheduler):  # pragma: no cover
     addSchedule(scheduler, sonde2, timeToRun=now + timedelta(milliseconds=100), second=40)
     addSchedule(scheduler, sonde3, timeToRun=now + timedelta(milliseconds=200), second=3)
     addSchedule(scheduler, sonde4, timeToRun=now + timedelta(milliseconds=300), second=19)
-    # addSchedule(scheduler, sonde5, timeToRun=now + timedelta(milliseconds=400), second=16)
-    # scheduler.add_job(sonde6, 'interval', seconds=45)
+    addSchedule(scheduler, sonde5, timeToRun=now + timedelta(milliseconds=400), second=16)
+    scheduler.add_job(sonde6, 'interval', seconds=45)
     scheduler.add_job(sonde7, 'interval', seconds=1,
                       next_run_time=now + timedelta(milliseconds=500), args=[False, False])
     scheduler.add_job(sonde7, 'interval', seconds=1,
                       next_run_time=now + timedelta(milliseconds=600), args=[False, True])
-    # addSchedule(scheduler, sonde9, timeToRun=now + timedelta(milliseconds=700), second=39)
-    # addSchedule(scheduler, sonde10, timeToRun=now + timedelta(milliseconds=800), second=50)
+    addSchedule(scheduler, sonde9, timeToRun=now + timedelta(milliseconds=700), second=39)
+    addSchedule(scheduler, sonde10, timeToRun=now + timedelta(milliseconds=800), second=50)
     addSchedule(scheduler, sonde12, timeToRun=now + timedelta(milliseconds=900), second=45)
     addSchedule(scheduler, sonde14, timeToRun=now + timedelta(milliseconds=150), second=2)
     addSchedule(scheduler, sonde15, timeToRun=now + timedelta(milliseconds=250), second=28)

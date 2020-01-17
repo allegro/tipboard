@@ -29,25 +29,6 @@ def getTimeStr():
     return datetime.datetime.now().strftime('%Hh%M')
 
 
-def buildChartUpdateRandomly(nbrDataset=None, nbrLabel=None, colorTabIndataset=False, data=None):
-    nbrDataset = random.randrange(1, 5) if nbrDataset is None else nbrDataset
-    nbrLabel = random.randrange(10, 20) if nbrLabel is None else nbrLabel
-    tileData = dict()
-    tileData['title'] = dict(text=f'{nbrDataset} dataset & {nbrLabel - 1} labels', color='#FFFFFF',
-                             display=random.choice([True, False]))
-    tileData['legend'] = dict(display=False if nbrDataset > 6 else random.choice([True, False]))
-    tileData['labels'] = [f'{i}' for i in range(nbrLabel)]
-    tileData['datasets'] = list()
-    for index in range(nbrDataset):
-        tileData['datasets'].append(
-            dict(label=f'Serie {index + 1}',
-                 data=[random.randrange(100, 1000) for _ in range(nbrLabel)] if data is None else data,
-                 backgroundColor=COLOR_TAB[index] if colorTabIndataset is False else COLOR_TAB,
-                 borderColor=COLOR_TAB[index] if colorTabIndataset is False else '#525252'))
-    print(tileData)
-    return tileData
-
-
 def sendBVColor(color, tile_id, fading=False):  # pragma: no cover
     """ Modify meta of tile: update the color and/or fading of a specific tile """
     var = dict(value=json.dumps({'big_value_color': color, 'fading_background': fading}))
@@ -60,3 +41,23 @@ def sendDataToTipboard(tile_id=None, data=None, tile_template=None, isTest=False
     configTile = dict(tile_id=tile_id, tile_template=tile_template, data=json.dumps(data))
     if not isTest:
         return requests.post(TIPBOARD_URL + '/push', data=configTile)
+
+
+def buildChartUpdateRandomly(nbrDataset=None, nbrLabel=None, colorTabIndataset=False, data=None):
+    nbrDataset = random.randrange(1, 5) if nbrDataset is None else nbrDataset
+    nbrLabel = random.randrange(2, 13) if nbrLabel is None else nbrLabel
+    tileData = dict()
+    tileData['title'] = dict(text=f'{nbrDataset} dataset & {nbrLabel - 1} labels',
+                             color='#FFFFFF',
+                             display=random.choice([True, False]))
+    tileData['legend'] = dict(display=False if nbrDataset > 6 else random.choice([True, False]))
+    tileData['labels'] = [f'{i}' for i in range(nbrLabel)]
+    tileData['datasets'] = list()
+    for index in range(nbrDataset):
+        tileData['datasets'].append(
+            dict(label=f'Serie {index + 1}',
+                 data=[random.randrange(100, 1000) for _ in range(nbrLabel)] if data is None else data,
+                 backgroundColor=COLOR_TAB[index] if colorTabIndataset is False else COLOR_TAB,
+                 borderColor=COLOR_TAB[index] if colorTabIndataset is False else '#525252'))
+    print(tileData)
+    return tileData

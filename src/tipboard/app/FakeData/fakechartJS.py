@@ -1,7 +1,7 @@
 from src.tipboard.app.applicationconfig import getIsoTime
 from src.tipboard.app.FakeData.datasetbuilder import buildDatasetBar, buildDatasetCumulFlow, buildDatasetDoughnut
 from src.tipboard.app.FakeData.datasetbuilder import buildDatasetLine, buildDatasetNorm, buildDatasetPolararea
-from src.tipboard.app.FakeData.datasetbuilder import buildDatasetRadar
+from src.tipboard.app.FakeData.datasetbuilder import buildDatasetRadar, buildDatasetPie
 from src.tipboard.app.properties import COLOR_TAB
 
 
@@ -142,13 +142,16 @@ def getFakePieChart(tile_id, template_name):
     return {
         'id': tile_id, 'tile_template': template_name, 'modified': getIsoTime(),
         'data': {
-            'title': tile_id,
+            'title': {'display': True, 'text': 'PieChart Demo'},
             'labels': [f'Label {i + 1}' for i in range(5)],
-            'pie_data_value': [2478, 5267, 734, 1056, 895],
             'borderColor': '#525252',
-            'borderWidth': 1.0
+            'datasets': [
+                buildDatasetPie(randomData=True, labelLenght=5)
+            ]
         },
         'meta': {
+            'labels': {'fontColor': 'rgba(255, 255, 255, 0.80)'},
+            'tooltips': {'enabled': False},
             'backgroundColor': COLOR_TAB,
             'elements': {'arc': {}},
             'responsive': True,

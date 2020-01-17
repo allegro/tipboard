@@ -29,8 +29,17 @@ def buildDatasetBar(index=0, randomData=False, labelLenght=3):
                 label=f'Series {index + 1}', backgroundColor=COLOR_TAB[index])
 
 
-def buildDatasetPie(index=0, randomData=False, labelLenght=5):
-    return 7
+def buildDatasetPolararea(randomData=False, labelLenght=5):
+    data = [random.randrange(100, 1000) for _ in range(1, labelLenght)]
+    return dict(label='Series', backgroundColor=COLOR_TAB, borderColor=COLOR_TAB,
+                data=[10, 29, 40] if randomData is False else data)
+
+
+def buildDatasetPie(index=0, randomData=False, labelLenght=3):
+    data = [random.randrange(100, 1000) for _ in range(labelLenght)]
+    return dict(label=f'Series {index}', borderColor='#525252', backgroundColor=COLOR_TAB,
+                data=[10, 29, 40] if randomData is False else data,
+                borderWidth=1)
 
 
 def buildDatasetDoughnut(randomData=False, labelLenght=4):
@@ -45,12 +54,6 @@ def buildDatasetRadar(index=0, randomData=False, labelLenght=5):
                 data=exempleData if randomData is False else [random.randrange(4, 50) for i in range(labelLenght)],
                 backgroundColor=COLOR_TAB[index], borderColor=COLOR_TAB[index],
                 pointBorderColor=COLOR_TAB[index], pointBackgroundColor='rgba(255, 255, 255, 0.5)')
-
-
-def buildDatasetPolararea(randomData=False, labelLenght=5):
-    data = [random.randrange(100, 1000) for _ in range(1, labelLenght)]
-    return dict(label='Series', backgroundColor=COLOR_TAB, borderColor=COLOR_TAB,
-                data=[10, 29, 40] if randomData is False else data)
 
 
 def buildGenericDataset(tile_template):
