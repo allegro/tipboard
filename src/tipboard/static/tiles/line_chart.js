@@ -6,7 +6,7 @@
  * @param tileType fillDataset = True || False => CumulativeFlow
  * @returns
  */
-function updateDataset(data, tileType) {
+function updateDatasetLine(data, tileType) {
     const predefinedLabel = ["label1", "label2", "label3", "label4", "label5"];
     const predefinedSeries = ["serie1", "serie2", "serie3", "serie4", "serie5"];
     let listOfDataset = [];
@@ -53,14 +53,14 @@ function updateTileLinejs(tileId, data, meta, tileType) {
     console.log("line_chartjs::updateTile::start" + tileId);
     let chartId = `${tileId}-chart`;
     if (chartId in Tipboard.chartJsTile) {
-        Tipboard.Dashboard.updateDataOfChartJS(Tipboard.chartJsTile[chartId], updateDataset(data, tileType));
+        Tipboard.Dashboard.updateDataOfChartJS(Tipboard.chartJsTile[chartId], updateDatasetLine(data, tileType));
     } else {
         let chart = document.getElementById(chartId);
         meta.options.title = getTitleForChartJSTitle(data);
         chart.parentElement.style.paddingBottom = "8%";
         Tipboard.chartJsTile[chartId] = new Chart(chart, {
             type: "line",
-            data: updateDataset(data, tileType),
+            data: updateDatasetLine(data, tileType),
             options: meta.options
         });
     }

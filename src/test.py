@@ -1,8 +1,5 @@
 import json
-import pytest
 from django.test import RequestFactory, TestCase, Client
-from channels.testing import HttpCommunicator, ChannelsLiveServerTestCase
-from src.tipboard.app.views.wshandler import WSConsumer
 from src.tipboard.app.properties import ALLOWED_TILES
 from src.tipboard.templates.template_filter import template_tile
 from src.tipboard.app.FakeData.fake_data import buildFakeDataFromTemplate
@@ -13,6 +10,17 @@ from src.tipboard.app.utils import checkAccessToken
 from src.sensors.sensors_main import launch_sensors
 from src.tipboard.app.cache import listOfTilesFromLayout
 from src.tipboard.app.flipboard import get_flipboard_title
+
+
+# @pytest.mark.asyncio
+# async def test_0001_test_consumer():
+#     #communicator = HttpCommunicator(WSConsumer, 'GET', '/communication/websocket')
+#     communicator = WebsocketCommunicator(WSConsumer, '/communication/websocket')
+#     connected, subprotocol = await communicator.connect()
+#     assert connected
+#     # response = await communicator.get_response()
+#     # self.assertTrue(response['status'] == 200)
+#     await   communicator.disconnect()
 
 
 class TestApp(TestCase):
@@ -71,20 +79,11 @@ class TestApp(TestCase):
 
     def test_0007_api(self):
         from src.tipboard.app.properties import API_KEY, API_VERSION
-        self.fakeClient.post('api/' + API_VERSION + '/' + API_KEY + '/update')
-        self.fakeClient.post('api/' + API_VERSION + '/' + API_KEY + '/tileconfig/' + 'TEST_TILE')
+        reponse = self.fakeClient.get('/api/info')
+        self.assertTrue(reponse.status_code == 200)
         self.fakeClient.post('api/' + API_VERSION + '/' + API_KEY + '/push')
         self.fakeClient.post('api/' + API_VERSION + '/' + API_KEY + '/update')
-        self.assertTrue(True)
 
     def test_0008_test_sensors(self):
-        launch_sensors(isTest=True)
+        launch_sensors(isTest=True, checker=self, fakeClient=self.fakeClient)
 
-
-class SomeLiveTests(ChannelsLiveServerTestCase):
-
-    @pytest.mark.asyncio
-    async def test_0001_test_consumer(self):
-        communicator = HttpCommunicator(WSConsumer, 'GET', '/communication/websocket')
-        response = await communicator.get_response()
-        self.assertTrue(response['status'] == 200)

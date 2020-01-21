@@ -1,7 +1,7 @@
 import json
 from django.http import JsonResponse, HttpResponseBadRequest, HttpResponse, Http404
 from src.tipboard.app.applicationconfig import getRedisPrefix, getIsoTime
-from src.tipboard.app.properties import PROJECT_NAME, LAYOUT_CONFIG, REDIS_DB, LOG, DEBUG
+from src.tipboard.app.properties import PROJECT_NAME, LAYOUT_CONFIG, REDIS_DB, LOG, DEBUG, ALLOWED_TILES
 from src.tipboard.app.cache import getCache
 from src.tipboard.app.utils import getTimeStr, checkAccessToken
 from src.tipboard.app.FakeData.fake_data import buildFakeDataFromTemplate
@@ -76,7 +76,6 @@ def meta_api(request, tile_key, unsecured=False):  # pragma: no cover
 def update_dataset_from_tiles(value, previousData, key, tile_template):
     rcx = 0
     for dataset in value:
-        print(f"Updating Dataset:{rcx}")
         if rcx >= len(previousData[key]):
             previousData[key].append(buildGenericDataset(tile_template=tile_template))
         update_tile_data_from_redis(previousData[key][rcx], dataset, tile_template)
@@ -99,7 +98,7 @@ def update_tile_data_from_redis(previousData, newData, tile_template):
     return previousData
 
 
-def save_tile_ToRedis(tile_id, tile_template, data, meta):  # pragma: no cover
+def save_tile_ToRedis(tile_id, tile_template, data):  # pragma: no cover
     cache = getCache()
     tilePrefix = getRedisPrefix(tile_id)
     if not cache.redis.exists(tilePrefix) and DEBUG:  # if tile don't exist, create it with template, DEBUG mode only
@@ -112,22 +111,34 @@ def save_tile_ToRedis(tile_id, tile_template, data, meta):  # pragma: no cover
     return HttpResponse(f'{tile_id} data updated successfully.')
 
 
-def push_api(request, unsecured=False):  # pragma: no cover
+def sanity_push_api(request, unsecured):
+    """ Test token, all data present, correct tile_template and tile_id present in cache """
+    if not checkAccessToken(method='POST', request=request, unsecured=unsecured):
+        return False, HttpResponse('API KEY incorrect', status=401)
+    HttpData = request.POST
+    if not HttpData.get('tile_id', None) or not HttpData.get('tile_template', None) or \
+            not HttpData.get('data', None):
+        return False, HttpResponseBadRequest('Missing data')
+    if HttpData.get('tile_template', None) not in ALLOWED_TILES:
+        tile_template = HttpData.get('tile_template', None)
+        return False, HttpResponseBadRequest(f'tile_template: {tile_template} is unknow')
+    cache = getCache()
+    tilePrefix = getRedisPrefix(HttpData.get('tile_id', None))
+    if not cache.redis.exists(tilePrefix) and not DEBUG:
+        return False, HttpResponseBadRequest(f'tile_id: {tilePrefix} is unknow')
+    return True, HttpData
+
+
+def push_api(request, unsecured=False):
     """ Update the content of a tile (widget) """
     if request.method == 'POST':
-        if not checkAccessToken(method='POST', request=request, unsecured=unsecured):
-            return HttpResponse('API KEY incorrect', status=401)
-        HttpData = request.POST
-        if not HttpData.get('tile_id', None) or not HttpData.get('tile_template', None) or \
-                not HttpData.get('data', None):
-            return HttpResponseBadRequest('Missing data')
+        state, HttpData = sanity_push_api(request, unsecured)
+        if state is False:
+            return HttpData
         data = HttpData.get('data', None)
-        if 'data' in json.loads(data):
-            data = json.dumps(json.loads(data)['data'])
         return save_tile_ToRedis(tile_id=HttpData.get('tile_id', None),
                                  tile_template=HttpData.get('tile_template', None),
-                                 data=data,
-                                 meta=HttpData.get('meta', None))
+                                 data=json.dumps(json.loads(data)['data']) if 'data' in json.loads(data) else data)
     raise Http404
 
 

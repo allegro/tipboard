@@ -4,9 +4,9 @@ from src.tipboard.app.properties import TIPBOARD_URL, DEBUG, COLOR_TAB
 
 def printEndOfTipboardCall(tipboardAnswer, TILE_ID):
     if tipboardAnswer is not None:
-        print(f'POST tile:{TILE_ID} tipboard/push => ({tipboardAnswer.status_code}): ', flush=True)
-        if tipboardAnswer.status_code == 200:
-            print(f'\t\t{tipboardAnswer.text}')
+        print(f'POST tile:{TILE_ID} tipboard/push => ({str(tipboardAnswer)}): ', flush=True)
+        # if tipboardAnswer.status_code == 200:
+        #     print(f'\t\t{tipboardAnswer.body}')
     else:
         print(f'POST tile:{TILE_ID} tipboard/push => (FAILED HTTP CONNECT): ', flush=True)
 
@@ -38,6 +38,12 @@ def sendBVColor(color, tile_id, fading=False, isTest=False):  # pragma: no cover
             print(f'{res}: color -> {tile_id}', flush=True)
 
 
+def testTipboardUpdate(checker, fake_client, TILE_ID, data):
+    configTile = dict(tile_id=TILE_ID, tile_template='pie_chart', data=json.dumps(data))
+    tipboardAnswer = fake_client.post(TIPBOARD_URL + '/push', configTile)
+    checker.assertTrue(tipboardAnswer.status_code == 200)
+
+
 def sendDataToTipboard(tile_id=None, data=None, tile_template=None, isTest=False):
     configTile = dict(tile_id=tile_id, tile_template=tile_template, data=json.dumps(data))
     if not isTest:
@@ -60,5 +66,4 @@ def buildChartUpdateRandomly(nbrDataset=None, nbrLabel=None, colorTabIndataset=F
                  data=[random.randrange(100, 1000) for _ in range(nbrLabel)] if data is None else data,
                  backgroundColor=COLOR_TAB[index] if colorTabIndataset is False else COLOR_TAB,
                  borderColor=COLOR_TAB[index] if colorTabIndataset is False else '#525252'))
-    print(tileData)
     return tileData

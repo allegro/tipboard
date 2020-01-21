@@ -32,12 +32,12 @@ def replaceNameTiles(tiles_name):
     listOfTiles = list()
     for name_tile in tiles_name:
         if not listOfTiles.__contains__(name_tile):
-            if name_tile == "vbar_chart":
-                name_tile = "bar_chart"
-            elif name_tile == "cumulative_flow":
-                name_tile = "line_chart"
-            elif name_tile == "doughnut_chart":
-                name_tile = "radar_chart"
+            if name_tile == 'vbar_chart':
+                name_tile = 'bar_chart'
+            elif name_tile == 'cumulative_flow':
+                name_tile = 'line_chart'
+            elif name_tile == 'doughnut_chart' or name_tile == 'half_doughnut_chart':
+                name_tile = 'radar_chart'
             listOfTiles.append(name_tile)
     return listOfTiles
 
@@ -77,7 +77,6 @@ def renderHtmlForTiles(request, layout_name='layout_config'):  # pragma: no cove
 def demo_controller(request, flagSensors):
     """ activate or not the sensors by api  """
     if request.method == 'GET':
-        print('Starting the demo: ' + flagSensors)
         if flagSensors == "on":
             scheduleYourSensors(scheduler)
         elif flagSensors == "off":

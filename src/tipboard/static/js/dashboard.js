@@ -100,6 +100,9 @@ let getUpdateFunction = function getUpdateFunction(tileType) {
         case "doughnut_chart":
             tileType = "radar_chart";
             break;
+        case "half_doughnut_chart":
+            tileType = "radar_chart";
+            break;
         case "cumulative_flow":
             tileType = "line_chart";
             break;
