@@ -1,4 +1,4 @@
-import time, random, json
+import time, random  # , json
 from src.sensors.utils import end, testTipboardUpdate
 from src.sensors.utils import sendDataToTipboard, getTimeStr, buildChartUpdateRandomly
 

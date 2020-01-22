@@ -1,9 +1,9 @@
 import json
 from django.http import JsonResponse, HttpResponseBadRequest, HttpResponse, Http404
 from src.tipboard.app.applicationconfig import getRedisPrefix, getIsoTime
-from src.tipboard.app.properties import PROJECT_NAME, LAYOUT_CONFIG, REDIS_DB, LOG, DEBUG, ALLOWED_TILES
+from src.tipboard.app.properties import PROJECT_NAME, LAYOUT_CONFIG, REDIS_DB, DEBUG, ALLOWED_TILES
 from src.tipboard.app.cache import getCache
-from src.tipboard.app.utils import getTimeStr, checkAccessToken
+from src.tipboard.app.utils import checkAccessToken
 from src.tipboard.app.FakeData.fake_data import buildFakeDataFromTemplate
 from src.tipboard.app.FakeData.datasetbuilder import buildGenericDataset
 

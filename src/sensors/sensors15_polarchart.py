@@ -7,11 +7,11 @@ def sonde15(isTest=False):
     start_time = time.time()
     data = buildChartUpdateRandomly(nbrDataset=1, colorTabIndataset=True)
     meta = {
-      "scale": {
-        "ticks": {
-          "display": True
+        "scale": {
+            "ticks": {
+                "display": True
+            }
         }
-      }
     }
     answer = sendDataToTipboard(data=data, tile_template='polararea_chart', tile_id='polararea_ex', meta=meta,
                                 isTest=isTest)

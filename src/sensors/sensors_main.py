@@ -2,11 +2,11 @@ import time
 from datetime import datetime, timedelta
 from apscheduler.schedulers.blocking import BlockingScheduler
 from src.sensors.sensors1_text import sonde1
-from src.sensors.sensors2_piechart import sonde2
+# from src.sensors.sensors2_piechart import sonde2
 from src.sensors.sensors3_linechart import sonde3
 from src.sensors.sensors4_cumulativeflow import sonde4
 from src.sensors.sensors5_simplepercentage import sonde5
-from src.sensors.sensors6_listing import sonde6
+# from src.sensors.sensors6_listing import sonde6
 from src.sensors.sensors7_barchart import sonde7
 # from src.sensors.sensors8_fancylisting import sonde8
 from src.sensors.sensors9_bigvalue import sonde9
@@ -16,7 +16,7 @@ from src.sensors.sensors12_normchart import sonde12
 from src.sensors.sensors14_radarchart import sonde14
 from src.sensors.sensors15_polarchart import sonde15
 from src.sensors.sensors16_dougnutchart import sonde16
-from src.sensors.sensors17_halfdougnutchart import sonde17
+# from src.sensors.sensors17_halfdougnutchart import sonde17
 from src.sensors.utils import end
 
 

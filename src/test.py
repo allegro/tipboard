@@ -86,4 +86,3 @@ class TestApp(TestCase):
 
     def test_0008_test_sensors(self):
         launch_sensors(isTest=True, checker=self, fakeClient=self.fakeClient)
-
