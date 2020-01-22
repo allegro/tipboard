@@ -9,8 +9,7 @@ function updateTileNorm(tileId, data, meta, tileType) {
     let chartId = `${tileId}-chart`;
     let chart = document.getElementById(chartId);
     if (chartId in Tipboard.chartJsTile) {
-        Tipboard.Dashboard.updateDataOfChartJS(Tipboard.chartJsTile[chartId], data);
-        Tipboard.chartJsTile[chartId].update();
+        Tipboard.Dashboard.updateDataOfChartJS(Tipboard.chartJsTile[chartId], data, meta);
     } else {
         meta.options.title = getTitleForChartJSTitle(data);
         chart.parentElement.style.paddingBottom = "8%";

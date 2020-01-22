@@ -1,5 +1,3 @@
-
-
 /**
  * Update for tile cumulative_flow & line_chartjs
  * @param data
@@ -53,7 +51,8 @@ function updateTileLinejs(tileId, data, meta, tileType) {
     console.log("line_chartjs::updateTile::start" + tileId);
     let chartId = `${tileId}-chart`;
     if (chartId in Tipboard.chartJsTile) {
-        Tipboard.Dashboard.updateDataOfChartJS(Tipboard.chartJsTile[chartId], updateDatasetLine(data, tileType));
+        Tipboard.Dashboard.updateDataOfChartJS(Tipboard.chartJsTile[chartId],
+            updateDatasetLine(data, tileType), meta);
     } else {
         let chart = document.getElementById(chartId);
         meta.options.title = getTitleForChartJSTitle(data);

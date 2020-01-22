@@ -21,20 +21,22 @@ from src.sensors.utils import end
 
 
 def launch_sensors(isTest=False, checker=None, fakeClient=None):
-    # sonde1(isTest)
-    # sonde2(isTest, checker, fakeClient)
-    # sonde3(isTest)
-    # sonde4(isTest)
-    # sonde5(isTest)
-    # sonde7(isTest, isHorizontal=True)
-    # sonde7(isTest, isHorizontal=False)
-    # sonde9(isTest)
-    # sonde10(isTest)
-    # sonde12(isTest)
-    # sonde14(isTest)
-    # sonde15(isTest)
-    # sonde16(isTest)
-    scheduleYourSensors(BlockingScheduler())  # If you need actualized data :)
+    if isTest:
+        sonde1(isTest)
+        # sonde2(isTest, checker, fakeClient)
+        sonde3(isTest)
+        sonde4(isTest)
+        sonde5(isTest)
+        sonde7(isTest, isHorizontal=True)
+        sonde7(isTest, isHorizontal=False)
+        sonde9(isTest)
+        sonde10(isTest)
+        sonde12(isTest)
+        sonde14(isTest)
+        sonde15(isTest)
+        sonde16(isTest)
+    else:
+        scheduleYourSensors(BlockingScheduler())  # If you need actualized data :)
 
 
 def addSchedule(scheduler, sonde, timeToRun=datetime.now(), second=8):
@@ -58,9 +60,9 @@ def scheduleYourSensors(scheduler):  # pragma: no cover
     # addSchedule(scheduler, sonde10, timeToRun=now + timedelta(milliseconds=800), second=50)
     # addSchedule(scheduler, sonde12, timeToRun=now + timedelta(milliseconds=900), second=45)
     # addSchedule(scheduler, sonde14, timeToRun=now + timedelta(milliseconds=150), second=2)
-    # addSchedule(scheduler, sonde15, timeToRun=now + timedelta(milliseconds=250), second=28)
-    addSchedule(scheduler, sonde16, timeToRun=now + timedelta(milliseconds=350), second=30)
-    addSchedule(scheduler, sonde17, timeToRun=now + timedelta(milliseconds=350), second=30)
+    addSchedule(scheduler, sonde15, timeToRun=now + timedelta(milliseconds=250), second=28)
+    # addSchedule(scheduler, sonde16, timeToRun=now + timedelta(milliseconds=350), second=30)
+    # addSchedule(scheduler, sonde17, timeToRun=now + timedelta(milliseconds=350), second=30)
     print(f"(+) Tipboard starting schedul task", flush=True)
     scheduler.start()
     return True

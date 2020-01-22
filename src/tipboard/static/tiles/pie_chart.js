@@ -20,7 +20,7 @@ function updateTilePiejs(tileId, data, meta, tileType) {
     console.log("piechart::type(" + tileType + ")::updateTile start " + tileId);
     let chartId = `${tileId}-chart`;
     if (tileId + '-chart' in Tipboard.chartJsTile) {
-        Tipboard.Dashboard.updateDataOfChartJS(Tipboard.chartJsTile[chartId], data);
+        Tipboard.Dashboard.updateDataOfChartJS(Tipboard.chartJsTile[chartId], data, meta);
     } else {
         console.log("piechart::type(" + tileType + ")::create ChartJS " + tileId);
         let chartElement = document.getElementById(tileId + "-chart");

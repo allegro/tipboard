@@ -5,8 +5,6 @@ from src.tipboard.app.properties import TIPBOARD_URL, DEBUG, COLOR_TAB
 def printEndOfTipboardCall(tipboardAnswer, TILE_ID):
     if tipboardAnswer is not None:
         print(f'POST tile:{TILE_ID} tipboard/push => ({str(tipboardAnswer)}): ', flush=True)
-        # if tipboardAnswer.status_code == 200:
-        #     print(f'\t\t{tipboardAnswer.body}')
     else:
         print(f'POST tile:{TILE_ID} tipboard/push => (FAILED HTTP CONNECT): ', flush=True)
 
@@ -44,8 +42,11 @@ def testTipboardUpdate(checker, fake_client, TILE_ID, data):
     checker.assertTrue(tipboardAnswer.status_code == 200)
 
 
-def sendDataToTipboard(tile_id=None, data=None, tile_template=None, isTest=False):
+def sendDataToTipboard(tile_id=None, data=None, tile_template=None, isTest=False, meta=None):
     configTile = dict(tile_id=tile_id, tile_template=tile_template, data=json.dumps(data))
+    if meta is not None:
+        configTile['meta'] = json.dumps(meta)
+    print(f"{configTile}")
     if not isTest:
         return requests.post(TIPBOARD_URL + '/push', data=configTile)
 

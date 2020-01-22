@@ -174,9 +174,10 @@ function updateData(chart, newDict) {
     }
 }
 
-let updateDataOfChartJS = function (chart, data) {
+let updateDataOfChartJS = function (chart, data, meta) {
     Tipboard.Dashboard.clearChartJsTile(chart);
     updateData(chart, data);
+    updateData(chart.meta, meta);
     chart.update();
 };
 
