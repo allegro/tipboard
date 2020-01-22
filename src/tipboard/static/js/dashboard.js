@@ -26,7 +26,7 @@ let updateKeyOfTiles = function updateKeyOfTiles(tileId, dataToPut, keysToUse) {
     }
     $.each(keysToUse, function (idx, key) {
         let value = dataToPut[key.toString()];
-        if (typeof (value) != "undefined") {
+        if (typeof (value) !== "undefined") {
             let dstId = "#" + tileId + "-" + key;
             let dst = $(Tipboard.Dashboard.id2node(tileId)).find(dstId)[0];
             if (typeof dst === "undefined") {
@@ -164,7 +164,7 @@ function updateData(chart, newDict) {
         if ({}.hasOwnProperty.call(newDict, key)) {
             key = key.toString();
             if (key === "datasets") {
-                updateDataset(chart, newDict)
+                updateDataset(chart, newDict);
             } else if (key === "title" || key === "legend") {
                 chart.options[key.toString()] = newDict[key.toString()];
             } else {
