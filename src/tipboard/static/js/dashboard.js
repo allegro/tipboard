@@ -100,6 +100,9 @@ let getUpdateFunction = function getUpdateFunction(tileType) {
         case "doughnut_chart":
             tileType = "radar_chart";
             break;
+        case "half_doughnut_chart":
+            tileType = "radar_chart";
+            break;
         case "cumulative_flow":
             tileType = "line_chart";
             break;
@@ -171,9 +174,10 @@ function updateData(chart, newDict) {
     }
 }
 
-let updateDataOfChartJS = function (chart, data) {
+let updateDataOfChartJS = function (chart, data, meta) {
     Tipboard.Dashboard.clearChartJsTile(chart);
     updateData(chart, data);
+    updateData(chart.meta, meta);
     chart.update();
 };
 
