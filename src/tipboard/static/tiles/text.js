@@ -13,7 +13,7 @@ function updateTileText(tileId, data, meta, tileType) {
     let tags = parsed.getElementsByTagName("body");
 //    body.innerHTML = '42';
     //body.innerText = data.text;
-    body.innerHTML = '';
+    body.innerHTML = "";
     for (const tag of tags) {
          body.innerText = tag.innerText;
     }

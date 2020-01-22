@@ -46,10 +46,8 @@ def get_config_files_names():
     """ Return all configs files' names (without '.yaml' ext.) from user space (.tipboard/) """
     configs_names = list()
     configs_dir = os.path.join(properties.user_config_dir, '*.yaml')
-    for config_path in glob.glob(configs_dir):
-        filename = os.path.basename(config_path)
-        head, ext = os.path.splitext(filename)
-        configs_names.append(head)
+    for config_path in glob.glob(configs_dir):  # Get all name of different *.yml present in Config/ directory
+        configs_names.append(os.path.splitext(os.path.basename(config_path))[0])
     return configs_names
 
 

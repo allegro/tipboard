@@ -42,7 +42,6 @@ class MyCache:
         except Exception:
             print(f'{getTimeStr()} (+) Initializing cache: Redis not connected', flush=True)
             self.isRedisConnected = False
-        pass
 
     def get(self, tile_id):
         prefix = tile_id
@@ -61,7 +60,7 @@ class MyCache:
             channel_layer = get_channel_layer()
             async_to_sync(channel_layer.group_send)('event', dict(type='update.tile', tile_id=tile_id))
 
-    def delete(self, tile_id, value=None, tile=None):
+    def delete(self, tile_id):
         if self.redis.exists(getRedisPrefix(tile_id=tile_id)):
             self.redis.delete(getRedisPrefix(tile_id=tile_id))
             return True
