@@ -1,5 +1,5 @@
 /**
- * Update bar & vbar tile
+ * Update or Create bar & vbar tile
  * @param tileId
  * @param data
  * @param meta
