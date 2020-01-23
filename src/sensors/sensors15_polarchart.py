@@ -1,4 +1,4 @@
-import time, random
+import time
 from src.sensors.utils import end, sendDataToTipboard, getTimeStr, buildChartUpdateRandomly
 
 

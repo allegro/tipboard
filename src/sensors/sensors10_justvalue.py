@@ -1,5 +1,5 @@
 import time, random
-from src.sensors.utils import end, sendDataToTipboard, getTimeStr, sendBVColor
+from src.sensors.utils import end, sendDataToTipboard, getTimeStr
 from src.tipboard.app.properties import BACKGROUND_TAB
 
 

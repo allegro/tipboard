@@ -167,8 +167,15 @@ function updateOptions(actualOptions, newOptions) {
                 console.log("GO DEEP FOR " + key);
                 updateOptions(actualOptions[key.toString()], newOptions[key.toString()]);
             } else {
-                console.log("REPLACE KEY " + key);
-                actualOptions[key.toString()] = newOptions[key.toString()];
+                if (Array.isArray(actualOptions[key.toString()])) {
+                    console.log("Loop on array");
+                    for (let rcx=0; rcx < actualOptions[key.toString()].length; rcx++) {
+                        updateOptions(actualOptions[key.toString()][rcx], newOptions[key.toString()][rcx])
+                    }
+                } else {
+                    console.log("REPLACE KEY " + key);
+                    actualOptions[key.toString()] = newOptions[key.toString()];
+                }
             }
         }
     }
