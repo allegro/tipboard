@@ -51,14 +51,15 @@ class MyCache:
             print(f'{getTimeStr()} (-) tile: {prefix} not found in redis', flush=True)
         return None
 
-    def set(self, tile_id, dumped_value):
+    def set(self, tile_id, dumped_value, sendToWS=True):
         if LOG:
             print(f'{getTimeStr()} (+) Redis save and publish: {tile_id}', flush=True)
         if self.isRedisConnected:
             self.redis.set(tile_id, dumped_value)
-            tile_id = tile_id.split(':')[-1]
-            channel_layer = get_channel_layer()
-            async_to_sync(channel_layer.group_send)('event', dict(type='update.tile', tile_id=tile_id))
+            if sendToWS:
+                tile_id = tile_id.split(':')[-1]
+                channel_layer = get_channel_layer()
+                async_to_sync(channel_layer.group_send)('event', dict(type='update.tile', tile_id=tile_id))
 
     def delete(self, tile_id):
         if self.redis.exists(getRedisPrefix(tile_id=tile_id)):

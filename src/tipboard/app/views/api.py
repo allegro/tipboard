@@ -128,8 +128,9 @@ def is_meta_present_in_request(meta, tile_id):  # pragma: no cover
         tilePrefix = getRedisPrefix(tile_id)
         if getCache().redis.exists(tilePrefix) is not None:
             cachedTile = json.loads(getCache().redis.get(tilePrefix))
-            update_tile_data_from_redis(cachedTile['meta']['options'], json.loads(meta), None)
-            getCache().set(tilePrefix, json.dumps(cachedTile))
+            metaTile = cachedTile['meta']['options'] if 'options' in cachedTile['meta'] else cachedTile['meta']
+            update_tile_data_from_redis(metaTile, json.loads(meta), None)
+            getCache().set(tilePrefix, json.dumps(cachedTile), sendToWS=False)
             print(f"(+) Meta of tile {tilePrefix} has been updated")
             return True
     print(f"(+) Meta of tile not present")
