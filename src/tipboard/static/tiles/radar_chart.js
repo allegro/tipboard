@@ -7,9 +7,7 @@
  */
 function updateTileRadarjs(tileId, data, meta, tileType) {
     let chartId = `${tileId}-chart`;
-    console.log("radar_chartjs::LANCER");
     if (chartId in Tipboard.chartJsTile) {
-        console.log("DATA -> ", data);
         Tipboard.Dashboard.updateDataOfChartJS(Tipboard.chartJsTile[chartId], data, meta);
     } else {
         let chartElement = document.getElementById(chartId);

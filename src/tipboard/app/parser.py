@@ -1,19 +1,13 @@
 import glob, os, yaml
-from src.tipboard.app import properties
+from src.tipboard.app.properties import DEBUG, FLIPBOARD_SEQUENCE, user_config_dir
 from src.tipboard.app.utils import getTimeStr
-from src.tipboard.app.properties import DEBUG
 
 
 class WrongSumOfRows(Exception):
     pass
 
 
-def _get_tiles_dict(col):
-    return list(col.values())[0]
-
-
 def get_cols(rows):
-    # TODO: validation col_1_of_4
     cols = []
     for col in list(rows.values())[0]:
         cols.append(col)
@@ -42,26 +36,6 @@ def get_rows(layout):
     return rows_data
 
 
-def get_config_files_names():
-    """ Return all configs files' names (without '.yaml' ext.) from user space (.tipboard/) """
-    configs_names = list()
-    configs_dir = os.path.join(properties.user_config_dir, '*.yaml')
-    for config_path in glob.glob(configs_dir):  # Get all name of different *.yml present in Config/ directory
-        configs_names.append(os.path.splitext(os.path.basename(config_path))[0])
-    return configs_names
-
-
-def get_tiles_configs():
-    """ Return dict with tiles keys and ids from all available configs """
-    tiles_configs = dict(tiles_keys=set(), tiles_names=set())
-    configs_names = get_config_files_names()
-    for config_name in configs_names:
-        parsed_config = parse_xml_layout(config_name)
-        tiles_configs['tiles_keys'].update(set(parsed_config['tiles_keys']))
-        tiles_configs['tiles_names'].update(set(parsed_config['tiles_names']))
-    return tiles_configs
-
-
 def analyse_cols(tiles_id, tiles_templates, tiles_dict):
     for tile_dict in tiles_dict:
         if tile_dict['tile_id'] not in tiles_id:
@@ -70,6 +44,7 @@ def analyse_cols(tiles_id, tiles_templates, tiles_dict):
 
 
 def find_tiles_names(cols_data):
+    """ Find tile_id in all cols of .yaml """
     tiles_templates, tiles_id = list(), list()
     for col_dict in cols_data:
         for tiles_dict in list(col_dict.values()):
@@ -80,8 +55,9 @@ def find_tiles_names(cols_data):
     return tiles_templates, tiles_id
 
 
-def parse_xml_layout(layout_name='layout_config'):
-    config_path = os.path.join(properties.user_config_dir, ''.join([layout_name]))
+def yamlFileToPythonDict(layout_name='layout_config'):
+    """ Parse in yaml the .yaml file to return python object """
+    config_path = os.path.join(user_config_dir, ''.join([layout_name]))
     try:
         with open(config_path, 'r') as layout_config:
             config = yaml.safe_load(layout_config)
@@ -90,8 +66,47 @@ def parse_xml_layout(layout_name='layout_config'):
             config_path += ".yaml"
         with open(config_path, 'r') as layout_config:
             config = yaml.safe_load(layout_config)
+    return config
+
+
+def parse_xml_layout(layout_name='layout_config'):
+    """ Parse all tiles, cols, rows from a specific .yaml """
+    config = yamlFileToPythonDict(layout_name=layout_name)
     rows = [row for row in get_rows(config['layout'])]
     cols = [col for col in [get_cols(row) for row in rows]]
     cols_data = [colsValue for colsList in cols for colsValue in colsList]
     config['tiles_names'], config['tiles_keys'] = find_tiles_names(cols_data)
     return config
+
+
+def get_config_names():
+    """ Return all configs files' names (without '.yaml' ext.) from user space (.tipboard/) """
+    config_names = FLIPBOARD_SEQUENCE
+    if not any(config_names):
+        configs_names = list()
+        configs_dir = os.path.join(user_config_dir, '*.yaml')
+        for config_path in glob.glob(configs_dir):  # Get all name of different *.yml present in Config/ directory
+            configs_names.append(os.path.splitext(os.path.basename(config_path))[0])
+        if any(config_names):
+            raise Exception(f'No config (.yaml) file found in {os.path.join(user_config_dir, "*.yaml")}')
+    return config_names
+
+
+def get_flipboard_title():
+    """ Returns title to display as a html title. """
+    title = ''
+    config_names = get_config_names()  # get all name of files present in ./Config/*.yaml
+    try:
+        if len(config_names) == 1:  # if only one file, return the one
+            config = parse_xml_layout(config_names[0])
+            title = config['details']['page_title']
+        else:  # if multiple file, need to have the .yaml displayed for the client
+            title = 'Flipboard Mode'
+    except KeyError:
+        print(f"{getTimeStr()} (+) config {config_names[0]} has no key: details/page_title'", flush=True)
+    return title
+
+
+def getTimeFlipFromLayout(layout_name='layout_config'):
+    config = yamlFileToPythonDict(layout_name=layout_name)
+    pass

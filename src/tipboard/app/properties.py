@@ -54,9 +54,7 @@ COLOR_TAB = [
     'rgb(33, 33, 33)'  # Black #212121
 ]
 
-BACKGROUND_TAB = ['#4caf50',
-                  '#ff6d00',
-                  '#d50000']
+BACKGROUND_TAB = ['#4caf50', '#ff6d00', '#d50000']
 
 TIPBOARD_CSS_STYLES = ['css/layout.css']
 TIPBOARD_JAVASCRIPTS = ['js/dashboard.js', 'js/websocket.js', 'js/tipboard.js']
