@@ -59,7 +59,7 @@ BACKGROUND_TAB = ['#4caf50',
                   '#d50000']
 
 TIPBOARD_CSS_STYLES = ['css/layout.css']
-TIPBOARD_JAVASCRIPTS = ['js/dashboard.js', 'js/palette.js', 'js/websocket.js', 'js/tipboard.js']
+TIPBOARD_JAVASCRIPTS = ['js/dashboard.js', 'js/websocket.js', 'js/tipboard.js']
 
 # how many seconds dashboard is displayed before is flipped
 FLIPBOARD_INTERVAL = 0

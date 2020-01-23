@@ -14,10 +14,8 @@ function updateDatasetLine(data, tileType) {
             label: ("label" in dataset) ? dataset.label : predefinedLabel[rcx],
             data: ("data" in dataset) ? dataset.data : [],
             fill: (tileType === "cumulative_flow"),
-            backgroundColor: ("backgroundColor" in dataset) ?
-                dataset.backgroundColor : Tipboard.Palette.tabColor[rcx],
-            borderColor: ("backgroundColor" in dataset) ?
-                dataset.backgroundColor : Tipboard.Palette.tabColor[rcx],
+            backgroundColor: dataset.backgroundColor,
+            borderColor: dataset.backgroundColor
         };
         if (tileType === "cumulative_flow") {
             datasetTmp.trendlineLinear = {"lineStyle": "dotted", "width": 2}

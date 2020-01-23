@@ -79,6 +79,13 @@ function startClientConnection() {
     initWebsocketManager(Tipboard);
 }
 
+function initGlobalColor() {
+    Chart.defaults.global.defaultFontColor = "rgba(255, 255, 255, 0.83)";
+    Chart.defaults.global.elements.line.backgroundColor = "#FFFFFF";
+    Chart.defaults.scale.gridLines.display = true;
+    Chart.defaults.scale.gridLines.color = "#525252";
+}
+
 /**
  * Main function of tipboard.js
  * Define the $(document).ready(function()
@@ -92,7 +99,7 @@ function startClientConnection() {
     };
     Tipboard.chartJsTile = {};
     initDashboard(Tipboard);
-    initPalette(Tipboard);
+    initGlobalColor();
     setTimeout(startClientConnection, 420); // to let server start
     console.log("Tipboard starting");
 }($));
