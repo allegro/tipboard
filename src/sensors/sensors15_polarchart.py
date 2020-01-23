@@ -9,10 +9,10 @@ def sonde15(isTest=False):
     meta = {
         "scale": {
             "ticks": {
-                "display": True
+                "display": False
             }
         }
     }
     answer = sendDataToTipboard(data=data, tile_template='polararea_chart', tile_id='polararea_ex', meta=meta,
                                 isTest=isTest)
-    end(title=f'sensors3 -> polararea_ex', start_time=start_time, tipboardAnswer=answer, TILE_ID='polararea_ex')
+    end(title=f'sensor15 -> polararea_ex', start_time=start_time, tipboardAnswer=answer, TILE_ID='polararea_ex')

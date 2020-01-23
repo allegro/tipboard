@@ -30,15 +30,22 @@ def getDashboardsPaths(request):  # pragma: no cover
 def replaceNameTiles(tiles_name):
     """ Replace name_tile when it's the same JS tile :), duplicate code is bad """
     listOfTiles = list()
+    transformTileNameTab = {
+        'vbar_chart': 'bar_chart',
+        'cumulative_flow': 'line_chart',
+        'half_doughnut_chart': 'radar_chart',
+        'doughnut_chart': 'radar_chart',
+        'big_value': 'text_value',
+        'simple_percentage': 'text_value',
+        'just_value': 'text_value',
+        'listing': 'text_value'
+    }
     for name_tile in tiles_name:
         if not listOfTiles.__contains__(name_tile):
-            if name_tile == 'vbar_chart':
-                name_tile = 'bar_chart'
-            elif name_tile == 'cumulative_flow':
-                name_tile = 'line_chart'
-            elif name_tile == 'doughnut_chart' or name_tile == 'half_doughnut_chart':
-                name_tile = 'radar_chart'
-            listOfTiles.append(name_tile)
+            if name_tile in transformTileNameTab:
+                name_tile = transformTileNameTab[name_tile]
+            if name_tile not in listOfTiles:
+                listOfTiles.append(name_tile)
     return listOfTiles
 
 

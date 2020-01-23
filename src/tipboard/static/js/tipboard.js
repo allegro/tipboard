@@ -1,5 +1,20 @@
 window.Tipboard = {};
 
+/**
+ * Add fading class to the tile
+ * @param node
+ * @param color
+ * @param fading
+ */
+initFading = function (node, color, fading) {
+    node.style.backgroundColor = color;
+    if (fading === true) {
+        node.classList.add("fading-background-color");
+    } else {
+        node.classList.remove("fading-background-color");
+    }
+};
+
 function getFlipTime(node) {
     let classStr = $(node).attr("class");
     let flipTime = 10000;
@@ -73,6 +88,7 @@ function startClientConnection() {
         flipIds: [],
         updateFunctions: {},
         chartsIds: {},
+        applyFading: initFading
     };
     Tipboard.chartJsTile = {};
     initDashboard(Tipboard);

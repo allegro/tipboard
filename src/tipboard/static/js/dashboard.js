@@ -159,6 +159,29 @@ function updateDataset(chart, newDict) {
     }
 }
 
+function updateOptions(actualOptions, newOptions) {
+    console.log("GO IN");
+    for (let key in newOptions) {
+        if ({}.hasOwnProperty.call(newOptions, key)) {
+            if (newOptions[key.toString()].constructor === Object && key.toString() in actualOptions) {
+                console.log("GO DEEP FOR " + key);
+                updateOptions(actualOptions[key.toString()], newOptions[key.toString()]);
+            } else {
+                if (Array.isArray(actualOptions[key.toString()])) {
+                    console.log("Loop on array");
+                    for (let rcx=0; rcx < actualOptions[key.toString()].length; rcx++) {
+                        updateOptions(actualOptions[key.toString()][rcx], newOptions[key.toString()][rcx])
+                    }
+                } else {
+                    console.log("REPLACE KEY " + key);
+                    actualOptions[key.toString()] = newOptions[key.toString()];
+                }
+            }
+        }
+    }
+    console.log("GO BACK");
+}
+
 function updateData(chart, newDict) {
     for (let key in newDict) {
         if ({}.hasOwnProperty.call(newDict, key)) {
@@ -177,7 +200,13 @@ function updateData(chart, newDict) {
 let updateDataOfChartJS = function (chart, data, meta) {
     Tipboard.Dashboard.clearChartJsTile(chart);
     updateData(chart, data);
-    updateData(chart.meta, meta);
+    if (meta !== "undefined") {
+        console.log("start update meta", chart.config.options);
+        console.log("new meta data", meta.options);
+       // chart.config.options = meta.options;
+        updateOptions(chart.config.options, meta.options);
+        console.log("end update meta", chart.config.options);
+    }
     chart.update();
 };
 
