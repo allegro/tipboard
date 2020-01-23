@@ -26,7 +26,7 @@ let updateKeyOfTiles = function updateKeyOfTiles(tileId, dataToPut, keysToUse) {
     }
     $.each(keysToUse, function (idx, key) {
         let value = dataToPut[key.toString()];
-        if (typeof (value) != "undefined") {
+        if (typeof (value) !== "undefined") {
             let dstId = "#" + tileId + "-" + key;
             let dst = $(Tipboard.Dashboard.id2node(tileId)).find(dstId)[0];
             if (typeof dst === "undefined") {
@@ -100,6 +100,9 @@ let getUpdateFunction = function getUpdateFunction(tileType) {
         case "doughnut_chart":
             tileType = "radar_chart";
             break;
+        case "half_doughnut_chart":
+            tileType = "radar_chart";
+            break;
         case "cumulative_flow":
             tileType = "line_chart";
             break;
@@ -156,12 +159,35 @@ function updateDataset(chart, newDict) {
     }
 }
 
+function updateOptions(actualOptions, newOptions) {
+    console.log("GO IN");
+    for (let key in newOptions) {
+        if ({}.hasOwnProperty.call(newOptions, key)) {
+            if (newOptions[key.toString()].constructor === Object && key.toString() in actualOptions) {
+                console.log("GO DEEP FOR " + key);
+                updateOptions(actualOptions[key.toString()], newOptions[key.toString()]);
+            } else {
+                if (Array.isArray(actualOptions[key.toString()])) {
+                    console.log("Loop on array");
+                    for (let rcx=0; rcx < actualOptions[key.toString()].length; rcx++) {
+                        updateOptions(actualOptions[key.toString()][rcx], newOptions[key.toString()][rcx])
+                    }
+                } else {
+                    console.log("REPLACE KEY " + key);
+                    actualOptions[key.toString()] = newOptions[key.toString()];
+                }
+            }
+        }
+    }
+    console.log("GO BACK");
+}
+
 function updateData(chart, newDict) {
     for (let key in newDict) {
         if ({}.hasOwnProperty.call(newDict, key)) {
             key = key.toString();
             if (key === "datasets") {
-                updateDataset(chart, newDict)
+                updateDataset(chart, newDict);
             } else if (key === "title" || key === "legend") {
                 chart.options[key.toString()] = newDict[key.toString()];
             } else {
@@ -171,9 +197,16 @@ function updateData(chart, newDict) {
     }
 }
 
-let updateDataOfChartJS = function (chart, data) {
+let updateDataOfChartJS = function (chart, data, meta) {
     Tipboard.Dashboard.clearChartJsTile(chart);
     updateData(chart, data);
+    if (meta !== "undefined") {
+        console.log("start update meta", chart.config.options);
+        console.log("new meta data", meta.options);
+       // chart.config.options = meta.options;
+        updateOptions(chart.config.options, meta.options);
+        console.log("end update meta", chart.config.options);
+    }
     chart.update();
 };
 

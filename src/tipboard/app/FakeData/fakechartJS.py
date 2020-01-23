@@ -180,6 +180,10 @@ def getFakeDoughnutChart(tile_id, template_name):
     }
 
 
+def getFakeHalfDoughnutChart(tile_id, template_name):
+    return getFakeDoughnutChart(tile_id, template_name)
+
+
 def getFakeRadarChart(tile_id, template_name):
     return {
         'id': tile_id, 'tile_template': template_name, 'modified': getIsoTime(),

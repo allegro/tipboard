@@ -40,20 +40,7 @@ function getGenericColor(Palette) {
     };
 }
 
-/**
- * Add fading class to the tile
- * @param node
- * @param color
- * @param fading
- */
-initFading = function (node, color, fading) {
-    node.style.backgroundColor = color;
-    if (fading === true) {
-        node.classList.add("fading-background-color");
-    } else {
-        node.classList.remove("fading-background-color");
-    }
-};
+
 
 /**
  * Get generic Color || get Custom color from parser
@@ -65,5 +52,5 @@ function initPalette(Tipboard) {
     Tipboard.Palette = {};
     getGenericColor(Tipboard.Palette);
     chooseMode(Tipboard.Palette);
-    Tipboard.Palette.applyFading = initFading;
+
 }

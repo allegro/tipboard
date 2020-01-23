@@ -5,6 +5,7 @@ from src.tipboard.app.FakeData.fakeTilesText import getFakeListing, getFakeSimpl
 from src.tipboard.app.FakeData.fakechartJS import getFakePieChart, getFakeBarChart, getFakeVbarChart
 from src.tipboard.app.FakeData.fakechartJS import getFakeNormChart, getFakeCumulFlow, getFakeLineChart
 from src.tipboard.app.FakeData.fakechartJS import getFakeDoughnutChart, getFakePolarareaChart, getFakeRadarChart
+from src.tipboard.app.FakeData.fakechartJS import getFakeHalfDoughnutChart
 
 
 def buildSwicthPythonFfso_o():
@@ -13,6 +14,7 @@ def buildSwicthPythonFfso_o():
                 cumulative_flow=getFakeCumulFlow,
                 bar_chart=getFakeBarChart,
                 norm_chart=getFakeNormChart,
+                half_doughnut_chart=getFakeHalfDoughnutChart,
                 doughnut_chart=getFakeDoughnutChart,
                 radar_chart=getFakeRadarChart,
                 polararea_chart=getFakePolarareaChart,

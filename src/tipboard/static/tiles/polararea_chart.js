@@ -9,7 +9,7 @@ function updateTilePolararea(tileId, data, meta, tileType) {
     meta.options.title = getTitleForChartJSTitle(data);
     let chartId = `${tileId}-chart`;
     if (tileId + "-chart" in Tipboard.chartJsTile) {
-        Tipboard.Dashboard.updateDataOfChartJS(Tipboard.chartJsTile[chartId], data);
+        Tipboard.Dashboard.updateDataOfChartJS(Tipboard.chartJsTile[chartId], data, meta);
     } else {
         let chart = document.getElementById(chartId);
         chart.parentElement.style.paddingBottom = "10%";

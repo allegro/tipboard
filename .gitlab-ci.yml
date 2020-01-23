@@ -21,7 +21,7 @@ test:
   stage: test
   script:
     - docker build -t tipboard:untested .
-    - docker run --entrypoint src/manage.py tipboard:untested test
+    - docker run --entrypoint python tipboard:untested src/manage.py test
 
 ci_github_dev:
   stage: integration
@@ -43,4 +43,4 @@ deploy_aws:
   stage: deploy
   only: ['gitlab-cd/aws']
   script:
-    - docker run --entrypoint src/manage.py tipboard:latest test
+    - docker run --entrypoint python tipboard:untested src/manage.py test

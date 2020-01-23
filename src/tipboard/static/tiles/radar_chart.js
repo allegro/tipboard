@@ -7,14 +7,21 @@
  */
 function updateTileRadarjs(tileId, data, meta, tileType) {
     let chartId = `${tileId}-chart`;
+    console.log("radar_chartjs::LANCER");
     if (chartId in Tipboard.chartJsTile) {
-        Tipboard.Dashboard.updateDataOfChartJS(Tipboard.chartJsTile[chartId], data);
+        console.log("DATA -> ", data);
+        Tipboard.Dashboard.updateDataOfChartJS(Tipboard.chartJsTile[chartId], data, meta);
     } else {
         let chartElement = document.getElementById(chartId);
         chartElement.parentElement.style.paddingBottom = "9%";
         meta.options.title = getTitleForChartJSTitle(data);
+        console.log(tileType);
+        if (tileType === "half_doughnut_chart") {
+            meta.options.rotation = Math.PI;
+            meta.options.circumference = Math.PI;
+        }
         Tipboard.chartJsTile[chartId] = new Chart(chartElement, {
-            type: (tileType === "doughnut_chart") ? "doughnut" : "radar",
+            type: (tileType === "doughnut_chart" || tileType === "half_doughnut_chart") ? "doughnut" : "radar",
             data: data,
             options: meta.options
         });

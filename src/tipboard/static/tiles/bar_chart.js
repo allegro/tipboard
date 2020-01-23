@@ -8,7 +8,7 @@
 function updateBarChartjs(tileId, data, meta, tileType) {
     let chartId = `${tileId}-chart`;
     if (chartId in Tipboard.chartJsTile) {
-        Tipboard.Dashboard.updateDataOfChartJS(Tipboard.chartJsTile[chartId], data);
+        Tipboard.Dashboard.updateDataOfChartJS(Tipboard.chartJsTile[chartId], data, meta);
     } else {
         let chart = document.getElementById(chartId);
         chart.parentElement.style.paddingBottom = "9%";

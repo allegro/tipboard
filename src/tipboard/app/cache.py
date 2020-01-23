@@ -42,7 +42,6 @@ class MyCache:
         except Exception:
             print(f'{getTimeStr()} (+) Initializing cache: Redis not connected', flush=True)
             self.isRedisConnected = False
-        pass
 
     def get(self, tile_id):
         prefix = tile_id
@@ -52,16 +51,17 @@ class MyCache:
             print(f'{getTimeStr()} (-) tile: {prefix} not found in redis', flush=True)
         return None
 
-    def set(self, tile_id, dumped_value):
+    def set(self, tile_id, dumped_value, sendToWS=True):
         if LOG:
             print(f'{getTimeStr()} (+) Redis save and publish: {tile_id}', flush=True)
         if self.isRedisConnected:
             self.redis.set(tile_id, dumped_value)
-            tile_id = tile_id.split(':')[-1]
-            channel_layer = get_channel_layer()
-            async_to_sync(channel_layer.group_send)('event', dict(type='update.tile', tile_id=tile_id))
+            if sendToWS:
+                tile_id = tile_id.split(':')[-1]
+                channel_layer = get_channel_layer()
+                async_to_sync(channel_layer.group_send)('event', dict(type='update.tile', tile_id=tile_id))
 
-    def delete(self, tile_id, value=None, tile=None):
+    def delete(self, tile_id):
         if self.redis.exists(getRedisPrefix(tile_id=tile_id)):
             self.redis.delete(getRedisPrefix(tile_id=tile_id))
             return True
