@@ -21,7 +21,6 @@ def renderFlipboardHtml(request):  # pragma: no cover
 
 def getDashboardsPaths(request):  # pragma: no cover
     """ Return the path of layout prensent in the ./tipboard/app/Config """
-
     paths = ['/' + config_name for config_name in getConfigNames()]
     names = getFlipboardTitles()
     return JsonResponse(dict(paths=paths, names=names), safe=False)
@@ -31,10 +30,6 @@ def replaceNameTiles(tiles_name):
     """ Replace name_tile when it's the same JS tile :), duplicate code is bad """
     listOfTiles = list()
     transformTileNameTab = {
-        'vbar_chart': 'bar_chart',
-        'cumulative_flow': 'line_chart',
-        'half_doughnut_chart': 'radar_chart',
-        'doughnut_chart': 'radar_chart',
         'big_value': 'text_value',
         'simple_percentage': 'text_value',
         'just_value': 'text_value',
@@ -44,6 +39,8 @@ def replaceNameTiles(tiles_name):
         if not listOfTiles.__contains__(name_tile):
             if name_tile in transformTileNameTab:
                 name_tile = transformTileNameTab[name_tile]
+            else:
+                name_tile = "chartjs"
             if name_tile not in listOfTiles:
                 listOfTiles.append(name_tile)
     return listOfTiles

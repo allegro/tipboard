@@ -5,6 +5,8 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = SUPER_SECRET_KEY
 DEBUG = DEBUG
 ALLOWED_HOSTS = ['*']
+REST_FRAMEWORK = {'DEFAULT_SCHEMA_CLASS': 'rest_framework.schemas.coreapi.AutoSchema'}
+
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -14,6 +16,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'channels',
+    'swagger_render',
     FROM_PIP + 'tipboard.app.Config',
 ]
 
@@ -96,3 +99,5 @@ DATABASES = {
         },
     }
 }
+
+SWAGGER_YAML_FILENAME = BASE_DIR + '/docs/index.yml'

@@ -66,10 +66,15 @@ layout:
               classes:
 
         - col_1_of_7:
-            - tile_template: listing
-              tile_id: listing_ex
-              title: listing
+            - tile_template: half_doughnut_chart
+              tile_id: hal_doughnut_ex
+              title: half_doughnut
               classes:
+
+#            - tile_template: listing
+#              tile_id: listing_ex
+#              title: listing
+#              classes:
 
         - col_1_of_7:
 
