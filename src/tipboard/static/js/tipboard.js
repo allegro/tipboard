@@ -16,7 +16,7 @@ initFading = function (node, color, fading) {
 };
 
 function getFlipTime(node) {
-    let classStr = $(node).attr("class");
+    let classStr = $(node).attr("id");
     let flipTime = 10000;
     $.each(classStr.split(" "), function(idx, val) {
         let groups = /flip-time-(\d+)/.exec(val);
@@ -52,6 +52,7 @@ function initTiles() {
                 $(tileToFlip).addClass("flippedforward");
             }
         }, flipInterval);
+
         Tipboard.Dashboard.flipIds.push(flipIntervalId);
     });
 }
@@ -90,7 +91,7 @@ function initChartjsDefault() {
  * Main function of tipboard.js
  * Define the $(document).ready(function()
  */
-(function ($) {
+(function () {
     Tipboard.Dashboard = {
         flipIds: [],
         updateFunctions: {},

@@ -3,7 +3,7 @@ from django.test import RequestFactory, TestCase, Client
 from src.tipboard.app.properties import ALLOWED_TILES
 from src.tipboard.templates.template_filter import template_tile
 from src.tipboard.app.FakeData.fake_data import buildFakeDataFromTemplate
-from src.tipboard.app.parser import parse_xml_layout, get_flipboard_title
+from src.tipboard.app.parser import parseXmlLayout, getFlipboardTitle
 from src.tipboard.app.flipboard import Flipboard
 from src.tipboard.app.cache import MyCache
 from src.tipboard.app.utils import checkAccessToken
@@ -52,14 +52,14 @@ class TestApp(TestCase):
 
     def test_0003_parser(self):
         """ Test XmlParser for layout """
-        config = parse_xml_layout()
+        config = parseXmlLayout()
         title = config['details']['page_title']
         self.assertTrue(title is not None)
 
     def test_0004_flipboard(self):
         """ Test Flipboard object """
         flipboard = Flipboard()
-        self.assertTrue(get_flipboard_title() is not None)
+        self.assertTrue(getFlipboardTitle() is not None)
         self.assertTrue(flipboard.get_paths() is not None)
 
     def test_0005_cache(self):
