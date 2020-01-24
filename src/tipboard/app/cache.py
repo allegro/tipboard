@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import json, redis
 from asgiref.sync import async_to_sync
-from src.tipboard.app.parser import parse_xml_layout
+from src.tipboard.app.parser import parseXmlLayout
 from src.tipboard.app.applicationconfig import getRedisPrefix, getIsoTime
 from src.tipboard.app.properties import REDIS_DB, REDIS_PASSWORD, REDIS_HOST, REDIS_PORT, LOG
 from src.tipboard.app.utils import getTimeStr
@@ -20,7 +20,7 @@ def getCache():
 def listOfTilesFromLayout(layout_name='layout_config'):
     rcx = 0
     listOfTiles = list()
-    config = parse_xml_layout(layout_name)
+    config = parseXmlLayout(layout_name)
     for tile in config['tiles_keys']:
         listOfTiles.append(dict(tile_id=tile, tile_template=config['tiles_names'][rcx]))
         rcx += 1

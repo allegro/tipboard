@@ -17,6 +17,7 @@ let showNext = function showNextDashboard() {
         $(activeIframe).remove();
         $(clonedIframe).addClass("fadeIn");
     });
+    document.title = this.getNextDashboardName();
     return true;
 };
 
@@ -27,9 +28,11 @@ function initFlipboard() {
     window.Flipboard = {
         currentPathIdx: -1,
         dashboardsPaths: [],
+        dashboardsNames: [],
 
-        init: function (paths) {
+        init: function (paths, names) {
             this.dashboardsPaths = paths;
+            this.dashboardsNames = names;
         },
 
         getNextDashboardPath: function () {
@@ -39,6 +42,10 @@ function initFlipboard() {
                 this.currentPathIdx = 0;
             }
             return this.dashboardsPaths[this.currentPathIdx];
+        },
+
+        getNextDashboardName: function () {
+            return this.dashboardsNames[this.currentPathIdx];
         },
 
         showNextDashboard: showNext,
@@ -54,7 +61,7 @@ function initFlipboard() {
                 url: "/flipboard/getDashboardsPaths",
                 success: function (data) {
                     console.log("loading layout:" + data.paths);
-                    Flipboard.init(data.paths);
+                    Flipboard.init(data.paths, data.names);
                     Flipboard.showNextDashboard();
                     let flipInterval = $("iframe").attr("data-fliptime-interval");
                     if (parseInt(flipInterval, 10) > 0) {

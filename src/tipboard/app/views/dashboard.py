@@ -1,13 +1,11 @@
 from django.http import JsonResponse, HttpResponse, Http404, HttpResponseRedirect
 from django.contrib.staticfiles import finders
 from django.shortcuts import render
-from src.tipboard.app.flipboard import Flipboard
-from src.tipboard.app.parser import parse_xml_layout, get_flipboard_title
+from src.tipboard.app.parser import parseXmlLayout, getFlipboardTitle, getConfigNames, getFlipboardTitles
 from src.tipboard.app.properties import TIPBOARD_CSS_STYLES, FLIPBOARD_INTERVAL, LOG, TIPBOARD_JAVASCRIPTS
 from src.tipboard.app.utils import getTimeStr
 from src.sensors.sensors_main import scheduleYourSensors, stopTheSensors
 from apscheduler.schedulers.background import BackgroundScheduler
-
 
 scheduler = BackgroundScheduler()
 
@@ -15,7 +13,7 @@ scheduler = BackgroundScheduler()
 def renderFlipboardHtml(request):  # pragma: no cover
     """ Render the Html Flipboard, wich start the js tipboard mecanism """
     return render(request, 'flipboard.html',
-                  dict(page_title=get_flipboard_title(),
+                  dict(page_title=getFlipboardTitle(),
                        flipboard_interval=FLIPBOARD_INTERVAL,
                        tipboard_css=TIPBOARD_CSS_STYLES,
                        tipboard_js=['js/flipboard.js']))
@@ -23,7 +21,10 @@ def renderFlipboardHtml(request):  # pragma: no cover
 
 def getDashboardsPaths(request):  # pragma: no cover
     """ Return the path of layout prensent in the ./tipboard/app/Config """
-    return JsonResponse(dict(paths=Flipboard().get_paths()), safe=False)
+
+    paths = ['/' + config_name for config_name in getConfigNames()]
+    names = getFlipboardTitles()
+    return JsonResponse(dict(paths=paths, names=names), safe=False)
 
 
 def replaceNameTiles(tiles_name):
@@ -50,7 +51,7 @@ def replaceNameTiles(tiles_name):
 
 def getTilesDependency(layout_name):
     """ Build CSS / JS tiles dependency from the tile referenced in layout.yaml """
-    config = parse_xml_layout(layout_name)
+    config = parseXmlLayout(layout_name)
     tiles_template = replaceNameTiles(config['tiles_names'])
     data = dict(details=config['details'],
                 layout=config['layout'],

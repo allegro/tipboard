@@ -1,4 +1,4 @@
-from src.tipboard.app.parser import get_config_names
+from src.tipboard.app.parser import getConfigNames
 
 
 class Flipboard(object):
@@ -9,10 +9,14 @@ class Flipboard(object):
 
     def get_paths(self):
         """ Returns url paths to dashboards (created from .yaml config from userspace). """
-        config_names = get_config_names()
+        config_names = getConfigNames()
         if len(config_names) != self.last_found_configs_number:
             self.paths = list()
             for name in config_names:
                 self.paths.append('/' + name)
             self.last_found_configs_number = len(config_names)
         return self.paths
+
+    def getNameDashboard(self):
+        """ Returns url paths to dashboards (created from .yaml config from userspace). """
+        config_names = getConfigNames()
