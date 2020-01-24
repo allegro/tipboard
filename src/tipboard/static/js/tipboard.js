@@ -103,4 +103,4 @@ function initChartjsDefault() {
     initChartjsDefault();
     setTimeout(startClientConnection, 420); // to let server start
     console.log("Tipboard starting");
-}($));
+}());
