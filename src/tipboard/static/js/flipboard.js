@@ -58,9 +58,7 @@ function initFlipboard() {
                     Flipboard.showNextDashboard();
                     let flipInterval = $("iframe").attr("data-fliptime-interval");
                     if (parseInt(flipInterval, 10) > 0) {
-                        setInterval(function () {
-                            Flipboard.showNextDashboard();
-                        }, flipInterval * 1000);
+                        setInterval(function () { Flipboard.showNextDashboard();}, flipInterval * 1000);
                     }
                 },
                 error: function (request, textStatus, error) {

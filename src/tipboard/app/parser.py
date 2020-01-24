@@ -81,15 +81,13 @@ def parse_xml_layout(layout_name='layout_config'):
 
 def get_config_names():
     """ Return all configs files' names (without '.yaml' ext.) from user space (.tipboard/) """
-    config_names = FLIPBOARD_SEQUENCE
-    if not any(config_names):
-        configs_names = list()
-        configs_dir = os.path.join(user_config_dir, '*.yaml')
-        for config_path in glob.glob(configs_dir):  # Get all name of different *.yml present in Config/ directory
-            configs_names.append(os.path.splitext(os.path.basename(config_path))[0])
-        if any(config_names):
+    configs_names = list()
+    configs_dir = os.path.join(user_config_dir, '*.yaml')
+    for config_path in glob.glob(configs_dir):  # Get all name of different *.yml present in Config/ directory
+        configs_names.append(config_path.split('/')[-1].replace('.yaml', ''))
+        if not configs_names:
             raise Exception(f'No config (.yaml) file found in {os.path.join(user_config_dir, "*.yaml")}')
-    return config_names
+    return configs_names
 
 
 def get_flipboard_title():
@@ -104,6 +102,7 @@ def get_flipboard_title():
             title = 'Flipboard Mode'
     except KeyError:
         print(f"{getTimeStr()} (+) config {config_names[0]} has no key: details/page_title'", flush=True)
+    print(f"TITLE:{title}")
     return title
 
 

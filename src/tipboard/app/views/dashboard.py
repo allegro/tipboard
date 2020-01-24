@@ -14,8 +14,7 @@ scheduler = BackgroundScheduler()
 
 def renderFlipboardHtml(request):  # pragma: no cover
     """ Render the Html Flipboard, wich start the js tipboard mecanism """
-    return render(request,
-                  'flipboard.html',
+    return render(request, 'flipboard.html',
                   dict(page_title=get_flipboard_title(),
                        flipboard_interval=FLIPBOARD_INTERVAL,
                        tipboard_css=TIPBOARD_CSS_STYLES,

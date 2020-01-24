@@ -59,7 +59,7 @@ BACKGROUND_TAB = ['#4caf50', '#ff6d00', '#d50000']
 TIPBOARD_CSS_STYLES = ['css/layout.css']
 TIPBOARD_JAVASCRIPTS = ['js/dashboard.js', 'js/websocket.js', 'js/tipboard.js']
 
-# how many seconds dashboard is displayed before is flipped
-FLIPBOARD_INTERVAL = 0
+# how many seconds dashboard is displayed before is flipped, if 0 than NO FLIPBOARD
+FLIPBOARD_INTERVAL = 10
 # file name(s) of EXISTING layouts without extension, eg. ['layout_config']
 FLIPBOARD_SEQUENCE = list()
