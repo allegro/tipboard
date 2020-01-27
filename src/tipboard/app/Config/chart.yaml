@@ -9,10 +9,15 @@ layout:
               title: pie chart
               classes:
 
-        - col_1_of_4:
+        - col_1_of_4 flip-time-8:
             - tile_template: doughnut_chart
               tile_id: doughnut_ex
               title: doughnut
+              classes:
+
+            - tile_template: half_doughnut_chart
+              tile_id: hal_doughnut_ex
+              title: half_doughnut
               classes:
 
         - col_1_of_4:
@@ -47,11 +52,11 @@ layout:
               title: cumulflow
               classes:
 
-        - col_1_of_4:
-#            - tile_template: bar_chart
-#              tile_id: barjs_ex
-#              title: bar tile's
-#              classes:
+        - col_1_of_4 flip-time-8:
+            - tile_template: bar_chart
+              tile_id: barjs_ex
+              title: bar tile's
+              classes:
 
             - tile_template: vbar_chart
               tile_id: vbarjs_ex

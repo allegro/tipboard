@@ -133,14 +133,6 @@ let escapeId = function (id) {
     return id;
 };
 
-let clearChartJsTile = function (chart) {
-    console.log("clear previous data");
-    if ("labels" in chart.data) {
-        console.log("clear:labels:" + chart.data.labels);
-        chart.data.labels = [];
-    }
-};
-
 function updateDataset(chart, newDict) {
     let rcx = 0;
     for (; rcx < newDict.datasets.length; rcx++) {
@@ -198,12 +190,12 @@ function updateData(chart, newDict) {
 }
 
 let updateDataOfChartJS = function (chart, data, meta) {
-    Tipboard.Dashboard.clearChartJsTile(chart);
+    if ("labels" in chart.data) {
+        chart.data.labels = [];
+    }
     updateData(chart, data);
     if (meta !== "undefined") {
         console.log("start update meta", chart.config.options);
-        console.log("new meta data", meta.options);
-       // chart.config.options = meta.options;
         updateOptions(chart.config.options, meta.options);
         console.log("end update meta", chart.config.options);
     }
@@ -223,6 +215,5 @@ function initDashboard(Tipboard) {
     Tipboard.Dashboard.updateTile = updateTile;
     Tipboard.Dashboard.getUpdateFunction = getUpdateFunction;
     Tipboard.Dashboard.autoAddFlipClasses = autoAddFlipClasses;
-    Tipboard.Dashboard.clearChartJsTile = clearChartJsTile;
     Tipboard.Dashboard.updateDataOfChartJS = updateDataOfChartJS;
 }

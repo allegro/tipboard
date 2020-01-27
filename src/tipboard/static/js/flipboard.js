@@ -17,6 +17,7 @@ let showNext = function showNextDashboard() {
         $(activeIframe).remove();
         $(clonedIframe).addClass("fadeIn");
     });
+    document.title = this.getNextDashboardName();
     return true;
 };
 
@@ -27,18 +28,24 @@ function initFlipboard() {
     window.Flipboard = {
         currentPathIdx: -1,
         dashboardsPaths: [],
+        dashboardsNames: [],
 
-        init: function (paths) {
+        init(paths, names) {
             this.dashboardsPaths = paths;
+            this.dashboardsNames = names;
         },
 
-        getNextDashboardPath: function () {
+        getNextDashboardPath() {
             this.currentPathIdx += 1;
             let lastIdx = this.dashboardsPaths.length - 1;
             if (this.currentPathIdx > lastIdx) {
                 this.currentPathIdx = 0;
             }
             return this.dashboardsPaths[this.currentPathIdx];
+        },
+
+        getNextDashboardName() {
+            return this.dashboardsNames[this.currentPathIdx];
         },
 
         showNextDashboard: showNext,
@@ -54,13 +61,11 @@ function initFlipboard() {
                 url: "/flipboard/getDashboardsPaths",
                 success: function (data) {
                     console.log("loading layout:" + data.paths);
-                    Flipboard.init(data.paths);
+                    Flipboard.init(data.paths, data.names);
                     Flipboard.showNextDashboard();
                     let flipInterval = $("iframe").attr("data-fliptime-interval");
                     if (parseInt(flipInterval, 10) > 0) {
-                        setInterval(function () {
-                            Flipboard.showNextDashboard();
-                        }, flipInterval * 1000);
+                        setInterval(function () { Flipboard.showNextDashboard();}, flipInterval * 1000);
                     }
                 },
                 error: function (request, textStatus, error) {

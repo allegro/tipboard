@@ -8,8 +8,6 @@ let onMessage = function (evt) {
         console.log("Web socket received data: ", tileData);
         Tipboard.Dashboard.updateTile(Tipboard.Dashboard.escapeId(tileData.id),
             tileData.tile_template, tileData.data, tileData.meta, tileData.modified);
-    } else {
-        console.log("Web socket received NULL data");
     }
 };
 
@@ -30,8 +28,10 @@ let testApiIsBack = function () {
     Http.send();
 };
 
+/**
+ * Handler to detect when API is back alive to reset websocket connection every 5s
+ */
 let onClose = function () {
-    console.log("WebSocket closed: Waiting the API to be back, every 5s");
     setTimeout(Tipboard.WebSocketManager.waitForAPI, 5000);
 };
 
@@ -58,7 +58,6 @@ let buildSocket = function () {
  * Config the WebSocket Object & start a connection
  */
 function initWebsocketManager(Tipboard) {
-    console.log("Initializing new WebSocket");
     let WebSocketManager = {
         init: buildSocket,
         waitForAPI: testApiIsBack

@@ -73,6 +73,13 @@ function updateTileBigValue(tileId, data, config) {
     }
 }
 
+/**
+ * Control all text_tile update fucntion
+ * @param tileId
+ * @param data
+ * @param config
+ * @param tileType
+ */
 function updateTileTextValue(tileId, data, config, tileType) {
     if (tileType === "listing") {
         updateTileListing(tileId, data);

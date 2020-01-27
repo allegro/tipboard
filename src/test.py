@@ -3,13 +3,11 @@ from django.test import RequestFactory, TestCase, Client
 from src.tipboard.app.properties import ALLOWED_TILES
 from src.tipboard.templates.template_filter import template_tile
 from src.tipboard.app.FakeData.fake_data import buildFakeDataFromTemplate
-from src.tipboard.app.parser import parse_xml_layout
-from src.tipboard.app.flipboard import Flipboard
+from src.tipboard.app.parser import parseXmlLayout, getFlipboardTitle, getConfigNames
 from src.tipboard.app.cache import MyCache
 from src.tipboard.app.utils import checkAccessToken
 from src.sensors.sensors_main import launch_sensors
 from src.tipboard.app.cache import listOfTilesFromLayout
-from src.tipboard.app.flipboard import get_flipboard_title
 
 
 # @pytest.mark.asyncio
@@ -53,15 +51,14 @@ class TestApp(TestCase):
 
     def test_0003_parser(self):
         """ Test XmlParser for layout """
-        config = parse_xml_layout()
+        config = parseXmlLayout()
         title = config['details']['page_title']
         self.assertTrue(title is not None)
 
     def test_0004_flipboard(self):
         """ Test Flipboard object """
-        flipboard = Flipboard()
-        self.assertTrue(get_flipboard_title() is not None)
-        self.assertTrue(flipboard.get_paths() is not None)
+        self.assertTrue(getFlipboardTitle() is not None)
+        self.assertTrue(getConfigNames() is not None)
 
     def test_0005_cache(self):
         cache = MyCache()
@@ -78,11 +75,11 @@ class TestApp(TestCase):
         checkAccessToken(method='GET', request=request, unsecured=False)
 
     def test_0007_api(self):
-        from src.tipboard.app.properties import API_KEY, API_VERSION
+        # from src.tipboard.app.properties import API_KEY, API_VERSION
         reponse = self.fakeClient.get('/api/info')
         self.assertTrue(reponse.status_code == 200)
-        self.fakeClient.post('api/' + API_VERSION + '/' + API_KEY + '/push')
-        self.fakeClient.post('api/' + API_VERSION + '/' + API_KEY + '/update')
+        # self.fakeClient.post('api/' + API_VERSION + '/' + API_KEY + '/push')
+        # self.fakeClient.post('api/' + API_VERSION + '/' + API_KEY + '/update')
 
     def test_0008_test_sensors(self):
         launch_sensors(isTest=True, checker=self, fakeClient=self.fakeClient)
