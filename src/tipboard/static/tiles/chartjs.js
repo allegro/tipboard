@@ -89,8 +89,8 @@ function buildMeta(tileType, meta) {
             meta.datalabels = pieChartPluginPercentge();
             break;
         case "half_doughnut_chart":
-            meta.options.rotation = Math.PI;
-            meta.options.circumference = Math.PI;
+            meta.rotation = Math.PI;
+            meta.circumference = Math.PI;
             break;
     }
     return meta;
@@ -128,10 +128,11 @@ function updateChartjs(tileId, data, meta, tileType) {
         let chart = document.getElementById(chartId);
         chart.parentElement.style.paddingBottom = "9%";
         chart.height = "80%";
+        let op = buildMeta(tileType, meta);
         Tipboard.chartJsTile[chartId] = new Chart(chart, {
             type: getTypeOfChartJS(tileType),
             data: buildData(tileType, data),
-            options: buildMeta(tileType, meta),
+            options: op,
         });
     }
 }

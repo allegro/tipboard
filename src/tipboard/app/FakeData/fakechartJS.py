@@ -126,8 +126,8 @@ def getFakeBarChart(tile_id, template_name):
                 'maintainAspectRatio': False,
                 'legend': {'display': False},
                 'scales': {
-                    'xAxes': [{'gridLines': {'color': '#ffffff', 'display': False}}],
-                    'yAxes': [{'gridLines': {'color': '#ffffff'}}]
+                    'xAxes': [{'gridLines': {'color': '#696969', 'display': False}}],
+                    'yAxes': [{'gridLines': {'color': '#696969'}}]
                 }
             }
         }
