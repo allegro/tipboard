@@ -134,7 +134,6 @@ def getFakeBarChart(tile_id, template_name):
     }
 
 
-
 def getFakeVbarChart(tile_id, template_name):
     return getFakeBarChart(tile_id, template_name)
 
