@@ -44,7 +44,7 @@ def buildDatasetPie(index=0, randomData=False, labelLenght=3):
 
 def buildDatasetDoughnut(index=0, randomData=False, labelLenght=4):
     exempleData = [895, 1478, 1267, 895, 734, 1056, 895, 1056]
-    return dict(backgroundColor=COLOR_TAB,
+    return dict(backgroundColor=COLOR_TAB, borderColor="#525252",
                 data=exempleData if randomData is False else [random.randrange(100, 150) for _ in range(labelLenght)])
 
 
