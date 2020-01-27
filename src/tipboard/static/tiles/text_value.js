@@ -55,10 +55,9 @@ function updateTileListing(id, data) {
  * Update bigvalue tiles the values & config
  * @param tileId
  * @param data
- * @param config
  * @param tileType
  */
-function updateTileBigValue(tileId, data, config) {
+function updateTileBigValue(tileId, data) {
     if (!("title" in data)) {
         data.title = "montitre";
     }
@@ -90,7 +89,7 @@ function updateTileTextValue(tileId, data, config, tileType) {
         return;
     }
     if (tileType === "big_value") {
-        updateTileBigValue(tileId, data, config);
+        updateTileBigValue(tileId, data);
     }
     Tipboard.Dashboard.setDataByKeys(tileId, data, "all");
     let body = document.getElementById("body-" + tileId);
