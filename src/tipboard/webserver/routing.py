@@ -1,6 +1,5 @@
 from channels.auth import AuthMiddlewareStack
 from channels.routing import ProtocolTypeRouter, URLRouter
-
 import src.tipboard.app.routing
 
 application = ProtocolTypeRouter({
@@ -10,4 +9,3 @@ application = ProtocolTypeRouter({
         )
     )
 })
-

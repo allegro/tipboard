@@ -1,13 +1,19 @@
-{% load static from staticfiles %}
+{% load static %}
 <!DOCTYPE html>
-<html >
+<html lang="en">
     <head>
         <meta charset="utf-8">
-        <title>{% block page_title %}Dashboard{% endblock %}</title>
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-{#        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">#}
+        <title>{% block page_title %}Dashboard{% endblock %}</title>
 
+        <link rel="stylesheet" href="{% static "css/bootstrap.min.css" %}">
+        <script src="{% static "js/jquery-3.4.1.min.js" %}"></script>
+        <script src="{% static "js/popper.min.js" %}"></script>
+        <script src="{% static "js/bootstrap.min.js" %}"></script>
+        <script src="{% static "js/chart.bundle.js" %}"></script>
+        <script src="{% static "js/chartjs-plugin-trendline.min.js" %}"></script>
+        <script src="{% static "js/chartjs-plugin-labels.min.js" %}"></script>
         {% for file in tipboard_css %}
             <link href="{% static file %}" rel="stylesheet" media="screen">
         {% endfor %}
@@ -16,12 +22,14 @@
         {% endfor %}
         {% for file in tiles_css %}
              <link href="{% static file %}" rel="stylesheet" media="screen">
-         {% endfor %}
-         {% for file in tiles_js %}
+        {% endfor %}
+        {% for file in tiles_js %}
              <script src="{% static file %}"></script>
-         {% endfor %}
-
+        {% endfor %}
         {% block head %} {% endblock %}
     </head>
-    {% block put_body %} {% endblock %}
-</html>
+
+    <body style="background-color: #212121;background-image: url({% static "img/logo-tipboard.svg" %}); background-repeat: no-repeat; background-position: center center; background-size: 65%;">
+           {% block put_body %} {% endblock %}
+    </body>
+ </html>

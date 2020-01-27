@@ -1,12 +1,12 @@
 import os
-from src.tipboard.app.properties import SUPER_SECRET_KEY, debug, REDIS_HOST, REDIS_PORT, FROM_PIP
+from src.tipboard.app.properties import SUPER_SECRET_KEY, DEBUG, REDIS_HOST, REDIS_PORT, FROM_PIP
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = SUPER_SECRET_KEY
-DEBUG = debug
+DEBUG = DEBUG
 ALLOWED_HOSTS = ['*']
+REST_FRAMEWORK = {'DEFAULT_SCHEMA_CLASS': 'rest_framework.schemas.coreapi.AutoSchema'}
 
-print("LOADING:-> " +  FROM_PIP + 'tipboard.app.Config')
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -16,7 +16,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'channels',
-    FROM_PIP + 'tipboard.app.Config'
+    'swagger_render',
+    FROM_PIP + 'tipboard.app.Config',
 ]
 
 MIDDLEWARE = [
@@ -34,31 +35,13 @@ MIDDLEWARE = [
 
 CORS_ORIGIN_ALLOW_ALL = True
 CORS_ALLOW_CREDENTIALS = True
-CORS_ORIGIN_REGEX_WHITELIST = (
-    '*',
-)
+CORS_ORIGIN_REGEX_WHITELIST = tuple('*')
 
-CORS_ALLOW_METHODS = (
-    'GET',
-    'POST'
-)
+CORS_ALLOW_METHODS = ('GET', 'POST')
 
-CORS_ALLOW_HEADERS = (
-    'accept',
-    'accept-encoding',
-    'authorization',
-    'multipart/form-data',
-    'content-type',
-    'dnt',
-    'origin',
-    'user-agent',
-    'x-csrftoken',
-    'x-requested-with',
-    'Set-Cookie',
-    'enctype',
-)
+CORS_ALLOW_HEADERS = ('accept', 'accept-encoding', 'authorization', 'multipart/form-data', 'content-type',
+                      'dnt', 'origin', 'user-agent', 'x-csrftoken', 'x-requested-with', 'Set-Cookie', 'enctype')
 
-LANGUAGE_CODE = 'fr-FR'
 TIME_ZONE = 'Europe/Paris'
 USE_I18N = True
 USE_L10N = True
@@ -67,7 +50,6 @@ USE_TZ = True
 ROOT_URLCONF = FROM_PIP + 'tipboard.webserver.urls'
 WSGI_APPLICATION = FROM_PIP + 'tipboard.webserver.wsgi.application'
 
-print("->>>" + BASE_DIR + '/templates')
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
@@ -80,17 +62,16 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
             ],
-        'libraries':{
-            'template_filter': FROM_PIP + 'tipboard.templates.template_filter',
+            'libraries': {
+                'template_filter': FROM_PIP + 'tipboard.templates.template_filter',
             }
         },
     },
 ]
 
-
 STATICFILES_FINDERS = (
-        'django.contrib.staticfiles.finders.FileSystemFinder',
-        'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
 )
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),
@@ -109,3 +90,14 @@ CHANNEL_LAYERS = {
     }
 }
 
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        "TEST": {
+            "NAME": os.path.join(BASE_DIR, "db_test.sqlite3"),
+        },
+    }
+}
+
+SWAGGER_YAML_FILENAME = BASE_DIR + '/docs/index.yml'

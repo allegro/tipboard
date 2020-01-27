@@ -1,103 +1,68 @@
 import json, os
 
 dir_path = os.path.dirname(os.path.realpath(__file__))
+
+# Location of Tipboard sources
+TIPBOARD_PATH = os.path.dirname(__file__)
+
+FROM_PIP = 'src.'
+
+# Path of Config directory
+user_config_dir = dir_path + '/Config/'
+
+# Determine which layout config should be used by default
+LAYOUT_CONFIG = os.path.join(user_config_dir, 'tmp/layout_config.yaml')
+
 conf = json.load(open(dir_path + '/Config/properties.json'))
 
-FORMAT_SIMPLE_DATE = '%Y-%m-%d'
 API_VERSION = conf['API_VERSION']
 API_KEY = conf['TIPBOARD_TOKEN']
 PROJECT_NAME = conf['PROJECT_NAME']
-SUPER_SECRET_KEY = conf["SUPER_SECRET_KEY"]
-debug = conf['DEBUG']
-LOG = conf['LOG']
-VERSION = conf["VERSION"]
-SITE_ENV = conf["SITE_ENV"]
-LOCAL = conf['LOCAL']
-CDN_URL = conf['CDN_URL'] #if you are in production and need a CDN for media and static file
+SUPER_SECRET_KEY = conf['SUPER_SECRET_KEY']
 
+DEBUG = conf['DEBUG']
+LOG = conf['LOG']
+VERSION = conf['VERSION']
+SITE_ENV = conf['SITE_ENV']
+LOCAL = conf['LOCAL']
+TIPBOARD_URL = conf['TIPBOARD_URL']
+CDN_URL = conf['CDN_URL']  # if you are in production and need a CDN for media and static file
 REDIS_HOST = conf['REDIS_HOST']
 REDIS_PORT = conf['REDIS_PORT']
 REDIS_PASSWORD = conf['REDIS_PASSWORD']
 REDIS_DB = conf['REDIS_DB']
 
-# Location of Tipboard sources
-TIPBOARD_PATH = os.path.dirname(__file__)
+ALLOWED_TILES = ['text', 'fancy_listing', 'simple_percentage', 'listing', 'big_value', 'just_value',  # Homemade
+                 'norm_chart', 'line_chart', 'cumulative_flow', 'bar_chart', 'vbar_chart',  # ChartJS
+                 'half_doughnut_chart', 'doughnut_chart', 'pie_chart', 'radar_chart', 'polararea_chart',  # ChartJS
+                 'empty']  # chartjs lib
 
-# Javascript log level ('1' for 'standard', '2' for 'debug')
-JS_LOG_LEVEL = 2
-
-# Our default color palette
-COLORS = {
-    'black':            '#000000',
-    'white':            '#FFFFFF',
-    'tile_background':  '#15282d',
-    'red':              '#d50000',
-    'yellow':           '#ffea00',
-    'green':            '#00c853',
-    'blue':             '#0091ea',
-    'violet':           '#aa00ff',
-    'orange':           '#ff6d00',
-    'naval':            '#00bfa5',
-}
-
-# how many seconds dashboard is displayed before is flipped
-FLIPBOARD_INTERVAL = 0
-# file name(s) of EXISTING layouts without extension, eg. ['layout_config']
-FLIPBOARD_SEQUENCE = []
-
-
-TIPBOARD_CSS_STYLES = [
-    'css/reset.css',
-    'css/jquery.jqplot.css',
-    'css/layout.css',
-]
-TIPBOARD_JAVASCRIPTS = [
-    'js/lib/jquery.js',
-    'js/lib/simplify.js',
-    'js/lib/jquery.fullscreen.js',
-    'js/lib/jqplot/jquery.jqplot.js',
-    'js/lib/jqplot/plugins/jqplot.trendline.js',
-    'js/lib/jqplot/plugins/jqplot.canvasAxisTickRenderer.js',
-    'js/lib/jqplot/plugins/jqplot.canvasTextRenderer.js',
-    'js/lib/jqplot/plugins/jqplot.categoryAxisRenderer.js',
-    'js/lib/jqplot/plugins/jqplot.barRenderer.js',
-    'js/lib/jqplot/plugins/jqplot.pointLabels.js',
-    'js/lib/jqplot/plugins/jqplot.highlighter.js',
-    'js/lib/jqplot/plugins/jqplot.dateAxisRenderer.js',
-    'js/lib/jqplot/plugins/jqplot.pieRenderer.js',
-    'js/lib/jqplot/plugins/jqplot.blockRenderer.js',
-    'js/lib/jqplot/plugins/jqplot.bubbleRenderer.js',
-    'js/lib/jqplot/plugins/jqplot.canvasAxisLabelRenderer.js',
-    'js/lib/jqplot/plugins/jqplot.canvasOverlay.js',
-    'js/lib/jqplot/plugins/jqplot.ciParser.js',
-    'js/lib/jqplot/plugins/jqplot.cursor.js',
-    'js/lib/jqplot/plugins/jqplot.donutRenderer.js',
-    'js/lib/jqplot/plugins/jqplot.dragable.js',
-    'js/lib/jqplot/plugins/jqplot.enhancedLegendRenderer.js',
-    'js/lib/jqplot/plugins/jqplot.funnelRenderer.js',
-    'js/lib/jqplot/plugins/jqplot.json2.js',
-    'js/lib/jqplot/plugins/jqplot.logAxisRenderer.js',
-    'js/lib/jqplot/plugins/jqplot.mekkoAxisRenderer.js',
-    'js/lib/jqplot/plugins/jqplot.mekkoRenderer.js',
-    'js/lib/jqplot/plugins/jqplot.meterGaugeRenderer.js',
-    'js/lib/jqplot/plugins/jqplot.mobile.js',
-    'js/lib/jqplot/plugins/jqplot.ohlcRenderer.js',
-    'js/lib/jqplot/plugins/jqplot.pyramidAxisRenderer.js',
-    'js/lib/jqplot/plugins/jqplot.pyramidGridRenderer.js',
-    'js/lib/jqplot/plugins/jqplot.pyramidRenderer.js',
-    'js/tipboard.js',
+COLOR_TAB = [  # material color
+    'rgba(66, 165, 245, 0.8)',      # blue #42a5f5
+    'rgba(114, 191, 68, 0.8)',      # green #72bf44
+    'rgba(0, 150, 136, 0.8)',       # teal #009688
+    'rgba(255, 234, 0, 0.8)',       # yellow #ffea00
+    'rgba(255, 152, 0, 0.8)',       # orange #ff9800
+    'rgba(213, 0, 0, 0.8)',         # red #d50000
+    'rgb(240, 98, 146)',            # pink #f06292
+    'rgba(224, 224, 224, 0.8)',     # Grey #e0e0e0
+    'rgb(177, 208, 225)',           # Light Blue #b1d0e1
+    'rgba(121, 85, 72, 0.8)',       # Marron #795548
+    'rgba(149, 117, 205, 0.8)',     # purple #9575cd
+    'rgb(224, 64, 251)',            # Light Purple #e040fb
+    'rgb(48, 79, 254)',             # Indigo #304ffe
+    'rgb(33, 33, 33)'               # Black #212121
 ]
 
-FROM_PIP = 'src.'
-#FROM_PIP = ''
+if 'COLOR_TAB' in conf:
+    rcx = 0
+    for color in conf['COLOR_TAB']:
+        COLOR_TAB[rcx] = conf['COLOR_TAB'][rcx]
 
-#Tu dois faire la diff des path quand
-# * dans pip
-# * dans docker
-# * dans bash
+BACKGROUND_TAB = ['#4caf50', '#ff6d00', '#d50000']
 
-# Determine which layout config should be used
-user_config_dir = dir_path + '/Config/'
+TIPBOARD_CSS_STYLES = ['css/layout.css']
+TIPBOARD_JAVASCRIPTS = ['js/dashboard.js', 'js/websocket.js', 'js/tipboard.js']
 
-LAYOUT_CONFIG = os.path.join(user_config_dir, 'layout_config.yaml')
-
+# how many seconds dashboard is displayed before is flipped, if 0 than NO FLIPBOARD
+FLIPBOARD_INTERVAL = 10

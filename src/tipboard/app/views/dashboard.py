@@ -1,63 +1,89 @@
-# -*- coding: utf-8 -*-
-
-from django.http import JsonResponse, HttpResponse
+from django.http import JsonResponse, HttpResponse, Http404, HttpResponseRedirect
+from django.contrib.staticfiles import finders
 from django.shortcuts import render
-
-from src.tipboard.app.cache import getCache
-from src.tipboard.app.flipboard import Flipboard
-from src.tipboard.app.parser import process_layout_config
-from src.tipboard.app.properties import *
+from src.tipboard.app.parser import parseXmlLayout, getFlipboardTitle, getConfigNames, getFlipboardTitles
+from src.tipboard.app.properties import TIPBOARD_CSS_STYLES, FLIPBOARD_INTERVAL, LOG, TIPBOARD_JAVASCRIPTS
 from src.tipboard.app.utils import getTimeStr
+from src.sensors.sensors_main import scheduleYourSensors, stopTheSensors
+from apscheduler.schedulers.background import BackgroundScheduler
 
-cache = getCache()
+scheduler = BackgroundScheduler()
 
 
-def flipboardHandler(request):
-    if LOG:
-        print(f"{getTimeStr()} (+) flipboardHandler/", flush=True)
-    data = {
-        "page_title": Flipboard().get_flipboard_title(),
-        "tipboard_css": TIPBOARD_CSS_STYLES,
-        "tipboard_js": ['js/lib/jquery.js', 'js/flipboard.js', 'js/lib/require.js'],
-        "flipboard_interval": FLIPBOARD_INTERVAL,
+def renderFlipboardHtml(request):  # pragma: no cover
+    """ Render the Html Flipboard, wich start the js tipboard mecanism """
+    return render(request, 'flipboard.html',
+                  dict(page_title=getFlipboardTitle(),
+                       flipboard_interval=FLIPBOARD_INTERVAL,
+                       tipboard_css=TIPBOARD_CSS_STYLES,
+                       tipboard_js=['js/flipboard.js']))
+
+
+def getDashboardsPaths(request):  # pragma: no cover
+    """ Return the path of layout prensent in the ./tipboard/app/Config """
+    paths = ['/' + config_name for config_name in getConfigNames()]
+    names = getFlipboardTitles()
+    return JsonResponse(dict(paths=paths, names=names), safe=False)
+
+
+def replaceNameTiles(tiles_name):
+    """ Replace name_tile when it's the same JS tile :), duplicate code is bad """
+    listOfTiles = list()
+    transformTileNameTab = {
+        'big_value': 'text_value',
+        'simple_percentage': 'text_value',
+        'just_value': 'text_value',
+        'listing': 'text_value'
     }
-#    data['tipboard_js'].remove('js/tipboard.js')
-    return render(request, 'flipboard.html', data)
+    for name_tile in tiles_name:
+        if not listOfTiles.__contains__(name_tile):
+            if name_tile in transformTileNameTab:
+                name_tile = transformTileNameTab[name_tile]
+            else:
+                name_tile = "chartjs"
+            if name_tile not in listOfTiles:
+                listOfTiles.append(name_tile)
+    return listOfTiles
 
 
-def getDashboardsPaths(request):
-    if LOG:
-        print(f"{getTimeStr()} GET /getDashboardsPaths", flush=True)
-    paths = Flipboard().get_paths()
-    return JsonResponse({'paths': paths}, safe=False)
+def getTilesDependency(layout_name):
+    """ Build CSS / JS tiles dependency from the tile referenced in layout.yaml """
+    config = parseXmlLayout(layout_name)
+    tiles_template = replaceNameTiles(config['tiles_names'])
+    data = dict(details=config['details'],
+                layout=config['layout'],
+                tipboard_css=TIPBOARD_CSS_STYLES,
+                tipboard_js=TIPBOARD_JAVASCRIPTS,
+                tiles_css=['tiles/' + '.'.join((name, 'css')) for name in tiles_template],
+                tiles_js=['tiles/' + '.'.join((name, 'js')) for name in tiles_template])
+    tiles_css = list()  # TODO i think this need to be deleted, no css anymore for specific tile
+    for tile_css in data['tiles_css']:
+        if finders.find(tile_css):
+            tiles_css.append(tile_css)
+    data['tiles_css'] = tiles_css
+    return data
 
 
-def dashboardRendererHandler(request, layout_name='layout_config'):
-    if LOG:
-        print(f"{getTimeStr()} GET dashboardRendererHandler /([a-zA-Z0-9_-]*)", flush=True)
+def renderHtmlForTiles(request, layout_name='layout_config'):  # pragma: no cover
+    """ Render Htlm page with CSS/JS dependency for all the tiles needed in layout.yaml(dashboard) """
     try:
-        config = process_layout_config(layout_name)
-        tiles_js = ["tiles/" + '.'.join((name, 'js')) for name in config['tiles_names']]
-        tiles_css = ["tiles/" + '.'.join((name, 'css')) for name in config['tiles_names']]
-        #tiles_js = filter(_verify_statics, tiles_js) #TODO fix the verify_statics for js/css in utils.py
-        data = {
-            "details": config['details'],
-            "layout": config['layout'],
-            "tipboard_css": TIPBOARD_CSS_STYLES,
-            "tipboard_js": TIPBOARD_JAVASCRIPTS,
-            "tiles_css": tiles_css,
-            "tiles_js": tiles_js,
-        }
+        data = getTilesDependency(layout_name)
+        return render(request, 'layout.html', data)
     except FileNotFoundError as e:
         if LOG:
-            print(f"{getTimeStr()}: (+)Config file:{layout_name} not found", flush=True)
-        msg = '<br>'.join([
-            '<div style="color: red">',
-            f'No config file found for dashboard: {layout_name}',
-            f'Make sure that file: "{e.filename}" exists.',
-            '</div>',
-        ])
+            print(f'{getTimeStr()}: (+)Config file:{layout_name} not found', flush=True)
+        msg = f"<br> <div style='color: red'> " \
+            f'No config file found for dashboard: {layout_name} ' \
+            f"Make sure that file: '{e.filename}' exists. </div>"
         return HttpResponse(msg, status=404)
-    return render(request, 'layout.html', data)
 
 
+def demo_controller(request, flagSensors):
+    """ activate or not the sensors by api  """
+    if request.method == 'GET':
+        if flagSensors == "on":
+            scheduleYourSensors(scheduler)
+        elif flagSensors == "off":
+            stopTheSensors(scheduler)
+        return HttpResponseRedirect('/')
+    raise Http404
