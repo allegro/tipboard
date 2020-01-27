@@ -30,12 +30,12 @@ function initFlipboard() {
         dashboardsPaths: [],
         dashboardsNames: [],
 
-        init: function (paths, names) {
+        init(paths, names) {
             this.dashboardsPaths = paths;
             this.dashboardsNames = names;
         },
 
-        getNextDashboardPath: function () {
+        getNextDashboardPath() {
             this.currentPathIdx += 1;
             let lastIdx = this.dashboardsPaths.length - 1;
             if (this.currentPathIdx > lastIdx) {
@@ -44,7 +44,7 @@ function initFlipboard() {
             return this.dashboardsPaths[this.currentPathIdx];
         },
 
-        getNextDashboardName: function () {
+        getNextDashboardName() {
             return this.dashboardsNames[this.currentPathIdx];
         },
 

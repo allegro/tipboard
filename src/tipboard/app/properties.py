@@ -11,7 +11,7 @@ FROM_PIP = 'src.'
 user_config_dir = dir_path + '/Config/'
 
 # Determine which layout config should be used by default
-LAYOUT_CONFIG = os.path.join(user_config_dir, 'layout_config.yaml')
+LAYOUT_CONFIG = os.path.join(user_config_dir, 'tmp/layout_config.yaml')
 
 conf = json.load(open(dir_path + '/Config/properties.json'))
 

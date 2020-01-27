@@ -1,31 +1,46 @@
 /**
+ * PieChart Plugin to see % inside the pie
+ * @returns {{formatter: (function(*, *): string)}}
+ * @constructor
+ */
+function PieChartPluginPercentge() {
+    return {
+        formatter: (value, ctx) => {
+            let sum = 0;
+            let dataArr = ctx.chart.data.datasets[0].data;
+            dataArr.map((data) => {
+                sum += data;
+            });
+            return (value * 100 / sum).toFixed(2) + "%";
+        }
+    };
+}
+
+/**
  * Update for tile cumulative_flow & line_chartjs
  * @param data
  * @param tileType fillDataset = True || False => CumulativeFlow
  * @returns
  */
 function updateDatasetLine(data, tileType) {
-    const predefinedLabel = ["label1", "label2", "label3", "label4", "label5"];
-    const predefinedSeries = ["serie1", "serie2", "serie3", "serie4", "serie5"];
     let listOfDataset = [];
-    let rcx = 0;
     $.each(data.datasets, function (index, dataset) {
         let datasetTmp = {
-            label: ("label" in dataset) ? dataset.label : predefinedLabel[rcx],
-            data: ("data" in dataset) ? dataset.data : [],
+            label: dataset.label,
+            data: dataset.data,
             fill: (tileType === "cumulative_flow"),
             backgroundColor: dataset.backgroundColor,
             borderColor: dataset.backgroundColor
         };
         if (tileType === "cumulative_flow") {
-            datasetTmp.trendlineLinear = {"lineStyle": "dotted", "width": 2}
+            datasetTmp.trendlineLinear = {"lineStyle": "dotted", "width": 2};
         } else {
-            delete datasetTmp.backgroundColor
+            delete datasetTmp.backgroundColor;
         }
         listOfDataset.push(datasetTmp);
     });
     let tile = {
-        labels: ("labels" in data) ? data.labels : predefinedSeries,
+        labels: data.labels,
         datasets: listOfDataset,
     };
     if ("title" in data) {
@@ -62,19 +77,16 @@ function getTypeOfChartJS(tileType) {
     }
 }
 
+/**
+ * build the meta respecting speficity of all chart
+ * @param tileType
+ * @param meta
+ * @returns {*}
+ */
 function buildMeta(tileType, meta) {
     switch (tileType) {
-        case "pie_chart": //To see % inside the pie
-            meta.datalabels = {
-                formatter: (value, ctx) => {
-                    let sum = 0;
-                    let dataArr = ctx.chart.data.datasets[0].data;
-                    dataArr.map(data => {
-                        sum += data;
-                    });
-                    return (value * 100 / sum).toFixed(2) + "%";
-                }
-            };
+        case "pie_chart":
+            meta.datalabels = PieChartPluginPercentge();
             break;
         case "half_doughnut_chart":
             meta.options.rotation = Math.PI;
@@ -84,6 +96,12 @@ function buildMeta(tileType, meta) {
     return meta;
 }
 
+/**
+ * build the data respecting speficity of all chart
+ * @param tileType
+ * @param data
+ * @returns
+ */
 function buildData(tileType, data) {
     if (tileType === "line_chart") {
         return updateDatasetLine(data, tileType);
@@ -103,22 +121,19 @@ function updateChartjs(tileId, data, meta, tileType) {
     let chartId = `${tileId}-chart`;
     if (chartId in Tipboard.chartJsTile) {
         if (tileType === "line_chart") {
-            data = updateDatasetLine(data, tileType)
+            data = updateDatasetLine(data, tileType);
         }
         Tipboard.Dashboard.updateDataOfChartJS(Tipboard.chartJsTile[chartId], data, meta);
     } else {
         let chart = document.getElementById(chartId);
-        //meta.options.title = getTitleForChartJSTitle(data);
         chart.parentElement.style.paddingBottom = "9%";
         chart.height = "80%";
-        console.log('Creating chart:' + getTypeOfChartJS(tileType));
         Tipboard.chartJsTile[chartId] = new Chart(chart, {
             type: getTypeOfChartJS(tileType),
             data: buildData(tileType, data),
             options: buildMeta(tileType, meta),
         });
     }
-    console.log('END chart:' + getTypeOfChartJS(tileType));
 }
 
 Tipboard.Dashboard.registerUpdateFunction("bar_chart", updateChartjs);
