@@ -3,7 +3,7 @@
  * @returns {{formatter: (function(*, *): string)}}
  * @constructor
  */
-function PieChartPluginPercentge() {
+function pieChartPluginPercentge() {
     return {
         formatter: (value, ctx) => {
             let sum = 0;
@@ -86,7 +86,7 @@ function getTypeOfChartJS(tileType) {
 function buildMeta(tileType, meta) {
     switch (tileType) {
         case "pie_chart":
-            meta.datalabels = PieChartPluginPercentge();
+            meta.datalabels = pieChartPluginPercentge();
             break;
         case "half_doughnut_chart":
             meta.options.rotation = Math.PI;
