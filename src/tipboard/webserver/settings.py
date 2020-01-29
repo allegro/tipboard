@@ -5,7 +5,6 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = SUPER_SECRET_KEY
 DEBUG = DEBUG
 ALLOWED_HOSTS = ['*']
-REST_FRAMEWORK = {'DEFAULT_SCHEMA_CLASS': 'rest_framework.schemas.coreapi.AutoSchema'}
 
 
 INSTALLED_APPS = [
@@ -16,12 +15,10 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'channels',
-    'swagger_render',
     FROM_PIP + 'tipboard.app.Config',
 ]
 
 MIDDLEWARE = [
-    'django_prometheus.middleware.PrometheusBeforeMiddleware',
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -30,7 +27,6 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'corsheaders.middleware.CorsPostCsrfMiddleware',
-    'django_prometheus.middleware.PrometheusAfterMiddleware',
 ]
 
 CORS_ORIGIN_ALLOW_ALL = True
@@ -99,5 +95,3 @@ DATABASES = {
         },
     }
 }
-
-SWAGGER_YAML_FILENAME = BASE_DIR + '/docs/index.yml'

@@ -4,7 +4,7 @@ from src.tipboard.app.properties import TIPBOARD_URL, DEBUG, COLOR_TAB
 
 def printEndOfTipboardCall(tipboardAnswer, TILE_ID):
     if tipboardAnswer is not None:
-        print(f'POST tile:{TILE_ID} tipboard/push => ({str(tipboardAnswer)}): ', flush=True)
+        print(f'POST tile:{TILE_ID} tipboard/push => ({str(tipboardAnswer.status_code)}): ', flush=True)
     else:
         print(f'POST tile:{TILE_ID} tipboard/push => (FAILED HTTP CONNECT): ', flush=True)
 

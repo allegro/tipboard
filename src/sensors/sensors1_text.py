@@ -11,13 +11,15 @@ def executeScriptToGetData(tile_id=None, tile_template=None):
     return tile
 
 
-def sendDataToTipboard(data=None, tile_template=None, tile_id='', isTest=False):
+def sendDataToTipboard(data=None, tile_template=None, tile_id='', tester=None):
     configTile = dict(tile_id=tile_id, tile_template=tile_template, data=json.dumps(data['data']['text']))
-    if not isTest:
+    if tester is None:
         return requests.post(TIPBOARD_URL + '/push', data=configTile)
+    else:
+        return tester.fakeClient.post(TIPBOARD_URL + '/push', data=configTile)
 
 
-def sonde1(isTest=False):
+def sonde1(tester=None):
     TILE_TEMPLATE = 'text'
     TILE_ID = 'txt_ex'
     print(f'----------------------------------------------------------------------------------------------', flush=True)
@@ -26,5 +28,5 @@ def sonde1(isTest=False):
     data = executeScriptToGetData()
     data['text'] = f'Last malware detedted: <br>' \
         f'<h2> {"".join([random.choice("0123456789abcdef") for x in range(32)])}</h2>'
-    tipboardAnswer = sendDataToTipboard(data, tile_template=TILE_TEMPLATE, tile_id=TILE_ID, isTest=isTest)
+    tipboardAnswer = sendDataToTipboard(data, tile_template=TILE_TEMPLATE, tile_id=TILE_ID, tester=tester)
     end(title=f'sensors1 -> {TILE_ID}', start_time=start_time, tipboardAnswer=tipboardAnswer, TILE_ID=TILE_ID)

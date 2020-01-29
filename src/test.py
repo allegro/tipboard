@@ -79,9 +79,9 @@ class TestApp(TestCase):
         self.assertTrue(reponse.status_code == 200)
         reponse = self.fakeClient.get('/flipboard/getDashboardsPaths')
         self.assertTrue(reponse.status_code == 200)
-        reponse = self.fakeClient.get('')
-        self.assertTrue(reponse.status_code == 200)
+        # TODO: test all api.py
+        launch_sensors(tester=self)
         # Test the update meta, /!\ il faut redis dans le runner de test
 
-    def test_0008_test_sensors(self):
-        launch_sensors(isTest=True, checker=self, fakeClient=self.fakeClient)
+    # def test_0008_test_sensors(self):
+    #     launch_sensors(isTest=True, checker=self, fakeClient=self.fakeClient)

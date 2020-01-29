@@ -18,21 +18,21 @@ from src.sensors.sensors16_dougnutchart import sonde16
 from src.sensors.utils import end
 
 
-def launch_sensors(isTest=False, checker=None, fakeClient=None):
-    if isTest:
-        sonde1(isTest)
+def launch_sensors(tester=None):
+    if tester is not None:
+        sonde1(tester)
         # sonde2(isTest, checker, fakeClient)
-        sonde3(isTest)
-        sonde4(isTest)
-        sonde5(isTest)
-        sonde7(isTest, isHorizontal=True)
-        sonde7(isTest, isHorizontal=False)
-        sonde9(isTest)
-        sonde10(isTest)
-        sonde12(isTest)
-        sonde14(isTest)
-        sonde15(isTest)
-        sonde16(isTest)
+        # sonde3(isTest)
+        # sonde4(isTest)
+        # sonde5(isTest)
+        # sonde7(isTest, isHorizontal=True)
+        # sonde7(isTest, isHorizontal=False)
+        # sonde9(isTest)
+        # sonde10(isTest)
+        # sonde12(isTest)
+        # sonde14(isTest)
+        # sonde15(isTest)
+        # sonde16(isTest)
     else:
         scheduleYourSensors(BlockingScheduler())  # If you need actualized data :)
 
