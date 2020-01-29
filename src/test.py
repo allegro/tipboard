@@ -75,11 +75,13 @@ class TestApp(TestCase):
         checkAccessToken(method='GET', request=request, unsecured=False)
 
     def test_0007_api(self):
-        # from src.tipboard.app.properties import API_KEY, API_VERSION
         reponse = self.fakeClient.get('/api/info')
         self.assertTrue(reponse.status_code == 200)
-        # self.fakeClient.post('api/' + API_VERSION + '/' + API_KEY + '/push')
-        # self.fakeClient.post('api/' + API_VERSION + '/' + API_KEY + '/update')
+        reponse = self.fakeClient.get('/flipboard/getDashboardsPaths')
+        self.assertTrue(reponse.status_code == 200)
+        reponse = self.fakeClient.get('')
+        self.assertTrue(reponse.status_code == 200)
+        # Test the update meta, /!\ il faut redis dans le runner de test
 
     def test_0008_test_sensors(self):
         launch_sensors(isTest=True, checker=self, fakeClient=self.fakeClient)

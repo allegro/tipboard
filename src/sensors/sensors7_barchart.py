@@ -1,5 +1,5 @@
 import time, random
-from src.sensors.utils import end, sendDataToTipboard, getTimeStr
+from src.sensors.utils import end, sendDataToTipboard, getTimeStr, buildChartUpdateRandomly
 from src.tipboard.app.properties import COLOR_TAB
 
 
@@ -24,6 +24,7 @@ def sonde7(isTest=False, isHorizontal=False):
     TILE_ID = 'barjs_ex' if isHorizontal else 'vbarjs_ex'
     print(f'{getTimeStr()} (+) Starting sensors 7', flush=True)
     start_time = time.time()
-    data = executeScriptToGetData()
+#    data = executeScriptToGetData()
+    data = buildChartUpdateRandomly(nbrDataset=random.randrange(2, 7), nbrLabel=random.randrange(1, 4), colorTabIndataset=False)
     tipboardAnswer = sendDataToTipboard(data=data, tile_template=TILE_TEMPLATE, tile_id=TILE_ID, isTest=isTest)
     end(title=f'sensors7 -> {TILE_ID}', start_time=start_time, tipboardAnswer=tipboardAnswer, TILE_ID=TILE_ID)

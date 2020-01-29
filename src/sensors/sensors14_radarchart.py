@@ -8,7 +8,6 @@ def sonde14(isTest=False):
     print(f'{getTimeStr()} (+) Starting sensors 14', flush=True)
     start_time = time.time()
     data = buildChartUpdateRandomly(nbrLabel=5, data=None)
-
     index = 0
     for dataset in data['datasets']:  # TODO: ADD THIS TO .JS not in sensors... for simplicity
         dataset['pointBorderColor'] = COLOR_TAB[index]

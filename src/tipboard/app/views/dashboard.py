@@ -10,7 +10,7 @@ from apscheduler.schedulers.background import BackgroundScheduler
 scheduler = BackgroundScheduler()
 
 
-def renderFlipboardHtml(request):  # pragma: no cover
+def renderFlipboardHtml(request):
     """ Render the Html Flipboard, wich start the js tipboard mecanism """
     return render(request, 'flipboard.html',
                   dict(page_title=getFlipboardTitle(),

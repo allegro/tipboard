@@ -8,7 +8,7 @@ from src.tipboard.app.FakeData.fake_data import buildFakeDataFromTemplate
 from src.tipboard.app.FakeData.datasetbuilder import buildGenericDataset
 
 
-def project_info(request):  # pragma: no cover
+def project_info(request):
     """ Return info of server tipboard """
     if request.method == 'GET':
         response = dict(tipboard_version='v0.1',
@@ -19,9 +19,9 @@ def project_info(request):  # pragma: no cover
     raise Http404
 
 
-def get_tile(request, tile_key, unsecured=False):  # pragma: no cover
+def get_tile(request, tile_key):
     """ Return Json from redis for tile_key """
-    if not checkAccessToken(method='GET', request=request, unsecured=unsecured):
+    if not checkAccessToken(method='GET', request=request):
         return HttpResponse('API KEY incorrect', status=401)
     redis = getCache().redis
     if redis.exists(tile_key):
@@ -29,9 +29,9 @@ def get_tile(request, tile_key, unsecured=False):  # pragma: no cover
     return HttpResponseBadRequest(f'{tile_key} key does not exist.')
 
 
-def delete_tile(request, tile_key, unsecured=False):  # pragma: no cover
+def delete_tile(request, tile_key):  # pragma: no cover
     """ Delete in redis """
-    if not checkAccessToken(method='DELETE', request=request, unsecured=unsecured):
+    if not checkAccessToken(method='DELETE', request=request):
         return HttpResponse('API KEY incorrect', status=401)
     redis = getCache().redis
     if redis.exists(tile_key):
@@ -40,16 +40,17 @@ def delete_tile(request, tile_key, unsecured=False):  # pragma: no cover
     return HttpResponseBadRequest(f'{tile_key} key does not exist.')
 
 
-def tile_rest(request, tile_key, unsecured=False):  # TODO: "it's better to ask forgiveness than permission" ;)
+def tile_rest(request, tile_key):
     """ Handles reading and deleting of tile's data """
-    if request.method == 'GET':
-        return get_tile(request, tile_key, unsecured)
     if request.method == 'DELETE':
-        return delete_tile(request, tile_key, unsecured)
+        return delete_tile(request, tile_key)
+    if request.method == 'GET':
+        return get_tile(request, tile_key)
     raise Http404
 
 
 def update_dataset_from_tiles(value, previousData, key, tile_template):
+    """ Update dict(tile value) with dict comming from the api, recursiv to update dict deeply """
     rcx = 0
     for dataset in value:
         if rcx >= len(previousData[key]):

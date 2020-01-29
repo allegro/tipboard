@@ -37,9 +37,6 @@ if __name__ == '__main__':
     if argv in ('sensors', '-s'):
         from src.sensors.sensors_main import launch_sensors
         exit(launch_sensors())
-    elif argv in ('test', 'runserver', 'migrate'):
+    elif argv in ('test', 'runserver', 'migrate', 'shell'):
         exit(startDjango())
-    elif argv in ('help', '-h'):
-        exit(show_help())
-    else:
-        print(argv)
+    exit(show_help())
