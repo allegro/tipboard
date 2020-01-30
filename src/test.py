@@ -60,47 +60,66 @@ class TestApp(TestCase):
     def setUp(self):
         self.factory = RequestFactory()
         self.fakeClient = Client()
+        self.cache = MyCache()
         self.ALLOWED_TILES = ALLOWED_TILES
 
-    def test_0001_parser(self):
-        """ Test XmlParser for layout """
-        config = parseXmlLayout()
+    def test_0001_parse_dashboardXml(self):
+        """ Test Parse all tiles, cols, rows from a specific .yaml """
+        config = parseXmlLayout(layout_name='layout_config')
+        self.assertTrue(config is not None)
+
+    def test_0002_getAllDashboardFiles(self):
+        """ Test all dashboard file name from Config/ """
+        config = getConfigNames()
+        self.assertTrue(len(config) > 0)
+
+    def test_0003_parser_getTitleOfDashboard(self):
+        """ Test XmlParser is able to get title of /config/layout_config.yml """
+        config = parseXmlLayout(layout_name='layout_config')
         title = config['details']['page_title']
-        self.assertTrue(title is not None)
+        self.assertTrue(title is not "Tipboard exemple")
+
+    def test_0004_parser_getDashboardColsFromXml(self):  # test if able to parse row
+        """ Test XmlParser able to get cols dashboard of /config/layout_config.yml """
+        self.assertTrue(len(parseXmlLayout(layout_name='layout_config')['layout']) > 0)
+
+    def test_0005_parser_getTilesNameFromXml(self):  # test if able to parse tiles template
+        """ Test XmlParser able to get tiles name of /config/layout_config.yml """
+        self.assertTrue(len(parseXmlLayout(layout_name='layout_config')['tiles_names']) > 0)
+
+    def test_0006_parser_getTilesIdFromXml(self):
+        """ Test XmlParser able to get tiles Id of tiles from /config/layout_config.yml """
+        self.assertTrue(len(parseXmlLayout(layout_name='layout_config')['tiles_keys']) > 0)  # test if able to parse tile_id
 
     def test_0011_cache_redisConnection(self):
-        """ Test redis connection is set """
-        cache = MyCache()
-        self.assertTrue(cache.isRedisConnected is True)
+        """ Test redis connection """
+        self.assertTrue(self.cache.isRedisConnected is True)
 
     def test_0012_cache_permissionTest(self):
         """ Test redis cache Handle when GET / SET """
-        cache = MyCache()
-        self.assertTrue(cache.set(tile_id=getRedisPrefix('test'), dumped_value=json.dumps({'testValue': True})))
-        self.assertTrue(json.loads(cache.redis.get(getRedisPrefix('test')))['testValue'])
+        self.assertTrue(self.cache.set(tile_id=getRedisPrefix('test'), dumped_value=json.dumps({'testValue': True})))
+        self.assertTrue(json.loads(self.cache.redis.get(getRedisPrefix('test')))['testValue'])
 
     def test_0013_cache_parsingTile(self):
         """ Test if cache is able to read directly on Config/dashboard.yml """
-        cache = MyCache()
-        cache.listOfTilesCached()
+        self.cache.listOfTilesCached()
         self.assertTrue(len(listOfTilesFromLayout()) > 0)
 
     def test_0014_cache_ExceptionTest(self):
         """ Test if cache is able to handle an unknow tile without crash """
-        cache = MyCache()
-        self.assertTrue(cache.get(tile_id='test42') is None)
+        self.assertTrue(self.cache.get(tile_id='test42') is None)
 
     def test_0015_cache_buildFakeData(self):
         """ Test fake_data generation: integrity of data + save in redis """
-        cache = getCache()
         for tile in self.ALLOWED_TILES:
             if tile != 'empty':
-                tileData = buildFakeDataFromTemplate(tile_id=f'test_{tile}', template_name=tile, cache=cache)
+                tileData = buildFakeDataFromTemplate(tile_id=f'test_{tile}', template_name=tile, cache=self.cache)
                 self.assertTrue('meta' in tileData)
                 self.assertTrue('data' in tileData)
                 self.assertTrue('id' in tileData)
                 self.assertTrue('tile_template' in tileData)
-                self.assertTrue(json.loads(cache.redis.get(getRedisPrefix(f'test_{tile}')))['id'] == f'test_{tile}')
+                isIdCorrect = json.loads(self.cache.redis.get(getRedisPrefix(f'test_{tile}')))['id'] == f'test_{tile}'
+                self.assertTrue(isIdCorrect)
 
     def test_0101_djangoTemplate_tiles(self):
         """ Test template generation """
@@ -134,9 +153,14 @@ class TestApp(TestCase):
         self.assertTrue(True)
 
     def test_0105_api_getHtmlDashboard(self):
-        """ Test api /api/info """
+        """ Test api getHtmlDashboard """
         reponse = self.fakeClient.get('/dev_properties')
         self.assertTrue(reponse.status_code == 200)
+
+    def test_0106_api_getHtmlDashboardNotFound(self):
+        """ Test api getHtmlDashboardNotFound """
+        reponse = self.fakeClient.get('/FindMe')
+        self.assertTrue(reponse.status_code == 404)
 
     def test_1011_updatetile_PieChart(self):
         """ Test PieChart tile update by api """

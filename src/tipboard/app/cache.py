@@ -27,10 +27,11 @@ def listOfTilesFromLayout(layout_name='layout_config'):
 
 
 class MyCache:
-    def __init__(self):
+    def __init__(self, isTest=False):
         try:
+            dbInRedis = "" if isTest else REDIS_DB
             self.redis = redis.StrictRedis(host=REDIS_HOST, port=REDIS_PORT, password=REDIS_PASSWORD,
-                                           decode_responses=True, db=REDIS_DB)
+                                           decode_responses=True, db=dbInRedis)
             self.redis.time()
             self.isRedisConnected = True
             if LOG:

@@ -80,7 +80,7 @@ def parseXmlLayout(layout_name='layout_config'):
 
 
 def getConfigNames():
-    """ Return all configs files' names (without '.yaml' ext.) from user space (.tipboard/) """
+    """ Return all dashboard file name from Config/ """
     configs_names = list()
     configs_dir = os.path.join(user_config_dir, '*.yaml')
     for config_path in glob.glob(configs_dir):  # Get all name of different *.yml present in Config/ directory
@@ -105,11 +105,8 @@ def getFlipboardTitle():
     return title
 
 
-def getTimeFlipFromLayout(layout_name='layout_config'):
-    pass
-
-
 def getFlipboardTitles():
+    """ Get title of all dashboard inside Config/ """
     config_names = getConfigNames()
     listNameDashboard = list()
     rcx = 1
