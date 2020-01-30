@@ -78,7 +78,7 @@ Depot Github
 
 
 <p align="center"> 
-  <img alt="Tipboard ChartJS" src="https://github.com/the-maux/tipboard/raw/develop/src/tipboard/tipboard.svg"/> 
+  <img alt="Tipboard ChartJS" src="https://github.com/the-maux/tipboard/blob/develop/src/tipboard/tipboard.svg"/> 
 </p>
 
 
