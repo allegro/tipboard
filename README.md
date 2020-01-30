@@ -78,7 +78,7 @@ Depot Github
 
 
 <p align="center"> 
-  <img alt="Tipboard ChartJS" src="https://svgshare.com/i/Hdd.svg"/> 
+  <img alt="Tipboard ChartJS" src="https://github.com/the-maux/tipboard/raw/develop/src/tipboard/tipboard.svg"/> 
 </p>
 
 
