@@ -64,6 +64,23 @@ in your office), it is optimized for larger screens.
 A detailed, technical documentation for Tipboard can be found
 [here](http://tipboard.readthedocs.org/en/latest/) and the wiki is [here](https://github.com/the-maux/tipboard/wiki)
 
+Quick Demo
+-----------
+
+
+<p align="center"> 
+  <img alt="Demo 1" src="https://raw.githubusercontent.com/the-maux/tipboard/develop/src/tipboard/demo.gif"/> 
+</p>
+
+
+Depot Github
+------------
+
+
+<p align="center"> 
+  <img alt="Tipboard ChartJS" src="https://svgshare.com/i/Hdd.svg"/> 
+</p>
+
 
 License
 -------
