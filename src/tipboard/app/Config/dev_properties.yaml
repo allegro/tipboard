@@ -18,7 +18,7 @@ layout:
         - col_1_of_4 flip-time-2:
 
             - tile_template: half_doughnut_chart
-              tile_id: hal_doughnut_ex
+              tile_id: half_doughnut_ex
               title: half_doughnut
               classes:
 

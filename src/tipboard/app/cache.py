@@ -1,8 +1,7 @@
-# -*- coding: utf-8 -*-
 import json, redis
 from asgiref.sync import async_to_sync
 from src.tipboard.app.parser import parseXmlLayout
-from src.tipboard.app.applicationconfig import getRedisPrefix, getIsoTime
+from src.tipboard.app.applicationconfig import getRedisPrefix
 from src.tipboard.app.properties import REDIS_DB, REDIS_PASSWORD, REDIS_HOST, REDIS_PORT, LOG
 from src.tipboard.app.utils import getTimeStr
 from channels.layers import get_channel_layer
@@ -35,9 +34,7 @@ class MyCache:
             self.redis.time()
             self.isRedisConnected = True
             if LOG:
-                print(
-                    f'{getTimeStr()} (+) Initializing cache from redis server with {len(self.listOfTilesCached())} key',
-                    flush=True)
+                print(f'{getTimeStr()} (+) Connect redis server with {len(self.listOfTilesCached())} key', flush=True)
             self.clientsWS = list()
         except Exception:
             print(f'{getTimeStr()} (+) Initializing cache: Redis not connected', flush=True)
@@ -60,6 +57,8 @@ class MyCache:
                 tile_id = tile_id.split(':')[-1]
                 channel_layer = get_channel_layer()
                 async_to_sync(channel_layer.group_send)('event', dict(type='update.tile', tile_id=tile_id))
+            return True
+        return False
 
     def delete(self, tile_id):
         if self.redis.exists(getRedisPrefix(tile_id=tile_id)):
@@ -68,20 +67,6 @@ class MyCache:
         if LOG:
             print(f'{getTimeStr()}(-) tile: {tile_id} not found in redis', flush=True)
         return False
-
-    def createTile(self, tile_id, value, tile_template):
-        try:
-            if self.isRedisConnected:
-                cache.set(getRedisPrefix(tile_id), json.dumps(dict(
-                    id=tile_id,
-                    tile_template=tile_template,
-                    data=json.loads(value),
-                    meta={},
-                    modified=getIsoTime(),
-                )))
-            return True, None
-        except Exception as e:
-            return False, e
 
     def listOfTilesCached(self):
         return [key for key in self.redis.keys(getRedisPrefix())] if self.isRedisConnected else list()

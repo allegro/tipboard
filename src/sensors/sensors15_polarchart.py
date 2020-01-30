@@ -1,11 +1,10 @@
 import time
-from src.sensors.utils import end, sendDataToTipboard, getTimeStr, buildChartUpdateRandomly
+from src.sensors.utils import end, sendUpdateByApi, updateChartJS
 
 
-def sonde15(isTest=False):
-    print(f'{getTimeStr()} (+) Starting sensors 15', flush=True)
+def sonde15(tester=None, tile_id='polararea_ex'):
     start_time = time.time()
-    data = buildChartUpdateRandomly(nbrDataset=1, colorTabIndataset=True)
+    data = updateChartJS(nbrDataset=1, colorTabIndataset=True)
     meta = {
         "scale": {
             "ticks": {
@@ -13,6 +12,5 @@ def sonde15(isTest=False):
             }
         }
     }
-    answer = sendDataToTipboard(data=data, tile_template='polararea_chart', tile_id='polararea_ex', meta=meta,
-                                isTest=isTest)
-    end(title=f'sensor15 -> polararea_ex', start_time=start_time, tipboardAnswer=answer, TILE_ID='polararea_ex')
+    answer = sendUpdateByApi(data=data, tileTemplate='polararea_chart', tileId=tile_id, meta=meta, tester=tester)
+    end(title=f'sensor15 -> -> {tile_id}', startTime=start_time, tipboardAnswer=answer, tileId=tile_id)

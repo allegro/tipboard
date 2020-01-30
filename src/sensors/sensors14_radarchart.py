@@ -1,18 +1,16 @@
 import time
-from src.sensors.utils import end, sendDataToTipboard, getTimeStr, buildChartUpdateRandomly
+from src.sensors.utils import end, sendUpdateByApi, updateChartJS
 from src.tipboard.app.properties import COLOR_TAB
 
 
-def sonde14(isTest=False):
-    TILE_ID = 'radar_ex'
-    print(f'{getTimeStr()} (+) Starting sensors 14', flush=True)
+def sonde14(tester=None, tile_id='radar_ex'):
     start_time = time.time()
-    data = buildChartUpdateRandomly(nbrLabel=5, data=None)
+    data = updateChartJS(nbrLabel=5, data=None)
     index = 0
     for dataset in data['datasets']:  # TODO: ADD THIS TO .JS not in sensors... for simplicity
         dataset['pointBorderColor'] = COLOR_TAB[index]
         dataset['pointBackgroundColor'] = 'rgba(255, 255, 255, 0.5)'
         dataset['fill'] = True
         index = index + 1
-    tipboardAnswer = sendDataToTipboard(data=data, tile_template='radar_chart', tile_id=TILE_ID, isTest=isTest)
-    end(title=f'sensors14 -> {TILE_ID}', start_time=start_time, tipboardAnswer=tipboardAnswer, TILE_ID=TILE_ID)
+    tipboardAnswer = sendUpdateByApi(data=data, tileTemplate='radar_chart', tileId=tile_id, tester=tester)
+    end(title=f'sensors14 -> {tile_id}', startTime=start_time, tipboardAnswer=tipboardAnswer, tileId=tile_id)

@@ -28,7 +28,6 @@ def buildSwicthPythonFfso_o():
 
 
 def buildFakeDataFromTemplate(tile_id, template_name, cache):
-    print(f'Building fake data for {tile_id} as template: {template_name}')
     data = dict()
     ptrToFake = buildSwicthPythonFfso_o()
     if template_name in ptrToFake:

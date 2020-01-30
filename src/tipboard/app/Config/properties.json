@@ -14,5 +14,5 @@
   "VERSION": "0.1",
   "DEBUG": true,
   "LOCAL": true,
-  "LOG": true
+  "LOG": false
 }

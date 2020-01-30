@@ -14,15 +14,15 @@ cache = getCache()
 class WSConsumer(WebsocketConsumer):
     """ Handles client connections on web sockets and listens on Redis subscriptions """
 
-    def connect(self):  # pragma: no cover
+    def connect(self):
         async_to_sync(self.channel_layer.group_add)('event', self.channel_name)
         self.accept()
 
-    def disconnect(self, close_code):  # pragma: no cover
+    def disconnect(self, close_code):
         async_to_sync(self.channel_layer.group_discard)('event', self.channel_name)
         self.close()
 
-    def receive(self, text_data, **kwargs):  # pragma: no cover
+    def receive(self, text_data, **kwargs):
         """ handle msg sended by client, by 2 way: update all tiles or update 1 specific tile """
         if 'first_connection:' in text_data:
             for tile in listOfTilesFromLayout(text_data.replace('first_connection:/', '')):

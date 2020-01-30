@@ -29,7 +29,7 @@ def get_tile(request, tile_key):
     return HttpResponseBadRequest(f'{tile_key} key does not exist.')
 
 
-def delete_tile(request, tile_key):  # pragma: no cover
+def delete_tile(request, tile_key):
     """ Delete in redis """
     if not checkAccessToken(method='DELETE', request=request):
         return HttpResponse('API KEY incorrect', status=401)
@@ -75,7 +75,7 @@ def update_tile_data_from_redis(previousData, newData, tile_template):
     return previousData
 
 
-def save_tile_ToRedis(tile_id, tile_template, data):  # pragma: no cover
+def save_tile_ToRedis(tile_id, tile_template, data):
     cache = getCache()
     tilePrefix = getRedisPrefix(tile_id)
     if not cache.redis.exists(tilePrefix) and DEBUG:  # if tile don't exist, create it with template, DEBUG mode only
@@ -114,25 +114,19 @@ def push_api(request, unsecured=False):
             return HttpData
         data = HttpData.get('data', None)
         tile_id = HttpData.get('tile_id', None)
-        error = is_meta_present_in_request(HttpData.get('meta', None), tile_id)
-        if error:  # protect against update for tile_id not present in redis
-            HttpResponseBadRequest(f'{tile_id} is not present in cache')
-        return save_tile_ToRedis(tile_id=tile_id,
-                                 tile_template=HttpData.get('tile_template', None),
-                                 data=json.dumps(json.loads(data)['data']) if 'data' in json.loads(data) else data)
+        res = save_tile_ToRedis(tile_id=tile_id,
+                                tile_template=HttpData.get('tile_template', None),
+                                data=json.dumps(json.loads(data)['data']) if 'data' in json.loads(data) else data)
+        is_meta_present_in_request(HttpData.get('meta', None), tile_id)
+        return res
     raise Http404
 
 
-def is_meta_present_in_request(meta, tile_id):  # pragma: no cover
+def is_meta_present_in_request(meta, tile_id):
     """ Update the meta(config) of a tile(widget) """
     if meta is not None:
         tilePrefix = getRedisPrefix(tile_id)
-        if getCache().redis.exists(tilePrefix) is not None:
-            cachedTile = json.loads(getCache().redis.get(tilePrefix))
-            metaTile = cachedTile['meta']['options'] if 'options' in cachedTile['meta'] else cachedTile['meta']
-            update_tile_data_from_redis(metaTile, json.loads(meta), None)
-            getCache().set(tilePrefix, json.dumps(cachedTile), sendToWS=False)
-            print(f"(+) Meta of tile {tilePrefix} has been updated")
-            return True
-    print(f"(+) Meta of tile not present")
-    return False
+        cachedTile = json.loads(getCache().redis.get(tilePrefix))
+        metaTile = cachedTile['meta']['options'] if 'options' in cachedTile['meta'] else cachedTile['meta']
+        update_tile_data_from_redis(metaTile, json.loads(meta), None)
+        getCache().set(tilePrefix, json.dumps(cachedTile), sendToWS=False)

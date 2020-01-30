@@ -1,5 +1,5 @@
 import time, random
-from src.sensors.utils import end, sendDataToTipboard, getTimeStr
+from src.sensors.utils import end, sendUpdateByApi, getTimeStr
 from src.tipboard.app.properties import BACKGROUND_TAB
 
 
@@ -31,5 +31,5 @@ def sonde9(isTest=False):
     data = executeScriptToGetData()
     meta = dict(big_value_color=BACKGROUND_TAB[random.randrange(0, 3)],
                 fading_background=random.choice([False, True]))
-    tipboardAnswer = sendDataToTipboard(tile_id=TILE_ID, data=data, tile_template='big_value', isTest=isTest, meta=meta)
-    end(title=f'sensors9 -> {TILE_ID}', start_time=start_time, tipboardAnswer=tipboardAnswer, TILE_ID=TILE_ID)
+    tipboardAnswer = sendUpdateByApi(tileId=TILE_ID, data=data, tileTemplate='big_value', isTest=isTest, meta=meta)
+    end(title=f'sensors9 -> {TILE_ID}', startTime=start_time, tipboardAnswer=tipboardAnswer, tileId=TILE_ID)

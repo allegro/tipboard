@@ -7,43 +7,36 @@ layout:
             - tile_template: doughnut_chart
               tile_id: doughnut_ex
               title: doughnut
-              classes:
 
         - col_1_of_7:
             - tile_template: polararea_chart
               tile_id: polararea_ex
               title: polar-area
-              classes:
 
         - col_1_of_7:
             - tile_template: radar_chart
               tile_id: radar_ex
               title: radar chart
-              classes:
 
         - col_1_of_7:
             - tile_template: pie_chart
               tile_id: pie_chartjs_ex
               title: pie chart
-              classes:
 
         - col_1_of_7:
             - tile_template: vbar_chart
               tile_id: vbarjs_ex
               title: vertical bar
-              classes:
 
         - col_1_of_7:
             - tile_template: bar_chart
               tile_id: barjs_ex
               title: bar tile's
-              classes:
 
         - col_1_of_7:
             - tile_template: line_chart
               tile_id: line_chartjs_ex
               title: line tile's
-              classes:
 
     - row_1_of_2:
 
@@ -51,49 +44,41 @@ layout:
             - tile_template: cumulative_flow
               tile_id: cfjs_ex
               title: cumulflow
-              classes:
 
         - col_1_of_7:
             - tile_template: norm_chart
               tile_id: normjs_ex
               title: norm tile's
-              classes:
 
         - col_1_of_7:
             - tile_template: simple_percentage
               tile_id: sp_ex
               title: Percentage
-              classes:
 
         - col_1_of_7:
             - tile_template: half_doughnut_chart
-              tile_id: hal_doughnut_ex
+              tile_id: half_doughnut_ex
               title: half_doughnut
-              classes:
 
 #            - tile_template: listing
 #              tile_id: listing_ex
 #              title: listing
-#              classes:
 
         - col_1_of_7:
 
             - tile_template: big_value
               tile_id: bv_ex
               title: Big value
-              classes:
 
         - col_1_of_7 :
             - tile_template: just_value
               tile_id: jv_ex
               title: Just value
-              classes:
 
         - col_1_of_7 :
 
             - tile_template: text
               tile_id: txt_ex
               title: text
-              classes:
 
 

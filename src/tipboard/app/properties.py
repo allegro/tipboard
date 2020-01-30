@@ -66,3 +66,6 @@ TIPBOARD_JAVASCRIPTS = ['js/dashboard.js', 'js/websocket.js', 'js/tipboard.js']
 
 # how many seconds dashboard is displayed before is flipped, if 0 than NO FLIPBOARD
 FLIPBOARD_INTERVAL = 10
+
+if LOG:
+    print(f"Tipboard start in DEBUG MODE:{DEBUG} & LOG:{LOG}")

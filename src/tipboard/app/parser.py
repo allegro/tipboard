@@ -1,5 +1,5 @@
 import glob, os, yaml
-from src.tipboard.app.properties import DEBUG, user_config_dir
+from src.tipboard.app.properties import LOG, user_config_dir
 from src.tipboard.app.utils import getTimeStr
 
 
@@ -49,7 +49,7 @@ def findTilesNames(cols_data):
     for col_dict in cols_data:
         for tiles_dict in list(col_dict.values()):
             analyseCols(tiles_id, tiles_templates, tiles_dict)
-    if DEBUG:
+    if LOG:
         print(f"{getTimeStr()} (+) Parsing Config file with {len(tiles_id)} tiles parsed "
               f"and {len(tiles_templates)} tiles templates")
     return tiles_templates, tiles_id
@@ -102,7 +102,6 @@ def getFlipboardTitle():
             title = 'Flipboard Mode'
     except KeyError:
         print(f"{getTimeStr()} (+) config {config_names[0]} has no key: details/page_title'", flush=True)
-    print(f"TITLE:{title}")
     return title
 
 

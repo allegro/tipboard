@@ -19,7 +19,7 @@ def renderFlipboardHtml(request):
                        tipboard_js=['js/flipboard.js']))
 
 
-def getDashboardsPaths(request):  # pragma: no cover
+def getDashboardsPaths(request):
     """ Return the path of layout prensent in the ./tipboard/app/Config """
     paths = ['/' + config_name for config_name in getConfigNames()]
     names = getFlipboardTitles()
@@ -64,7 +64,7 @@ def getTilesDependency(layout_name):
     return data
 
 
-def renderHtmlForTiles(request, layout_name='layout_config'):  # pragma: no cover
+def renderHtmlForTiles(request, layout_name='layout_config'):
     """ Render Htlm page with CSS/JS dependency for all the tiles needed in layout.yaml(dashboard) """
     try:
         data = getTilesDependency(layout_name)

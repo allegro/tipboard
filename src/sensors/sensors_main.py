@@ -2,7 +2,7 @@ import time
 from datetime import datetime, timedelta
 from apscheduler.schedulers.blocking import BlockingScheduler
 from src.sensors.sensors1_text import sonde1
-# from src.sensors.sensors2_piechart import sonde2
+from src.sensors.sensors2_piechart import sonde2
 from src.sensors.sensors3_linechart import sonde3
 from src.sensors.sensors4_cumulativeflow import sonde4
 from src.sensors.sensors5_simplepercentage import sonde5
@@ -14,7 +14,7 @@ from src.sensors.sensors12_normchart import sonde12
 from src.sensors.sensors14_radarchart import sonde14
 from src.sensors.sensors15_polarchart import sonde15
 from src.sensors.sensors16_dougnutchart import sonde16
-# from src.sensors.sensors17_halfdougnutchart import sonde17
+from src.sensors.sensors17_halfdougnutchart import sonde17
 from src.sensors.utils import end
 
 
@@ -45,7 +45,7 @@ def addSchedule(scheduler, sonde, timeToRun=datetime.now(), second=8):
 def scheduleYourSensors(scheduler):  # pragma: no cover
     now = datetime.now()
     scheduler.add_job(sonde1, 'interval', seconds=2)
-    # addSchedule(scheduler, sonde2, timeToRun=now + timedelta(milliseconds=100), second=40)
+    addSchedule(scheduler, sonde2, timeToRun=now + timedelta(milliseconds=100), second=40)
     addSchedule(scheduler, sonde3, timeToRun=now + timedelta(milliseconds=200), second=3)
     addSchedule(scheduler, sonde4, timeToRun=now + timedelta(milliseconds=300), second=19)
     addSchedule(scheduler, sonde5, timeToRun=now + timedelta(milliseconds=400), second=16)
@@ -60,7 +60,7 @@ def scheduleYourSensors(scheduler):  # pragma: no cover
     addSchedule(scheduler, sonde14, timeToRun=now + timedelta(milliseconds=150), second=2)
     addSchedule(scheduler, sonde15, timeToRun=now + timedelta(milliseconds=250), second=28)
     addSchedule(scheduler, sonde16, timeToRun=now + timedelta(milliseconds=350), second=30)
-   # addSchedule(scheduler, sonde17, timeToRun=now + timedelta(milliseconds=350), second=30)
+    addSchedule(scheduler, sonde17, timeToRun=now + timedelta(milliseconds=350), second=30)
     print(f"(+) Tipboard starting schedul task", flush=True)
     scheduler.start()
     return True
@@ -76,4 +76,4 @@ if __name__ == "__main__":  # pragma: no cover
     start_time = time.time()
     # launch_sensors()
     scheduleYourSensors(BlockingScheduler())  # If you need actualized data :)
-    end(title="startUp", start_time=start_time)
+    end(title="startUp", startTime=start_time)

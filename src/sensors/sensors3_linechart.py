@@ -1,12 +1,10 @@
 import time
-from src.sensors.utils import end, sendDataToTipboard, buildChartUpdateRandomly, getTimeStr
+from src.sensors.utils import end, sendUpdateByApi, updateChartJS
 
 
-def sonde3(isTest=False):
+def sonde3(tester=None, tile_id='line_chart_ex'):
     TILE_TEMPLATE = 'line_chart'
-    TILE_ID = 'line_chartjs_ex'
-    print(f'{getTimeStr()} (+) Starting sensors 3', flush=True)
     start_time = time.time()
-    data = buildChartUpdateRandomly()
-    tipboardAnswer = sendDataToTipboard(data=data, tile_template=TILE_TEMPLATE, tile_id=TILE_ID, isTest=isTest)
-    end(title=f'sensors3 -> {TILE_ID}', start_time=start_time, tipboardAnswer=tipboardAnswer, TILE_ID=TILE_ID)
+    data = updateChartJS()
+    tipboardAnswer = sendUpdateByApi(data=data, tileTemplate=TILE_TEMPLATE, tileId=tile_id, tester=tester)
+    end(title=f'sensors3 -> {tile_id}', startTime=start_time, tipboardAnswer=tipboardAnswer, tileId=tile_id)

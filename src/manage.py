@@ -8,7 +8,7 @@ def startDjango(settings_path='tipboard.webserver.settings'):
     os.environ.setdefault('DJANGO_SETTINGS_MODULE', settings_path)
     try:
         from django.core.management import execute_from_command_line
-    except ImportError as exc:  # pragma: no cover
+    except ImportError as exc:
         raise ImportError(
             'Couldn t import Django. Are you sure it s installed and '
             'available on your PYTHONPATH environment variable? Did you '
@@ -17,7 +17,7 @@ def startDjango(settings_path='tipboard.webserver.settings'):
     return execute_from_command_line(sys.argv)
 
 
-def show_help():  # pragma: no cover
+def show_help():
     print('''
     Usage:
       -h, or help  \t\t=> show help usage
@@ -26,7 +26,7 @@ def show_help():  # pragma: no cover
     return 0
 
 
-def main_as_pkg():  # pragma: no cover
+def main_as_pkg():
     """ to become a python package and go to pypi, started in ../setup.py """
     return startDjango(settings_path='src.tipboard.webserver.settings')
 

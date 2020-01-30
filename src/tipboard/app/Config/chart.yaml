@@ -16,7 +16,7 @@ layout:
               classes:
 
             - tile_template: half_doughnut_chart
-              tile_id: hal_doughnut_ex
+              tile_id: half_doughnut_ex
               title: half_doughnut
               classes:
 
