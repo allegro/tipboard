@@ -1,5 +1,5 @@
 import time, random
-from src.sensors.utils import end, sendUpdateByApi, getTimeStr
+from src.sensors.utils import end, sendUpdateByApi
 
 
 def getItemExemple(index):
@@ -27,10 +27,8 @@ def executeScriptToGetData():
     return getItemExemple(random.randrange(0, 3))
 
 
-def sonde6(isTest=False):
-    TILE_ID = 'listing_ex'
-    print(f'{getTimeStr()} (+) Starting sensors 6', flush=True)
+def sonde6(tester=False, tile_id='listing_ex'):
     start_time = time.time()
     data = executeScriptToGetData()
-    tipboardAnswer = sendUpdateByApi(data=data, tileTemplate='listing', tileId=TILE_ID, isTest=isTest)
-    end(title=f'sensors6 -> {TILE_ID}', startTime=start_time, tipboardAnswer=tipboardAnswer, tileId=TILE_ID)
+    tipboardAnswer = sendUpdateByApi(data=data, tileTemplate='listing', tileId=tile_id, tester=tester)
+    end(title=f'sensors6 -> {tile_id}', startTime=start_time, tipboardAnswer=tipboardAnswer, tileId=tile_id)

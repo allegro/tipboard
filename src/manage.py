@@ -6,14 +6,7 @@ import sys
 def startDjango(settings_path='tipboard.webserver.settings'):
     """ Start the django with DJANGO_SETTINGS_MODULE path added in env """
     os.environ.setdefault('DJANGO_SETTINGS_MODULE', settings_path)
-    try:
-        from django.core.management import execute_from_command_line
-    except ImportError as exc:
-        raise ImportError(
-            'Couldn t import Django. Are you sure it s installed and '
-            'available on your PYTHONPATH environment variable? Did you '
-            'forget to activate a virtual environment?'
-        ) from exc
+    from django.core.management import execute_from_command_line
     return execute_from_command_line(sys.argv)
 
 

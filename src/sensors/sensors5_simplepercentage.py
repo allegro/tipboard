@@ -1,5 +1,5 @@
 import time, random
-from src.sensors.utils import end, sendUpdateByApi, getTimeStr
+from src.sensors.utils import end, sendUpdateByApi
 
 
 def executeScriptToGetData():
@@ -14,11 +14,9 @@ def executeScriptToGetData():
             'right_label': 'Random label 2', 'right_value': f'{rl}%'}
 
 
-def sonde5(tester=False):
-    TILE_ID = 'sp_ex'
-    print(f'{getTimeStr()} (+) Starting sensors 5', flush=True)
+def sonde5(tester=False, tile_id='sp_ex'):
     start_time = time.time()
     data = executeScriptToGetData()
-    tipboardAnswer = sendUpdateByApi(tileId=TILE_ID, data=data, tileTemplate='simple_percentage', tester=tester)
+    tipboardAnswer = sendUpdateByApi(tileId=tile_id, data=data, tileTemplate='simple_percentage', tester=tester)
     # TODO: Ajouter les meta
-    end(title=f'sensors5 -> {TILE_ID}', startTime=start_time, tipboardAnswer=tipboardAnswer, tileId=TILE_ID)
+    end(title=f'sensors5 -> {tile_id}', startTime=start_time, tipboardAnswer=tipboardAnswer, tileId=tile_id)
