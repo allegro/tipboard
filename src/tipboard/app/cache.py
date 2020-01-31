@@ -2,7 +2,7 @@ import json, redis
 from asgiref.sync import async_to_sync
 from src.tipboard.app.parser import parseXmlLayout
 from src.tipboard.app.applicationconfig import getRedisPrefix
-from src.tipboard.app.properties import REDIS_DB, REDIS_PASSWORD, REDIS_HOST, REDIS_PORT, LOG
+from src.tipboard.app.properties import REDIS_DB, REDIS_PASSWORD, REDIS_HOST, REDIS_PORT
 from src.tipboard.app.utils import getTimeStr
 from channels.layers import get_channel_layer
 
@@ -34,8 +34,6 @@ class MyCache:
                                            decode_responses=True, db=dbInRedis)
             self.redis.time()
             self.isRedisConnected = True
-            if LOG:
-                print(f'{getTimeStr()} (+) Connect redis server with {len(self.listOfTilesCached())} key', flush=True)
             self.clientsWS = list()
         except Exception:
             print(f'{getTimeStr()} (+) Initializing cache: Redis not connected', flush=True)
@@ -45,13 +43,9 @@ class MyCache:
         prefix = tile_id
         if self.isRedisConnected and self.redis.exists(prefix):
             return json.dumps(self.redis.get(prefix))
-        if LOG:
-            print(f'{getTimeStr()} (-) tile: {prefix} not found in redis', flush=True)
         return None
 
     def set(self, tile_id, dumped_value, sendToWS=True):
-        if LOG:
-            print(f'{getTimeStr()} (+) Redis save and publish: {tile_id}', flush=True)
         if self.isRedisConnected:
             self.redis.set(tile_id, dumped_value)
             if sendToWS:
@@ -65,8 +59,6 @@ class MyCache:
         if self.redis.exists(getRedisPrefix(tile_id=tile_id)):
             self.redis.delete(getRedisPrefix(tile_id=tile_id))
             return True
-        if LOG:
-            print(f'{getTimeStr()}(-) tile: {tile_id} not found in redis', flush=True)
         return False
 
     def listOfTilesCached(self):

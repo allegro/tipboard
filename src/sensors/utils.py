@@ -3,9 +3,7 @@ from src.tipboard.app.properties import TIPBOARD_URL, COLOR_TAB, LOG
 
 
 def printEndOfTipboardCall(tipboardAnswer, tileId):
-    if tipboardAnswer is not None:
-        print(f'POST tile:{tileId} tipboard/push => ({str(tipboardAnswer.status_code)}): ', flush=True)
-    else:
+    if tipboardAnswer is None:
         print(f'POST tile:{tileId} tipboard/push => (FAILED HTTP CONNECT): ', flush=True)
 
 
@@ -20,7 +18,7 @@ def end(title=None, startTime=None, tipboardAnswer=None, tileId=None):
             print(f'{getTimeStr()}-{title}: executed script in {s} seconds', flush=True)
         else:
             print(f'{getTimeStr()}-{title}: executed script in {m}:{s}', flush=True)
-        print(f'----------------------------------------------------------------------------------------------', flush=True)
+        print(f'-----------------------------------------------------------------------------------------', flush=True)
 
 
 def getTimeStr():

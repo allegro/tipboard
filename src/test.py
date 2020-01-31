@@ -1,5 +1,6 @@
-import json
+import json, time, os
 from django.test import RequestFactory, TestCase, Client
+from apscheduler.schedulers.background import BackgroundScheduler
 from src.manage import show_help
 from src.tipboard.app.properties import ALLOWED_TILES
 from src.tipboard.templates.template_filter import template_tile
@@ -23,18 +24,9 @@ from src.sensors.sensors14_radarchart import sonde14
 from src.sensors.sensors15_polarchart import sonde15
 from src.sensors.sensors16_dougnutchart import sonde16
 from src.sensors.sensors17_halfdougnutchart import sonde17
-# from src.sensors.sensors_main import launch_sensors
+from src.sensors.sensors_main import scheduleYourSensors
+from src.tipboard.app.views.dashboard import demo_controller
 
-
-# @pytest.mark.asyncio
-# async def test_0001_test_consumer():
-#     #communicator = HttpCommunicator(WSConsumer, 'GET', '/communication/websocket')
-#     communicator = WebsocketCommunicator(WSConsumer, '/communication/websocket')
-#     connected, subprotocol = await communicator.connect()
-#     assert connected
-#     # response = await communicator.get_response()
-#     # self.assertTrue(response['status'] == 200)
-#     await   communicator.disconnect()
 
 def testTileUpdate(tester=None, tileId='test_pie_chart', sonde=None, isChartJS=True):
     """
@@ -46,6 +38,8 @@ def testTileUpdate(tester=None, tileId='test_pie_chart', sonde=None, isChartJS=T
     """
     tilePrefix = getRedisPrefix(tileId)
     beforeUpdate = json.loads(getCache().redis.get(tilePrefix))
+    if tileId == 'test_vbar_chart':
+        sonde(tester=tester, tile_id=tileId, isHorizontal=True)
     sonde(tester=tester, tile_id=tileId)
     afterUpdate = json.loads(getCache().redis.get(tilePrefix))
     if isChartJS:
@@ -55,7 +49,7 @@ def testTileUpdate(tester=None, tileId='test_pie_chart', sonde=None, isChartJS=T
     tester.assertTrue(isDiff)
 
 
-class TestApp(TestCase):
+class TestApp(TestCase):  # TODO: find a way to test the WebSocket inside django
 
     def setUp(self):
         self.factory = RequestFactory()
@@ -77,7 +71,7 @@ class TestApp(TestCase):
         """ Test XmlParser is able to get title of /config/layout_config.yml """
         config = parseXmlLayout(layout_name='layout_config')
         title = config['details']['page_title']
-        self.assertTrue(title is not "Tipboard exemple")
+        self.assertTrue(title != 'Tipboard exemple')
 
     def test_0004_parser_getDashboardColsFromXml(self):  # test if able to parse row
         """ Test XmlParser able to get cols dashboard of /config/layout_config.yml """
@@ -135,7 +129,7 @@ class TestApp(TestCase):
         self.assertTrue(getFlipboardTitle() is not None)
         self.assertTrue(getConfigNames() is not None)
 
-    def test_0103_api_info(self):  # TODO FULL GET /dev_properties && GET / && GET /api/tiledata/
+    def test_0103_api_info(self):
         """ Test api /api/info """
         reponse = self.fakeClient.get('/api/info')
         self.assertTrue(reponse.status_code == 200)
@@ -161,6 +155,32 @@ class TestApp(TestCase):
         """ Test api getHtmlDashboardNotFound """
         reponse = self.fakeClient.get('/FindMe')
         self.assertTrue(reponse.status_code == 404)
+
+    def test_0107_api_deleteTileFromApi(self):  # deleting first, cause when get => will be create with FakeData
+        """ Test api delete Tile from api """
+        reponse = self.fakeClient.delete('/api/tiledata/test_text')
+        self.assertTrue(reponse.status_code == 200)
+
+    def test_0108_api_getTileFromApi(self):
+        """ Test api get tile data from api """
+        reponse = self.fakeClient.get('/api/tiledata/test_text')
+        self.assertTrue(reponse.status_code == 200)
+
+    def test_0109_api_parseTitleHtmlFromDashboard(self):
+        """ Test if Yaml to dashboard.html know how to parse title """
+        reponse = self.fakeClient.get('/dev_properties')
+        title = b'<title>Dashboard</title>'
+        self.assertTrue(title in reponse.content)
+
+    def test_0110_api_parseConfigHtmlFromDashboard(self):  # test with other file when row_1_of_1
+        reponse = self.fakeClient.get('/dev_properties')
+        configInYaml = b'id="row_1_of_2"'
+        self.assertTrue(configInYaml in reponse.content)
+
+    def test_0111_api_parseConfigHtmlFromDashboard(self):
+        reponse = self.fakeClient.get('/dev_properties')
+        IdTilePresenInYaml = b'id="pie_chartjs_ex"'
+        self.assertTrue(IdTilePresenInYaml in reponse.content)
 
     def test_1011_updatetile_PieChart(self):
         """ Test PieChart tile update by api """
@@ -218,16 +238,36 @@ class TestApp(TestCase):
         """ Test big_value tile update by api """
         testTileUpdate(tester=self, tileId='test_big_value', sonde=sonde9, isChartJS=False)
 
-    def test_1024_updatetile_justValue(self):
+    def test_1025_updatetile_justValue(self):
         """ Test just_value tile update by api """
         testTileUpdate(tester=self, tileId='test_just_value', sonde=sonde10, isChartJS=False)
 
-    # def test_0010_test_schedulesensors(self):
-    #     launch_sensors(isTest=True, checker=self, fakeClient=self.fakeClient)
+    def test_1026_test_schedulesensors(self):
+        tilePrefix = getRedisPrefix("sp_ex")
+        beforeUpdate = json.loads(getCache().redis.get(tilePrefix))
+        scheduler = BackgroundScheduler()
+        scheduleYourSensors(scheduler=scheduler, tester=self)
+        time.sleep(10)
+        scheduler.shutdown()
+        afterUpdate = json.loads(getCache().redis.get(tilePrefix))
+        isDiff = beforeUpdate['data'] != afterUpdate['data']
+        self.assertTrue(isDiff)
 
-    # def test_0010_test_demo_mode(self):
-    #     launch_sensors(isTest=True, checker=self, fakeClient=self.fakeClient)
+    def test_1027_test_demo_mode(self):
+        reponse = demo_controller(None, flagSensors='on', tester=self)
+        self.assertTrue(reponse.status_code == 302)
+        time.sleep(10)
+        reponse = demo_controller(None, flagSensors='off', tester=self)
+        self.assertTrue(reponse.status_code == 302)
 
-    def test_1024_checkmanage(self):
+    def test_1030_checkmanage(self):
         """ Test just_value tile update by api """
         show_help()
+
+    def test_4242_nohided_code(self):
+        """ Test if there is code hided from the coverage """
+        os.system("grep --exclude='*.pyc' -rnw ./src -e 'pr" + "agma' > dumpPragmaGulty")
+        errors = len(open("dumpPragmaGulty", "r").read().splitlines())
+        self.assertTrue(errors == 0)
+        if errors == 0:
+            os.system("rm dumpPragmaGulty")

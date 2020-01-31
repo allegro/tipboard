@@ -1,4 +1,4 @@
-from django.http import JsonResponse, HttpResponse, Http404, HttpResponseRedirect
+from django.http import JsonResponse, HttpResponse, HttpResponseRedirect
 from django.contrib.staticfiles import finders
 from django.shortcuts import render
 from src.tipboard.app.parser import parseXmlLayout, getFlipboardTitle, getConfigNames, getFlipboardTitles
@@ -78,12 +78,10 @@ def renderHtmlForTiles(request, layout_name='layout_config'):
         return HttpResponse(msg, status=404)
 
 
-def demo_controller(request, flagSensors):
+def demo_controller(request, flagSensors=None, tester=None):
     """ activate or not the sensors by api  """
-    if request.method == 'GET':
-        if flagSensors == "on":
-            scheduleYourSensors(scheduler)
-        elif flagSensors == "off":
-            stopTheSensors(scheduler)
-        return HttpResponseRedirect('/')
-    raise Http404
+    if flagSensors == 'on':
+        scheduleYourSensors(scheduler, tester)
+    elif flagSensors == 'off':
+        stopTheSensors(scheduler)
+    return HttpResponseRedirect('/')

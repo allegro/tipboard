@@ -21,20 +21,20 @@ def project_info(request):
 
 def get_tile(request, tile_key):
     """ Return Json from redis for tile_key """
-    if not checkAccessToken(method='GET', request=request):
+    if not checkAccessToken(method='GET', request=request, unsecured=True):
         return HttpResponse('API KEY incorrect', status=401)
     redis = getCache().redis
-    if redis.exists(tile_key):
+    if redis.exists(getRedisPrefix(tile_key)):
         return HttpResponse(redis.get(tile_key))
     return HttpResponseBadRequest(f'{tile_key} key does not exist.')
 
 
 def delete_tile(request, tile_key):
     """ Delete in redis """
-    if not checkAccessToken(method='DELETE', request=request):
+    if not checkAccessToken(method='DELETE', request=request, unsecured=True):
         return HttpResponse('API KEY incorrect', status=401)
     redis = getCache().redis
-    if redis.exists(tile_key):
+    if redis.exists(getRedisPrefix(tile_key)):
         redis.delete(tile_key)
         return HttpResponse('Tile\'s data deleted.')
     return HttpResponseBadRequest(f'{tile_key} key does not exist.')

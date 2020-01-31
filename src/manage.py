@@ -1,6 +1,7 @@
 #!/bin/python
 import os
 import sys
+from apscheduler.schedulers.blocking import BlockingScheduler
 
 
 def startDjango(settings_path='tipboard.webserver.settings'):
@@ -28,8 +29,8 @@ if __name__ == '__main__':
     argv = sys.argv[1]
     sys.path.insert(0, os.getcwd())  # Import project to PYTHONPATH
     if argv in ('sensors', '-s'):
-        from src.sensors.sensors_main import launch_sensors
-        exit(launch_sensors())
+        from src.sensors.sensors_main import scheduleYourSensors
+        scheduleYourSensors(BlockingScheduler())
     elif argv in ('test', 'runserver', 'migrate', 'shell'):
         exit(startDjango())
     exit(show_help())
