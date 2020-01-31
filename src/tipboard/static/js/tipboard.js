@@ -81,10 +81,10 @@ function startClientConnection() {
 }
 
 function initChartjsDefault() {
-    Chart.defaults.global.defaultFontColor = "rgba(255, 255, 255, 0.83)";
+    Chart.defaults.global.defaultFontColor = "rgba(0, 0, 0, 0.83)";
     Chart.defaults.global.elements.line.backgroundColor = "#FFFFFF";
     Chart.defaults.scale.gridLines.display = true;
-    Chart.defaults.scale.gridLines.color = "#525252";
+    Chart.defaults.scale.gridLines.color = "#929292";
 }
 
 /**

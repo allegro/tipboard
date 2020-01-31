@@ -41,7 +41,7 @@ h6 {
     COMPONENTS
  */
 .tile {
-    background-color: #313131;
+    background-color: #ffffff;
     height: 100%;
     width: 100%;
     position: absolute;
@@ -62,6 +62,7 @@ h6 {
     text-overflow: ellipsis;
     white-space: nowrap;
     font-size: calc(15px + (24 - 15) * ((100vw - 300px) / (1600 - 300)));
+    color: #1b1e21;
 }
 
 .tile > .tile-content {
