@@ -61,8 +61,8 @@ relatively high degree of possible customizations.
 Because of its intended target (displaying various data and statistics
 in your office), it is optimized for larger screens.
 
-A detailed, technical documentation for Tipboard can be found
-[here](http://tipboard.readthedocs.org/en/latest/) and the wiki is [here](https://github.com/the-maux/tipboard/wiki)
+Wiki is [here](https://github.com/the-maux/tipboard/wiki) (in wip)
+ChartJS demo can be found [here](http://jerairrest.github.io/react-chartjs-2/)
 
 Quick Demo
 -----------
