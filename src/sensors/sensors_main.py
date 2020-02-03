@@ -20,9 +20,9 @@ from src.sensors.utils import end
 
 def addSchedule(scheduler, sonde, second=8, args=None):
     if args is None:
-        scheduler.add_job(sonde, 'interval', seconds=second)
+        scheduler.add_job(sonde, 'interval', seconds=5)
     else:
-        scheduler.add_job(sonde, 'interval', seconds=second, args=args)
+        scheduler.add_job(sonde, 'interval', seconds=5, args=args)
 
 
 def scheduleYourSensors(scheduler=None, tester=None):

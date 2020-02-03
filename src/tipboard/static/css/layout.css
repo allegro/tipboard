@@ -9,16 +9,16 @@ html, body {
 
 h2  {
     text-align: center;
-    color: #FFFFFF;
+    color: #212121;
 }
 
 h3 {
-    color: #FFFFFF;
+    color: #212121;
     text-align: center;
 }
 
 h6 {
-    color: #FFFFFF;
+    color: #212121;
     text-align: center;
 }
 
@@ -37,6 +37,8 @@ h6 {
     margin: 2px;
 }
 
+
+
 /**
     COMPONENTS
  */
@@ -52,7 +54,7 @@ h6 {
     height: 36px;
     line-height: 36px;
     text-transform: full-width;
-    border-bottom: 1px solid rgba(255,255,255,0.1);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
     margin-top: 2%;
 }
 

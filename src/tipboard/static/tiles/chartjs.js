@@ -137,9 +137,9 @@ function updateChartjs(tileId, data, meta, tileType) {
     }
 }
 
-Tipboard.Dashboard.registerUpdateFunction("bar_chart", updateChartjs);
-Tipboard.Dashboard.registerUpdateFunction("polararea_chart", updateChartjs);
-Tipboard.Dashboard.registerUpdateFunction("pie_chart", updateChartjs);
-Tipboard.Dashboard.registerUpdateFunction("norm_chart", updateChartjs);
-Tipboard.Dashboard.registerUpdateFunction("radar_chart", updateChartjs);
-Tipboard.Dashboard.registerUpdateFunction("line_chart", updateChartjs);
+Tipboard.Dashboard.updateFunctions["line_chart"] = updateChartjs;
+Tipboard.Dashboard.updateFunctions["radar_chart"] = updateChartjs;
+Tipboard.Dashboard.updateFunctions["norm_chart"] = updateChartjs;
+Tipboard.Dashboard.updateFunctions["pie_chart"] = updateChartjs;
+Tipboard.Dashboard.updateFunctions["polararea_chart"] = updateChartjs;
+Tipboard.Dashboard.updateFunctions["bar_chart"] = updateChartjs;

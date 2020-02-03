@@ -7,7 +7,6 @@ let showNext = function showNextDashboard() {
     let nextDashboardPath = this.getNextDashboardPath();
     let activeIframe = $($("iframe")[0]);
     if (nextDashboardPath === $(activeIframe).attr("src")) {
-        console.log("same dashboard - SKIPPING");
         return false;
     }
     let clonedIframe = $(activeIframe.clone());
@@ -60,7 +59,6 @@ function initFlipboard() {
                 method: "post",
                 url: "/flipboard/getDashboardsPaths",
                 success: function (data) {
-                    console.log("loading layout:" + data.paths);
                     Flipboard.init(data.paths, data.names);
                     Flipboard.showNextDashboard();
                     let flipInterval = $("iframe").attr("data-fliptime-interval");

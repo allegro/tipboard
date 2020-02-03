@@ -96,8 +96,9 @@ function updateTileTextValue(tileId, data, config, tileType) {
     Tipboard.Dashboard.applyFading(body, config.big_value_color, config.fading_background);
 }
 
-Tipboard.Dashboard.registerUpdateFunction("just_value", updateTileTextValue);
-Tipboard.Dashboard.registerUpdateFunction("simple_percentage", updateTileTextValue);
-Tipboard.Dashboard.registerUpdateFunction("big_value", updateTileTextValue);
-Tipboard.Dashboard.registerUpdateFunction("listing", updateTileTextValue);
-Tipboard.Dashboard.registerUpdateFunction("text", updateTileTextValue);
+Tipboard.Dashboard.updateFunctions["just_value"] = updateTileTextValue;
+Tipboard.Dashboard.updateFunctions["simple_percentage"] = updateTileTextValue;
+Tipboard.Dashboard.updateFunctions["big_value"] = updateTileTextValue;
+Tipboard.Dashboard.updateFunctions["listing"] = updateTileTextValue;
+Tipboard.Dashboard.updateFunctions["text"] = updateTileTextValue;
+

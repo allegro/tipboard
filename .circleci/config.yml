@@ -45,7 +45,7 @@ jobs:
           path: test-reports
           destination: test-reports
 
-  deploy_pypi:
+  deploy_to_pypi:
     docker:
       - image: circleci/python:3.7
     steps:
