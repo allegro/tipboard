@@ -56,5 +56,5 @@ def updateChartJS(nbrDataset=None, nbrLabel=None, colorTabIndataset=False, data=
             dict(label=f'Serie {index + 1}',
                  data=[random.randrange(100, 1000) for _ in range(nbrLabel)] if data is None else data,
                  backgroundColor=COLOR_TAB[index] if colorTabIndataset is False else COLOR_TAB,
-                 borderColor=COLOR_TAB[index] if colorTabIndataset is False else '#525252'))
+                 borderColor=COLOR_TAB[index] if colorTabIndataset is False else '#626262'))
     return tileData

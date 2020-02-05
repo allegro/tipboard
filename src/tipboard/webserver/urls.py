@@ -3,8 +3,8 @@ from django.conf.urls.static import static
 from django.views.generic.base import RedirectView
 from django.conf.urls import url
 from src.tipboard.app.views.api import push_api, project_info, tile_rest
-from src.tipboard.app.views.dashboard import renderHtmlForTiles, getDashboardsPaths
-from src.tipboard.app.views.dashboard import renderFlipboardHtml, demo_controller
+from src.tipboard.app.views.flipboard import renderDashboardHtml, getDashboardsPaths
+from src.tipboard.app.views.flipboard import renderFlipboardHtml, demo_controller
 
 favicon_view = RedirectView.as_view(url='/static/favicon.ico', permanent=True)
 
@@ -18,7 +18,7 @@ urlpatterns = [
     url(r'^demo/([a-zA-Z0-9_-]+)$', demo_controller),  # start a demo with sensors to actualize data
 
     url(r'^$', renderFlipboardHtml),
-    url(r'^([a-zA-Z0-9_-]*)$', renderHtmlForTiles),
+    url(r'^([a-zA-Z0-9_-]*)$', renderDashboardHtml),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
 urlpatterns += static('/docs/', document_root='docs/index.yml')

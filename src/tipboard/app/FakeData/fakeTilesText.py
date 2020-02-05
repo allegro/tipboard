@@ -47,16 +47,6 @@ def getFakeText(tile_id, template_name):
     }
 
 
-def getFakeFancyListing(tile_id, template_name):
-    return {
-        'data': dict(title='title', description='description'),
-        'meta': dict(big_value_color='#4CAF50', fading_background=False),
-        'tile_template': template_name,
-        'modified': getIsoTime(),
-        'id': tile_id
-    }
-
-
 def getFakeBigValue(tile_id, template_name):
     return {
         'data': {

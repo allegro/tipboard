@@ -29,7 +29,7 @@ def getFakeLineChart(tile_id, template_name):
                     'xAxes': [{
                         'display': True,
                         'gridLines': {
-                            'color': '#525252',
+                            'color': '#626262',
                         }
                     }],
                     'yAxes': [{
@@ -38,7 +38,7 @@ def getFakeLineChart(tile_id, template_name):
                             'beginAtZero': True,
                         },
                         'gridLines': {
-                            'color': '#525252',
+                            'color': '#626262',
                         }
                     }]
                 },
@@ -70,12 +70,12 @@ def getFakeCumulFlow(tile_id, template_name):
                 'scales': {
                     'xAxes': [{
                         'gridLines': {
-                            'color': '#525252',
+                            'color': '#626262',
                         }
                     }],
                     'yAxes': [{
                         'gridLines': {
-                            'color': '#525252',
+                            'color': '#626262',
                         }
                     }]
                 }
@@ -101,8 +101,8 @@ def getFakeNormChart(tile_id, template_name):
                 'responsive': True,
                 'maintainAspectRatio': False,
                 'scales': {
-                    'xAxes': [{'gridLines': {'color': '#525252'}}],
-                    'yAxes': [{'gridLines': {'color': '#525252'}}]
+                    'xAxes': [{'gridLines': {'color': '#626262'}}],
+                    'yAxes': [{'gridLines': {'color': '#626262'}}]
                 }
             }
         }
@@ -126,8 +126,8 @@ def getFakeBarChart(tile_id, template_name):
                 'maintainAspectRatio': False,
                 'legend': {'display': False},
                 'scales': {
-                    'xAxes': [{'gridLines': {'color': '#696969', 'display': False}}],
-                    'yAxes': [{'gridLines': {'color': '#696969'}}]
+                    'xAxes': [{'gridLines': {'color': '#626262', 'display': False}}],
+                    'yAxes': [{'gridLines': {'color': '#626262'}}]
                 }
             }
         }
@@ -144,7 +144,7 @@ def getFakePieChart(tile_id, template_name):
         'data': {
             'title': {'display': True, 'text': 'PieChart Demo'},
             'labels': [f'Label {i + 1}' for i in range(5)],
-            'borderColor': '#525252',
+            'borderColor': '#626262',
             'datasets': [
                 buildDatasetPie(randomData=True, labelLenght=5)
             ]
@@ -174,7 +174,7 @@ def getFakeDoughnutChart(tile_id, template_name):
             'options': {
                 'responsive': True,
                 'maintainAspectRatio': False,
-                'elements': {'arc': {'borderWidth': 1.0, 'borderColor': '#696969'}}
+                'elements': {'arc': {'borderWidth': 1.0, 'borderColor': '#626262'}}
             }
         }
     }
@@ -199,9 +199,9 @@ def getFakeRadarChart(tile_id, template_name):
             'options': {
                 'scale': {
                     'gridLines': {
-                        'color': ['#525252' for _ in range(8)]
+                        'color': ['#626262' for _ in range(8)]
                     },
-                    'angleLines': {'color': '#696969'},
+                    'angleLines': {'color': '#626262'},
                     'ticks': {'display': False}
                 },
                 'responsive': True,
@@ -225,12 +225,12 @@ def getFakePolarareaChart(tile_id, template_name):
             'options': {
                 'responsive': True,
                 'maintainAspectRatio': False,
-                'elements': {'arc': {'borderColor': '#696969', 'borderWidth': 2}},
+                'elements': {'arc': {'borderColor': '#626262', 'borderWidth': 2}},
                 'scale': {
                     'gridLines': {
-                        'color': ['#525252' for _ in range(8)]
+                        'color': ['#626262' for _ in range(8)]
                     },
-                    'angleLines': {'color': '#696969'},
+                    'angleLines': {'color': '#626262'},
                     'ticks': {'display': False}
                 }
             }

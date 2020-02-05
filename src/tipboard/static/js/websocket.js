@@ -56,11 +56,13 @@ let testApiIsBack = function () {
     let Http = new XMLHttpRequest();
     Http.open("GET", window.location.protocol + "/api/info");
     Http.onload = () => {
-        if (Http.status === 200) {
+        if (Http.status === 200) { // TODO: avant ici
+            console.log("testApiIsBack Http.status 200");
             buildWebSocketManager();
         }
     };
     Http.onerror = () => {
+        console.log("testApiIsBack error");
         setTimeout(testApiIsBack, 5000);
     };
     Http.send();
@@ -73,13 +75,15 @@ function buildWebSocketManager() {
     let protocol = window.location.protocol === "https:" ? "wss://" : "ws://";
     let websocket = new WebSocket(protocol + window.location.host + "/communication/websocket");
     websocket.onopen = function () {
+        console.log("OPEN WS");
         websocket.send("first_connection:" + window.location.pathname);
     };
     websocket.onclose = function () { // Handler to detect when API is back alive to reset websocket connection every 5s
+        console.log("Closing WS");
         setTimeout(testApiIsBack, 5000);
     };
     websocket.onmessage = function (evt) {
-    let tileData = JSON.parse(evt.data);
+        let tileData = JSON.parse(evt.data);
         console.log("Web socket received data: ", tileData);
         updateTile(tileData.id, tileData.tile_template, tileData.data, tileData.meta, tileData.modified);
     };

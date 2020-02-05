@@ -119,11 +119,13 @@ function buildData(tileType, data) {
  */
 function updateChartjs(tileId, data, meta, tileType) {
     let chartId = `${tileId}-chart`;
+    console.log("updateChartjs " + tileId + " ok");
     if (chartId in Tipboard.chartJsTile) {
         if (tileType === "line_chart") {
             data = updateDatasetLine(data, tileType);
         }
         Tipboard.Dashboard.updateDataOfChartJS(Tipboard.chartJsTile[chartId], data, meta);
+        console.log("Update " + tileId + " ok");
     } else {
         let chart = document.getElementById(chartId);
         chart.parentElement.style.paddingBottom = "9%";
@@ -134,6 +136,7 @@ function updateChartjs(tileId, data, meta, tileType) {
             data: buildData(tileType, data),
             options: op,
         });
+        console.log("First init " + tileId + " ok");
     }
 }
 

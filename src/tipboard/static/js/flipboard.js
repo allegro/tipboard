@@ -11,7 +11,7 @@ let showNext = function showNextDashboard() {
     }
     let clonedIframe = $(activeIframe.clone());
     clonedIframe.attr("src", nextDashboardPath);
-    $("body").append(clonedIframe);
+    $("body").append(clonedIframe); // pk jai besoin d'import les .css/.js alors que je reload que le body /!\
     $(clonedIframe).on("load", function () {
         $(activeIframe).remove();
         $(clonedIframe).addClass("fadeIn");

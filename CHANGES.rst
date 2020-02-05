@@ -4,6 +4,9 @@ Change Log
 2.0.6
 ~~~~~
 
+2.0.6
+~~~~~
+
 * Update archi of package to be compatible with setup.py
 
 * Fix Manifest.in to support new archi

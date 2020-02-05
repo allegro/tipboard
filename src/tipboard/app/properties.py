@@ -32,10 +32,10 @@ REDIS_PORT = conf['REDIS_PORT']
 REDIS_PASSWORD = conf['REDIS_PASSWORD']
 REDIS_DB = conf['REDIS_DB']
 
-ALLOWED_TILES = ['text', 'fancy_listing', 'simple_percentage', 'listing', 'big_value', 'just_value',  # Homemade
+ALLOWED_TILES = ['text', 'simple_percentage', 'listing', 'big_value', 'just_value',  # Homemade
                  'norm_chart', 'line_chart', 'cumulative_flow', 'bar_chart', 'vbar_chart',  # ChartJS
                  'half_doughnut_chart', 'doughnut_chart', 'pie_chart', 'radar_chart', 'polararea_chart',  # ChartJS
-                 'empty']  # chartjs lib
+                 'empty', 'iframe']  # misc
 
 COLOR_TAB = [  # material color
     'rgba(66, 165, 245, 0.8)',      # blue #42a5f5
@@ -62,7 +62,8 @@ if 'COLOR_TAB' in conf:
 BACKGROUND_TAB = ['#4caf50', '#ff6d00', '#d50000']
 
 TIPBOARD_CSS_STYLES = ['css/layout.css']
-TIPBOARD_JAVASCRIPTS = ['js/websocket.js', 'js/tipboard.js']
+TIPBOARD_JAVASCRIPTS = ['js/flipboard.js', 'js/websocket.js', 'js/tipboard.js',
+                        'tiles/chartjs.js', 'tiles/text_value.js']
 
 # how many seconds dashboard is displayed before is flipped, if 0 than NO FLIPBOARD
 FLIPBOARD_INTERVAL = 10
