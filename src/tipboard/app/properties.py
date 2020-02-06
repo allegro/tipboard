@@ -62,7 +62,7 @@ if 'COLOR_TAB' in conf:
 BACKGROUND_TAB = ['#4caf50', '#ff6d00', '#d50000']
 
 TIPBOARD_CSS_STYLES = ['css/layout.css']
-TIPBOARD_JAVASCRIPTS = ['js/flipboard.js', 'js/websocket.js', 'js/tipboard.js',
+TIPBOARD_JAVASCRIPTS = ['js/websocket.js', 'js/tipboard.js', 'js/flipboard.js',
                         'tiles/chartjs.js', 'tiles/text_value.js']
 
 # how many seconds dashboard is displayed before is flipped, if 0 than NO FLIPBOARD

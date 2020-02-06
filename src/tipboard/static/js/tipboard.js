@@ -81,7 +81,6 @@ function initTiles() {
                 $(tileToFlip).addClass("flippedforward");
             }
         }, flipInterval);
-
         Tipboard.Dashboard.flipIds.push(flipIntervalId);
     });
 }
@@ -210,15 +209,9 @@ function buildTipboardObject() {
     Tipboard.Dashboard.updateDataOfChartJS = updateDataOfChartJS;
 }
 
-/**
- * Main function of tipboard.js
- * Define the $(document).ready(function()
- */
-(function () {
-    buildTipboardObject();
-    initChartjsDefault();
-    setTimeout(function () {
-        initTiles();
-        buildWebSocketManager();
-    }, 420); // delay to let server start
-}());
+// /**
+//  * Main function of tipboard.js
+//  * Define the $(document).ready(function()
+//  */
+// (function () {
+// }());

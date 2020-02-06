@@ -17,6 +17,7 @@ def getCache():
 
 
 def listOfTilesFromLayout(layout_name='layout_config'):
+    """ List all tiles for a specific layout in Config/*.yml"""
     rcx = 0
     listOfTiles = list()
     config = parseXmlLayout(layout_name)

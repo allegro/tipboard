@@ -45,8 +45,7 @@ def buildFakeDataFromTemplate(tile_id, template_name, cache):  # TODO: handle wh
     data = dict()
     ptrToFake = buildSwicthPythonFfso_o()
     if template_name in ptrToFake:
-        if template_name in ptrToFake:
-            data = ptrToFake[template_name](tile_id, template_name)
-        if cache is not None:
-            cache.redis.set(name=getRedisPrefix(tile_id), value=json.dumps(data))
+        data = ptrToFake[template_name](tile_id, template_name)
+    if cache is not None:
+        cache.redis.set(name=getRedisPrefix(tile_id), value=json.dumps(data))
     return data

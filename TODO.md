@@ -18,7 +18,7 @@ Documenter ce qu'on met dans le .json et ce qu'on met dans les yaml et comment o
         - mais si on va dans /dashboard, il faut quand meme reussir à les import
 
 - IFRAME IS DEAD LONG LIVE TO AJAX
-
+    - il faut réparer les import .js (activation websock & donc tile update uniquement post ajax ok dans Flipboard.js)
 
     - CEST UNE IFRAME DONC ON RETOURNE UNE PAGE HTML COMPLETE DONC AVEC DAUTRE D2PENDENCE
     - Il faut renvoyé de l'html <div> au lieu d'une trame HTTP

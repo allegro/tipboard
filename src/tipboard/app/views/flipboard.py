@@ -16,7 +16,7 @@ def renderFlipboardHtml(request):
                   dict(page_title=getFlipboardTitle(),
                        flipboard_interval=FLIPBOARD_INTERVAL,
                        tipboard_css=TIPBOARD_CSS_STYLES,
-                       tipboard_js=['js/flipboard.js']))
+                       tipboard_js=TIPBOARD_JAVASCRIPTS))
 
 
 def renderDashboardHtml(request, layout_name='layout_config'):
@@ -25,8 +25,8 @@ def renderDashboardHtml(request, layout_name='layout_config'):
         config = parseXmlLayout(layout_name)
         data = dict(details=config['details'],
                     layout=config['layout'],
-                    tipboard_css=TIPBOARD_CSS_STYLES,
-                    tipboard_js=TIPBOARD_JAVASCRIPTS,
+                    tipboard_css=list(),
+                    tipboard_js=list(),
                     tiles_css=list(),
                     tiles_js=list())
         return render(request, 'layout.html', data)

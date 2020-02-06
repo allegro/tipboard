@@ -6,14 +6,16 @@
 
 {% block put_body %}
 
-<body class="flipboard" style="height: 100%">
+{#  <iframe src="" data-fliptime-interval="{{flipboard_interval}}"  style="height: 100%">#}
+{#    <p> Your browser does not support iframes. </p><br>#}
+{#    <p> Check your SysAdmin(Or Secu team), or uninstall I.E :) </p>#}
+{#  </iframe>#}
 
-  <iframe src="" data-fliptime-interval="{{flipboard_interval}}"  style="height: 100%">
-    <p> Your browser does not support iframes. </p><br>
-    <p> Check your SysAdmin(Or Secu team), or uninstall I.E :) </p>
-  </iframe>
+      <div data-fliptime-interval="{{flipboard_interval}}" style="height: 100%" id="tipboardIframe">
+        <p> Your browser does not support iframes. </p><br>
+        <p> Check your SysAdmin(Or Secu team), or uninstall I.E :) </p>
+      </div>
 
-</body>
 
 {% endblock %}
 
