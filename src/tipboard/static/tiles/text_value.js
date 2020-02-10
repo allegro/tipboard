@@ -1,4 +1,46 @@
 /**
+ * Update the html of tile regarding the key to update
+ * @param tileId id of tile in redis
+ * @param dataToPut data to update
+ * @param keysToUse list of key in tile, to update with dataToPut
+ */
+function setDataByKeys(tileId, dataToPut, keysToUse, dashboardname) {
+    if (keysToUse === "all") { // keysToUse*: list of keys, or string 'all', if 'all' then all keys used from *dataToPut*
+        keysToUse = [];
+        for (let data in dataToPut) {
+            if ({}.hasOwnProperty.call(dataToPut, data)) {
+                keysToUse.push(data);
+            }
+        }
+    }
+    $.each(keysToUse, function (idx, key) {
+        let value = dataToPut[key.toString()];
+        if (typeof (value) !== "undefined") {
+            console.log("$('#" + tileId + "').find('#" + tileId + "-" + key + "')");
+            let dst = $($("#" + tileId)[0]).find("#" + tileId + "-" + key)[0];
+            if (typeof dst !== "undefined") {
+                $(dst).text(value);
+            }
+        }
+    });
+}
+
+/**
+ * Add fading class to the tile
+ * @param node
+ * @param color
+ * @param fading
+ */
+function applyFading(node, color, fading) {
+    node.style.backgroundColor = color;
+    if (fading === true) {
+        node.classList.add("fading-background-color");
+    } else {
+        node.classList.remove("fading-background-color");
+    }
+}
+
+/**
  * Update text tile, font, color & value
  * @param tileId
  * @param data
@@ -57,14 +99,14 @@ function updateTileListing(id, data) {
  * @param data
  * @param tileType
  */
-function updateTileBigValue(tileId, data) {
+function updateTileBigValue(tileId, data, dashboardname) {
     if (!("title" in data)) {
         data.title = "montitre";
     }
     let description = document.getElementById(tileId + "-description");
     if (!("description" in data) || data.description.length === 0) {
         data.description = "0x42";
-        Tipboard.Dashboard.setDataByKeys(tileId, data, "all");
+        setDataByKeys(tileId, data, "all", dashboardname);
         description.style.color = "#00414141";
         description.className = "text";
     } else {
@@ -74,31 +116,25 @@ function updateTileBigValue(tileId, data) {
 
 /**
  * Control all text_tile update fucntion
- * @param tileId
- * @param data
- * @param config
- * @param tileType
+ * @param tileData
+ * @param dashboardname
  */
-function updateTileTextValue(tileId, data, config, tileType) {
-    if (tileType === "listing") {
-        updateTileListing(tileId, data);
+function updateTileTextValue(tileData, dashboardname) {
+    let id = `${dashboardname}-${tileData['id']}`;
+    console.log('Start text tile:' +  id);
+    if (tileData.tile_template === "listing") {
+        updateTileListing(id, tileData.data);
         return;
     }
-    if (tileType === "text") {
-        updateTileText(tileId, data);
+    if (tileData.tile_template === "text") {
+        updateTileText(id, tileData.data);
         return;
     }
-    if (tileType === "big_value") {
-        updateTileBigValue(tileId, data);
+    if (tileData.tile_template === "big_value") {
+        updateTileBigValue(id, tileData.data, dashboardname);
     }
-    Tipboard.Dashboard.setDataByKeys(tileId, data, "all");
-    let body = document.getElementById("body-" + tileId);
-    Tipboard.Dashboard.applyFading(body, config.big_value_color, config.fading_background);
+    setDataByKeys(id, tileData.data, "all", dashboardname);
+    console.log('End text tile:' +  id);
+    let body = document.getElementById("body-" + id);
+    applyFading(body, tileData.config.big_value_color, tileData.config.fading_background);
 }
-
-Tipboard.Dashboard.updateFunctions["just_value"] = updateTileTextValue;
-Tipboard.Dashboard.updateFunctions["simple_percentage"] = updateTileTextValue;
-Tipboard.Dashboard.updateFunctions["big_value"] = updateTileTextValue;
-Tipboard.Dashboard.updateFunctions["listing"] = updateTileTextValue;
-Tipboard.Dashboard.updateFunctions["text"] = updateTileTextValue;
-

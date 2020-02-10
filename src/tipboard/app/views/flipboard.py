@@ -16,20 +16,21 @@ def renderFlipboardHtml(request):
                   dict(page_title=getFlipboardTitle(),
                        flipboard_interval=FLIPBOARD_INTERVAL,
                        tipboard_css=TIPBOARD_CSS_STYLES,
-                       tipboard_js=TIPBOARD_JAVASCRIPTS))
+                       tipboard_js=['js/flipboard.js'] + TIPBOARD_JAVASCRIPTS))
 
 
-def renderDashboardHtml(request, layout_name='layout_config'):
+def renderDashboardHtmlUniqueDashboard(request, layout_name='layout_config', isFlipboard=False):
     """ Render Html page with CSS/JS dependency for all the tiles needed in layout_name(dashboard .yml) """
     try:
         config = parseXmlLayout(layout_name)
         data = dict(details=config['details'],
                     layout=config['layout'],
-                    tipboard_css=list(),
-                    tipboard_js=list(),
+                    tipboard_css=list() if isFlipboard else TIPBOARD_CSS_STYLES,
+                    tipboard_js=list() if isFlipboard else TIPBOARD_JAVASCRIPTS,
                     tiles_css=list(),
-                    tiles_js=list())
-        return render(request, 'layout.html', data)
+                    tiles_js=list(),
+                    layout_name=layout_name)
+        return render(request, 'layout.html' if isFlipboard else 'flipboard.html', data)
     except FileNotFoundError as e:
         if LOG:
             print(f'{getTimeStr()}: (+)Config file:{layout_name} not found', flush=True)
@@ -39,10 +40,15 @@ def renderDashboardHtml(request, layout_name='layout_config'):
         return HttpResponse(msg, status=404)
 
 
+def renderDashboardHtmlForFlipboard(request, layout_name='layout_config'):
+    """ Render Html page with CSS/JS dependency for all the tiles needed in layout_name(dashboard .yml) """
+    return renderDashboardHtmlUniqueDashboard(request, layout_name, isFlipboard=True)
+
+
 def getDashboardsPaths(request):
     """
         Return the path of layout prensent in the ./tipboard/app/Config
-        Used in layout.js with flipboard.js function(ajax) to flip between all dashboard(*.yml) in /Config
+        Used in layout.js with flipboard.js function(getDashboardsByApi) to flip between all dashboard(*.yml) in /Config
     """
     paths = ['/' + config_name for config_name in getConfigNames()]
     names = getFlipboardTitles()

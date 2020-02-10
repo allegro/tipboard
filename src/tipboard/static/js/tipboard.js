@@ -30,20 +30,10 @@ let onTileError = function (err, tile, tileId) {
 };
 
 /**
- * Add fading class to the tile
+ * return the flip time for every nodeHtml (representing tile)
  * @param node
- * @param color
- * @param fading
+ * @returns {number}
  */
-initFading = function (node, color, fading) {
-    node.style.backgroundColor = color;
-    if (fading === true) {
-        node.classList.add("fading-background-color");
-    } else {
-        node.classList.remove("fading-background-color");
-    }
-};
-
 function getFlipTime(node) {
     let classStr = $(node).attr("id");
     let flipTime = 10000;
@@ -66,7 +56,7 @@ function initTiles() {
     $.each(flipContainers, function (idx, flippingContainer) {
         Tipboard.Dashboard.autoAddFlipClasses(flippingContainer);
         let flipInterval = getFlipTime(flippingContainer);
-        let flipIntervalId = setInterval(function () {
+        setInterval(function () {
             let nextFlipIdx;
             let containerFlips = $(flippingContainer).find(".flippable");
             $(containerFlips).each(function (index, tile) {
@@ -80,138 +70,142 @@ function initTiles() {
                 let tileToFlip = containerFlips[parseInt(nextFlipIdx, 10)];
                 $(tileToFlip).addClass("flippedforward");
             }
-        }, flipInterval);
-        Tipboard.Dashboard.flipIds.push(flipIntervalId);
+        }, flipInterval); // let flipIntervalId =
+        // Tipboard.Dashboard.flipIds.push(flipIntervalId);
     });
 }
 
-function initChartjsDefault() {
+/**
+ * show the next dashboard loaded from .yaml files
+ * @returns {boolean}
+ */
+function showNextDashboard(nextDashboardPath, nextDashboardName) {
+    $.ajax({
+        method: "get",
+        url: "/dashboard" + nextDashboardPath,
+        success: function (data) {
+            $("#tipboardIframe").html(data);
+            Tipboard.log("update div(tiles) for dashboard: " + nextDashboardPath);
+            Tipboard.websocket.sendmessage(nextDashboardPath);
+            Tipboard.log("Websocket asking info for dashboard:" + nextDashboardPath);
+            document.title = nextDashboardName;
+            initTiles();
+        },
+        error: function (request, textStatus, error) {
+            Tipboard.log(request, textStatus, error);
+            document.title = "Error loading: " + nextDashboardName;
+        }
+    });
+    return true;
+}
+
+/**
+ * Start the flip beetween dashboard
+ * @param isFlipingMode
+ */
+function getDashboardsByApi() {
+    $.ajax({
+        method: "post",
+        url: "/flipboard/getDashboardsPaths",
+        success: function (data) {
+            let flipInterval = $("#tipboardIframe").attr("data-fliptime-interval");
+                Flipboard.init(data.paths, data.names);
+                showNextDashboard(Flipboard.getNextDashboardPath(), Flipboard.getNextDashboardName());
+                if (data.paths.length > 1 && parseInt(flipInterval, 10) > 0) {
+                    setInterval(function () { // start the flipping
+                        showNextDashboard(Flipboard.getNextDashboardPath(), Flipboard.getNextDashboardName());
+                    }, flipInterval * 1000);
+                }
+        },
+        error: function (request, textStatus, error) {
+            Tipboard.log(request, textStatus, error);
+            $(".error-message").html(["Error occured.", "For more details check javascript logs."].join("<br>"));
+            $("#tipboardIframe").hide();
+            $(".error-wrapper").show();
+        }
+    });
+}
+
+/**
+ * Init Flipboard object
+ */
+function initFlipboard() {
+    window.Flipboard = {
+        currentPathIdx: -1,
+        dashboardsPaths: [],
+        dashboardsNames: [],
+
+        init(paths, names) {
+            this.dashboardsPaths = paths;
+            this.dashboardsNames = names;
+        },
+
+        getNextDashboardPath() {
+            this.currentPathIdx += 1;
+            let lastIdx = this.dashboardsPaths.length - 1;
+            if (this.currentPathIdx > lastIdx) {
+                this.currentPathIdx = 0;
+            }
+            return this.dashboardsPaths[this.currentPathIdx];
+        },
+
+        getNextDashboardName() {
+            return this.dashboardsNames[this.currentPathIdx];
+        }
+    };
+}
+
+/**
+ * Init Global ChartJS value + build updateFunctions array
+ */
+function initChartjs() {
     Chart.defaults.global.defaultFontColor = "rgba(0, 0, 0, 0.83)";
     Chart.defaults.global.elements.line.backgroundColor = "#FFFFFF";
     Chart.defaults.scale.gridLines.display = true;
     Chart.defaults.scale.gridLines.color = "#929292";
+    Tipboard.Dashboard.updateFunctions["line_chart"] = updateChartjs;
+    Tipboard.Dashboard.updateFunctions["radar_chart"] = updateChartjs;
+    Tipboard.Dashboard.updateFunctions["norm_chart"] = updateChartjs;
+    Tipboard.Dashboard.updateFunctions["pie_chart"] = updateChartjs;
+    Tipboard.Dashboard.updateFunctions["polararea_chart"] = updateChartjs;
+    Tipboard.Dashboard.updateFunctions["bar_chart"] = updateChartjs;
+    Tipboard.Dashboard.updateFunctions["just_value"] = updateTileTextValue;
+    Tipboard.Dashboard.updateFunctions["simple_percentage"] = updateTileTextValue;
+    Tipboard.Dashboard.updateFunctions["big_value"] = updateTileTextValue;
+    Tipboard.Dashboard.updateFunctions["listing"] = updateTileTextValue;
+    Tipboard.Dashboard.updateFunctions["text"] = updateTileTextValue;
 }
 
 /**
- * Update the html of tile regarding the key to update
- * @param tileId id of tile in redis
- * @param dataToPut data to update
- * @param keysToUse list of key in tile, to update with dataToPut
+ * Init Tipboard object & Tipboard.Dashboard object
  */
-let updateKeyOfTiles = function updateKeyOfTiles(tileId, dataToPut, keysToUse) {
-    if (keysToUse === "all") { // keysToUse*: list of keys, or string 'all', if 'all' then all keys used from *dataToPut*
-        keysToUse = [];
-        for (let data in dataToPut) {
-            if ({}.hasOwnProperty.call(dataToPut, data)) {
-                keysToUse.push(data);
-            }
-        }
-    }
-    $.each(keysToUse, function (idx, key) {
-        let value = dataToPut[key.toString()];
-        if (typeof (value) !== "undefined") {
-            let dst = $($("#" + tileId)[0]).find("#" + tileId + "-" + key)[0];
-            if (typeof dst !== "undefined") {
-                $(dst).text(value);
-            }
-        }
-    });
-};
-
-/**
- * Update dataset data & option recursivly
- * @param chart
- * @param newDict
- */
-function updateDataset(chart, newDict) {
-    let rcx = 0;
-    for (; rcx < newDict.datasets.length; rcx++) {
-        for (let keyDataset in newDict.datasets[rcx]) {
-            if ({}.hasOwnProperty.call(newDict.datasets[rcx], keyDataset)) {
-                if (chart.data.datasets.length <= rcx) {
-                    chart.data.datasets.push({});
-                }
-                keyDataset = keyDataset.toString();
-                chart.data.datasets[rcx][keyDataset.toString()] = newDict.datasets[rcx][keyDataset.toString()];
-            }
-        }
-    }
-    if (chart.data.datasets.length > newDict.datasets.length) {
-        chart.data.datasets.splice(rcx, chart.data.datasets.length); // delete previous dataset
-    }
-}
-
-/**
- * Update all option(also called meta) inside chart object
- * @param actualOptions
- * @param newOptions
- */
-function updateOptions(actualOptions, newOptions) {
-    for (let key in newOptions) {
-        if ({}.hasOwnProperty.call(newOptions, key)) {
-            if (newOptions[key.toString()].constructor === Object && key.toString() in actualOptions) {
-                updateOptions(actualOptions[key.toString()], newOptions[key.toString()]);
-            } else {
-                if (Array.isArray(actualOptions[key.toString()])) {
-                    for (let rcx = 0; rcx < actualOptions[key.toString()].length; rcx++) {
-                        updateOptions(actualOptions[key.toString()][rcx], newOptions[key.toString()][rcx]);
-                    }
-                } else {
-                    actualOptions[key.toString()] = newOptions[key.toString()];
-                }
-            }
-        }
-    }
-}
-
-/**
- * Update all data inside chart object
- * @param chart
- * @param chartNewValue
- */
-function updateData(chart, chartNewValue) {
-    for (let key in chartNewValue) {
-        if ({}.hasOwnProperty.call(chartNewValue, key)) {
-            key = key.toString();
-            if (key === "datasets") {
-                updateDataset(chart, chartNewValue);
-            } else if (key === "title" || key === "legend") {
-                chart.options[key.toString()] = chartNewValue[key.toString()];
-            } else {
-                chart.data[key.toString()] = chartNewValue[key.toString()];
-            }
-        }
-    }
-}
-
-let updateDataOfChartJS = function (chart, data, meta) {
-    if ("labels" in chart.data) {
-        chart.data.labels = [];
-    }
-    updateData(chart, data);
-    if (meta !== "undefined") {
-        updateOptions(chart.config.options, meta.options);
-    }
-    chart.update();
-};
-
-function buildTipboardObject() {
+function initTipboardObject() {
     window.Tipboard = {};
     Tipboard.Dashboard = {
-        flipIds: [],
+        DEBUG_MODE: true,  // TOFIX: with value from tipboard
         updateFunctions: {},
         chartsIds: {},
-        applyFading: initFading
     };
     Tipboard.chartJsTile = {};
-    Tipboard.Dashboard.setDataByKeys = updateKeyOfTiles;
     Tipboard.Dashboard.autoAddFlipClasses = autoAddFlipClasses;
-    Tipboard.Dashboard.updateDataOfChartJS = updateDataOfChartJS;
+    Tipboard.log = function (msg) {
+        if (Tipboard.Dashboard.DEBUG_MODE) {
+            console.log(msg);
+        }
+    };
+    Tipboard.log("Build Tipboard object start");
 }
 
-// /**
-//  * Main function of tipboard.js
-//  * Define the $(document).ready(function()
-//  */
-// (function () {
-// }());
+(function ($) {
+    $(document).ready(function () {
+        initTipboardObject();
+        initWebSocketManager();
+        initChartjs();
+        if (window.location.pathname === '/') {
+            initFlipboard();
+            getDashboardsByApi(window.location.pathname === '/');
+        } else { // No dashboard rotation
+            showNextDashboard(window.location.pathname, window.location.pathname)
+        }
+    })
+}($));
