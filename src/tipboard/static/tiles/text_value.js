@@ -136,5 +136,5 @@ function updateTileTextValue(tileData, dashboardname) {
     setDataByKeys(id, tileData.data, "all", dashboardname);
     console.log('End text tile:' +  id);
     let body = document.getElementById("body-" + id);
-    applyFading(body, tileData.config.big_value_color, tileData.config.fading_background);
+    applyFading(body, tileData.meta.big_value_color, tileData.meta.fading_background);
 }
