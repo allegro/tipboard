@@ -5,7 +5,7 @@ from src.manage import show_help
 from src.tipboard.app.properties import ALLOWED_TILES
 from src.tipboard.templates.template_filter import template_tile
 from src.tipboard.app.FakeData.fake_data import buildFakeDataFromTemplate
-from src.tipboard.app.parser import parseXmlLayout, getFlipboardTitle, getConfigNames
+from src.tipboard.app.parser import parseXmlLayout, getDashboardName, getConfigNames
 from src.tipboard.app.cache import MyCache, getCache
 from src.tipboard.app.utils import checkAccessToken
 from src.tipboard.app.cache import listOfTilesFromLayout
@@ -126,7 +126,7 @@ class TestApp(TestCase):  # TODO: find a way to test the WebSocket inside django
 
     def test_0102_flipboard(self):
         """ Test Flipboard object """
-        self.assertTrue(getFlipboardTitle() is not None)
+        self.assertTrue(getDashboardName() is not None)
         self.assertTrue(getConfigNames() is not None)
 
     def test_0103_api_info(self):

@@ -1,7 +1,7 @@
 {% load static %}
 {% load template_filter %}
 
-<div class="grid" style="height: 100%">
+<div id="{{ color_mode }}___{{ page_title }}" class="grid" style="height: 100%">
     {% for rows in layout %}
         {% for row, value in rows.items %}
 

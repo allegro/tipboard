@@ -91,7 +91,7 @@ def getConfigNames():
     return configs_names
 
 
-def getFlipboardTitle():
+def getDashboardName():
     """ Returns title to display as a html title. """
     title = ''
     config_names = getConfigNames()  # get all name of files present in ./Config/*.yaml

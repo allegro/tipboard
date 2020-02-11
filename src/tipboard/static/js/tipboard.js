@@ -103,9 +103,13 @@ function changeElements(elementName, value, type) {
     }
 }
 
-function changeStyleColor(mode) {
+function changeStyleColor() {
+    // little hack to quick see what color_mode is on dashboard
+    let mode___titleDashboard = document.getElementsByClassName("grid")[0].id.split("___");
+    let mode = mode___titleDashboard[0];
+    document.title = mode___titleDashboard[1];
     let body_style = document.getElementsByTagName("body")[0].style;
-    if (mode === "black_mode") {
+    if (mode === "black") {
         body_style.backgroundImage = "url('/static/img/logo-tipboard_white.svg')";
         body_style.backgroundColor = "#212121";
         changeElements("tile", "#313131", "class");
@@ -141,11 +145,10 @@ function showNextDashboard(nextDashboardPath, nextDashboardName) {
         url: "/dashboard" + nextDashboardPath,
         success: function (data) {
             $("#tipboardIframe").html(data);
-            changeStyleColor("black_mode");
+            changeStyleColor();
             Tipboard.log("update div(tiles) for dashboard: " + nextDashboardPath);
             Tipboard.websocket.sendmessage(nextDashboardPath);
             Tipboard.log("Websocket asking info for dashboard:" + nextDashboardPath);
-            document.title = nextDashboardName;
             initTiles();
         },
         error: function (request, textStatus, error) {

@@ -5,8 +5,6 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-        <title>{% block page_title %}Dashboard{% endblock %}</title>
-
         <link rel="stylesheet" href="{% static "css/bootstrap.min.css" %}">
         <script src="{% static "js/jquery-3.4.1.min.js" %}"></script>
         <script src="{% static "js/popper.min.js" %}"></script>
@@ -19,12 +17,6 @@
         {% endfor %}
         {% for file in tipboard_js %}
             <script src="{% static file %}"></script>
-        {% endfor %}
-        {% for file in tiles_css %}
-             <link href="{% static file %}" rel="stylesheet" media="screen">
-        {% endfor %}
-        {% for file in tiles_js %}
-             <script src="{% static file %}"></script>
         {% endfor %}
         {% block head %} {% endblock %}
     </head>
