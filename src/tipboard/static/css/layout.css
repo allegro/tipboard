@@ -9,16 +9,13 @@ html, body {
 
 h2  {
     text-align: center;
-    color: #212121;
 }
 
 h3 {
-    color: #212121;
     text-align: center;
 }
 
 h6 {
-    color: #212121;
     text-align: center;
 }
 
@@ -38,12 +35,10 @@ h6 {
 }
 
 
-
 /**
     COMPONENTS
  */
 .tile {
-    background-color: #000000;
     height: 100%;
     width: 100%;
     position: absolute;
@@ -54,7 +49,6 @@ h6 {
     height: 36px;
     line-height: 36px;
     text-transform: full-width;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
     margin-top: 2%;
 }
 
