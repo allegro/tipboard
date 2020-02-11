@@ -2,30 +2,34 @@
  * Dynamicaly add Flipforward class to tile, regardind the dashboard.yml
  * @param flippingContainer
  */
-let autoAddFlipClasses = function (flippingContainer) {
+function addFlipClasses(flippingContainer) {
     $.each($(flippingContainer).find(".tile"), function (idx, elem) {
         if (idx === 0) {
             $(elem).addClass("flippedforward");
         }
         $(elem).addClass("flippable");
     });
-};
+}
 
 /**
  * Print a tile to indicate the type of error
  * @param err Exception Object
- * @param tile tile_template
+ * @param div tile_template
  * @param tileId id of tile
  */
-let onTileError = function (err, tile, tileId) {
+let onTileError = function (err, div, tileId) {
     $.each([".tile-content"], function (idx, klass) {
-        let nodes = $(tile).find(klass);
+        let nodes = $(div).find(klass);
         $(nodes[0]).hide();
         $(nodes[1]).show();
-        nodes = $(tile).find(".tile-content");
-        $(nodes[1]).html(["Tile " + tileId + " configuration error:",
-            err.name || "error name: n/a",
-            err.message || "error message: n/a",].join("<br>"));
+        let msg =
+            "<div class=\"alert alert-danger text-center\" role=\"alert\" style=\"height: 100%;\">" +
+                "<b>Tile: " + tileId +  "</b>" +
+                " configuration error: " + err + "<br>" +
+                "         error name: n/a <br>" +
+                "         error message: n/a <br>" +
+            "</div>";
+        $('#' + tileId).html(msg);
     });
 };
 
@@ -54,7 +58,7 @@ function getFlipTime(node) {
 function initTiles() {
     let flipContainers = $("div[id*=\"flip-time-\"]");
     $.each(flipContainers, function (idx, flippingContainer) {
-        Tipboard.Dashboard.autoAddFlipClasses(flippingContainer);
+        addFlipClasses(flippingContainer);
         let flipInterval = getFlipTime(flippingContainer);
         setInterval(function () {
             let nextFlipIdx;
@@ -71,7 +75,7 @@ function initTiles() {
                 $(tileToFlip).addClass("flippedforward");
             }
         }, flipInterval); // let flipIntervalId =
-        // Tipboard.Dashboard.flipIds.push(flipIntervalId);
+        // Tipboard.flipIds.push(flipIntervalId);
     });
 }
 
@@ -163,34 +167,31 @@ function initChartjs() {
     Chart.defaults.global.elements.line.backgroundColor = "#FFFFFF";
     Chart.defaults.scale.gridLines.display = true;
     Chart.defaults.scale.gridLines.color = "#929292";
-    Tipboard.Dashboard.updateFunctions["line_chart"] = updateChartjs;
-    Tipboard.Dashboard.updateFunctions["radar_chart"] = updateChartjs;
-    Tipboard.Dashboard.updateFunctions["norm_chart"] = updateChartjs;
-    Tipboard.Dashboard.updateFunctions["pie_chart"] = updateChartjs;
-    Tipboard.Dashboard.updateFunctions["polararea_chart"] = updateChartjs;
-    Tipboard.Dashboard.updateFunctions["bar_chart"] = updateChartjs;
-    Tipboard.Dashboard.updateFunctions["just_value"] = updateTileTextValue;
-    Tipboard.Dashboard.updateFunctions["simple_percentage"] = updateTileTextValue;
-    Tipboard.Dashboard.updateFunctions["big_value"] = updateTileTextValue;
-    Tipboard.Dashboard.updateFunctions["listing"] = updateTileTextValue;
-    Tipboard.Dashboard.updateFunctions["text"] = updateTileTextValue;
+    Tipboard.updateFunctions["line_chart"] = updateChartjs;
+    Tipboard.updateFunctions["radar_chart"] = updateChartjs;
+    Tipboard.updateFunctions["norm_chart"] = updateChartjs;
+    Tipboard.updateFunctions["pie_chart"] = updateChartjs;
+    Tipboard.updateFunctions["polararea_chart"] = updateChartjs;
+    Tipboard.updateFunctions["bar_chart"] = updateChartjs;
+    Tipboard.updateFunctions["just_value"] = updateTileTextValue;
+    Tipboard.updateFunctions["simple_percentage"] = updateTileTextValue;
+    Tipboard.updateFunctions["big_value"] = updateTileTextValue;
+    Tipboard.updateFunctions["listing"] = updateTileTextValue;
+    Tipboard.updateFunctions["text"] = updateTileTextValue;
 }
 
 /**
  * Init Tipboard object & Tipboard.Dashboard object
  */
 function initTipboardObject() {
-    window.Tipboard = {};
-    Tipboard.Dashboard = {
+    window.Tipboard = {
         DEBUG_MODE: true,  // TOFIX: with value from tipboard
         updateFunctions: {},
-        chartsIds: {},
-    };
-    Tipboard.chartJsTile = {};
-    Tipboard.Dashboard.autoAddFlipClasses = autoAddFlipClasses;
-    Tipboard.log = function (msg) {
-        if (Tipboard.Dashboard.DEBUG_MODE) {
-            console.log(msg);
+        chartJsTile: {},
+        log: function (msg) {
+            if (this.DEBUG_MODE) {
+                console.log(msg);
+            }
         }
     };
     Tipboard.log("Build Tipboard object start");

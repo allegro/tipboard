@@ -190,13 +190,11 @@ function buildData(tileType, data) {
     if (tileType === "line_chart") {
         return updateDatasetLine(data, tileType);
     }
-    console.log("DATA TILE:", data);
-    return data;
+    return data;// tileType === "line_chart" ? updateDatasetLine(data, tileType) : data;
 }
 
 /**
  * Create or Update bar & vbar tile
- *
  */
 function updateChartjs(tileData, dashboardname) {
     let data = tileData['data'];

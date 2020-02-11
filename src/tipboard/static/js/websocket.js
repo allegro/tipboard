@@ -18,7 +18,7 @@ function getUpdateFunction(tileType) {
             tileType = "line_chart";
             break;
     }
-    return Tipboard.Dashboard.updateFunctions[tileType.toString()];
+    return Tipboard.updateFunctions[tileType.toString()];
 }
 
 /**
@@ -30,12 +30,6 @@ function updateTile(tileData, dashboardname) {
     let chartId = `${dashboardname}-${tileData['id']}`;
     let tile = $("#" + chartId)[0];
     try {
-        // let chartObj = Tipboard.Dashboard.chartsIds[tileData['id'].toString()];
-        // if (typeof chartObj === "object") {
-        //     Tipboard.Dashboard.chartsIds[tileData['id'].toString()].destroy();// destroy old graph
-        // }
-        // pk je destroy l'object /!\, le but cest pas de l'update ?
-        // ptr to function, call the tile update function
         getUpdateFunction(tileData['tile_template'])(tileData, dashboardname);
         $.each([".tile-content"], function (idx, klass) {
             let node = $(tile).find(klass);
@@ -45,7 +39,7 @@ function updateTile(tileData, dashboardname) {
             }
         });
     } catch (err) {
-        onTileError(err, tile, tileData['id']);
+        onTileError(err, tile, chartId);
     }
 }
 
