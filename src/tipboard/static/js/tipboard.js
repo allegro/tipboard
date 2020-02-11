@@ -80,6 +80,58 @@ function initTiles() {
 }
 
 /**
+ *
+ * @param elementName
+ * @param value
+ * @param type
+ */
+function changeElements(elementName, value, type) {
+    let Elements = null;
+    switch (type) {
+        case "tag":
+            Elements = document.getElementsByTagName(elementName);
+            for (let i = 0; i < Elements.length; i++) {
+                Elements[i].style.color = value;
+            }
+            break;
+        case "class":
+            Elements = document.getElementsByClassName(elementName);
+            for (let i = 0; i < Elements.length; i++) {
+                Elements[i].style.backgroundColor = value;
+            }
+            break;
+    }
+}
+
+function changeStyleColor(mode) {
+    let body_style = document.getElementsByTagName("body")[0].style;
+    if (mode === "black_mode") {
+        body_style.backgroundImage = "url('/static/img/logo-tipboard_white.svg')";
+        body_style.backgroundColor = "#212121";
+        changeElements("tile", "#313131", "class");
+        changeElements("card", "#313131", "class");
+        changeElements("h1", "#ffffff", "tag");
+        changeElements("h2", "#ffffff", "tag");
+        changeElements("h3", "#ffffff", "tag");
+        Chart.defaults.global.defaultFontColor = "rgba(255, 255, 255, 0.83)";
+        Chart.defaults.global.elements.line.backgroundColor = "#FFFFFF";
+        Chart.defaults.scale.gridLines.display = true;
+        Chart.defaults.scale.gridLines.color = "#929292";
+    } else {
+        body_style.backgroundImage = "url('/static/img/logo-tipboard.svg')";
+        body_style.backgroundColor = "#eceff1";
+        changeElements("tile", "#f5f5f5", "class");
+        changeElements("h1", "#000", "tag");
+        changeElements("h2", "#000", "tag");
+        changeElements("h3", "#000", "tag");
+        Chart.defaults.global.defaultFontColor = "rgba(0, 0, 0, 0.83)";
+        Chart.defaults.global.elements.line.backgroundColor = "#FFFFFF";
+        Chart.defaults.scale.gridLines.display = true;
+        Chart.defaults.scale.gridLines.color = "#525252";
+    }
+}
+
+/**
  * show the next dashboard loaded from .yaml files
  * @returns {boolean}
  */
@@ -89,6 +141,7 @@ function showNextDashboard(nextDashboardPath, nextDashboardName) {
         url: "/dashboard" + nextDashboardPath,
         success: function (data) {
             $("#tipboardIframe").html(data);
+            changeStyleColor("black_mode");
             Tipboard.log("update div(tiles) for dashboard: " + nextDashboardPath);
             Tipboard.websocket.sendmessage(nextDashboardPath);
             Tipboard.log("Websocket asking info for dashboard:" + nextDashboardPath);
@@ -163,10 +216,6 @@ function initFlipboard() {
  * Init Global ChartJS value + build updateFunctions array
  */
 function initChartjs() {
-    Chart.defaults.global.defaultFontColor = "rgba(0, 0, 0, 0.83)";
-    Chart.defaults.global.elements.line.backgroundColor = "#FFFFFF";
-    Chart.defaults.scale.gridLines.display = true;
-    Chart.defaults.scale.gridLines.color = "#929292";
     Tipboard.updateFunctions["line_chart"] = updateChartjs;
     Tipboard.updateFunctions["radar_chart"] = updateChartjs;
     Tipboard.updateFunctions["norm_chart"] = updateChartjs;

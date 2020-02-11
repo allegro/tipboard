@@ -81,8 +81,13 @@ function initWebSocketManager() {
         }
     };
     websocket.sendmessage = function(nextDashboardPath) {
-        Tipboard.websocket.send("first_connection:" + nextDashboardPath);
-        websocket.lastDashboard = nextDashboardPath.substring(1);
+        try {
+            Tipboard.websocket.send("first_connection:" + nextDashboardPath);
+            websocket.lastDashboard = nextDashboardPath.substring(1);
+        } catch (e) {  //TODO: check if it's a InvalidStateError for debug, because otherwise it's a fork bomb xD
+            initWebSocketManager();
+            Tipboard.websocket.send("first_connection:" + nextDashboardPath);
+        }
     };
     websocket.onmessage = function (evt) {
         let tileData = JSON.parse(evt.data);

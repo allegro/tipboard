@@ -30,7 +30,7 @@ def renderDashboardHtmlUniqueDashboard(request, layout_name='layout_config', isF
                     tiles_css=list(),
                     tiles_js=list(),
                     layout_name=layout_name)
-        return render(request, 'layout.html' if isFlipboard else 'flipboard.html', data)
+        return render(request, 'dashboard.html' if isFlipboard else 'flipboard.html', data)
     except FileNotFoundError as e:
         if LOG:
             print(f'{getTimeStr()}: (+)Config file:{layout_name} not found', flush=True)
