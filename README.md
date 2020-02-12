@@ -53,10 +53,10 @@
 Introduction
 ------------
 
-Tipboard is here to create your dashboards, manually or automaticaly by scripts (called sensors)  
-Code is in JavaScript and Python and used many techno (django, flexbox).
+#### Tipboard is here to create your dashboards, manually or automaticaly by scripts (called sensors)  
+Core code is written in JavaScript and Python, and used many technology (*django, flexbox, bootstrap*).  
 Its widgets (called 'tiles' in Tipboard's terminology) have two categories 'text' and 'chart'  
-It's responsive but was made for big screen (optimized for larger screens in your office)
+It's *responsive* but was made for big screen (optimized for larger screens in your office)  
 Tipboard 1.0 code sources has been fully refactored to be:
  - cloud-ready
  - with helm to support multi-cloup
