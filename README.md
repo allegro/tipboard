@@ -54,9 +54,15 @@ Introduction
 ------------
 
 Tipboard is here to create your dashboards, manually or automaticaly by scripts (called sensors)  
-Tipboard is written in JavaScript and Python and used many techno.  
+Code is in JavaScript and Python and used many techno (django, flexbox).
 Its widgets (called 'tiles' in Tipboard's terminology) have two categories 'text' and 'chart'  
 It's responsive but was made for big screen (optimized for larger screens in your office)
+Tipboard 1.0 code sources has been fully refactored to be:
+ - cloud-ready
+ - with helm to support multi-cloup
+ - with native pypi support for pip install and python multi-os continuity
+ - build with C.I to assure code quality/security
+ 
 Wiki is [here](https://github.com/the-maux/tipboard/wiki) (in wip)
 ChartJS demo can be found [here](http://jerairrest.github.io/react-chartjs-2/)
 
