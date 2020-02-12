@@ -53,14 +53,10 @@
 Introduction
 ------------
 
-Tipboard is a system for creating dashboards, written in JavaScript and Python.
-Its widgets ('tiles' in Tipboard's terminology) are completely
-separated from data sources, which provides great flexibility and
-relatively high degree of possible customizations.
-
-Because of its intended target (displaying various data and statistics
-in your office), it is optimized for larger screens.
-
+Tipboard is here to create your dashboards, manually or automaticaly by scripts (called sensors)  
+Tipboard is written in JavaScript and Python and used many techno.  
+Its widgets (called 'tiles' in Tipboard's terminology) have two categories 'text' and 'chart'  
+It's responsive but was made for big screen (optimized for larger screens in your office)
 Wiki is [here](https://github.com/the-maux/tipboard/wiki) (in wip)
 ChartJS demo can be found [here](http://jerairrest.github.io/react-chartjs-2/)
 
