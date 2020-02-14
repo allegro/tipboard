@@ -2,10 +2,10 @@ version: 2.1
 workflows:
   build_and_deploy:
     jobs:
-      - test_commit
+      - python_venv_test
       - deploy_to_pypi:
           requires:
-            - test_commit
+            - python_venv_test
           filters:
             branches:
               only: master
