@@ -11,7 +11,7 @@ env:
     - CODACY_PROJECT_TOKEN=7594b00e25614e438774aa123448975c
     - GIT_COMMITTED_AT=$(if [ "$TRAVIS_PULL_REQUEST" == "false" ]; then git log -1 --pretty=format:%ct; else git log -1 --skip 1 --pretty=format:%ct; fi)
 services:
-  - redis-server
+  - redis
 
 before_script:
   - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter

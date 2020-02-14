@@ -3,7 +3,7 @@ workflows:
   build_and_deploy:
     jobs:
       - test_commit
-      - deploy_pypi:
+      - deploy_to_pypi:
           requires:
             - test_commit
           filters:
