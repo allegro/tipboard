@@ -1,10 +1,19 @@
+# thanks to @sebleier https://github.com/sebleier/django-redis-cache
 sudo: required
 language: python
 python:
-  - "3.7"
+  - 3.6
+  - 3.7
+  - 3.8
+env:
+  global:
+    - CC_TEST_REPORTER_ID=08b43026fb188b3529d78e39eb5409b45b98a63888802dc8ca854478cd78b67d
+    - CODACY_PROJECT_TOKEN=7594b00e25614e438774aa123448975c
+    - GIT_COMMITTED_AT=$(if [ "$TRAVIS_PULL_REQUEST" == "false" ]; then git log -1 --pretty=format:%ct; else git log -1 --skip 1 --pretty=format:%ct; fi)
+services:
+  - redis-server
 
 before_script:
-  - redis-server /etc/redis/redis.conf --port 6379
   - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
   - chmod +x ./cc-test-reporter
   - ./cc-test-reporter before-build
@@ -19,8 +28,3 @@ after_script:
   - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
   - coverage xml
   - python-codacy-coverage -r coverage.xml
-env:
-  global:
-    - CC_TEST_REPORTER_ID=08b43026fb188b3529d78e39eb5409b45b98a63888802dc8ca854478cd78b67d
-    - CODACY_PROJECT_TOKEN=7594b00e25614e438774aa123448975c
-    - GIT_COMMITTED_AT=$(if [ "$TRAVIS_PULL_REQUEST" == "false" ]; then git log -1 --pretty=format:%ct; else git log -1 --skip 1 --pretty=format:%ct; fi)
