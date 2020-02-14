@@ -10,9 +10,10 @@ workflows:
             branches:
               only: master
 jobs:
-  test_commit:
+  python_venv_test:
     docker:
       - image: circleci/python:3.7
+      - image: redis:3.2.12-alpine
     working_directory: ~/repo
     steps:
       - checkout
@@ -26,6 +27,7 @@ jobs:
       - run:
           name: install dependencies
           command: |
+
             python3 -m venv venv
             . venv/bin/activate
             pip install -r requirements.txt
