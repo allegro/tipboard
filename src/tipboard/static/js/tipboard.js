@@ -25,9 +25,8 @@ let onTileError = function (err, div, tileId) {
         let msg =
             "<div class=\"alert alert-danger text-center\" role=\"alert\" style=\"height: 100%;\">" +
                 "<b>Tile: " + tileId +  "</b>" +
-                " configuration error: " + err + "<br>" +
-                "         error name: n/a <br>" +
-                "         error message: n/a <br>" +
+                " configuration error: " + err.messages + "<br>" +
+                " error message:" + err.stack + "<br>" +
             "</div>";
         $('#' + tileId).html(msg);
     });
@@ -74,16 +73,15 @@ function initTiles() {
                 let tileToFlip = containerFlips[parseInt(nextFlipIdx, 10)];
                 $(tileToFlip).addClass("flippedforward");
             }
-        }, flipInterval); // let flipIntervalId =
-        // Tipboard.flipIds.push(flipIntervalId);
+        }, flipInterval);
     });
 }
 
 /**
- *
- * @param elementName
- * @param value
- * @param type
+ * Change html value to easily change color regarding color_mode
+ * @param elementName div element type
+ * @param value value to change in elementName
+ * @param type to be generic with tag / class / id
  */
 function changeElements(elementName, value, type) {
     let Elements = null;
@@ -94,16 +92,28 @@ function changeElements(elementName, value, type) {
                 Elements[i].style.color = value;
             }
             break;
-        case "class":
+        case "class-backgroundColor":
             Elements = document.getElementsByClassName(elementName);
             for (let i = 0; i < Elements.length; i++) {
                 Elements[i].style.backgroundColor = value;
             }
             break;
+        case "class-class":
+
+            Elements = document.getElementsByClassName(elementName);
+            let copyElements = Array.prototype.slice.call(Elements);
+            let size = copyElements.length;
+            for (let i = 0; i < size; i++) {
+                copyElements[i].setAttribute("class", value);
+            }
+            break;
     }
 }
 
-function changeStyleColor() {
+/**
+ * Change color of html element regarding color_mode
+ */
+function loadStyleColor() {
     // little hack to quick see what color_mode is on dashboard
     let mode___titleDashboard = document.getElementsByClassName("grid")[0].id.split("___");
     let mode = mode___titleDashboard[0];
@@ -112,11 +122,18 @@ function changeStyleColor() {
     if (mode === "black") {
         body_style.backgroundImage = "url('/static/img/logo-tipboard_white.svg')";
         body_style.backgroundColor = "#212121";
-        changeElements("tile", "#313131", "class");
-        changeElements("card", "#313131", "class");
+        changeElements("tile", "#313131", "class-backgroundColor");
+        changeElements("card", "#313131", "class-backgroundColor");
+        changeElements("mx-auto text", "mx-auto text-white", "class-class");
+        changeElements(".row text", ".row text-white", "class-class");
+        changeElements(".row center text", ".row center text-white", "class-class");
+        changeElements("display-3 text", "display-3 text-white", "class-class");
+        changeElements("h1 display-1 text", "h1 display-1 text-white", "class-class");
+        changeElements("text", "text-white", "class-class");
         changeElements("h1", "#ffffff", "tag");
         changeElements("h2", "#ffffff", "tag");
         changeElements("h3", "#ffffff", "tag");
+        changeElements("h6", "#ffffff", "tag");
         Chart.defaults.global.defaultFontColor = "rgba(255, 255, 255, 0.83)";
         Chart.defaults.global.elements.line.backgroundColor = "#FFFFFF";
         Chart.defaults.scale.gridLines.display = true;
@@ -124,10 +141,18 @@ function changeStyleColor() {
     } else {
         body_style.backgroundImage = "url('/static/img/logo-tipboard.svg')";
         body_style.backgroundColor = "#eceff1";
-        changeElements("tile", "#f5f5f5", "class");
+        changeElements("tile", "#f5f5f5", "class-backgroundColor");
+        changeElements("card", "#f5f5f5", "class-backgroundColor");
+        changeElements("mx-auto text-white", "mx-auto text", "class-class");
+        changeElements(".row text-white", ".row text", "class-class");
+        changeElements(".row center text", ".row center text-white", "class-class");
+        changeElements("display-3 text", "display-3 text-white", "class-class");
+        changeElements("h1 display-1 text-white", "h1 display-1 text", "class-class");
+        changeElements("text-white", "text", "class-class");
         changeElements("h1", "#000", "tag");
         changeElements("h2", "#000", "tag");
         changeElements("h3", "#000", "tag");
+        changeElements("h6", "#000", "tag");
         Chart.defaults.global.defaultFontColor = "rgba(0, 0, 0, 0.83)";
         Chart.defaults.global.elements.line.backgroundColor = "#FFFFFF";
         Chart.defaults.scale.gridLines.display = true;
@@ -144,12 +169,11 @@ function showNextDashboard(nextDashboardPath, nextDashboardName) {
         method: "get",
         url: "/dashboard" + nextDashboardPath,
         success: function (data) {
+            Tipboard.chartJsTile = {};
             $("#tipboardIframe").html(data);
-            changeStyleColor();
-            Tipboard.log("update div(tiles) for dashboard: " + nextDashboardPath);
-            Tipboard.websocket.sendmessage(nextDashboardPath);
-            Tipboard.log("Websocket asking info for dashboard:" + nextDashboardPath);
+            loadStyleColor();
             initTiles();
+            Tipboard.websocket.sendmessage(nextDashboardPath);
         },
         error: function (request, textStatus, error) {
             Tipboard.log(request, textStatus, error);
@@ -174,7 +198,7 @@ function getDashboardsByApi() {
                 if (data.paths.length > 1 && parseInt(flipInterval, 10) > 0) {
                     setInterval(function () { // start the flipping
                         showNextDashboard(Flipboard.getNextDashboardPath(), Flipboard.getNextDashboardName());
-                    }, flipInterval * 1000);
+                    }, flipInterval  * 1000);
                 }
         },
         error: function (request, textStatus, error) {
@@ -230,6 +254,7 @@ function initChartjs() {
     Tipboard.updateFunctions["big_value"] = updateTileTextValue;
     Tipboard.updateFunctions["listing"] = updateTileTextValue;
     Tipboard.updateFunctions["text"] = updateTileTextValue;
+    Tipboard.updateFunctions["iframe"] = updateTileTextValue;
 }
 
 /**
@@ -240,6 +265,7 @@ function initTipboardObject() {
         DEBUG_MODE: true,  // TOFIX: with value from tipboard
         updateFunctions: {},
         chartJsTile: {},
+        websocket: initWebSocketManager(),
         log: function (msg) {
             if (this.DEBUG_MODE) {
                 console.log(msg);
@@ -252,7 +278,6 @@ function initTipboardObject() {
 (function ($) {
     $(document).ready(function () {
         initTipboardObject();
-        initWebSocketManager();
         initChartjs();
         if (window.location.pathname === '/') {
             initFlipboard();

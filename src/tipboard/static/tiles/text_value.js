@@ -4,7 +4,7 @@
  * @param dataToPut data to update
  * @param keysToUse list of key in tile, to update with dataToPut
  */
-function setDataByKeys(tileId, dataToPut, keysToUse, dashboardname) {
+function setDataByKeys(tileId, dataToPut, keysToUse) {
     if (keysToUse === "all") { // keysToUse*: list of keys, or string 'all', if 'all' then all keys used from *dataToPut*
         keysToUse = [];
         for (let data in dataToPut) {
@@ -16,7 +16,6 @@ function setDataByKeys(tileId, dataToPut, keysToUse, dashboardname) {
     $.each(keysToUse, function (idx, key) {
         let value = dataToPut[key.toString()];
         if (typeof (value) !== "undefined") {
-            console.log("$('#" + tileId + "').find('#" + tileId + "-" + key + "')");
             let dst = $($("#" + tileId)[0]).find("#" + tileId + "-" + key)[0];
             if (typeof dst !== "undefined") {
                 $(dst).text(value);
@@ -99,19 +98,26 @@ function updateTileListing(id, data) {
  * @param data
  * @param tileType
  */
-function updateTileBigValue(tileId, data, dashboardname) {
+function updateTileBigValue(tileId, data) {
     if (!("title" in data)) {
         data.title = "montitre";
     }
     let description = document.getElementById(tileId + "-description");
     if (!("description" in data) || data.description.length === 0) {
         data.description = "0x42";
-        setDataByKeys(tileId, data, "all", dashboardname);
+        setDataByKeys(tileId, data, "all");
         description.style.color = "#00414141";
         description.className = "text";
     } else {
         description.className = "text-white";
     }
+}
+
+function updateTileIframe(tileId, data) {
+    let iframe = document.getElementById(tileId + "-iframe");
+    console.log("layout_config-iframe_ex------------>iframe:", iframe.src );
+    iframe.src = data.url;
+    console.log("layout_config-iframe_ex------------>iframe:", iframe.src );
 }
 
 /**
@@ -121,7 +127,10 @@ function updateTileBigValue(tileId, data, dashboardname) {
  */
 function updateTileTextValue(tileData, dashboardname) {
     let id = `${dashboardname}-${tileData['id']}`;
-    console.log('Start text tile:' +  id);
+    if (tileData.tile_template === "iframe") {
+        updateTileIframe(id, tileData.data);
+        return;
+    }
     if (tileData.tile_template === "listing") {
         updateTileListing(id, tileData.data);
         return;
@@ -131,10 +140,9 @@ function updateTileTextValue(tileData, dashboardname) {
         return;
     }
     if (tileData.tile_template === "big_value") {
-        updateTileBigValue(id, tileData.data, dashboardname);
+        updateTileBigValue(id, tileData.data);
     }
-    setDataByKeys(id, tileData.data, "all", dashboardname);
-    console.log('End text tile:' +  id);
+    setDataByKeys(id, tileData.data, "all");
     let body = document.getElementById("body-" + id);
     applyFading(body, tileData.meta.big_value_color, tileData.meta.fading_background);
 }

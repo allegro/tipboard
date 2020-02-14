@@ -59,20 +59,20 @@ h6 {
     text-overflow: ellipsis;
     white-space: nowrap;
     font-size: calc(15px + (24 - 15) * ((100vw - 300px) / (1600 - 300)));
-    color: #1b1e21;
+    /*color: #1b1e21;*/
 }
 
 .tile > .tile-content {
     padding: 0 10px;
 }
 
-.tile > .tile-content .result {
-    color: #dcedc8;
-}
+/*.tile > .tile-content .result {*/
+/*    color: #dcedc8;*/
+/*}*/
 
 .tile > .tile-content .label {
     text-transform: uppercase;
-    color: #dcedc8;
+    /*color: #dcedc8;*/
 }
 
 /**

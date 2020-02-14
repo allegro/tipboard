@@ -30,7 +30,10 @@ function updateTile(tileData, dashboardname) {
     let chartId = `${dashboardname}-${tileData['id']}`;
     let tile = $("#" + chartId)[0];
     try {
-        getUpdateFunction(tileData['tile_template'])(tileData, dashboardname);
+        if (tileData.id === "pie_chartjs_ex")
+            console.log("gfgfg");
+        let tileFunction = getUpdateFunction(tileData['tile_template']);
+        tileFunction(tileData, dashboardname);
         $.each([".tile-content"], function (idx, klass) {
             let node = $(tile).find(klass);
             if (node.length > 1) {
@@ -62,6 +65,11 @@ let testApiIsBack = function () {
     Http.send();
 };
 
+function sleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+
 /**
  * Config the WebSocket Object & start a connection
  */
@@ -69,8 +77,7 @@ function initWebSocketManager() {
     let protocol = window.location.protocol === "https:" ? "wss://" : "ws://";
     let websocket = new WebSocket(protocol + window.location.host + "/communication/websocket");
     websocket.onopen = function () {
-        Tipboard.log("[LOG] ");
-        //websocket.send("first_connection:" + window.location.pathname);
+        Tipboard.log("[LOG] WEBSOCKET CONNECTION ONOPEN ");
     };
     websocket.onclose = function () { // Handler to detect when API is back alive to reset websocket connection every 5s
         if (Tipboard === "undefined") {
@@ -80,14 +87,13 @@ function initWebSocketManager() {
             setTimeout(testApiIsBack, 5000);
         }
     };
-    websocket.sendmessage = function(nextDashboardPath) {
-        try {
-            Tipboard.websocket.send("first_connection:" + nextDashboardPath);
-            websocket.lastDashboard = nextDashboardPath.substring(1);
-        } catch (e) {  //TODO: check if it's a InvalidStateError for debug, because otherwise it's a fork bomb xD
-            initWebSocketManager();
-            Tipboard.websocket.send("first_connection:" + nextDashboardPath);
+    websocket.sendmessage = async function(nextDashboardPath) {
+        while (this.readyState === 0) {
+            console.log("[LOG] Websocket Tipboard is not ready: waiting connection");
+            await sleep(200);
         }
+        this.send("first_connection:" + nextDashboardPath);
+        websocket.lastDashboard = nextDashboardPath.substring(1);
     };
     websocket.onmessage = function (evt) {
         let tileData = JSON.parse(evt.data);
@@ -95,8 +101,7 @@ function initWebSocketManager() {
         updateTile(tileData, websocket.lastDashboard);
     };
     websocket.onerror = function (evt) {
-        Tipboard.log("WebSocket error: ", evt.data);
+        console.log("WebSocket error: ", evt.data);
     };
-    Tipboard.websocket = websocket;
-    Tipboard.log("WebSocket object is init ");
+    return websocket;
 }

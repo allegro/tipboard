@@ -12,16 +12,11 @@ from src.tipboard.app.FakeData.fakechartJS import getFakeHalfDoughnutChart
 def getIframeChart(tile_id, template_name):
     return {
         'id': tile_id, 'tile_template': template_name, 'modified': getIsoTime(),
-        'data': dict(url="https://demo.matomo.org/index.php?"
-                         "module=Widgetize"
-                         "&action=iframe&moduleToWidgetize=MultiSites"
-                         "&actionToWidgetize=standalone"
-                         "&idSite=62"
-                         "&period=week&date=yesterday"),
+        'data': dict(url="https://demo.matomo.org/index.php?module=Widgetize&action=iframe&disableLink=0&widget=1&moduleToWidgetize=UserCountryMap&actionToWidgetize=realtimeMap&idSite=62&period=day&date=yesterday&disableLink=1&widget=1"),
         'meta': {}
     }
-
-
+# url = https://demo.matomo.org/index.php?module=Widgetize&action=iframe&disableLink=0&widget=1&moduleToWidgetize=UserCountryMap&actionToWidgetize=realtimeMap&idSite=62&period=day&date=yesterday&disableLink=1&widget=1
+# url = https://demo.matomo.org/index.php?module=Widgetize&action=iframe&disableLink=0&widget=1&moduleToWidgetize=Live&actionToWidgetize=getSimpleLastVisitCount&idSite=62&period=day&date=yesterday&disableLink=1&widget=1
 def buildSwicthPythonFfso_o():
     return dict(pie_chart=getFakePieChart,
                 line_chart=getFakeLineChart,

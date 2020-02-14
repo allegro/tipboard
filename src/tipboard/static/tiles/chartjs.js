@@ -56,6 +56,11 @@ function updateDataset(chart, newDict) {
     let rcx = 0;
     for (; rcx < newDict.datasets.length; rcx++) {
         for (let keyDataset in newDict.datasets[rcx]) {
+//ca fait pareil?
+        //     chart.data.datasets.forEach((dataset) => {
+        //dataset.data.push(data);
+    //});
+
             if ({}.hasOwnProperty.call(newDict.datasets[rcx], keyDataset)) {
                 if (chart.data.datasets.length <= rcx) {
                     chart.data.datasets.push({});
@@ -125,10 +130,11 @@ function updateDataOfChartJS(chart, data, meta) {
     }
     updateData(chart, data);
     if (meta !== "undefined") {
-        updateOptions(chart.config.options, meta.options);
-    }
-    chart.update();
-    Tipboard.log("chart.update()")
+        updateOptions(chart.config.options, meta);
+        Tipboard.log("Jupdate la chart.meta")
+   }
+   chart.update();
+   Tipboard.log("chart.update() donc tout cest bien passe !")
 }
 
 /**
@@ -199,25 +205,27 @@ function buildData(tileType, data) {
 function updateChartjs(tileData, dashboardname) {
     let data = tileData['data'];
     let chartId = `${dashboardname}-${tileData['id']}-chart`;
-    Tipboard.log("updateChartjs " + `${dashboardname}-${tileData['id']}-chart` + " start");
-    if (chartId in Tipboard.chartJsTile) {
-        if (tileData['tile_template'] === "line_chart") {
-            data = updateDatasetLine(data, tileData['tile_template']);
+    Tipboard.log("chartid " + chartId);
+    // TODO: fix this bug rustine
+
+    if (!(chartId in Tipboard.chartJsTile)) {// tile not present in Tipboard cache
+        if ("options" in tileData["meta"]) {
+            tileData["meta"] = tileData["meta"]["options"]
         }
-        updateDataOfChartJS(Tipboard.chartJsTile[chartId], data, meta);
-        Tipboard.log("Update " + tileData['id'] + " ok");
-    } else {
-        console.log("SEARCHING IN DIV DASHBOARD: " + chartId);
         let chart = document.getElementById(chartId);// in htlm la div id ne dépend pas des dashboard, elle sont générique
         chart.parentElement.style.paddingBottom = "9%";
         chart.height = "80%";
-        let op = buildMeta(tileData['tile_template'], tileData['meta']);
+        let options = buildMeta(tileData['tile_template'], tileData['meta']);
         Tipboard.chartJsTile[chartId] = new Chart(chart, {
             type: getTypeOfChartJS(tileData['tile_template']),
             data: buildData(tileData['tile_template'], data),
-            options: op,
+            options: options,
         });
-        Tipboard.log("First init " + tileData['id'] + " ok");
+
+    } else {
+        if (tileData['tile_template'] === "line_chart") {
+            data = updateDatasetLine(data, tileData['tile_template']);
+          }
+       updateDataOfChartJS(Tipboard.chartJsTile[chartId], data, tileData["meta"]);
     }
-    Tipboard.log("updateChartjs " + tileData['id'] + " end");
 }
