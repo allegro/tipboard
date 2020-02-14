@@ -53,16 +53,36 @@
 Introduction
 ------------
 
-Tipboard is a system for creating dashboards, written in JavaScript and Python.
-Its widgets ('tiles' in Tipboard's terminology) are completely
-separated from data sources, which provides great flexibility and
-relatively high degree of possible customizations.
+#### Tipboard was create to simplify the creation of your dashboards  
+Automaticaly **by scripts** (called sensors) **or manually** (*to let everyone use it*)   
+Core code is written in JavaScript and Python, and used many technology (*django, flexbox, bootstrap*).  
+Its widgets (called 'tiles' in Tipboard's terminology) have two categories 'text' and 'chart'  
+It's **responsive** but was made for big screen (optimized for larger screens in your office)  
+Tipboard-1.0 code sources has been fully refactored to be:
+ - cloud-ready
+ - with helm to support multi-cloup
+ - with native pypi support for pip install and python multi-os continuity
+ - build with C.I to assure code quality/security
+ 
+Wiki is [here](https://github.com/the-maux/tipboard/wiki) (in wip)
+ChartJS demo can be found [here](http://jerairrest.github.io/react-chartjs-2/)
 
-Because of its intended target (displaying various data and statistics
-in your office), it is optimized for larger screens.
+Quick Demo
+-----------
 
-A detailed, technical documentation for Tipboard can be found
-[here](http://tipboard.readthedocs.org/en/latest/) and the wiki is [here](https://github.com/the-maux/tipboard/wiki)
+
+<p align="center"> 
+  <img alt="Demo 1" src="https://raw.githubusercontent.com/the-maux/tipboard/develop/src/tipboard/demo.gif"/> 
+</p>
+
+
+Depot Github
+------------
+
+
+<p align="center"> 
+  <img alt="Tipboard ChartJS" src="https://github.com/the-maux/tipboard/blob/develop/src/tipboard/tipboard.svg"/> 
+</p>
 
 
 License
