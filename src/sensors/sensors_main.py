@@ -20,20 +20,37 @@ from src.sensors.utils import end
 
 def addSchedule(scheduler, sonde, second=8, args=None):
     if args is None:
-        scheduler.add_job(sonde, 'interval', seconds=5)
+        scheduler.add_job(sonde, 'interval', seconds=second)
     else:
         scheduler.add_job(sonde, 'interval', seconds=5, args=args)
 
 
+def test_sensors(tester):
+    sonde1(tester, 'txt_ex')
+    sonde2(tester, 'pie_chartjs_ex')
+    sonde3(tester, 'line_chart_ex')
+    sonde4(tester, 'cfjs_ex')
+    sonde5(tester, 'sp_ex')
+    sonde7(tester, 'barjs_ex')
+    sonde7(tester, 'vbarjs_ex')
+    sonde9(tester, 'bv_ex')
+    sonde10(tester, 'jv_ex')
+    sonde12(tester, 'norm_chart')
+    sonde14(tester, 'radar_chart')
+    sonde15(tester, 'polararea_ex')
+    sonde16(tester, 'doughnut_ex')
+    sonde17(tester, 'half_doughnut_ex')
+
+
 def scheduleYourSensors(scheduler=None, tester=None):
-    scheduler.add_job(sonde1, 'interval', seconds=2, args=[tester, 'txt_ex'])
+    scheduler.add_job(sonde1, 'interval', seconds=5, args=[tester, 'txt_ex'])
     addSchedule(scheduler, sonde2, second=40, args=[tester, 'pie_chartjs_ex'])
     addSchedule(scheduler, sonde3, second=3, args=[tester, 'line_chart_ex'])
     addSchedule(scheduler, sonde4, second=19, args=[tester, 'cfjs_ex'])
     addSchedule(scheduler, sonde5, second=16, args=[tester, 'sp_ex'])
     # scheduler.add_job(sonde6, 'interval', seconds=45)
-    scheduler.add_job(sonde7, 'interval', seconds=1, args=[tester, 'barjs_ex', False])
-    scheduler.add_job(sonde7, 'interval', seconds=1, args=[tester, 'vbarjs_ex', True])
+    scheduler.add_job(sonde7, 'interval', seconds=5, args=[tester, 'barjs_ex', False])
+    scheduler.add_job(sonde7, 'interval', seconds=5, args=[tester, 'vbarjs_ex', True])
     addSchedule(scheduler, sonde9, second=39, args=[tester, 'bv_ex'])
     addSchedule(scheduler, sonde10, second=50, args=[tester, 'jv_ex'])
     addSchedule(scheduler, sonde12, second=45, args=[tester, 'norm_chart'])

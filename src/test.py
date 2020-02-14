@@ -24,7 +24,7 @@ from src.sensors.sensors14_radarchart import sonde14
 from src.sensors.sensors15_polarchart import sonde15
 from src.sensors.sensors16_dougnutchart import sonde16
 from src.sensors.sensors17_halfdougnutchart import sonde17
-from src.sensors.sensors_main import scheduleYourSensors
+from src.sensors.sensors_main import scheduleYourSensors, test_sensors
 from src.tipboard.app.views.flipboard import demo_controller
 
 
@@ -244,15 +244,16 @@ class TestApp(TestCase):  # TODO: find a way to test the WebSocket inside django
         """ Test just_value tile update by api """
         testTileUpdate(tester=self, tileId='test_just_value', sonde=sonde10, isChartJS=False)
 
-    def test_1026_test_schedulesensors(self):
+    def test_1026_test_sensors(self):  # TODO: fix this double loads linked to the bug in parser.py at .get()
         tilePrefix = getRedisPrefix("sp_ex")
-        beforeUpdate = json.loads(getCache().redis.get(tilePrefix))
+        beforeUpdate = json.loads(json.loads(getCache().get(tilePrefix)))
+        bv1 = beforeUpdate['data']['big_value']
+        test_sensors(tester=self)
         scheduler = BackgroundScheduler()
         scheduleYourSensors(scheduler=scheduler, tester=self)
-        time.sleep(10)
         scheduler.shutdown()
-        afterUpdate = json.loads(getCache().redis.get(tilePrefix))
-        isDiff = beforeUpdate['data'] != afterUpdate['data']
+        afterUpdate = json.loads(json.loads(getCache().get(tilePrefix)))['data']['big_value']
+        isDiff = beforeUpdate != afterUpdate
         self.assertTrue(isDiff)
 
     def test_1027_test_demo_mode(self):
