@@ -2,42 +2,22 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.views.generic.base import RedirectView
 from django.conf.urls import url
-from src.tipboard.app.views.api import push, projectInfo, tile, meta, update
-from src.tipboard.app.views.api import push_unsecured, tile_unsecured, meta_unsecured, update_unsecured
-from src.tipboard.app.views.dashboard import dashboardRendererHandler, getDashboardsPaths, flipboardHandler
-from src.tipboard.app.properties import API_KEY, API_VERSION
+from src.tipboard.app.views.api import push_api, project_info, tile_rest
+from src.tipboard.app.views.flipboard import getDashboardsPaths, demo_controller, renderFlipboardHtml
+from src.tipboard.app.views.flipboard import renderDashboardHtmlUniqueDashboard, renderDashboardHtmlForFlipboard
 
-favicon_view = RedirectView.as_view(url="/static/" + 'favicon.ico', permanent=True)
-
-url_tiledata = r'^api/tiledata/([a-zA-Z0-9_-]+)$'
-url_meta = r'^api/tileconfig/([a-zA-Z0-9_-]+)$'
-url_info = r'^api/info$'
-url_push = r'^api/push$'
-url_update = r'^api/update$'
-
-# To not depreciate previous script(of people using tipboard1.0), dont destroy this security issue :D
-url_tiledata_unsecured = r'^api/' + API_VERSION + '/' + API_KEY + '/tileconfig/([a-zA-Z0-9_-]+)$'
-url_meta_unsecured = r'^api/' + API_VERSION + '/' + API_KEY + '/tileconfig/([a-zA-Z0-9_-]+)$'
-url_push_unsecured = r'^api/' + API_VERSION + '/' + API_KEY + '/push$'
-url_update_unsecured = r'^api/' + API_VERSION + '/' + API_KEY + '/update$'
+favicon_view = RedirectView.as_view(url='/static/favicon.ico', permanent=True)
 
 urlpatterns = [
-    # Render View for client
-    url(r'^flipboard/getDashboardsPaths$', getDashboardsPaths),
-    url(r'^$', flipboardHandler),
-    url(r'^([a-zA-Z0-9_-]*)$', dashboardRendererHandler),
+    url(r'^flipboard/getDashboardsPaths$', getDashboardsPaths),  # get all dashboard in Config/
 
-    # API interaction
-    url(url_tiledata, tile),
-    url(url_meta, meta),
-    url(url_push, push),
-    url(url_info, projectInfo),
-    url(url_update, update),
+    url(r'^api/tiledata/([a-zA-Z0-9_-]+)$', tile_rest),  # get data of a single tile
+    url(r'^api/push$', push_api),  # update data for a single tile
+    url(r'^api/info$', project_info),  # get data from the tipboard server
 
-    # Unsecured API interaction
-    url(url_tiledata_unsecured, tile_unsecured),
-    url(url_meta_unsecured, meta_unsecured),
-    url(url_push_unsecured, push_unsecured),
-    url(url_update_unsecured, update_unsecured),
+    url(r'^demo/([a-zA-Z0-9_-]+)$', demo_controller),  # start a demo with sensors to actualize data
 
+    url(r'^$', renderFlipboardHtml),  # start the flipboard logic for multiple dashboard in a single flipboard.html
+    url(r'^([a-zA-Z0-9_-]*)$', renderDashboardHtmlUniqueDashboard),  # render a single dashboard.html
+    url(r'^dashboard/([a-zA-Z0-9_-]*)$', renderDashboardHtmlForFlipboard),  # render the tiles html for ws in client js
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

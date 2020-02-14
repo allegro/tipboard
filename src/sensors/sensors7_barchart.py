@@ -1,24 +1,10 @@
-import time
-from src.sensors.utils import end, sendDataToTipboard, getTimeStr
-
-NAME_OF_SENSORS = "bar_chart"
-TILE_TEMPLATE = "bar_chart"
-TILE_ID = "barjs_ex"
+import time, random
+from src.sensors.utils import end, sendUpdateByApi, updateChartJS
 
 
-def executeScriptToGetData():
-    """ Simulate some actions for text tile exemple"""
-    return {
-        "title": "The A-Team",
-        "subtitle": "Velocity (Last tree sprints)",
-        "ticks": ["n-2", "n-1", "Last (n)"],
-        "series_list": [[49, 50, 35], [13, 45, 9]]
-    }
-
-
-def sonde7(isTest):
-    print(f"{getTimeStr()} (+) Starting sensors 7", flush=True)
+def sonde7(tester=None, tile_id='barjs_ex', isHorizontal=False):
+    TILE_TEMPLATE = 'bar_chart' if isHorizontal else 'vbar_chart'
     start_time = time.time()
-    data = executeScriptToGetData()
-    tipboardAnswer = sendDataToTipboard(data, tile_template=TILE_TEMPLATE, tile_id=TILE_ID, isTest=isTest)
-    end(title=f"sensors7 -> {TILE_ID}", start_time=start_time, tipboardAnswer=tipboardAnswer, TILE_ID=TILE_ID)
+    data = updateChartJS(nbrDataset=random.randrange(2, 7), nbrLabel=random.randrange(1, 4), colorTabIndataset=False)
+    tipboardAnswer = sendUpdateByApi(data=data, tileTemplate=TILE_TEMPLATE, tileId=tile_id, tester=tester)
+    end(title=f'sensors7 -> {tile_id}', startTime=start_time, tipboardAnswer=tipboardAnswer, tileId=tile_id)

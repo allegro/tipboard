@@ -15,11 +15,10 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'channels',
-    FROM_PIP + 'tipboard.app.Config'
+    FROM_PIP + 'tipboard.app.Config',
 ]
 
 MIDDLEWARE = [
-    'django_prometheus.middleware.PrometheusBeforeMiddleware',
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -28,34 +27,16 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'corsheaders.middleware.CorsPostCsrfMiddleware',
-    'django_prometheus.middleware.PrometheusAfterMiddleware',
 ]
 
 CORS_ORIGIN_ALLOW_ALL = True
 CORS_ALLOW_CREDENTIALS = True
-CORS_ORIGIN_REGEX_WHITELIST = (
-    '*',
-)
+CORS_ORIGIN_REGEX_WHITELIST = tuple('*')
 
-CORS_ALLOW_METHODS = (
-    'GET',
-    'POST'
-)
+CORS_ALLOW_METHODS = ('GET', 'POST')
 
-CORS_ALLOW_HEADERS = (
-    'accept',
-    'accept-encoding',
-    'authorization',
-    'multipart/form-data',
-    'content-type',
-    'dnt',
-    'origin',
-    'user-agent',
-    'x-csrftoken',
-    'x-requested-with',
-    'Set-Cookie',
-    'enctype',
-)
+CORS_ALLOW_HEADERS = ('accept', 'accept-encoding', 'authorization', 'multipart/form-data', 'content-type',
+                      'dnt', 'origin', 'user-agent', 'x-csrftoken', 'x-requested-with', 'Set-Cookie', 'enctype')
 
 TIME_ZONE = 'Europe/Paris'
 USE_I18N = True

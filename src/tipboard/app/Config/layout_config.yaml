@@ -1,5 +1,6 @@
 details:
     page_title: Tipboard exemple
+    color_mode: white
 layout:
     - row_1_of_2:
 
@@ -7,83 +8,81 @@ layout:
             - tile_template: pie_chart
               tile_id: pie_chartjs_ex
               title: pie chart
-              classes:
+              details:
 
             - tile_template: doughnut_chart
               tile_id: doughnut_ex
               title: doughnut
-              classes:
+              details:
 
         - col_1_of_4 flip-time-2:
             - tile_template: cumulative_flow
               tile_id: cfjs_ex
               title: cumulflow
-              classes:
+              details:
 
             - tile_template: radar_chart
               tile_id: radar_ex
               title: radar chart
-              classes:
+              details:
 
 
         - col_1_of_4 flip-time-2:
             - tile_template: norm_chart
               tile_id: normjs_ex
               title: norm tile's
-              classes:
+              details:
 
             - tile_template: polararea_chart
               tile_id: polararea_ex
               title: polar-area
-              classes:
+              details:
 
         - col_1_of_4 flip-time-2:
             - tile_template: bar_chart
               tile_id: barjs_ex
               title: bar tile's
-              classes:
+              details:
 
             - tile_template: vbar_chart
               tile_id: vbarjs_ex
               title: vertical bar
-              classes:
+              details:
 
 
     - row_1_of_2:
         - col_1_of_4:
-            - tile_template: line_chart
-              tile_id: line_chartjs_ex
-              title: line tile's
-              classes:
+            - tile_template: iframe
+              tile_id: iframe_ex
+              title: Exemple Iframe
+              details:
+                - url: "https://demo.matomo.org/index.php?module=Widgetize&action=iframe&disableLink=0&widget=1&moduleToWidgetize=Live&actionToWidgetize=getSimpleLastVisitCount&idSite=62&period=day&date=yesterday&disableLink=1&widget=1"
 
         - col_1_of_4 :
             - tile_template: just_value
               tile_id: jv_ex
               title: Just value
-              classes:
+              details:
 
 
         - col_1_of_4:
             - tile_template: big_value
               tile_id: bv_ex
               title: Big value
-              classes:
+              details:
 
         - col_1_of_4 flip-time-2:
             - tile_template: simple_percentage
               tile_id: sp_ex
               title: Percentage
-              classes:
+              details:
 
             - tile_template: text
               tile_id: txt_ex
               title: text
-              classes:
+              details:
 
-            - tile_template: listing
-              tile_id: listing_ex
-              title: listing
-              classes:
+
 
 
 

@@ -1,23 +1,20 @@
-import time
-from src.sensors.utils import end, sendDataToTipboard, getTimeStr
-
-NAME_OF_SENSORS = "GET"
-TILE_TEMPLATE = "just_value"
-TILE_ID = "jv_ex"
+import time, random
+from src.sensors.utils import end, sendUpdateByApi
+from src.tipboard.app.properties import BACKGROUND_TAB
 
 
 def executeScriptToGetData():
-    """ Simulate some actions for text tile exemple"""
+    """ Simulate some actions for text tile exemple """
     return {
-        "title": "Next release:",
-        "description": "(days remaining)",
-        "just-value": "23"
+        'title': 'Sensors title',
+        'description': 'Sensors description',
+        'just-value': random.randrange(0, 100)
     }
 
 
-def sonde10(isTest):
-    print(f"{getTimeStr()} (+) Starting sensors 10", flush=True)
+def sonde10(tester=False, tile_id='jv_ex'):
     start_time = time.time()
     data = executeScriptToGetData()
-    tipboardAnswer = sendDataToTipboard(data, tile_template=TILE_TEMPLATE, tile_id=TILE_ID, isTest=isTest)
-    end(title=f"sensors10 -> {TILE_ID}", start_time=start_time, tipboardAnswer=tipboardAnswer, TILE_ID=TILE_ID)
+    meta = dict(big_value_color=BACKGROUND_TAB[random.randrange(0, 3)], fading_background=random.choice([False, True]))
+    tipboardAnswer = sendUpdateByApi(tileId=tile_id, data=data, tileTemplate='just_value', meta=meta, tester=tester)
+    end(title=f'sensors10 -> {tile_id}', startTime=start_time, tipboardAnswer=tipboardAnswer, tileId=tile_id)

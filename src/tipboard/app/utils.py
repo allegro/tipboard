@@ -22,14 +22,22 @@ def checkAccessToken(method='GET', request=None, unsecured=False):
     return False
 
 
-def buildBasicDataset(data=None, seriesNumber=1, borderColor=False):
+def buildTemplateDataset(data=None, seriesNumber=1, borderColor=False):
     if data is None:
-        data = []
-    dataset = dict()
-    dataset['data'] = data
-    dataset['label'] = f'Series {seriesNumber}'
+        data = list()
+    dataset = dict(data=data, label=f'Series {seriesNumber}')
     if borderColor:
         dataset['borderColor'] = COLOR_TAB[seriesNumber - 1]
     else:
         dataset['backgroundColor'] = COLOR_TAB[seriesNumber - 1]
     return dataset
+
+# def buildBasicDataset(data=None, seriesNumber=1, borderColor=False):
+#     if data is None:
+#         data = list()
+#     dataset = dict(data=data, label=f'Series {seriesNumber}')
+#     if borderColor:
+#         dataset['borderColor'] = COLOR_TAB[seriesNumber - 1]
+#     else:
+#         dataset['backgroundColor'] = COLOR_TAB[seriesNumber - 1]
+#     return dataset
