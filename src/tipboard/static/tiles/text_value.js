@@ -1,4 +1,45 @@
 /**
+ * Update the html of tile regarding the key to update
+ * @param tileId id of tile in redis
+ * @param dataToPut data to update
+ * @param keysToUse list of key in tile, to update with dataToPut
+ */
+function setDataByKeys(tileId, dataToPut, keysToUse) {
+    if (keysToUse === "all") { // keysToUse*: list of keys, or string 'all', if 'all' then all keys used from *dataToPut*
+        keysToUse = [];
+        for (let data in dataToPut) {
+            if ({}.hasOwnProperty.call(dataToPut, data)) {
+                keysToUse.push(data);
+            }
+        }
+    }
+    $.each(keysToUse, function (idx, key) {
+        let value = dataToPut[key.toString()];
+        if (typeof (value) !== "undefined") {
+            let dst = $($("#" + tileId)[0]).find("#" + tileId + "-" + key)[0];
+            if (typeof dst !== "undefined") {
+                $(dst).text(value);
+            }
+        }
+    });
+}
+
+/**
+ * Add fading class to the tile
+ * @param node
+ * @param color
+ * @param fading
+ */
+function applyFading(node, color, fading) {
+    node.style.backgroundColor = color;
+    if (fading === true) {
+        node.classList.add("fading-background-color");
+    } else {
+        node.classList.remove("fading-background-color");
+    }
+}
+
+/**
  * Update text tile, font, color & value
  * @param tileId
  * @param data
@@ -64,7 +105,7 @@ function updateTileBigValue(tileId, data) {
     let description = document.getElementById(tileId + "-description");
     if (!("description" in data) || data.description.length === 0) {
         data.description = "0x42";
-        Tipboard.Dashboard.setDataByKeys(tileId, data, "all");
+        setDataByKeys(tileId, data, "all");
         description.style.color = "#00414141";
         description.className = "text";
     } else {
@@ -72,32 +113,36 @@ function updateTileBigValue(tileId, data) {
     }
 }
 
-/**
- * Control all text_tile update fucntion
- * @param tileId
- * @param data
- * @param config
- * @param tileType
- */
-function updateTileTextValue(tileId, data, config, tileType) {
-    if (tileType === "listing") {
-        updateTileListing(tileId, data);
-        return;
-    }
-    if (tileType === "text") {
-        updateTileText(tileId, data);
-        return;
-    }
-    if (tileType === "big_value") {
-        updateTileBigValue(tileId, data);
-    }
-    Tipboard.Dashboard.setDataByKeys(tileId, data, "all");
-    let body = document.getElementById("body-" + tileId);
-    Tipboard.Dashboard.applyFading(body, config.big_value_color, config.fading_background);
+function updateTileIframe(tileId, data) {
+    let iframe = document.getElementById(tileId + "-iframe");
+    console.log("layout_config-iframe_ex------------>iframe:", iframe.src );
+    iframe.src = data.url;
+    console.log("layout_config-iframe_ex------------>iframe:", iframe.src );
 }
 
-Tipboard.Dashboard.registerUpdateFunction("just_value", updateTileTextValue);
-Tipboard.Dashboard.registerUpdateFunction("simple_percentage", updateTileTextValue);
-Tipboard.Dashboard.registerUpdateFunction("big_value", updateTileTextValue);
-Tipboard.Dashboard.registerUpdateFunction("listing", updateTileTextValue);
-Tipboard.Dashboard.registerUpdateFunction("text", updateTileTextValue);
+/**
+ * Control all text_tile update fucntion
+ * @param tileData
+ * @param dashboardname
+ */
+function updateTileTextValue(tileData, dashboardname) {
+    let id = `${dashboardname}-${tileData['id']}`;
+    if (tileData.tile_template === "iframe") {
+        updateTileIframe(id, tileData.data);
+        return;
+    }
+    if (tileData.tile_template === "listing") {
+        updateTileListing(id, tileData.data);
+        return;
+    }
+    if (tileData.tile_template === "text") {
+        updateTileText(id, tileData.data);
+        return;
+    }
+    if (tileData.tile_template === "big_value") {
+        updateTileBigValue(id, tileData.data);
+    }
+    setDataByKeys(id, tileData.data, "all");
+    let body = document.getElementById("body-" + id);
+    applyFading(body, tileData.meta.big_value_color, tileData.meta.fading_background);
+}

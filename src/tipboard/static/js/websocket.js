@@ -1,15 +1,71 @@
 /**
- * Handle when data is receive
- * @param evt
+ * Return the Js func for a specific tile_template
+ * @param tileType tile_template name
+ * @returns {Function} js func to update html tile
  */
-let onMessage = function (evt) {
-    let tileData = JSON.parse(evt.data);
-    if (tileData !== null) {
-        console.log("Web socket received data: ", tileData);
-        Tipboard.Dashboard.updateTile(Tipboard.Dashboard.escapeId(tileData.id),
-            tileData.tile_template, tileData.data, tileData.meta, tileData.modified);
+function getUpdateFunction(tileType) {
+    switch (tileType) {
+        case "vbar_chart":
+            tileType = "bar_chart";
+            break;
+        case "doughnut_chart":
+            tileType = "radar_chart";
+            break;
+        case "half_doughnut_chart":
+            tileType = "radar_chart";
+            break;
+        case "cumulative_flow":
+            tileType = "line_chart";
+            break;
     }
+    return Tipboard.updateFunctions[tileType.toString()];
+}
+
+
+/**
+ * Print a tile to indicate the type of error
+ * @param err Exception Object
+ * @param div tile_template
+ * @param tileId id of tile
+ */
+let onTileError = function (err, div, tileId) {
+    $.each([".tile-content"], function (idx, klass) {
+        let nodes = $(div).find(klass);
+        $(nodes[0]).hide();
+        $(nodes[1]).show();
+        let msg =
+            "<div class=\"alert alert-danger text-center\" role=\"alert\" style=\"height: 100%;\">" +
+                "<b>Tile: " + tileId +  "</b>" +
+                " configuration error: " + err.messages + "<br>" +
+                " error message:" + err.stack + "<br>" +
+            "</div>";
+        $("#" + tileId).html(msg);
+    });
 };
+
+
+/**
+ * Destroy previous tile and create a new to refresh value
+ * @param tileData
+ * @param dashboardname
+ */
+function updateTile(tileData, dashboardname) {
+    let chartId = `${dashboardname}-${tileData['id']}`;
+    let tile = $("#" + chartId)[0];
+    try {
+        let tileFunction = getUpdateFunction(tileData["tile_template"]);
+        tileFunction(tileData, dashboardname);
+        $.each([".tile-content"], function (idx, klass) {
+            let node = $(tile).find(klass);
+            if (node.length > 1) {
+                $(node[1]).remove();
+                $(node[0]).show();
+            }
+        });
+    } catch (err) {
+        onTileError(err, tile, chartId);
+    }
+}
 
 /**
  * Test in Loop if Api is alive, when alive start a new Websocket connection
@@ -18,51 +74,55 @@ let testApiIsBack = function () {
     let Http = new XMLHttpRequest();
     Http.open("GET", window.location.protocol + "/api/info");
     Http.onload = () => {
-        if (Http.status === 200) {
-            Tipboard.WebSocketManager.init();
+        if (Http.status === 200) { // TODO: avant ici
+            Tipboard.log("testApiIsBack Http.status 200");
+            initWebSocketManager();
         }
     };
     Http.onerror = () => {
-        setTimeout(Tipboard.WebSocketManager.waitForAPI, 5000);
+        Tipboard.log("testApiIsBack error");
+        setTimeout(testApiIsBack, 5000);
     };
     Http.send();
 };
 
-/**
- * Handler to detect when API is back alive to reset websocket connection every 5s
- */
-let onClose = function () {
-    setTimeout(Tipboard.WebSocketManager.waitForAPI, 5000);
-};
+function sleep(ms) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
 
-let onError = function (evt) {
-    console.log("WebSocket error: " + evt.data);
-};
-
-/**
- * Config the WebSocket object
- */
-let buildSocket = function () {
-    let protocol = window.location.protocol === "https:" ? "wss://" : "ws://";
-    let websocket = new WebSocket(protocol + window.location.host + "/communication/websocket");
-    websocket.onopen = function () {
-        websocket.send("first_connection:" + window.location.pathname);
-        console.log("Websocket: " + "Asking data to server" + window.location.href);
-    };
-    websocket.onclose = onClose;
-    websocket.onmessage = onMessage;
-    websocket.onerror = onError;
-};
 
 /**
  * Config the WebSocket Object & start a connection
  */
-function initWebsocketManager(Tipboard) {
-    let WebSocketManager = {
-        init: buildSocket,
-        waitForAPI: testApiIsBack
+function initWebSocketManager() {
+    let protocol = window.location.protocol === "https:" ? "wss://" : "ws://";
+    let websocket = new WebSocket(protocol + window.location.host + "/communication/websocket");
+    websocket.onopen = function () {
+        Tipboard.log("[LOG] WEBSOCKET CONNECTION ONOPEN ");
     };
-    Tipboard.WebSocketManager = WebSocketManager;
-    buildSocket();
-    return WebSocketManager;
+    websocket.onclose = function () { // Handler to detect when API is back alive to reset websocket connection every 5s
+        if (Tipboard === "undefined") {
+            Tipboard.log("[WARNING] Websocket Tipboard is not build");
+        } else {
+            Tipboard.log("Closing WS");
+            setTimeout(testApiIsBack, 5000);
+        }
+    };
+    websocket.sendmessage = async function(nextDashboardPath) {
+        while (this.readyState === 0) {
+            console.log("[LOG] Websocket Tipboard is not ready: waiting connection");
+            await sleep(200);
+        }
+        this.send("first_connection:" + nextDashboardPath);
+        websocket.lastDashboard = nextDashboardPath.substring(1);
+    };
+    websocket.onmessage = function (evt) {
+        let tileData = JSON.parse(evt.data);
+        console.log("Web socket received data: ", tileData);
+        updateTile(tileData, websocket.lastDashboard);
+    };
+    websocket.onerror = function (evt) {
+        console.log("WebSocket error: ", evt.data);
+    };
+    return websocket;
 }

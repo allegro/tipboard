@@ -2,6 +2,7 @@
     Project:    Tipboard
     Author:     ...
     Date:       2013/11/28
+    @the-maux: yes, proof this project started in 2013, this guys were freaking awesome, too bad i'm alone
  */
 html, body {
     height: 100%;
@@ -9,16 +10,13 @@ html, body {
 
 h2  {
     text-align: center;
-    color: #FFFFFF;
 }
 
 h3 {
-    color: #FFFFFF;
     text-align: center;
 }
 
 h6 {
-    color: #FFFFFF;
     text-align: center;
 }
 
@@ -37,11 +35,11 @@ h6 {
     margin: 2px;
 }
 
+
 /**
     COMPONENTS
  */
 .tile {
-    background-color: #313131;
     height: 100%;
     width: 100%;
     position: absolute;
@@ -52,7 +50,6 @@ h6 {
     height: 36px;
     line-height: 36px;
     text-transform: full-width;
-    border-bottom: 1px solid rgba(255,255,255,0.1);
     margin-top: 2%;
 }
 
@@ -62,19 +59,20 @@ h6 {
     text-overflow: ellipsis;
     white-space: nowrap;
     font-size: calc(15px + (24 - 15) * ((100vw - 300px) / (1600 - 300)));
+    /*color: #1b1e21;*/
 }
 
 .tile > .tile-content {
     padding: 0 10px;
 }
 
-.tile > .tile-content .result {
-    color: #dcedc8;
-}
+/*.tile > .tile-content .result {*/
+/*    color: #dcedc8;*/
+/*}*/
 
 .tile > .tile-content .label {
     text-transform: uppercase;
-    color: #dcedc8;
+    /*color: #dcedc8;*/
 }
 
 /**

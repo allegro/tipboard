@@ -50,20 +50,21 @@ def findTilesNames(cols_data):
         for tiles_dict in list(col_dict.values()):
             analyseCols(tiles_id, tiles_templates, tiles_dict)
     if LOG:
-        print(f"{getTimeStr()} (+) Parsing Config file with {len(tiles_id)} tiles parsed "
-              f"and {len(tiles_templates)} tiles templates")
+        print(f'{getTimeStr()} (+) Parsing Config file with {len(tiles_id)} tiles parsed '
+              f'and {len(tiles_templates)} tiles templates')
     return tiles_templates, tiles_id
 
 
 def yamlFileToPythonDict(layout_name='layout_config'):
     """ Parse in yaml the .yaml file to return python object """
-    config_path = os.path.join(user_config_dir, ''.join([layout_name]))
+    layout_name = layout_name if layout_name else 'layout_config'
+    config_path = f'{user_config_dir}{layout_name}'
     try:
         with open(config_path, 'r') as layout_config:
             config = yaml.safe_load(layout_config)
     except FileNotFoundError:
-        if ".yaml" not in config_path:
-            config_path += ".yaml"
+        if '.yaml' not in config_path:
+            config_path += '.yaml'
         with open(config_path, 'r') as layout_config:
             config = yaml.safe_load(layout_config)
     return config
@@ -90,7 +91,7 @@ def getConfigNames():
     return configs_names
 
 
-def getFlipboardTitle():
+def getDashboardName():
     """ Returns title to display as a html title. """
     title = ''
     config_names = getConfigNames()  # get all name of files present in ./Config/*.yaml
