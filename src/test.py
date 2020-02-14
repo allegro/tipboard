@@ -2,8 +2,8 @@ import json, time, os
 from django.test import RequestFactory, TestCase, Client
 from apscheduler.schedulers.background import BackgroundScheduler
 from src.manage import show_help
+from src.tipboard.templates.template_filter import template_tile_data, template_tile_dashboard
 from src.tipboard.app.properties import ALLOWED_TILES
-from src.tipboard.templates.template_filter import template_tile
 from src.tipboard.app.FakeData.fake_data import buildFakeDataFromTemplate
 from src.tipboard.app.parser import parseXmlLayout, getDashboardName, getConfigNames
 from src.tipboard.app.cache import MyCache, getCache
@@ -25,7 +25,7 @@ from src.sensors.sensors15_polarchart import sonde15
 from src.sensors.sensors16_dougnutchart import sonde16
 from src.sensors.sensors17_halfdougnutchart import sonde17
 from src.sensors.sensors_main import scheduleYourSensors
-from src.tipboard.app.views.dashboard import demo_controller
+from src.tipboard.app.views.flipboard import demo_controller
 
 
 def testTileUpdate(tester=None, tileId='test_pie_chart', sonde=None, isChartJS=True):
@@ -56,10 +56,11 @@ class TestApp(TestCase):  # TODO: find a way to test the WebSocket inside django
         self.fakeClient = Client()
         self.cache = MyCache()
         self.ALLOWED_TILES = ALLOWED_TILES
+        self.test_layout = 'layout_config'  # TODO: test if the file is present before doing the test
 
     def test_0001_parse_dashboardXml(self):
         """ Test Parse all tiles, cols, rows from a specific .yaml """
-        config = parseXmlLayout(layout_name='layout_config')
+        config = parseXmlLayout(layout_name=self.test_layout)
         self.assertTrue(config is not None)
 
     def test_0002_getAllDashboardFiles(self):
@@ -69,21 +70,21 @@ class TestApp(TestCase):  # TODO: find a way to test the WebSocket inside django
 
     def test_0003_parser_getTitleOfDashboard(self):
         """ Test XmlParser is able to get title of /config/layout_config.yml """
-        config = parseXmlLayout(layout_name='layout_config')
+        config = parseXmlLayout(layout_name=self.test_layout)
         title = config['details']['page_title']
-        self.assertTrue(title != 'Tipboard exemple')
+        self.assertTrue(title == 'Tipboard exemple')
 
     def test_0004_parser_getDashboardColsFromXml(self):  # test if able to parse row
         """ Test XmlParser able to get cols dashboard of /config/layout_config.yml """
-        self.assertTrue(len(parseXmlLayout(layout_name='layout_config')['layout']) > 0)
+        self.assertTrue(len(parseXmlLayout(layout_name=self.test_layout)['layout']) > 0)
 
     def test_0005_parser_getTilesNameFromXml(self):  # test if able to parse tiles template
         """ Test XmlParser able to get tiles name of /config/layout_config.yml """
-        self.assertTrue(len(parseXmlLayout(layout_name='layout_config')['tiles_names']) > 0)
+        self.assertTrue(len(parseXmlLayout(layout_name=self.test_layout)['tiles_names']) > 0)
 
     def test_0006_parser_getTilesIdFromXml(self):
         """ Test XmlParser able to get tiles Id of tiles from /config/layout_config.yml """
-        self.assertTrue(len(parseXmlLayout(layout_name='layout_config')['tiles_keys']) > 0)  # test if able to parse tile_id
+        self.assertTrue(len(parseXmlLayout(layout_name=self.test_layout)['tiles_keys']) > 0)  # test if able to parse tile_id
 
     def test_0011_cache_redisConnection(self):
         """ Test redis connection """
@@ -117,11 +118,12 @@ class TestApp(TestCase):  # TODO: find a way to test the WebSocket inside django
 
     def test_0101_djangoTemplate_tiles(self):
         """ Test template generation """
+        template_tile_dashboard(tile_id='id', layout_name=self.test_layout)
         for tile in self.ALLOWED_TILES:
             tile_data = dict(title=f'{tile}_ex', tile_template=tile)
-            tileTemplate = template_tile(tile_data['title'], tile_data)
-            self.assertTrue('role="alert"' not in tileTemplate)
-        tileTemplate = template_tile('test_unknown_tile', dict(title='unknown', tile_template='tile'))
+            tileTemplate = template_tile_data(('layout', tile_data['title']), tile_data)
+            self.assertTrue('role="alert"' not in tileTemplate)  # detect errors
+        tileTemplate = template_tile_data(('layout', 'test_unknown_tile'), dict(title='unknown', tile_template='tile'))
         self.assertTrue(tileTemplate is not None)
 
     def test_0102_flipboard(self):
@@ -148,12 +150,12 @@ class TestApp(TestCase):  # TODO: find a way to test the WebSocket inside django
 
     def test_0105_api_getHtmlDashboard(self):
         """ Test api getHtmlDashboard """
-        reponse = self.fakeClient.get('/dev_properties')
+        reponse = self.fakeClient.get('/' + self.test_layout)
         self.assertTrue(reponse.status_code == 200)
 
     def test_0106_api_getHtmlDashboardNotFound(self):
         """ Test api getHtmlDashboardNotFound """
-        reponse = self.fakeClient.get('/FindMe')
+        reponse = self.fakeClient.get('/IfY0uF1ndMeY0ur0ut')
         self.assertTrue(reponse.status_code == 404)
 
     def test_0107_api_deleteTileFromApi(self):  # deleting first, cause when get => will be create with FakeData
@@ -166,20 +168,20 @@ class TestApp(TestCase):  # TODO: find a way to test the WebSocket inside django
         reponse = self.fakeClient.get('/api/tiledata/test_text')
         self.assertTrue(reponse.status_code == 200)
 
-    def test_0109_api_parseTitleHtmlFromDashboard(self):
+    def test_0109_api_parseTitleHtmlFromDashboard(self):  # TODO: fix this by testing the flipboard.html
         """ Test if Yaml to dashboard.html know how to parse title """
-        reponse = self.fakeClient.get('/dev_properties')
-        title = b'<title>Dashboard</title>'
-        self.assertTrue(title in reponse.content)
+        reponse = self.fakeClient.get('/dashboard/' + self.test_layout)
+        title = b'__Tipboard exemple'  # need to put __ to test the split methode in template html
+        self.assertTrue(title in reponse.content)  # can't work cause it's made by ws
 
     def test_0110_api_parseConfigHtmlFromDashboard(self):  # test with other file when row_1_of_1
-        reponse = self.fakeClient.get('/dev_properties')
+        reponse = self.fakeClient.get('/dashboard/' + self.test_layout)
         configInYaml = b'id="row_1_of_2"'
         self.assertTrue(configInYaml in reponse.content)
 
-    def test_0111_api_parseConfigHtmlFromDashboard(self):
-        reponse = self.fakeClient.get('/dev_properties')
-        IdTilePresenInYaml = b'id="pie_chartjs_ex"'
+    def test_0111_api_parseConfigHtmlFromDashboard(self):  # TODO: take the tile id by yaml
+        reponse = self.fakeClient.get('/dashboard/' + self.test_layout)
+        IdTilePresenInYaml = b'id="' + bytes(self.test_layout, 'utf-8') + b'-pie_chartjs_ex"'
         self.assertTrue(IdTilePresenInYaml in reponse.content)
 
     def test_1011_updatetile_PieChart(self):
@@ -195,7 +197,7 @@ class TestApp(TestCase):  # TODO: find a way to test the WebSocket inside django
         testTileUpdate(tester=self, tileId='test_line_chart', sonde=sonde3)
 
     def test_1014_updatetile_CumulChart(self):
-        """ Test CumulChart tile update by api """
+        """ Test CumulativeChart tile update by api """
         testTileUpdate(tester=self, tileId='test_cumulative_flow', sonde=sonde4)
 
     def test_1015_updatetile_BarChart(self):
@@ -203,7 +205,7 @@ class TestApp(TestCase):  # TODO: find a way to test the WebSocket inside django
         testTileUpdate(tester=self, tileId='test_bar_chart', sonde=sonde7)
 
     def test_1016_updatetile_VBarChart(self):
-        """ Test Vetical BarChart tile update by api """
+        """ Test Vertical BarChart tile update by api """
         testTileUpdate(tester=self, tileId='test_vbar_chart', sonde=sonde7)
 
     def test_1017_updatetile_HdoughnutChart(self):
@@ -254,11 +256,11 @@ class TestApp(TestCase):  # TODO: find a way to test the WebSocket inside django
         self.assertTrue(isDiff)
 
     def test_1027_test_demo_mode(self):
-        reponse = demo_controller(None, flagSensors='on', tester=self)
-        self.assertTrue(reponse.status_code == 302)
+        response = demo_controller(None, flagSensors='on', tester=self)
+        self.assertTrue(response.status_code == 302)
         time.sleep(10)
-        reponse = demo_controller(None, flagSensors='off', tester=self)
-        self.assertTrue(reponse.status_code == 302)
+        response = demo_controller(None, flagSensors='off', tester=self)
+        self.assertTrue(response.status_code == 302)
 
     def test_1030_checkmanage(self):
         """ Test just_value tile update by api """

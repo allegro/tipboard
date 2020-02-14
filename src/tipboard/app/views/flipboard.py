@@ -1,5 +1,4 @@
 from django.http import JsonResponse, HttpResponse, HttpResponseRedirect
-from django.contrib.staticfiles import finders
 from django.shortcuts import render
 from src.tipboard.app.parser import parseXmlLayout, getDashboardName, getConfigNames, getFlipboardTitles
 from src.tipboard.app.properties import TIPBOARD_CSS_STYLES, FLIPBOARD_INTERVAL, LOG, TIPBOARD_JAVASCRIPTS

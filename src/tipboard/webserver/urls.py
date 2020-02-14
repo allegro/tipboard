@@ -17,7 +17,7 @@ urlpatterns = [
 
     url(r'^demo/([a-zA-Z0-9_-]+)$', demo_controller),  # start a demo with sensors to actualize data
 
-    url(r'^$', renderFlipboardHtml),  # start the flipboard mecanism (show all dashboard, like a view pager, by fading)
-    url(r'^([a-zA-Z0-9_-]*)$', renderDashboardHtmlUniqueDashboard),  # render the <div> html, with all tiles, representing dashboard
-    url(r'^dashboard/([a-zA-Z0-9_-]*)$', renderDashboardHtmlForFlipboard),  # render the <div> html, for Ajax, representing dashboard
+    url(r'^$', renderFlipboardHtml),  # start the flipboard logic for multiple dashboard in a single flipboard.html
+    url(r'^([a-zA-Z0-9_-]*)$', renderDashboardHtmlUniqueDashboard),  # render a single dashboard.html
+    url(r'^dashboard/([a-zA-Z0-9_-]*)$', renderDashboardHtmlForFlipboard),  # render the tiles html for ws in client js
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
