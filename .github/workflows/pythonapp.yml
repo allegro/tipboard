@@ -1,4 +1,4 @@
-name: Flake8 check by Github
+name: Flake8 & Coverage
 
 on: [push]
 
@@ -7,6 +7,10 @@ jobs:
 
     runs-on: ubuntu-latest
     steps:
+    - uses: zhulik/redis-action@1.1.0
+        with:
+          redis version: '5'
+          number of databases: 100
     - uses: actions/checkout@v1
     - name: Set up Python 3.7
       uses: actions/setup-python@v1

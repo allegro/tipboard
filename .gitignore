@@ -20,3 +20,4 @@ src/tipboard/templates/__pycache__/
 src/tipboard/webserver/__pycache__/
 tipboard2.0.egg-info/
 /.coverage
+/TODO.md
