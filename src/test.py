@@ -245,8 +245,9 @@ class TestApp(TestCase):  # TODO: find a way to test the WebSocket inside django
         testTileUpdate(tester=self, tileId='test_just_value', sonde=sonde10, isChartJS=False)
 
     def test_1026_test_sensors(self):  # TODO: fix this double loads linked to the bug in parser.py at .get()
-        tilePrefix = getRedisPrefix("sp_ex")
-        beforeUpdate = json.loads(json.loads(getCache().get(tilePrefix)))
+        tilePrefix = getRedisPrefix('test_simple_percentage')
+        lm = getCache().get(tilePrefix)
+        beforeUpdate = json.loads(json.loads(lm))
         test_sensors(tester=self)
         scheduler = BackgroundScheduler()
         scheduleYourSensors(scheduler=scheduler, tester=self)
