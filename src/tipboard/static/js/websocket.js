@@ -21,6 +21,29 @@ function getUpdateFunction(tileType) {
     return Tipboard.updateFunctions[tileType.toString()];
 }
 
+
+/**
+ * Print a tile to indicate the type of error
+ * @param err Exception Object
+ * @param div tile_template
+ * @param tileId id of tile
+ */
+let onTileError = function (err, div, tileId) {
+    $.each([".tile-content"], function (idx, klass) {
+        let nodes = $(div).find(klass);
+        $(nodes[0]).hide();
+        $(nodes[1]).show();
+        let msg =
+            "<div class=\"alert alert-danger text-center\" role=\"alert\" style=\"height: 100%;\">" +
+                "<b>Tile: " + tileId +  "</b>" +
+                " configuration error: " + err.messages + "<br>" +
+                " error message:" + err.stack + "<br>" +
+            "</div>";
+        $("#" + tileId).html(msg);
+    });
+};
+
+
 /**
  * Destroy previous tile and create a new to refresh value
  * @param tileData
@@ -30,9 +53,7 @@ function updateTile(tileData, dashboardname) {
     let chartId = `${dashboardname}-${tileData['id']}`;
     let tile = $("#" + chartId)[0];
     try {
-        if (tileData.id === "pie_chartjs_ex")
-            console.log("gfgfg");
-        let tileFunction = getUpdateFunction(tileData['tile_template']);
+        let tileFunction = getUpdateFunction(tileData["tile_template"]);
         tileFunction(tileData, dashboardname);
         $.each([".tile-content"], function (idx, klass) {
             let node = $(tile).find(klass);
@@ -66,7 +87,7 @@ let testApiIsBack = function () {
 };
 
 function sleep(ms) {
-  return new Promise(resolve => setTimeout(resolve, ms));
+  return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
 

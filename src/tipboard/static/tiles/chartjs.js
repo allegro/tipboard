@@ -131,10 +131,8 @@ function updateDataOfChartJS(chart, data, meta) {
     updateData(chart, data);
     if (meta !== "undefined") {
         updateOptions(chart.config.options, meta);
-        Tipboard.log("Jupdate la chart.meta")
    }
    chart.update();
-   Tipboard.log("chart.update() donc tout cest bien passe !")
 }
 
 /**
@@ -203,11 +201,8 @@ function buildData(tileType, data) {
  * Create or Update bar & vbar tile
  */
 function updateChartjs(tileData, dashboardname) {
-    let data = tileData['data'];
-    let chartId = `${dashboardname}-${tileData['id']}-chart`;
-    Tipboard.log("chartid " + chartId);
-    // TODO: fix this bug rustine
-
+    let data = tileData["data"];
+    let chartId = `${dashboardname}-${tileData["id"]}-chart`;
     if (!(chartId in Tipboard.chartJsTile)) {// tile not present in Tipboard cache
         if ("options" in tileData["meta"]) {
             tileData["meta"] = tileData["meta"]["options"]
@@ -215,16 +210,14 @@ function updateChartjs(tileData, dashboardname) {
         let chart = document.getElementById(chartId);// in htlm la div id ne dépend pas des dashboard, elle sont générique
         chart.parentElement.style.paddingBottom = "9%";
         chart.height = "80%";
-        let options = buildMeta(tileData['tile_template'], tileData['meta']);
         Tipboard.chartJsTile[chartId] = new Chart(chart, {
-            type: getTypeOfChartJS(tileData['tile_template']),
-            data: buildData(tileData['tile_template'], data),
-            options: options,
+            type: getTypeOfChartJS(tileData["tile_template"]),
+            data: buildData(tileData["tile_template"], data),
+            options: buildMeta(tileData["tile_template"], tileData["meta"]),
         });
-
     } else {
-        if (tileData['tile_template'] === "line_chart") {
-            data = updateDatasetLine(data, tileData['tile_template']);
+        if (tileData["tile_template"] === "line_chart") {
+            data = updateDatasetLine(data, tileData["tile_template"]);
           }
        updateDataOfChartJS(Tipboard.chartJsTile[chartId], data, tileData["meta"]);
     }

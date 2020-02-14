@@ -12,27 +12,6 @@ function addFlipClasses(flippingContainer) {
 }
 
 /**
- * Print a tile to indicate the type of error
- * @param err Exception Object
- * @param div tile_template
- * @param tileId id of tile
- */
-let onTileError = function (err, div, tileId) {
-    $.each([".tile-content"], function (idx, klass) {
-        let nodes = $(div).find(klass);
-        $(nodes[0]).hide();
-        $(nodes[1]).show();
-        let msg =
-            "<div class=\"alert alert-danger text-center\" role=\"alert\" style=\"height: 100%;\">" +
-                "<b>Tile: " + tileId +  "</b>" +
-                " configuration error: " + err.messages + "<br>" +
-                " error message:" + err.stack + "<br>" +
-            "</div>";
-        $('#' + tileId).html(msg);
-    });
-};
-
-/**
  * return the flip time for every nodeHtml (representing tile)
  * @param node
  * @returns {number}
@@ -85,6 +64,8 @@ function initTiles() {
  */
 function changeElements(elementName, value, type) {
     let Elements = null;
+    let copyElements = null;
+    let size = null;
     switch (type) {
         case "tag":
             Elements = document.getElementsByTagName(elementName);
@@ -99,10 +80,9 @@ function changeElements(elementName, value, type) {
             }
             break;
         case "class-class":
-
             Elements = document.getElementsByClassName(elementName);
-            let copyElements = Array.prototype.slice.call(Elements);
-            let size = copyElements.length;
+            copyElements = Array.prototype.slice.call(Elements);
+            size = copyElements.length;
             for (let i = 0; i < size; i++) {
                 copyElements[i].setAttribute("class", value);
             }
@@ -191,7 +171,7 @@ function getDashboardsByApi() {
     $.ajax({
         method: "post",
         url: "/flipboard/getDashboardsPaths",
-        success: function (data) {
+        success(data) {
             let flipInterval = $("#tipboardIframe").attr("data-fliptime-interval");
                 Flipboard.init(data.paths, data.names);
                 showNextDashboard(Flipboard.getNextDashboardPath(), Flipboard.getNextDashboardName());
@@ -201,7 +181,7 @@ function getDashboardsByApi() {
                     }, flipInterval  * 1000);
                 }
         },
-        error: function (request, textStatus, error) {
+        error(request, textStatus, error) {
             Tipboard.log(request, textStatus, error);
             $(".error-message").html(["Error occured.", "For more details check javascript logs."].join("<br>"));
             $("#tipboardIframe").hide();
@@ -266,7 +246,7 @@ function initTipboardObject() {
         updateFunctions: {},
         chartJsTile: {},
         websocket: initWebSocketManager(),
-        log: function (msg) {
+        log(msg) {
             if (this.DEBUG_MODE) {
                 console.log(msg);
             }
@@ -279,11 +259,11 @@ function initTipboardObject() {
     $(document).ready(function () {
         initTipboardObject();
         initChartjs();
-        if (window.location.pathname === '/') {
+        if (window.location.pathname === "/") {
             initFlipboard();
-            getDashboardsByApi(window.location.pathname === '/');
+            getDashboardsByApi();
         } else { // No dashboard rotation
-            showNextDashboard(window.location.pathname, window.location.pathname)
+            showNextDashboard(window.location.pathname, window.location.pathname);
         }
-    })
+    });
 }($));
