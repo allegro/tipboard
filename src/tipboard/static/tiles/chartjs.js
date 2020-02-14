@@ -205,7 +205,7 @@ function updateChartjs(tileData, dashboardname) {
     let chartId = `${dashboardname}-${tileData["id"]}-chart`;
     if (!(chartId in Tipboard.chartJsTile)) {// tile not present in Tipboard cache
         if ("options" in tileData["meta"]) {
-            tileData["meta"] = tileData["meta"]["options"]
+            tileData["meta"] = tileData["meta"]["options"];
         }
         let chart = document.getElementById(chartId);// in htlm la div id ne dépend pas des dashboard, elle sont générique
         chart.parentElement.style.paddingBottom = "9%";

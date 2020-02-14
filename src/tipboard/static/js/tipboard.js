@@ -148,14 +148,14 @@ function showNextDashboard(nextDashboardPath, nextDashboardName) {
     $.ajax({
         method: "get",
         url: "/dashboard" + nextDashboardPath,
-        success: function (data) {
+        success(data) {
             Tipboard.chartJsTile = {};
             $("#tipboardIframe").html(data);
             loadStyleColor();
             initTiles();
             Tipboard.websocket.sendmessage(nextDashboardPath);
         },
-        error: function (request, textStatus, error) {
+        error(request, textStatus, error) {
             Tipboard.log(request, textStatus, error);
             document.title = "Error loading: " + nextDashboardName;
         }
