@@ -228,6 +228,7 @@ function initChartjs() {
     Tipboard.updateFunctions["norm_chart"] = updateChartjs;
     Tipboard.updateFunctions["pie_chart"] = updateChartjs;
     Tipboard.updateFunctions["polararea_chart"] = updateChartjs;
+    Tipboard.updateFunctions["gauge_chart"] = updateChartjs;
     Tipboard.updateFunctions["bar_chart"] = updateChartjs;
     Tipboard.updateFunctions["just_value"] = updateTileTextValue;
     Tipboard.updateFunctions["simple_percentage"] = updateTileTextValue;

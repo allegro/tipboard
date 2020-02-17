@@ -8,7 +8,7 @@ register = template.Library()
 def isChartJS_tile(tile_template):
     return tile_template in ['bar_chart', 'vbar_chart', 'pie_chart', 'polararea_chart',
                              'doughnut_chart', 'half_doughnut_chart', 'radar_chart',
-                             'cumulative_flow', 'norm_chart', 'line_chart']
+                             'cumulative_flow', 'norm_chart', 'line_chart', 'gauge_chart']
 
 
 @register.filter(name='template_tile_dashboard')

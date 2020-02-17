@@ -33,7 +33,7 @@ REDIS_PASSWORD = conf['REDIS_PASSWORD']
 REDIS_DB = conf['REDIS_DB']
 
 ALLOWED_TILES = ['text', 'simple_percentage', 'listing', 'big_value', 'just_value',  # Homemade
-                 'norm_chart', 'line_chart', 'cumulative_flow', 'bar_chart', 'vbar_chart',  # ChartJS
+                 'norm_chart', 'line_chart', 'cumulative_flow', 'bar_chart', 'vbar_chart',  'gauge_chart',  # ChartJS
                  'half_doughnut_chart', 'doughnut_chart', 'pie_chart', 'radar_chart', 'polararea_chart',  # ChartJS
                  'empty', 'iframe']  # misc
 

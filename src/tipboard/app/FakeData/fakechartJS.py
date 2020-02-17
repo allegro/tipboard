@@ -184,6 +184,35 @@ def getFakeHalfDoughnutChart(tile_id, template_name):
     return getFakeDoughnutChart(tile_id, template_name)
 
 
+def getFakeTsGaugeChart(tile_id, template_name):
+    return {
+        'id': tile_id, 'tile_template': template_name, 'modified': getIsoTime(),
+        'data': {
+            'title': {'display': True, 'text': 'Gauge Demo'},
+            'labels': [f'Label {i + 1}' for i in range(8)],
+            'datasets': [
+                {
+                    'backgroundColor': ['#0fdc63', '#fd9704', '#ff7143'],
+                    'borderWidth': 0,
+                    'gaugeData': {
+                        'value': 7777,
+                        'valueColor': '#ff7143'
+                    },
+                    'gaugeLimits': [0, 3000, 7000, 10000]
+                }
+            ]
+        },
+        'meta': {
+            'options': {
+                'responsive': True,
+                'maintainAspectRatio': False,
+                'events': list(),
+                'showMarkers': True
+            }
+        }
+    }
+
+
 def getFakeRadarChart(tile_id, template_name):
     return {
         'id': tile_id, 'tile_template': template_name, 'modified': getIsoTime(),

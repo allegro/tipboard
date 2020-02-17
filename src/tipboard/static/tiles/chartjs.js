@@ -162,6 +162,8 @@ function getTypeOfChartJS(tileType) {
             return "horizontalBar";
         case "vbar_chart":
             return "bar";
+        case 'gauge_chart':
+            return 'tsgauge';
     }
 }
 
