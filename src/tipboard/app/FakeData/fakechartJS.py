@@ -184,6 +184,92 @@ def getFakeHalfDoughnutChart(tile_id, template_name):
     return getFakeDoughnutChart(tile_id, template_name)
 
 
+def getFakeRadialGaugeChart(tile_id, template_name):
+    return {
+        'id': tile_id, 'tile_template': template_name, 'modified': getIsoTime(),
+        'data': {
+            'title': {'display': True, 'text': 'Radial Gauge Demo'},
+            'labels': [f'Label 1'],
+            'datasets': [
+                {
+                    'data': [42],
+                    'label': 'Label'
+                }
+            ]
+        },
+        'meta': {
+            'options': {
+                'responsive': True,
+                'maintainAspectRatio': False,
+                'events': list(),
+                'showMarkers': True,
+
+                'animation': {
+                    'animateRotate': True,
+                    'animateScale': True
+                },
+                'centerPercentage': 80,
+                #    'rotation': -Math.PI / 2,
+                'trackColor': 'rgb(204, 221, 238)',
+                'domain': [0, 50],
+                'roundedCorners': True,
+                'centerArea': {
+                    'displayText': True,
+                    'fontFamily': None,
+                    'fontColor': None,
+                    'fontSize': None,
+                    'padding': 4,
+                    'backgroundImage': None,
+                    'backgroundColor': None,
+                    'text': None
+                }
+            }
+        }
+    }
+
+
+def getFakeLinearGaugeChart(tile_id, template_name):
+    return {
+        'id': tile_id, 'tile_template': template_name, 'modified': getIsoTime(),
+        'data': {
+            'title': {'display': True, 'text': 'Linear Gauge Demo'},
+            'labels': [f'Label 1'],
+            'datasets': [
+                {
+                    'label': 'data 1',
+                    'data': [370],
+                    'offset': 9,
+                    'hoverBackgroundColor': '#f40b9d',
+                    'backgroundColor': '#0fa',
+                    'width': 6
+                },
+                {
+                    'label': 'data 2',
+                    'data': [470],
+                    'offset': 22,
+                    'hoverBackgroundColor': '#F99',
+                    'backgroundColor': '#0af',
+                    'width': 6
+                },
+                {
+                    'label': 'data 3',
+                    'data': [-92],
+                    'offset': 15.5,
+                    'hoverBackgroundColor': '#59F',
+                    'backgroundColor': '#Fa3',
+                    'width': 6
+                }
+            ]
+        },
+        'meta': {
+            'options': {
+                'responsive': True,
+                'maintainAspectRatio': False,
+            }
+        }
+    }
+
+
 def getFakeTsGaugeChart(tile_id, template_name):
     return {
         'id': tile_id, 'tile_template': template_name, 'modified': getIsoTime(),

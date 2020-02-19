@@ -70,3 +70,8 @@ def demo_controller(request, flagSensors=None, tester=None):
     elif flagSensors == 'off':
         stopTheSensors(scheduler)
     return HttpResponseRedirect('/')
+
+
+
+def getAdeline(request):
+    return render(request, 'tmplinear.html')

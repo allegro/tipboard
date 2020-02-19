@@ -56,11 +56,6 @@ function updateDataset(chart, newDict) {
     let rcx = 0;
     for (; rcx < newDict.datasets.length; rcx++) {
         for (let keyDataset in newDict.datasets[rcx]) {
-//ca fait pareil?
-        //     chart.data.datasets.forEach((dataset) => {
-        //dataset.data.push(data);
-    //});
-
             if ({}.hasOwnProperty.call(newDict.datasets[rcx], keyDataset)) {
                 if (chart.data.datasets.length <= rcx) {
                     chart.data.datasets.push({});
@@ -145,7 +140,6 @@ function getTypeOfChartJS(tileType) {
         case "pie_chart":
             return "pie";
         case "doughnut_chart":
-            return "doughnut";
         case "half_doughnut_chart":
             return "doughnut";
         case "polararea_chart":
@@ -153,17 +147,19 @@ function getTypeOfChartJS(tileType) {
         case "radar_chart":
             return "radar";
         case "line_chart":
-            return "line";
         case "norm_chart":
-            return "line";
         case "cumulative_flow":
             return "line";
         case "bar_chart":
             return "horizontalBar";
         case "vbar_chart":
             return "bar";
-        case 'gauge_chart':
-            return 'tsgauge';
+        case "gauge_chart":
+            return "tsgauge";
+        case "radial_gauge_chart":
+            return "radialGauge";
+        case "linear_gauge_chart":
+            return "linearGauge";
     }
 }
 

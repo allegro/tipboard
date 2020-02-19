@@ -44,7 +44,7 @@ def analyseCols(tiles_id, tiles_templates, tiles_dict):
 
 
 def findTilesNames(cols_data):
-    """ Find tile_id in all cols of .yaml """
+    """ Find tile_template & tile_id in all cols of .yaml """
     tiles_templates, tiles_id = list(), list()
     for col_dict in cols_data:
         for tiles_dict in list(col_dict.values()):
