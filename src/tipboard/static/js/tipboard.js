@@ -1,5 +1,18 @@
+jQuery.expr[':'].regex = function(elem, index, match) {
+    var matchParams = match[3].split(','),
+        validLabels = /^(data|css):/,
+        attr = {
+            method: matchParams[0].match(validLabels) ?
+                        matchParams[0].split(':')[0] : 'attr',
+            property: matchParams.shift().replace(validLabels,'')
+        },
+        regexFlags = 'ig',
+        regex = new RegExp(matchParams.join('').replace(/^\s+|\s+$/g,''), regexFlags);
+    return regex.test(jQuery(elem)[attr.method](attr.property));
+}
+
 /**
- * Dynamicaly add Flipforward class to tile, regardind the dashboard.yml
+ * Dynamicaly add Flipforward class to tile, regardind the dashboard.yml config
  * @param flippingContainer
  */
 function addFlipClasses(flippingContainer) {
@@ -12,7 +25,7 @@ function addFlipClasses(flippingContainer) {
 }
 
 /**
- * return the flip time for every nodeHtml (representing tile)
+ * return the flip time for a nodeHtml (representing card)
  * @param node
  * @returns {number}
  */
@@ -31,9 +44,9 @@ function getFlipTime(node) {
 }
 
 /**
- * Init flip behavior for every tiles
+ * Get the in the Id of every card(<div>) the flip-time-(seconds) and init it if there is one
  */
-function initTiles() {
+function initCardWithFlip() {
     let flipContainers = $("div[id*=\"flip-time-\"]");
     $.each(flipContainers, function (idx, flippingContainer) {
         addFlipClasses(flippingContainer);
@@ -53,6 +66,35 @@ function initTiles() {
                 $(tileToFlip).addClass("flippedforward");
             }
         }, flipInterval);
+    });
+}
+
+/**
+ * Get the in the Id of every card(<div>) the weight of the cards, if none default is apply (1)
+ */
+function initCardWeight() {
+    //you have to unload maybe
+    let listOfDivWithWeight = [];
+    let cardWithWeight = $("div:regex(id, .*weight-*)");
+    $.each(cardWithWeight, function (idx, flippingContainer) {
+        let weightNumber = 1;
+        let tmp = cardWithWeight[idx];
+        let id = tmp.id;
+        listOfDivWithWeight.push(id);
+        $.each(id.split(" "), function (idx, val) {
+            let groups = /weight-(\d+)/.exec(val);
+            if (Boolean(groups) && groups.length > 1) {
+                tmp.style['flex-grow'] = groups[1];
+            }
+        });
+
+    });
+    let cardWithoutWeight = $("div:regex(id, .*col_*)");
+    $.each(cardWithoutWeight, function (idx, flippingContainer) {
+        let tmp = cardWithoutWeight[idx];
+        if (!(listOfDivWithWeight.includes(tmp.id))) {
+            tmp.style['flex-grow'] = 1;
+        }
     });
 }
 
@@ -152,7 +194,8 @@ function showNextDashboard(nextDashboardPath, nextDashboardName) {
             Tipboard.chartJsTile = {};
             $("#tipboardIframe").html(data);
             loadStyleColor();
-            initTiles();
+            initCardWithFlip();
+            initCardWeight();
             Tipboard.websocket.sendmessage(nextDashboardPath);
         },
         error(request, textStatus, error) {

@@ -25,14 +25,16 @@ class WSConsumer(WebsocketConsumer):
     def receive(self, text_data, **kwargs):
         """ handle msg sended by client, by 2 way: update all tiles or update 1 specific tile """
         if 'first_connection:' in text_data:
-            for tile in listOfTilesFromLayout(text_data.replace('first_connection:/', '')):
-                self.update_tile_receive(tile_id=tile['tile_id'], template_name=tile['tile_template'])
+            dashboardName = text_data.replace('first_connection:/', '')
+            listOftiles = listOfTilesFromLayout(dashboardName)
+            for tileId in listOftiles:
+                self.update_tile_receive(tile_id=tileId, template_name=listOftiles[tileId]['tile_template'])
         else:
             for tile_id in cache.listOfTilesCached():
                 self.update_tile_receive(tile_id=tile_id)
 
     def update_tile_receive(self, tile_id, template_name=None):
-        """ Create or update the tile with value send  """
+        """ Create or update the tile with value and send to the client with websocket """
         tileData = cache.get(tile_id=getRedisPrefix(tile_id))
         if tileData is None:
             if LOG:

@@ -18,13 +18,13 @@ def getCache():
 
 def listOfTilesFromLayout(layout_name='layout_config'):
     """ List all tiles for a specific layout in Config/*.yml"""
-    rcx = 0
-    listOfTiles = list()
-    config = parseXmlLayout(layout_name)
-    for tile in config['tiles_keys']:
-        listOfTiles.append(dict(tile_id=tile, tile_template=config['tiles_names'][rcx]))
-        rcx += 1
-    return listOfTiles
+    # rcx = 0
+    # listOfTiles = list()
+    # config = parseXmlLayout(layout_name)
+    # for tile in config['tiles_keys']:
+    #     listOfTiles.append(dict(tile_id=tile, tile_template=config['tiles_names'][rcx]))
+    #     rcx += 1
+    return parseXmlLayout(layout_name)['tiles_conf']
 
 
 class MyCache:

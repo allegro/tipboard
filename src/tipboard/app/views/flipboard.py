@@ -12,7 +12,7 @@ scheduler = BackgroundScheduler()
 def renderFlipboardHtml(request):
     """ Render the home page(Html flipboard), and start the javascript tipboard mecanism """
     return render(request, 'flipboard.html',
-                  dict(page_title=getDashboardName(),
+                  dict(page_title='Tipboard',
                        flipboard_interval=FLIPBOARD_INTERVAL,
                        tipboard_css=TIPBOARD_CSS_STYLES,
                        tipboard_js=['js/flipboard.js'] + TIPBOARD_JAVASCRIPTS))
@@ -31,7 +31,6 @@ def renderDashboardHtmlUniqueDashboard(request, layout_name='layout_config', isF
             title = config['details']['page_title'] if 'page_title' in config['details'] else title
             color_mode = config['details']['color_mode'] if 'color_mode' in config['details'] else color_mode
         # TODO: handle when layout is not present inside the .yml (will throw error when config['layout'] not found)
-        # layout_name will be used to make the diff between same tileId on multiple char
         data = dict(layout=config['layout'],
                     layout_name=layout_name,
                     tipboard_css=list() if isFlipboard else TIPBOARD_CSS_STYLES,
