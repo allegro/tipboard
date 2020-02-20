@@ -5,7 +5,7 @@ from src.manage import show_help
 from src.tipboard.templates.template_filter import template_tile_data, template_tile_dashboard
 from src.tipboard.app.properties import ALLOWED_TILES
 from src.tipboard.app.FakeData.fake_data import buildFakeDataFromTemplate
-from src.tipboard.app.parser import parseXmlLayout, getDashboardName, getConfigNames
+from src.tipboard.app.parser import getDashboardName, getConfigNames  # , parseXmlLayout
 from src.tipboard.app.cache import MyCache, getCache
 from src.tipboard.app.utils import checkAccessToken
 from src.tipboard.app.cache import listOfTilesFromLayout
@@ -58,33 +58,33 @@ class TestApp(TestCase):  # TODO: find a way to test the WebSocket inside django
         self.ALLOWED_TILES = ALLOWED_TILES
         self.test_layout = 'layout_config'  # TODO: test if the file is present before doing the test
 
-    def test_0001_parse_dashboardXml(self):
-        """ Test Parse all tiles, cols, rows from a specific .yaml """
-        config = parseXmlLayout(layout_name=self.test_layout)
-        self.assertTrue(config is not None)
+    # def test_0001_parse_dashboardXml(self):
+    #     """ Test Parse all tiles, cols, rows from a specific .yaml """
+    #     config = parseXmlLayout(layout_name=self.test_layout)
+    #     self.assertTrue(config is not None)
 
     def test_0002_getAllDashboardFiles(self):
         """ Test all dashboard file name from Config/ """
         config = getConfigNames()
         self.assertTrue(len(config) > 0)
 
-    def test_0003_parser_getTitleOfDashboard(self):
-        """ Test XmlParser is able to get title of /config/layout_config.yml """
-        config = parseXmlLayout(layout_name=self.test_layout)
-        title = config['details']['page_title']
-        self.assertTrue(title == 'Tipboard exemple')
+    # def test_0003_parser_getTitleOfDashboard(self):
+    #     """ Test XmlParser is able to get title of /config/layout_config.yml """
+    #     config = parseXmlLayout(layout_name=self.test_layout)
+    #     title = config['details']['page_title']
+    #     self.assertTrue(title == 'Tipboard exemple')
 
-    def test_0004_parser_getDashboardColsFromXml(self):  # test if able to parse row
-        """ Test XmlParser able to get cols dashboard of /config/layout_config.yml """
-        self.assertTrue(len(parseXmlLayout(layout_name=self.test_layout)['layout']) > 0)
-
-    def test_0005_parser_getTilesNameFromXml(self):  # test if able to parse tiles template
-        """ Test XmlParser able to get tiles name of /config/layout_config.yml """
-        self.assertTrue(len(parseXmlLayout(layout_name=self.test_layout)['tiles_names']) > 0)
-
-    def test_0006_parser_getTilesIdFromXml(self):
-        """ Test XmlParser able to get tiles Id of tiles from /config/layout_config.yml """
-        self.assertTrue(len(parseXmlLayout(layout_name=self.test_layout)['tiles_keys']) > 0)  # test if able to parse tile_id
+    # def test_0004_parser_getDashboardColsFromXml(self):  # test if able to parse row
+    #     """ Test XmlParser able to get cols dashboard of /config/layout_config.yml """
+    #     self.assertTrue(len(parseXmlLayout(layout_name=self.test_layout)['layout']) > 0)
+    #
+    # def test_0005_parser_getTilesNameFromXml(self):  # test if able to parse tiles template
+    #     """ Test XmlParser able to get tiles name of /config/layout_config.yml """
+    #     self.assertTrue(len(parseXmlLayout(layout_name=self.test_layout)['tiles_names']) > 0)
+    #
+    # def test_0006_parser_getTilesIdFromXml(self):
+    #     """ Test XmlParser able to get tiles Id of tiles from /config/layout_config.yml """
+    #     self.assertTrue(len(parseXmlLayout(layout_name=self.test_layout)['tiles_keys']) > 0)  # test if able to parse tile_id
 
     def test_0011_cache_redisConnection(self):
         """ Test redis connection """

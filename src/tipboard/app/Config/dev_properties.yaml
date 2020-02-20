@@ -39,7 +39,7 @@ layout:
               title: bar tile's
               classes:
 
-        - col_1_of_4 flip-time-4:
+        - col_1_of_4 flip-time-4 weight-2:
 
             - tile_template: line_chart
               tile_id: line_chartjs_ex

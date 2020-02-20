@@ -17,6 +17,7 @@ layout:
             - tile_template: radar_chart
               tile_id: radar_ex
               title: radar chart
+              weight: 2
 
         - col_1_of_7:
             - tile_template: pie_chart

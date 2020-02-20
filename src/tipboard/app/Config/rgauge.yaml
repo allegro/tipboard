@@ -1,0 +1,10 @@
+details:
+    page_title: Dashboard 1
+    color_mode: white
+layout:
+    - row_1_of_1:
+
+        - col_1_of_1:
+            - tile_template: radial_gauge_chart
+              tile_id: rgauge_ex
+              title: Radial gauge Iframe

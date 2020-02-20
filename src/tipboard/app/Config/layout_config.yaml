@@ -55,8 +55,6 @@ layout:
             - tile_template: iframe
               tile_id: iframe_ex
               title: Exemple Iframe
-              details:
-                - url: "https://demo.matomo.org/index.php?module=Widgetize&action=iframe&disableLink=0&widget=1&moduleToWidgetize=Live&actionToWidgetize=getSimpleLastVisitCount&idSite=62&period=day&date=yesterday&disableLink=1&widget=1"
 
         - col_1_of_4 :
             - tile_template: just_value
