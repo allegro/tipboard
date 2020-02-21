@@ -203,7 +203,6 @@ def getFakeRadialGaugeChart(tile_id, template_name):
                 'maintainAspectRatio': False,
                 'events': list(),
                 'showMarkers': True,
-
                 'animation': {
                     'animateRotate': True,
                     'animateScale': True
@@ -233,31 +232,28 @@ def getFakeLinearGaugeChart(tile_id, template_name):
         'id': tile_id, 'tile_template': template_name, 'modified': getIsoTime(),
         'data': {
             'title': {'display': True, 'text': 'Linear Gauge Demo'},
-            'labels': [f'Label 1'],
+            'labels': ['data 1', 'data 2', 'data 3'],
             'datasets': [
                 {
                     'label': 'data 1',
                     'data': [370],
-                    'offset': 9,
-                    'hoverBackgroundColor': '#f40b9d',
-                    'backgroundColor': '#0fa',
-                    'width': 6
+                    'backgroundColor': COLOR_TAB[0],
+                    'offset': 10,
+                    'width': 10
                 },
                 {
                     'label': 'data 2',
-                    'data': [470],
-                    'offset': 22,
-                    'hoverBackgroundColor': '#F99',
-                    'backgroundColor': '#0af',
-                    'width': 6
+                    'data': [170],
+                    'backgroundColor': COLOR_TAB[1],
+                    'offset': 21,
+                    'width': 10
                 },
                 {
                     'label': 'data 3',
-                    'data': [-92],
-                    'offset': 15.5,
-                    'hoverBackgroundColor': '#59F',
-                    'backgroundColor': '#Fa3',
-                    'width': 6
+                    'data': [270],
+                    'backgroundColor': COLOR_TAB[2],
+                    'offset': 32,
+                    'width': 10
                 }
             ]
         },
@@ -275,7 +271,6 @@ def getFakeTsGaugeChart(tile_id, template_name):
         'id': tile_id, 'tile_template': template_name, 'modified': getIsoTime(),
         'data': {
             'title': {'display': True, 'text': 'Gauge Demo'},
-            'labels': [f'Label {i + 1}' for i in range(8)],
             'datasets': [
                 {
                     'backgroundColor': ['#0fdc63', '#fd9704', '#ff7143'],
@@ -293,7 +288,7 @@ def getFakeTsGaugeChart(tile_id, template_name):
                 'responsive': True,
                 'maintainAspectRatio': False,
                 'events': list(),
-                'showMarkers': True
+                'showMarkers': True,
             }
         }
     }

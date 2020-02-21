@@ -178,6 +178,9 @@ function buildMeta(tileType, meta) {
             meta.rotation = Math.PI;
             meta.circumference = Math.PI;
             break;
+        case "radial_gauge_chart":
+            meta.rotation = -Math.PI / 2;
+            break;
         case "gauge_chart":
             if ('labelFormat' in meta) {
                 meta.markerFormatFn = n => n + '$';
@@ -220,13 +223,18 @@ function createChartJSObj(chartId, tileData) {
 function updateChartjs(tileData, dashboardname) {
     let data = tileData["data"];
     let chartId = `${dashboardname}-${tileData["id"]}-chart`;
-    if (!(chartId in Tipboard.chartJsTile)) {// tile not present in Tipboard cache
+    if (!(chartId in Tipboard.chartJsTile)) { // tile not present in Tipboard cache
         createChartJSObj(chartId, tileData);
     } else {
-        if (tileData["tile_template"] === "gauge_chart") {
-            Tipboard.chartJsTile[chartId].destroy();
+        if (tileData["tile_template"] === "gauge_chart" || tileData["tile_template"] === "linear_gauge_chart" ||
+            tileData["tile_template"] === "radial_gauge_chart") {
+            Tipboard.chartJsTile[chartId].destroy();  //ChartPlugin don't update correctly, need to rebuild it
             document.getElementById(chartId);
-            createChartJSObj(chartId, tileData);
+            try {
+                createChartJSObj(chartId, tileData);
+            } catch (e) {
+                console.log('toot');
+            }
             return;
         }
         if (tileData["tile_template"] === "line_chart") {

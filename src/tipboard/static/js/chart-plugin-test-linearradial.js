@@ -8,7 +8,7 @@
         fullWidth: true,
         display: true,
         range: {
-            startValue: -100,
+            startValue: 0,
             endValue: 500
         },
         responsive: true,
@@ -16,8 +16,8 @@
             fontName: "Arial",
             fontSize: 12
         },
-        axisWidth: 6,
-        axisColor: "#00f",
+        axisWidth: 10,
+        axisColor: "#b4b4b4",
         ticks: {
             padding: 5,
             callback: function (tick) {
@@ -469,7 +469,6 @@
                 width += widths[i];
             let canvas = document.createElement("canvas"),
                 c = canvas.getContext("2d");
-            //document.body.appendChild(canvas);
             canvas.width = width;
             canvas.height = 1;
             let gw2 = widths[0];
@@ -953,7 +952,7 @@
             type: "linearGauge",
             horizontal: false,
             range: {
-                startValue: -100,
+                startValue: 0,
                 endValue: 500
             },
             responsive: true,
@@ -961,7 +960,7 @@
                 fontName: "Arial",
                 fontSize: 12
             },
-            axisWidth: 6,
+            axisWidth: 15,
             ticks: {
                 majorTicks: {
                     interval: 100,
