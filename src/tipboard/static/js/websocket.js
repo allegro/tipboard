@@ -33,11 +33,12 @@ let onTileError = function (err, div, tileId) {
         let nodes = $(div).find(klass);
         $(nodes[0]).hide();
         $(nodes[1]).show();
+        let stack = err.stack;
         let msg =
-            "<div class=\"alert alert-danger text-center\" role=\"alert\" style=\"height: 100%;\">" +
+            "<div class=\"alert alert-danger\" role=\"alert\" style=\"height: 100%;\">" +
                 "<b>Tile: " + tileId +  "</b>" +
                 " configuration error: " + err.messages + "<br>" +
-                " error message:" + err.stack + "<br>" +
+                " <p>error message:" + stack +  "</p><br>" +
             "</div>";
         $("#" + tileId).html(msg);
     });

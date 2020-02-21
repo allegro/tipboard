@@ -64,12 +64,13 @@ def getDashboardsPaths(request):
 
 def demo_controller(request, flagSensors=None, tester=None):
     """ activate or not the sensors by api  """
+    global scheduler
     if flagSensors == 'on':
         scheduleYourSensors(scheduler, tester)
     elif flagSensors == 'off':
         stopTheSensors(scheduler)
+        scheduler = BackgroundScheduler()
     return HttpResponseRedirect('/')
-
 
 
 def getAdeline(request):

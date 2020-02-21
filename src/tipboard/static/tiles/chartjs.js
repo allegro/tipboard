@@ -178,6 +178,11 @@ function buildMeta(tileType, meta) {
             meta.rotation = Math.PI;
             meta.circumference = Math.PI;
             break;
+        case "gauge_chart":
+            if ('labelFormat' in meta) {
+                meta.markerFormatFn = n => n + '$';
+            }
+            break;
     }
     return meta;
 }
@@ -195,6 +200,20 @@ function buildData(tileType, data) {
     return data;// tileType === "line_chart" ? updateDatasetLine(data, tileType) : data;
 }
 
+function createChartJSObj(chartId, tileData) {
+    if ("options" in tileData["meta"]) {
+        tileData["meta"] = tileData["meta"]["options"];
+    }
+    let chart = document.getElementById(chartId);// in htlm la div id ne dépend pas des dashboard, elle sont générique
+    chart.parentElement.style.paddingBottom = "9%";
+    chart.height = "80%";
+    Tipboard.chartJsTile[chartId] = new Chart(chart, {
+        type: getTypeOfChartJS(tileData["tile_template"]),
+        data: buildData(tileData["tile_template"], tileData["data"]),
+        options: buildMeta(tileData["tile_template"], tileData["meta"]),
+    });
+}
+
 /**
  * Create or Update bar & vbar tile
  */
@@ -202,21 +221,17 @@ function updateChartjs(tileData, dashboardname) {
     let data = tileData["data"];
     let chartId = `${dashboardname}-${tileData["id"]}-chart`;
     if (!(chartId in Tipboard.chartJsTile)) {// tile not present in Tipboard cache
-        if ("options" in tileData["meta"]) {
-            tileData["meta"] = tileData["meta"]["options"];
-        }
-        let chart = document.getElementById(chartId);// in htlm la div id ne dépend pas des dashboard, elle sont générique
-        chart.parentElement.style.paddingBottom = "9%";
-        chart.height = "80%";
-        Tipboard.chartJsTile[chartId] = new Chart(chart, {
-            type: getTypeOfChartJS(tileData["tile_template"]),
-            data: buildData(tileData["tile_template"], data),
-            options: buildMeta(tileData["tile_template"], tileData["meta"]),
-        });
+        createChartJSObj(chartId, tileData);
     } else {
+        if (tileData["tile_template"] === "gauge_chart") {
+            Tipboard.chartJsTile[chartId].destroy();
+            document.getElementById(chartId);
+            createChartJSObj(chartId, tileData);
+            return;
+        }
         if (tileData["tile_template"] === "line_chart") {
             data = updateDatasetLine(data, tileData["tile_template"]);
-          }
+       }
        updateDataOfChartJS(Tipboard.chartJsTile[chartId], data, tileData["meta"]);
     }
 }
