@@ -78,7 +78,6 @@ function initCardWeight() {
     let listOfDivWithWeight = [];
     let cardWithWeight = $("div:regex(id, .*weight-*)");
     $.each(cardWithWeight, function (idx, flippingContainer) {
-        let weightNumber = 1;
         let tmp = cardWithWeight[idx];
         let id = tmp.id;
         listOfDivWithWeight.push(id);
