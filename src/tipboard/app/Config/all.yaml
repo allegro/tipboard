@@ -1,5 +1,6 @@
 details:
     page_title: Tipboard exemple
+    color_mode: white
 layout:
     - row_1_of_2:
 
