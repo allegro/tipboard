@@ -1,15 +1,15 @@
-jQuery.expr[':'].regex = function(elem, index, match) {
-    var matchParams = match[3].split(','),
+jQuery.expr[":"].regex = function(elem, index, match) {
+    var matchParams = match[3].split(","),
         validLabels = /^(data|css):/,
         attr = {
             method: matchParams[0].match(validLabels) ?
-                        matchParams[0].split(':')[0] : 'attr',
-            property: matchParams.shift().replace(validLabels,'')
+                        matchParams[0].split(":")[0] : "attr",
+            property: matchParams.shift().replace(validLabels, "")
         },
-        regexFlags = 'ig',
-        regex = new RegExp(matchParams.join('').replace(/^\s+|\s+$/g,''), regexFlags);
+        regexFlags = "ig",
+        regex = new RegExp(matchParams.join("").replace(/^\s+|\s+$/g, ""), regexFlags);
     return regex.test(jQuery(elem)[attr.method](attr.property));
-}
+};
 
 /**
  * Dynamicaly add Flipforward class to tile, regardind the dashboard.yml config
@@ -84,7 +84,7 @@ function initCardWeight() {
         $.each(id.split(" "), function (idx, val) {
             let groups = /weight-(\d+)/.exec(val);
             if (Boolean(groups) && groups.length > 1) {
-                tmp.style['flex-grow'] = groups[1];
+                tmp.style["flex-grow"] = groups[1];
             }
         });
 
@@ -93,7 +93,7 @@ function initCardWeight() {
     $.each(cardWithoutWeight, function (idx, flippingContainer) {
         let tmp = cardWithoutWeight[idx];
         if (!(listOfDivWithWeight.includes(tmp.id))) {
-            tmp.style['flex-grow'] = 1;
+            tmp.style["flex-grow"] = 1;
         }
     });
 }
