@@ -50,6 +50,6 @@ def template_tile_data(packedData, tile_data):
             if isChartJS_tile(tile_data['tile_template']):
                 return render_to_string(f'tiles/chartJS_template.html', templateData)
             return render_to_string(f'tiles/{tile_data["tile_template"]}.html', templateData)
-        except:
+        except Exception:
             return handle_errors(tile_data, templateData, True)
     return handle_errors(tile_data, templateData, False)

@@ -1,5 +1,5 @@
 import glob, os, yaml
-from src.tipboard.app.properties import LOG, user_config_dir
+from src.tipboard.app.properties import user_config_dir
 from src.tipboard.app.utils import getTimeStr
 
 
@@ -36,33 +36,24 @@ def getRows(layout):
     return rows_data
 
 
-def analyseCols(tiles_id, tiles_templates, tiles, dashboard_config):
+def analyseCols(tiles, dashboard_config):
     """ Build a dict with all tiles present in dashboard.yml with the configs of this tiles """
     for tile_dict in tiles:
         if tile_dict['tile_id'] not in dashboard_config:  # TODO: protect against double inclusion of same id for 2 tile
             tile_config = dict(tile_id='unknown', tile_template='unknown', title='No title', weight=1)
-            if 'tile_id' in tile_dict:
-                tile_config['tile_id'] = tile_dict['tile_id']
-            if 'tile_template' in tile_dict:
-                tile_config['tile_template'] = tile_dict['tile_template']
-            if 'title' in tile_dict:
-                tile_config['title'] = tile_dict['title']
-            if 'weight' in tile_dict:
-                tile_config['weight'] = tile_dict['weight']
-            dashboard_config[tile_dict['tile_id']] = tile_config
+            for key in tile_config:
+                if key not in tile_dict:  # setting default value when not present
+                    tile_dict[key] = tile_config[key]
+            dashboard_config[tile_dict['tile_id']] = tile_dict
 
 
 def findTilesNames(cols_data):
     """ Find tile_template & tile_id in all cols of .yaml """
-    tiles_config = dict()
-    tiles_templates, tiles_id = list(), list()
+    dash_config = dict()
     for col_dict in cols_data:
         for tiles_dict in list(col_dict.values()):
-            analyseCols(tiles_id, tiles_templates, tiles_dict, tiles_config)
-    if LOG:
-        print(f'{getTimeStr()} (+) Parsing Config file with {len(tiles_id)} tiles parsed '
-              f'and {len(tiles_templates)} tiles templates')
-    return tiles_templates, tiles_id, tiles_config
+            analyseCols(tiles=tiles_dict, dashboard_config=dash_config)
+    return dash_config
 
 
 def yamlFileToPythonDict(layout_name='layout_config'):
@@ -86,7 +77,7 @@ def parseXmlLayout(layout_name='layout_config'):
     rows = [row for row in getRows(config['layout'])]
     cols = [col for col in [getCols(row) for row in rows]]
     cols_data = [colsValue for colsList in cols for colsValue in colsList]
-    config['tiles_names'], config['tiles_keys'], config['tiles_conf'] = findTilesNames(cols_data)
+    config['tiles_conf'] = findTilesNames(cols_data)
     return config
 
 

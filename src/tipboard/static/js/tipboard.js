@@ -20,6 +20,7 @@ function addFlipClasses(flippingContainer) {
         if (idx === 0) {
             $(elem).addClass("flippedforward");
         }
+        console.log("addFlipClasses:", $(elem));
         $(elem).addClass("flippable");
     });
 }
@@ -150,6 +151,8 @@ function loadStyleColor() {
         changeElements(".row text", ".row text-white", "class-class");
         changeElements(".row center text", ".row center text-white", "class-class");
         changeElements("display-3 text", "display-3 text-white", "class-class");
+        changeElements("display-2 text", "display-2 text-white", "class-class");
+        changeElements("display-1 text", "display-1 text-white", "class-class");
         changeElements("h1 display-1 text", "h1 display-1 text-white", "class-class");
         changeElements("text", "text-white", "class-class");
         changeElements("h1", "#ffffff", "tag");
@@ -165,20 +168,22 @@ function loadStyleColor() {
         body_style.backgroundColor = "#eceff1";
         changeElements("tile", "#f5f5f5", "class-backgroundColor");
         changeElements("card", "#f5f5f5", "class-backgroundColor");
-        changeElements("mx-auto text-white", "mx-auto text", "class-class");
-        changeElements(".row text-white", ".row text", "class-class");
-        changeElements(".row center text", ".row center text-white", "class-class");
-        changeElements("display-3 text", "display-3 text-white", "class-class");
-        changeElements("h1 display-1 text-white", "h1 display-1 text", "class-class");
-        changeElements("text-white", "text", "class-class");
+        // changeElements("mx-auto text-white", "mx-auto text", "class-class");
+        // changeElements(".row text-white", ".row text", "class-class");
+        // changeElements(".row center text", ".row center text-white", "class-class");
+        // changeElements("display-3 text", "display-3 text-white", "class-class");
+        // changeElements("display-2 text", "display-2 text-white", "class-class");
+        // changeElements("display-1 text", "display-1 text-white", "class-class");
+        // changeElements("text-white", "text", "class-class");
         changeElements("h1", "#000", "tag");
-        changeElements("h2", "#000", "tag");
+        changeElements("h2", "#212529", "tag");
         changeElements("h3", "#000", "tag");
         changeElements("h6", "#000", "tag");
-        Chart.defaults.global.defaultFontColor = "rgba(0, 0, 0, 0.83)";
+        Chart.defaults.global.defaultFontColor = "rgba(89, 0, 0, 0.83)";
         Chart.defaults.global.elements.line.backgroundColor = "#FFFFFF";
         Chart.defaults.scale.gridLines.display = true;
-        Chart.defaults.scale.gridLines.color = "#525252";
+        Chart.defaults.scale.gridLines.color = "#212121";
+        //Chart.defaults.scale.angleLines.color = "#212121";
     }
 }
 

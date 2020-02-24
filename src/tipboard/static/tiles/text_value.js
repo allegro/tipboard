@@ -127,6 +127,7 @@ function updateTileIframe(tileId, data) {
  */
 function updateTileTextValue(tileData, dashboardname) {
     let id = `${dashboardname}-${tileData['id']}`;
+    console.log("updateTileTextValue::update{END}::chartId:" + id);
     if (tileData.tile_template === "iframe") {
         updateTileIframe(id, tileData.data);
         return;
@@ -145,4 +146,5 @@ function updateTileTextValue(tileData, dashboardname) {
     setDataByKeys(id, tileData.data, "all");
     let body = document.getElementById("body-" + id);
     applyFading(body, tileData.meta.big_value_color, tileData.meta.fading_background);
+    console.log("updateTileTextValue::update{END}::tileId:" + id);
 }

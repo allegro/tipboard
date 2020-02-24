@@ -59,7 +59,7 @@ def buildDatasetRadar(index=0, randomData=False, labelLenght=5):
 def buildDatasetLinearGauge(index=0, randomData=False, labelLenght=1):
     return dict(label=f'Series {index + 1}', fill=True,
                 data=42 if randomData is False else [random.randrange(100, 500) for _ in range(labelLenght)],
-                backgroundColor=COLOR_TAB[index], borderColor=COLOR_TAB[index],
+                backgroundColor=COLOR_TAB[index], borderColor='#626262', borderWidth=1,
                 pointBorderColor=COLOR_TAB[index], pointBackgroundColor='rgba(255, 255, 255, 0.5)')
 
 

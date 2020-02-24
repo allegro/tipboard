@@ -39,17 +39,17 @@ layout:
               title: bar tile's
               classes:
 
-        - col_1_of_4 flip-time-4 weight-2:
+        - col_1_of_4 weight-4:
 
             - tile_template: line_chart
               tile_id: line_chartjs_ex
               title: line tile's
               classes:
-
-            - tile_template: simple_percentage
-              tile_id: sp_ex
-              title: Percentage
-              classes:
+#
+#            - tile_template: simple_percentage
+#              tile_id: sp_ex
+#              title: Percentage
+#              classes:
 
     - row_1_of_2:
 
@@ -66,7 +66,7 @@ layout:
               title: cumulflow
               classes:
 
-        - col_1_of_4 flip-time-6:
+        - col_1_of_4 weight-4:
 
 
             - tile_template: big_value
@@ -74,10 +74,10 @@ layout:
               title: Big value
               classes:
 
-            - tile_template: norm_chart
-              tile_id: normjs_ex
-              title: norm tile's
-              classes:
+#            - tile_template: norm_chart
+#              tile_id: normjs_ex
+#              title: norm tile's
+#              classes:
 
 
         - col_1_of_4 flip-time-7:

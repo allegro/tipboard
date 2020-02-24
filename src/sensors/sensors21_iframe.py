@@ -1,5 +1,5 @@
 import time, random
-from src.sensors.utils import end, sendUpdateByApi, updateChartJS
+from src.sensors.utils import end, sendUpdateByApi
 from src.tipboard.app.properties import COLOR_TAB
 
 

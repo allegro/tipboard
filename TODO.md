@@ -1,40 +1,22 @@
-
-
 - TOFIX:
-    - cache.get fais un doublon sur la sérialization str -> Json
-    - ce qui nest pas le cas dans cache.redis.get
+    - cache.get fais un doublon sur la sérialization str -> Json ce qui nest pas le cas dans cache.redis.get
     - update les meta: il y a une incompréhension si je dois send config.options ou options sur les différentes chart
-    - DANS tipboard.jsinitTipboardObject.chartsIds vs Tipboard.chartJsTile what the difference ?
+    - vbar is not recognize in template
 
+- CI
+    - si on pouvait également une bonne fois pour toute enlever les lib test des dependencies
 
+- chartJS:
+    - tu add la linear gauge chart, depuis une update chelou de ChartJS sur github
+    - https://github.com/scottmcculloch/Chart.LinearGauge.js/blob/master/index.html
+    - dans l'index il y a plein d'exemple de gauge utilisé, comprends et reprends le mécanisme
+    - tu as add trois fonction directement dans testèlinearradial.js
+        - chart.element.gaugerect.js
+        - chart.lineargauge.js
+        - chart.scale.lineargauge.js
+    tu as add tout ce qu'il faut pour l'ajouter mais il faudrait play le index.html
+    pour voir les différents types qui existe et en choisir 1 ou plusieur à implémenter dans tipboard
 
-- MODE BLACK&WHITE
-    - var:
-        - [css] body 212121 -> FFFFF
-        - [css] .h2 .h3 .h6 FFFFF -> 212121
-        - [css] .tile > .tile-header rgba(255,255,255,0.1) -> black
-        - [css] background-color: #313131 -> #f5f5f5;
-        - [js] Js tipboard.initChartjsDefault: Chart.defaults.global.defaultFontColor = "rgba(255, 255, 255, 0.83)"; -> black
-        - [js] Js ChartJs Chart.defaults.scale.gridLines.color = "#929292";
-        - [python-template] layout.html card shadow -> card
-        - [python-fakeData] ChartJs il faudra surement un peu moins de black sur les gridlines
-        - [python-template] switch tipboard logo
-        - [python-template] Txt tile:
-            - Bigvalue ctr+A -white -> nothing
-            - Simpleper ctr+A -white -> nothing
-            - Text span -white -> nothing
-           - trouver la bonne valeur text noir pour les h3
-        - [css/python-template] tu as transformer tout les #696969 et #414141  en #525252, car ca rend mieux en white
-            - a voir si ca marche avec le black mode
-
-- Console mode debug et production to show Js log deep
-
-- Finir les unitest:
-    - Informer cache.py que c'est un test, pour taper sur -n 5, qu'il supprime à la fin de RUN (comme lepurge BDD)
-    - Par docker les test dans gitlab-ci été casssé, car dans les test il créé une fake bdd
-    - mais navait pas les droits pour tester les tiles text en testant un scénario Sondes -> parse result in html
-    - for PRODUCTION MODE, if cat -R * | grep "# no pragma" == Sucess => FAILED
-    - Corriger les C.I, nottament pour leur ajouter redis
 
 * [ ] made issue #32 possible
 

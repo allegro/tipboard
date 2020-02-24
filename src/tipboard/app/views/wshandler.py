@@ -38,8 +38,7 @@ class WSConsumer(WebsocketConsumer):
         tileData = cache.get(tile_id=getRedisPrefix(tile_id))
         if tileData is None:
             if LOG:
-                print(f'{getTimeStr()} (-) No data in key {tile_id} on Redis.', flush=True)
-                print(f'{getTimeStr()} (-) Generating fake data for {tile_id}.', flush=True)
+                print(f'{getTimeStr()} (-) Generating fake data for {tile_id}. with template {template_name}', flush=True)
             data = buildFakeDataFromTemplate(tile_id, template_name, cache)
         else:
             data = json.loads(tileData)

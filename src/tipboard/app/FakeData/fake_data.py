@@ -9,10 +9,14 @@ from src.tipboard.app.FakeData.fakechartJS import getFakePolarareaChart, getFake
 from src.tipboard.app.FakeData.fakechartJS import getFakeHalfDoughnutChart, getFakeDoughnutChart
 from src.tipboard.app.FakeData.fakechartJS import getFakeTsGaugeChart, getFakeRadialGaugeChart, getFakeLinearGaugeChart
 
+
 def getIframeChart(tile_id, template_name):
     return {
         'id': tile_id, 'tile_template': template_name, 'modified': getIsoTime(),
-        'data': dict(url="https://demo.matomo.org/index.php?module=Widgetize&action=iframe&disableLink=0&widget=1&moduleToWidgetize=Live&actionToWidgetize=getSimpleLastVisitCount&idSite=62&period=day&date=yesterday&disableLink=1&widget=1"),
+        'data': dict(url="https://demo.matomo.org/index.php?"
+                         "module=Widgetize&action=iframe&disableLink=0&widget=1&"
+                         "moduleToWidgetize=Live&actionToWidgetize=getSimpleLastVisitCount&"
+                         "idSite=62&period=day&date=yesterday&disableLink=1&widget=1"),
         'meta': {}
     }
 
