@@ -33,9 +33,10 @@ REDIS_PASSWORD = conf['REDIS_PASSWORD']
 REDIS_DB = conf['REDIS_DB']
 
 ALLOWED_TILES = ['text', 'simple_percentage', 'listing', 'big_value', 'just_value',  # Homemade
-                 'norm_chart', 'line_chart', 'cumulative_flow', 'bar_chart', 'vbar_chart',  # ChartJS
-                 'half_doughnut_chart', 'doughnut_chart', 'pie_chart', 'radar_chart', 'polararea_chart',  # ChartJS
-                 'empty', 'iframe']  # misc
+                 'norm_chart', 'line_chart', 'cumulative_flow',  # ChartJS
+                 'bar_chart', 'vbar_chart', 'gauge_chart', 'radial_gauge_chart', 'linear_gauge_chart',  # ChartJS
+                 'pie_chart', 'polararea_chart', 'radar_chart', 'doughnut_chart', 'half_doughnut_chart',  # ChartJS
+                 'iframe', 'empty']  # misc
 
 COLOR_TAB = [  # material color
     'rgba(66, 165, 245, 0.8)',      # blue #42a5f5

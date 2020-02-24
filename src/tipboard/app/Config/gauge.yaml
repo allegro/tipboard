@@ -1,0 +1,10 @@
+details:
+    page_title: Dashboard 1
+    color_mode: whitde
+layout:
+    - row_1_of_1:
+
+        - col_1_of_1:
+            - tile_template: gauge_chart
+              tile_id: gauge_ex
+              title: Gauge Iframe

@@ -1,0 +1,28 @@
+details:
+    page_title: Dashboard 1
+layout:
+    - row_1_of_2:
+
+        - col_1_of_2:
+            - tile_template: cumulative_flow
+              tile_id: cfjs_ex
+              title: cumulflow
+
+        - col_1_of_2:
+            - tile_template: doughnut_chart
+              tile_id: doughnut_ex
+              title: doughnut
+
+    - row_1_of_2:
+
+        - col_1_of_2:
+
+          - tile_template: bar_chart
+            tile_id: barjs_ex
+            title: bar tile's
+
+        - col_1_of_2:
+
+          - tile_template: vbar_chart
+            tile_id: vbarjs_ex
+            title: vertical bar

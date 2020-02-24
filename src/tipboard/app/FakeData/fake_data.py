@@ -5,15 +5,17 @@ from src.tipboard.app.FakeData.fakeTilesText import getFakeText, getFakeJustValu
 from src.tipboard.app.FakeData.fakeTilesText import getFakeListing, getFakeSimplePercentg, getFakeBigValue
 from src.tipboard.app.FakeData.fakechartJS import getFakePieChart, getFakeBarChart, getFakeVbarChart
 from src.tipboard.app.FakeData.fakechartJS import getFakeNormChart, getFakeCumulFlow, getFakeLineChart
-from src.tipboard.app.FakeData.fakechartJS import getFakeDoughnutChart, getFakePolarareaChart, getFakeRadarChart
-from src.tipboard.app.FakeData.fakechartJS import getFakeHalfDoughnutChart
+from src.tipboard.app.FakeData.fakechartJS import getFakePolarareaChart, getFakeRadarChart
+from src.tipboard.app.FakeData.fakechartJS import getFakeHalfDoughnutChart, getFakeDoughnutChart
+from src.tipboard.app.FakeData.fakechartJS import getFakeTsGaugeChart, getFakeRadialGaugeChart, getFakeLinearGaugeChart
 
 
 def getIframeChart(tile_id, template_name):
     return {
         'id': tile_id, 'tile_template': template_name, 'modified': getIsoTime(),
-        'data': dict(url="https://demo.matomo.org/index.php?module=Widgetize&action=iframe&disableLink=0&"
-                         "widget=1&moduleToWidgetize=UserCountryMap&actionToWidgetize=realtimeMap&"
+        'data': dict(url="https://demo.matomo.org/index.php?"
+                         "module=Widgetize&action=iframe&disableLink=0&widget=1&"
+                         "moduleToWidgetize=Live&actionToWidgetize=getSimpleLastVisitCount&"
                          "idSite=62&period=day&date=yesterday&disableLink=1&widget=1"),
         'meta': {}
     }
@@ -21,6 +23,8 @@ def getIframeChart(tile_id, template_name):
 # url = https://demo.matomo.org/index.php?module=Widgetize&action=iframe&disableLink=0&widget=1&
 # moduleToWidgetize=UserCountryMap&actionToWidgetize=realtimeMap&idSite=62&period=day&
 # date=yesterday&disableLink=1&widget=1
+
+
 # url = https://demo.matomo.org/index.php?module=Widgetize&action=iframe&disableLink=0&widget=1&
 # moduleToWidgetize=Live&actionToWidgetize=getSimpleLastVisitCount&idSite=62&period=day&
 # date=yesterday&disableLink=1&widget=1
@@ -34,7 +38,10 @@ def buildSwicthPythonFfso_o():
                 norm_chart=getFakeNormChart,
                 half_doughnut_chart=getFakeHalfDoughnutChart,
                 doughnut_chart=getFakeDoughnutChart,
+                gauge_chart=getFakeTsGaugeChart,
+                radial_gauge_chart=getFakeRadialGaugeChart,
                 radar_chart=getFakeRadarChart,
+                linear_gauge_chart=getFakeLinearGaugeChart,
                 polararea_chart=getFakePolarareaChart,
                 vbar_chart=getFakeVbarChart,
                 big_value=getFakeBigValue,

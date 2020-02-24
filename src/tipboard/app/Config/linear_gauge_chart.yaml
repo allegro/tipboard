@@ -1,0 +1,9 @@
+details:
+    page_title: Dashboard 1
+layout:
+    - row_1_of_1:
+
+        - col_1_of_1:
+            - tile_template: linear_gauge_chart
+              tile_id: lgauge_ex
+              title: Linear gauge Iframe

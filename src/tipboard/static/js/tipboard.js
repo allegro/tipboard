@@ -1,5 +1,18 @@
+jQuery.expr[':'].regex = function(elem, index, match) {
+    var matchParams = match[3].split(','),
+        validLabels = /^(data|css):/,
+        attr = {
+            method: matchParams[0].match(validLabels) ?
+                        matchParams[0].split(':')[0] : 'attr',
+            property: matchParams.shift().replace(validLabels,'')
+        },
+        regexFlags = 'ig',
+        regex = new RegExp(matchParams.join('').replace(/^\s+|\s+$/g,''), regexFlags);
+    return regex.test(jQuery(elem)[attr.method](attr.property));
+}
+
 /**
- * Dynamicaly add Flipforward class to tile, regardind the dashboard.yml
+ * Dynamicaly add Flipforward class to tile, regardind the dashboard.yml config
  * @param flippingContainer
  */
 function addFlipClasses(flippingContainer) {
@@ -7,12 +20,13 @@ function addFlipClasses(flippingContainer) {
         if (idx === 0) {
             $(elem).addClass("flippedforward");
         }
+        console.log("addFlipClasses:", $(elem));
         $(elem).addClass("flippable");
     });
 }
 
 /**
- * return the flip time for every nodeHtml (representing tile)
+ * return the flip time for a nodeHtml (representing card)
  * @param node
  * @returns {number}
  */
@@ -31,9 +45,9 @@ function getFlipTime(node) {
 }
 
 /**
- * Init flip behavior for every tiles
+ * Get the in the Id of every card(<div>) the flip-time-(seconds) and init it if there is one
  */
-function initTiles() {
+function initCardWithFlip() {
     let flipContainers = $("div[id*=\"flip-time-\"]");
     $.each(flipContainers, function (idx, flippingContainer) {
         addFlipClasses(flippingContainer);
@@ -53,6 +67,34 @@ function initTiles() {
                 $(tileToFlip).addClass("flippedforward");
             }
         }, flipInterval);
+    });
+}
+
+/**
+ * Get the in the Id of every card(<div>) the weight of the cards, if none default is apply (1)
+ */
+function initCardWeight() {
+    //you have to unload maybe
+    let listOfDivWithWeight = [];
+    let cardWithWeight = $("div:regex(id, .*weight-*)");
+    $.each(cardWithWeight, function (idx, flippingContainer) {
+        let tmp = cardWithWeight[idx];
+        let id = tmp.id;
+        listOfDivWithWeight.push(id);
+        $.each(id.split(" "), function (idx, val) {
+            let groups = /weight-(\d+)/.exec(val);
+            if (Boolean(groups) && groups.length > 1) {
+                tmp.style['flex-grow'] = groups[1];
+            }
+        });
+
+    });
+    let cardWithoutWeight = $("div:regex(id, .*col_*)");
+    $.each(cardWithoutWeight, function (idx, flippingContainer) {
+        let tmp = cardWithoutWeight[idx];
+        if (!(listOfDivWithWeight.includes(tmp.id))) {
+            tmp.style['flex-grow'] = 1;
+        }
     });
 }
 
@@ -108,6 +150,8 @@ function loadStyleColor() {
         changeElements(".row text", ".row text-white", "class-class");
         changeElements(".row center text", ".row center text-white", "class-class");
         changeElements("display-3 text", "display-3 text-white", "class-class");
+        changeElements("display-2 text", "display-2 text-white", "class-class");
+        changeElements("display-1 text", "display-1 text-white", "class-class");
         changeElements("h1 display-1 text", "h1 display-1 text-white", "class-class");
         changeElements("text", "text-white", "class-class");
         changeElements("h1", "#ffffff", "tag");
@@ -123,20 +167,22 @@ function loadStyleColor() {
         body_style.backgroundColor = "#eceff1";
         changeElements("tile", "#f5f5f5", "class-backgroundColor");
         changeElements("card", "#f5f5f5", "class-backgroundColor");
-        changeElements("mx-auto text-white", "mx-auto text", "class-class");
-        changeElements(".row text-white", ".row text", "class-class");
-        changeElements(".row center text", ".row center text-white", "class-class");
-        changeElements("display-3 text", "display-3 text-white", "class-class");
-        changeElements("h1 display-1 text-white", "h1 display-1 text", "class-class");
-        changeElements("text-white", "text", "class-class");
+        // changeElements("mx-auto text-white", "mx-auto text", "class-class");
+        // changeElements(".row text-white", ".row text", "class-class");
+        // changeElements(".row center text", ".row center text-white", "class-class");
+        // changeElements("display-3 text", "display-3 text-white", "class-class");
+        // changeElements("display-2 text", "display-2 text-white", "class-class");
+        // changeElements("display-1 text", "display-1 text-white", "class-class");
+        // changeElements("text-white", "text", "class-class");
         changeElements("h1", "#000", "tag");
-        changeElements("h2", "#000", "tag");
+        changeElements("h2", "#212529", "tag");
         changeElements("h3", "#000", "tag");
         changeElements("h6", "#000", "tag");
-        Chart.defaults.global.defaultFontColor = "rgba(0, 0, 0, 0.83)";
+        Chart.defaults.global.defaultFontColor = "rgba(89, 0, 0, 0.83)";
         Chart.defaults.global.elements.line.backgroundColor = "#FFFFFF";
         Chart.defaults.scale.gridLines.display = true;
-        Chart.defaults.scale.gridLines.color = "#525252";
+        Chart.defaults.scale.gridLines.color = "#212121";
+        //Chart.defaults.scale.angleLines.color = "#212121";
     }
 }
 
@@ -152,7 +198,8 @@ function showNextDashboard(nextDashboardPath, nextDashboardName) {
             Tipboard.chartJsTile = {};
             $("#tipboardIframe").html(data);
             loadStyleColor();
-            initTiles();
+            initCardWithFlip();
+            initCardWeight();
             Tipboard.websocket.sendmessage(nextDashboardPath);
         },
         error(request, textStatus, error) {
@@ -228,6 +275,9 @@ function initChartjs() {
     Tipboard.updateFunctions["norm_chart"] = updateChartjs;
     Tipboard.updateFunctions["pie_chart"] = updateChartjs;
     Tipboard.updateFunctions["polararea_chart"] = updateChartjs;
+    Tipboard.updateFunctions["gauge_chart"] = updateChartjs;
+    Tipboard.updateFunctions["radial_gauge_chart"] = updateChartjs;
+    Tipboard.updateFunctions["linear_gauge_chart"] = updateChartjs;
     Tipboard.updateFunctions["bar_chart"] = updateChartjs;
     Tipboard.updateFunctions["just_value"] = updateTileTextValue;
     Tipboard.updateFunctions["simple_percentage"] = updateTileTextValue;

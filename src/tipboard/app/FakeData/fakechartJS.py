@@ -184,6 +184,116 @@ def getFakeHalfDoughnutChart(tile_id, template_name):
     return getFakeDoughnutChart(tile_id, template_name)
 
 
+def getFakeRadialGaugeChart(tile_id, template_name):
+    return {
+        'id': tile_id, 'tile_template': template_name, 'modified': getIsoTime(),
+        'data': {
+            'title': {'display': True, 'text': 'Radial Gauge Demo'},
+            'labels': [f'Label 1'],
+            'datasets': [
+                {
+                    'data': [42],
+                    'label': 'Label'
+                }
+            ]
+        },
+        'meta': {
+            'options': {
+                'responsive': True,
+                'maintainAspectRatio': False,
+                'events': list(),
+                'showMarkers': True,
+                'animation': {
+                    'animateRotate': True,
+                    'animateScale': True
+                },
+                'centerPercentage': 80,
+                #    'rotation': -Math.PI / 2,
+                'trackColor': 'rgb(204, 221, 238)',
+                'domain': [0, 50],
+                'roundedCorners': True,
+                'centerArea': {
+                    'displayText': True,
+                    'fontFamily': None,
+                    'fontColor': None,
+                    'fontSize': None,
+                    'padding': 4,
+                    'backgroundImage': None,
+                    'backgroundColor': None,
+                    'text': None
+                }
+            }
+        }
+    }
+
+
+def getFakeLinearGaugeChart(tile_id, template_name):
+    return {
+        'id': tile_id, 'tile_template': template_name, 'modified': getIsoTime(),
+        'data': {
+            'title': {'display': True, 'text': 'Linear Gauge Demo'},
+            'labels': ['data 1', 'data 2', 'data 3'],
+            'datasets': [
+                {
+                    'label': 'data 1',
+                    'data': [370],
+                    'backgroundColor': COLOR_TAB[0],
+                    'offset': 10,
+                    'width': 10
+                },
+                {
+                    'label': 'data 2',
+                    'data': [170],
+                    'backgroundColor': COLOR_TAB[1],
+                    'offset': 21,
+                    'width': 10
+                },
+                {
+                    'label': 'data 3',
+                    'data': [270],
+                    'backgroundColor': COLOR_TAB[2],
+                    'offset': 32,
+                    'width': 10
+                }
+            ]
+        },
+        'meta': {
+            'options': {
+                'responsive': True,
+                'maintainAspectRatio': False,
+            }
+        }
+    }
+
+
+def getFakeTsGaugeChart(tile_id, template_name):
+    return {
+        'id': tile_id, 'tile_template': template_name, 'modified': getIsoTime(),
+        'data': {
+            'title': {'display': True, 'text': 'Gauge Demo'},
+            'datasets': [
+                {
+                    'backgroundColor': ['#0fdc63', '#fd9704', '#ff7143'],
+                    'borderWidth': 0,
+                    'gaugeData': {
+                        'value': 7777,
+                        'valueColor': '#ff7143'
+                    },
+                    'gaugeLimits': [0, 3000, 7000, 10000]
+                }
+            ]
+        },
+        'meta': {
+            'options': {
+                'responsive': True,
+                'maintainAspectRatio': False,
+                'events': list(),
+                'showMarkers': True,
+            }
+        }
+    }
+
+
 def getFakeRadarChart(tile_id, template_name):
     return {
         'id': tile_id, 'tile_template': template_name, 'modified': getIsoTime(),
