@@ -36,11 +36,11 @@ def getRows(layout):
     return rows_data
 
 
-def analyseCols(tiles_id, tiles_templates, tiles_dict, tiles_config):
+def analyseCols(tiles_id, tiles_templates, tiles, dashboard_config):
     """ Build a dict with all tiles present in dashboard.yml with the configs of this tiles """
-    tile_config = dict(tile_id='unknown', tile_template='unknown', title='No title', weight=1)
-    for tile_dict in tiles_dict:
-        if tile_dict['tile_id'] not in tiles_config:  # TODO: protect against double inclusion of same id for 2 tile
+    for tile_dict in tiles:
+        if tile_dict['tile_id'] not in dashboard_config:  # TODO: protect against double inclusion of same id for 2 tile
+            tile_config = dict(tile_id='unknown', tile_template='unknown', title='No title', weight=1)
             if 'tile_id' in tile_dict:
                 tile_config['tile_id'] = tile_dict['tile_id']
             if 'tile_template' in tile_dict:
@@ -49,7 +49,7 @@ def analyseCols(tiles_id, tiles_templates, tiles_dict, tiles_config):
                 tile_config['title'] = tile_dict['title']
             if 'weight' in tile_dict:
                 tile_config['weight'] = tile_dict['weight']
-            tiles_config[tile_dict['tile_id']] = tile_config
+            dashboard_config[tile_dict['tile_id']] = tile_config
 
 
 def findTilesNames(cols_data):
