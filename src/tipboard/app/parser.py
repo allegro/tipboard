@@ -3,19 +3,6 @@ from src.tipboard.app.properties import user_config_dir
 from src.tipboard.app.utils import getTimeStr
 
 
-def getCols(rows):
-    cols = []
-    for col in list(rows.values())[0]:
-        cols.append(col)
-    return cols
-
-
-def getRows(layout):
-    """ Validates and returns number of rows."""
-    rows_data = [row for row in layout]
-    return rows_data
-
-
 def analyseCols(tiles, dashboard_config):
     """ Build a dict with all tiles present in dashboard.yml with the configs of this tiles """
     for tile_dict in tiles:
@@ -55,7 +42,7 @@ def parseXmlLayout(layout_name='layout_config'):
     """ Parse all tiles, cols, rows from a specific .yaml """
     config = yamlFileToPythonDict(layout_name=layout_name)
     rows = [row for row in [row for row in config['layout']]]
-    cols = [col for col in [getCols(row) for row in rows]]
+    cols = [col for col in [[col for col in list(row.values())[0]] for row in rows]]
     cols_data = [colsValue for colsList in cols for colsValue in colsList]
     config['tiles_conf'] = findTilesNames(cols_data)
     return config
