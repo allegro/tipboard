@@ -93,7 +93,6 @@ def sanity_push_api(request, unsecured):
     if not checkAccessToken(method='POST', request=request, unsecured=unsecured):
         return False, HttpResponse('API KEY incorrect', status=401)
     HttpData = request.POST
-    print(f'id:{HttpData.get("tile_id", None)}')
     if not HttpData.get('tile_id', None) or not HttpData.get('tile_template', None) or \
             not HttpData.get('data', None):
         return False, HttpResponseBadRequest('Missing data')

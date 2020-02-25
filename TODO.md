@@ -1,24 +1,15 @@
 - TOFIX:
     - cache.get fais un doublon sur la sérialization str -> Json ce qui nest pas le cas dans cache.redis.get
     - update les meta: il y a une incompréhension si je dois send config.options ou options sur les différentes chart
-    - vbar is not recognize in template
 
 - CI
     - si on pouvait également une bonne fois pour toute enlever les lib test des dependencies
 
 - chartJS:
-    - tu add la linear gauge chart, depuis une update chelou de ChartJS sur github
-    - https://github.com/scottmcculloch/Chart.LinearGauge.js/blob/master/index.html
     - dans l'index il y a plein d'exemple de gauge utilisé, comprends et reprends le mécanisme
-    - tu as add trois fonction directement dans testèlinearradial.js
-        - chart.element.gaugerect.js
-        - chart.lineargauge.js
-        - chart.scale.lineargauge.js
     tu as add tout ce qu'il faut pour l'ajouter mais il faudrait play le index.html
     pour voir les différents types qui existe et en choisir 1 ou plusieur à implémenter dans tipboard
 
-
-* [ ] made issue #32 possible
 
 #### Optional
 

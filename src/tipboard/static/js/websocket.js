@@ -111,7 +111,6 @@ function initWebSocketManager() {
     };
     websocket.sendmessage = async function(nextDashboardPath) {
         while (this.readyState === 0) {
-            console.log("[LOG] Websocket Tipboard is not ready: waiting connection");
             await sleep(200);
         }
         this.send("first_connection:" + nextDashboardPath);

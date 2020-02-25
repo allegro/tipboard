@@ -36,7 +36,6 @@ layout:
               title: bar tile's
 
 
-
         - col_1_of_4 flip-time-4:
 
             - tile_template: simple_percentage

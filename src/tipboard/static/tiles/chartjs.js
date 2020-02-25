@@ -182,8 +182,8 @@ function buildMeta(tileType, meta) {
             meta.rotation = -Math.PI / 2;
             break;
         case "gauge_chart":
-            if ('labelFormat' in meta) {
-                meta.markerFormatFn = n => n + '$';
+            if ("labelFormat" in meta) {
+                meta.markerFormatFn = n => n + "$";
             }
             break;
     }
@@ -208,12 +208,7 @@ function createChartJSObj(chartId, tileData) {
         tileData["meta"] = tileData["meta"]["options"];
     }
     let chart = document.getElementById(chartId);
-    try {
     chart.parentElement.style.paddingBottom = "9%";
-
-    } catch (e) {
-        console.log('gfffff');
-    }
     chart.height = "80%";
     Tipboard.chartJsTile[chartId] = new Chart(chart, {
         type: getTypeOfChartJS(tileData["tile_template"]),
@@ -228,7 +223,6 @@ function createChartJSObj(chartId, tileData) {
 function updateChartjs(tileData, dashboardname) {
     let data = tileData["data"];
     let chartId = `${dashboardname}-${tileData["id"]}-chart`;
-    console.log("updateChart::chartId:" + chartId);
     if (!(chartId in Tipboard.chartJsTile)) { // tile not present in Tipboard cache, so create it
         createChartJSObj(chartId, tileData);
     } else { // update chart
@@ -237,13 +231,11 @@ function updateChartjs(tileData, dashboardname) {
             Tipboard.chartJsTile[chartId].destroy();  //ChartPlugin don't update correctly, need to rebuild it
             document.getElementById(chartId);
             createChartJSObj(chartId, tileData);
-            console.log("updateChart::create{END}::chartId:" + chartId);
             return;
         }
         if (tileData["tile_template"] === "line_chart") {
             data = updateDatasetLine(data, tileData["tile_template"]);
        }
         updateDataOfChartJS(Tipboard.chartJsTile[chartId], data, tileData["meta"]);
-        console.log("updateChart::update{END}::chartId:" + chartId);
     }
 }

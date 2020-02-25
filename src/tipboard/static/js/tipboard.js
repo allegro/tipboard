@@ -20,7 +20,6 @@ function addFlipClasses(flippingContainer) {
         if (idx === 0) {
             $(elem).addClass("flippedforward");
         }
-        console.log("addFlipClasses:", $(elem));
         $(elem).addClass("flippable");
     });
 }
@@ -182,7 +181,7 @@ function loadStyleColor() {
         Chart.defaults.global.elements.line.backgroundColor = "#FFFFFF";
         Chart.defaults.scale.gridLines.display = true;
         Chart.defaults.scale.gridLines.color = "#212121";
-        //Chart.defaults.scale.angleLines.color = "#212121";
+        Chart.defaults.scale.angleLines.color = "#212121";
     }
 }
 
