@@ -28,10 +28,10 @@
                       background-repeat: no-repeat;
                       background-position: center center;
                       background-size: 65%;">
-        <button class="visible btn btn-danger bouton-image monBouton" id="AlertDeconnection"
-                style='background-image:url("{% static "img/disconnect.png" %}"); '>
-            Deconnected
-        </button>
-    {% block put_body %} {% endblock %}
+        <div class="sticky-top alert alert-danger bouton-image monBouton" id="alertDeconnection"
+                style='z-index:2;position:absolute;right:0;opacity: 0.55; margin: 1%; font-weight: bold'>
+        </div>
+        {% block put_body %} {% endblock %}
+    <script> $("#alertDeconnection").hide(); </script>
     </body>
 </html>

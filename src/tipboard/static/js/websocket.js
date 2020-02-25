@@ -75,13 +75,13 @@ let testApiIsBack = function () {
     let Http = new XMLHttpRequest();
     Http.open("GET", window.location.protocol + "/api/info");
     Http.onload = () => {
-        if (Http.status === 200) { // TODO: avant ici
-            Tipboard.log("testApiIsBack Http.status 200");
+        if (Http.status === 200) {
+            $("#alertDeconnection").hide();
             initWebSocketManager();
         }
     };
     Http.onerror = () => {
-        Tipboard.log("testApiIsBack error");
+        serverDisconnected(true);
         setTimeout(testApiIsBack, 5000);
     };
     Http.send();
@@ -91,6 +91,17 @@ function sleep(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
+function serverDisconnected(isRetry) {
+    let alert = $("#alertDeconnection");
+    let decoMsg = alert.text();
+    if (isRetry === false || decoMsg.includes("...")) {
+        decoMsg = "Deconnected";
+    } else {
+        decoMsg = decoMsg + ".";
+    }
+    alert.text(decoMsg);
+    alert.show();
+}
 
 /**
  * Config the WebSocket Object & start a connection
@@ -102,10 +113,10 @@ function initWebSocketManager() {
         Tipboard.log("[LOG] WEBSOCKET CONNECTION ONOPEN ");
     };
     websocket.onclose = function () { // Handler to detect when API is back alive to reset websocket connection every 5s
+        serverDisconnected(false);
         if (Tipboard === "undefined") {
-            Tipboard.log("[WARNING] Websocket Tipboard is not build");
+            Tipboard.log("[ERROR] Websocket Tipboard is not build");
         } else {
-            Tipboard.log("Closing WS");
             setTimeout(testApiIsBack, 5000);
         }
     };
