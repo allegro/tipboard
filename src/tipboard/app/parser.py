@@ -3,10 +3,6 @@ from src.tipboard.app.properties import user_config_dir
 from src.tipboard.app.utils import getTimeStr
 
 
-class WrongSumOfRows(Exception):
-    pass
-
-
 def getCols(rows):
     cols = []
     for col in list(rows.values())[0]:
@@ -16,23 +12,7 @@ def getCols(rows):
 
 def getRows(layout):
     """ Validates and returns number of rows."""
-    rows_count = 0
-    sum_of_rows = list()
     rows_data = [row for row in layout]
-    rows_class = [list(row.keys()) for row in layout]
-    for row_class in rows_class:
-        splited_class = row_class[0].split('_')  # ex: row_1_of_2
-        row = splited_class[1]
-        of_rows = int(splited_class[3])
-        if rows_count == 0:
-            rows_count = int(of_rows)
-            sum_of_rows.append(int(row))
-        elif not rows_count == of_rows:
-            raise WrongSumOfRows('The sum of the lines is incorrect.')
-        else:
-            sum_of_rows.append(int(row))
-    if not sum(sum_of_rows) == rows_count:
-        raise WrongSumOfRows('The sum of the lines is incorrect.')
     return rows_data
 
 
@@ -74,7 +54,7 @@ def yamlFileToPythonDict(layout_name='layout_config'):
 def parseXmlLayout(layout_name='layout_config'):
     """ Parse all tiles, cols, rows from a specific .yaml """
     config = yamlFileToPythonDict(layout_name=layout_name)
-    rows = [row for row in getRows(config['layout'])]
+    rows = [row for row in [row for row in config['layout']]]
     cols = [col for col in [getCols(row) for row in rows]]
     cols_data = [colsValue for colsList in cols for colsValue in colsList]
     config['tiles_conf'] = findTilesNames(cols_data)
