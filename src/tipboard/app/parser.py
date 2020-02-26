@@ -3,7 +3,7 @@ from src.tipboard.app.properties import user_config_dir
 from src.tipboard.app.utils import getTimeStr
 
 
-def analyseCols(tiles, dashboard_config):
+def getTilesConfigFromCols(tiles, dashboard_config):
     """ Build a dict with all tiles present in dashboard.yml with the configs of this tiles """
     for tile_dict in tiles:
         if tile_dict['tile_id'] not in dashboard_config:  # TODO: protect against double inclusion of same id for 2 tile
@@ -14,12 +14,12 @@ def analyseCols(tiles, dashboard_config):
             dashboard_config[tile_dict['tile_id']] = tile_dict
 
 
-def findTilesNames(cols_data):
+def getTilesConfigFromXml(cols_data):
     """ Find tile_template & tile_id in all cols of .yaml """
     dash_config = dict()
     for col_dict in cols_data:
         for tiles_dict in list(col_dict.values()):
-            analyseCols(tiles=tiles_dict, dashboard_config=dash_config)
+            getTilesConfigFromCols(tiles=tiles_dict, dashboard_config=dash_config)
     return dash_config
 
 
@@ -44,7 +44,7 @@ def parseXmlLayout(layout_name='layout_config'):
     rows = [row for row in [row for row in config['layout']]]
     cols = [col for col in [[col for col in list(row.values())[0]] for row in rows]]
     cols_data = [colsValue for colsList in cols for colsValue in colsList]
-    config['tiles_conf'] = findTilesNames(cols_data)
+    config['tiles_conf'] = getTilesConfigFromXml(cols_data)
     return config
 
 
