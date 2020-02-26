@@ -1,11 +1,9 @@
 import json
-from django.http import JsonResponse, HttpResponseBadRequest, HttpResponse, Http404
-from src.tipboard.app.applicationconfig import getRedisPrefix, getIsoTime
+from django.http import JsonResponse, HttpResponseBadRequest, HttpResponse
+from src.tipboard.app.applicationconfig import getRedisPrefix
 from src.tipboard.app.properties import PROJECT_NAME, LAYOUT_CONFIG, REDIS_DB, DEBUG, ALLOWED_TILES
-from src.tipboard.app.cache import getCache
+from src.tipboard.app.cache import getCache, save_tile_ToRedis, update_tile_data_from_redis
 from src.tipboard.app.utils import checkAccessToken
-from src.tipboard.app.FakeData.fake_data import buildFakeDataFromTemplate
-from src.tipboard.app.FakeData.datasetbuilder import buildGenericDataset
 
 
 def project_info(request):
@@ -16,7 +14,6 @@ def project_info(request):
                         project_layout_config=LAYOUT_CONFIG,
                         redis_db=REDIS_DB)
         return JsonResponse(response)
-    raise Http404
 
 
 def get_tile(request, tile_key):
@@ -46,46 +43,6 @@ def tile_rest(request, tile_key):
         return delete_tile(request, tile_key)
     if request.method == 'GET':
         return get_tile(request, tile_key)
-    raise Http404
-
-
-def update_dataset_from_tiles(value, previousData, key, tile_template):
-    """ Update dict(tile value) with dict comming from the api, recursiv to update dict deeply """
-    rcx = 0
-    for dataset in value:
-        if rcx >= len(previousData[key]):
-            previousData[key].append(buildGenericDataset(tile_template=tile_template))
-        update_tile_data_from_redis(previousData[key][rcx], dataset, tile_template)
-        rcx = rcx + 1
-    previousData[key] = previousData[key][0:len(value)]
-
-
-def update_tile_data_from_redis(previousData, newData, tile_template):
-    """ update value(dict) of tile with new data Recursiv & deep inside the tile """
-    if isinstance(newData, str):
-        previousData['text'] = newData
-        return previousData
-    for key, value in newData.items():
-        if isinstance(value, dict) and key != 'data' and key in previousData:
-            update_tile_data_from_redis(previousData[key], value, tile_template)
-        elif isinstance(value, list) and key == 'datasets':
-            update_dataset_from_tiles(value, previousData, key, tile_template)
-        else:
-            previousData[key] = value
-    return previousData
-
-
-def save_tile_ToRedis(tile_id, tile_template, data):
-    cache = getCache()
-    tilePrefix = getRedisPrefix(tile_id)
-    if not cache.redis.exists(tilePrefix) and DEBUG:  # if tile don't exist, create it with template, DEBUG mode only
-        buildFakeDataFromTemplate(tile_id, tile_template, cache)
-    cachedTile = json.loads(cache.redis.get(tilePrefix))
-    cachedTile['data'] = update_tile_data_from_redis(cachedTile['data'], json.loads(data), tile_template)
-    cachedTile['modified'] = getIsoTime()
-    cachedTile['tile_template'] = tile_template
-    cache.set(tilePrefix, json.dumps(cachedTile))
-    return HttpResponse(f'{tile_id} data updated successfully.')
 
 
 def sanity_push_api(request, unsecured):
@@ -93,7 +50,6 @@ def sanity_push_api(request, unsecured):
     if not checkAccessToken(method='POST', request=request, unsecured=unsecured):
         return False, HttpResponse('API KEY incorrect', status=401)
     HttpData = request.POST
-    print(f'id:{HttpData.get("tile_id", None)}')
     if not HttpData.get('tile_id', None) or not HttpData.get('tile_template', None) or \
             not HttpData.get('data', None):
         return False, HttpResponseBadRequest('Missing data')
@@ -113,14 +69,13 @@ def push_api(request, unsecured=False):
         state, HttpData = sanity_push_api(request, unsecured)
         if state is False:
             return HttpData
-        data = HttpData.get('data', None)
+        tile_data = HttpData.get('data', None)
         tile_id = HttpData.get('tile_id', None)
-        res = save_tile_ToRedis(tile_id=tile_id,
-                                tile_template=HttpData.get('tile_template', None),
-                                data=json.dumps(json.loads(data)['data']) if 'data' in json.loads(data) else data)
+        tile_template = HttpData.get('tile_template', None)
+        res = save_tile_ToRedis(tile_id=tile_id, tile_template=tile_template, tile_data=tile_data)
         is_meta_present_in_request(HttpData.get('meta', None), tile_id)
-        return res
-    raise Http404
+        if res:  # TODO: handle when there is error in save_tile_redis
+            return HttpResponse(f'{tile_id} data updated successfully.')
 
 
 def is_meta_present_in_request(meta, tile_id):

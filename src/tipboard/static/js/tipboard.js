@@ -1,5 +1,5 @@
 jQuery.expr[":"].regex = function(elem, index, match) {
-    var matchParams = match[3].split(","),
+    let matchParams = match[3].split(","),
         validLabels = /^(data|css):/,
         attr = {
             method: matchParams[0].match(validLabels) ?
@@ -20,7 +20,6 @@ function addFlipClasses(flippingContainer) {
         if (idx === 0) {
             $(elem).addClass("flippedforward");
         }
-        console.log("addFlipClasses:", $(elem));
         $(elem).addClass("flippable");
     });
 }
@@ -74,26 +73,25 @@ function initCardWithFlip() {
  * Get the in the Id of every card(<div>) the weight of the cards, if none default is apply (1)
  */
 function initCardWeight() {
-    //you have to unload maybe
     let listOfDivWithWeight = [];
     let cardWithWeight = $("div:regex(id, .*weight-*)");
-    $.each(cardWithWeight, function (idx, flippingContainer) {
-        let tmp = cardWithWeight[idx];
-        let id = tmp.id;
+    $.each(cardWithWeight, function (idx) {
+        let card = cardWithWeight[idx];
+        let id = card.id;
         listOfDivWithWeight.push(id);
-        $.each(id.split(" "), function (idx, val) {
+        $.each(id.split(" "), function (val) {
             let groups = /weight-(\d+)/.exec(val);
             if (Boolean(groups) && groups.length > 1) {
-                tmp.style["flex-grow"] = groups[1];
+                card.style["flex-grow"] = groups[1];
             }
         });
 
     });
     let cardWithoutWeight = $("div:regex(id, .*col_*)");
-    $.each(cardWithoutWeight, function (idx, flippingContainer) {
-        let tmp = cardWithoutWeight[idx];
-        if (!(listOfDivWithWeight.includes(tmp.id))) {
-            tmp.style["flex-grow"] = 1;
+    $.each(cardWithoutWeight, function (idx) {
+        let card = cardWithoutWeight[idx];
+        if (!(listOfDivWithWeight.includes(card.id))) {
+            card.style["flex-grow"] = 1;
         }
     });
 }
@@ -178,11 +176,10 @@ function loadStyleColor() {
         changeElements("h2", "#212529", "tag");
         changeElements("h3", "#000", "tag");
         changeElements("h6", "#000", "tag");
-        Chart.defaults.global.defaultFontColor = "rgba(89, 0, 0, 0.83)";
+        Chart.defaults.global.defaultFontColor = "#111111";
         Chart.defaults.global.elements.line.backgroundColor = "#FFFFFF";
         Chart.defaults.scale.gridLines.display = true;
         Chart.defaults.scale.gridLines.color = "#212121";
-        //Chart.defaults.scale.angleLines.color = "#212121";
     }
 }
 
@@ -269,7 +266,7 @@ function initFlipboard() {
 /**
  * Init Global ChartJS value + build updateFunctions array
  */
-function initChartjs() {
+function registerUpdateFuction() {
     Tipboard.updateFunctions["line_chart"] = updateChartjs;
     Tipboard.updateFunctions["radar_chart"] = updateChartjs;
     Tipboard.updateFunctions["norm_chart"] = updateChartjs;
@@ -278,6 +275,7 @@ function initChartjs() {
     Tipboard.updateFunctions["gauge_chart"] = updateChartjs;
     Tipboard.updateFunctions["radial_gauge_chart"] = updateChartjs;
     Tipboard.updateFunctions["linear_gauge_chart"] = updateChartjs;
+    Tipboard.updateFunctions["vlinear_gauge_chart"] = updateChartjs;
     Tipboard.updateFunctions["bar_chart"] = updateChartjs;
     Tipboard.updateFunctions["just_value"] = updateTileTextValue;
     Tipboard.updateFunctions["simple_percentage"] = updateTileTextValue;
@@ -308,7 +306,7 @@ function initTipboardObject() {
 (function ($) {
     $(document).ready(function () {
         initTipboardObject();
-        initChartjs();
+        registerUpdateFuction();
         if (window.location.pathname === "/") {
             initFlipboard();
             getDashboardsByApi();

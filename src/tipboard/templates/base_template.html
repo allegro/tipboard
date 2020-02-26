@@ -4,7 +4,7 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
+        <title>Tipboard</title>
         <link rel="stylesheet" href="{% static "css/bootstrap.min.css" %}">
         <script src="{% static "js/jquery-3.4.1.min.js" %}"></script>
         <script src="{% static "js/popper.min.js" %}"></script>
@@ -24,11 +24,14 @@
         {% block head %} {% endblock %}
     </head>
 
-    <body class="flipboard"
-          style="background-color: #eceff1;
-                  background-repeat: no-repeat;
-                  background-position: center center;
-                  background-size: 65%;">
-           {% block put_body %} {% endblock %}
+    <body class="flipboard" style="background-color: #eceff1;
+                      background-repeat: no-repeat;
+                      background-position: center center;
+                      background-size: 65%;">
+        <div class="sticky-top alert alert-danger bouton-image monBouton" id="alertDeconnection"
+                style='z-index:2;position:absolute;right:0;opacity: 0.55; margin: 1%; font-weight: bold'>
+        </div>
+        {% block put_body %} {% endblock %}
+    <script> $("#alertDeconnection").hide(); </script>
     </body>
- </html>
+</html>

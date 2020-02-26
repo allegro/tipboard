@@ -35,6 +35,7 @@ REDIS_DB = conf['REDIS_DB']
 ALLOWED_TILES = ['text', 'simple_percentage', 'listing', 'big_value', 'just_value',  # Homemade
                  'norm_chart', 'line_chart', 'cumulative_flow',  # ChartJS
                  'bar_chart', 'vbar_chart', 'gauge_chart', 'radial_gauge_chart', 'linear_gauge_chart',  # ChartJS
+                 'vlinear_gauge_chart',
                  'pie_chart', 'polararea_chart', 'radar_chart', 'doughnut_chart', 'half_doughnut_chart',  # ChartJS
                  'iframe', 'empty']  # misc
 

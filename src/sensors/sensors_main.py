@@ -22,7 +22,7 @@ from src.sensors.utils import end
 
 
 def addSchedule(scheduler, sonde, second=8, args=None):
-    scheduler.add_job(sonde, 'interval', seconds=5, args=args)
+    scheduler.add_job(sonde, 'interval', seconds=1, args=args)
 
 
 def test_sensors(tester):
@@ -46,16 +46,16 @@ def scheduleYourSensors(scheduler=None, tester=None):
     if not scheduler.running:
         scheduler.add_job(sonde1, 'interval', seconds=5, args=[tester, 'txt_ex'])
         addSchedule(scheduler, sonde2, second=40, args=[tester, 'pie_chartjs_ex'])
-        addSchedule(scheduler, sonde3, second=3, args=[tester, 'line_chart_ex'])
+        addSchedule(scheduler, sonde3, second=3, args=[tester, 'line_chartjs_ex'])
         addSchedule(scheduler, sonde4, second=19, args=[tester, 'cfjs_ex'])
         addSchedule(scheduler, sonde5, second=16, args=[tester, 'sp_ex'])
-        scheduler.add_job(sonde6, 'interval', seconds=45)
-        scheduler.add_job(sonde7, 'interval', seconds=5, args=[tester, 'barjs_ex', False])
-        scheduler.add_job(sonde7, 'interval', seconds=5, args=[tester, 'vbarjs_ex', True])
+        addSchedule(scheduler, sonde6, second=2, args=[tester, 'listing_ex'])
+        addSchedule(scheduler, sonde7, second=2, args=[tester, 'barjs_ex', False])
+        addSchedule(scheduler, sonde7, second=2, args=[tester, 'vbarjs_ex', True])
         addSchedule(scheduler, sonde9, second=39, args=[tester, 'bv_ex'])
         addSchedule(scheduler, sonde10, second=50, args=[tester, 'jv_ex'])
-        addSchedule(scheduler, sonde12, second=45, args=[tester, 'norm_chart'])
-        addSchedule(scheduler, sonde14, second=2, args=[tester, 'radar_chart'])
+        addSchedule(scheduler, sonde12, second=45, args=[tester, 'normjs_ex'])
+        addSchedule(scheduler, sonde14, second=2, args=[tester, 'radar_ex'])
         addSchedule(scheduler, sonde15, second=28, args=[tester, 'polararea_ex'])
         addSchedule(scheduler, sonde16, second=30, args=[tester, 'doughnut_ex'])
         addSchedule(scheduler, sonde17, second=30, args=[tester, 'half_doughnut_ex'])

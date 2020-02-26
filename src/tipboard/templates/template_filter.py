@@ -9,7 +9,7 @@ def isChartJS_tile(tile_template):
     return tile_template in ['bar_chart', 'vbar_chart',
                              'pie_chart', 'polararea_chart', 'radar_chart',
                              'doughnut_chart', 'half_doughnut_chart',
-                             'gauge_chart', 'radial_gauge_chart', 'linear_gauge_chart',
+                             'gauge_chart', 'radial_gauge_chart', 'linear_gauge_chart', 'vlinear_gauge_chart',
                              'line_chart', 'cumulative_flow', 'norm_chart']
 
 
