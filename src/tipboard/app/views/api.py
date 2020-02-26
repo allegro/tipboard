@@ -1,5 +1,5 @@
 import json
-from django.http import JsonResponse, HttpResponseBadRequest, HttpResponse, Http404
+from django.http import JsonResponse, HttpResponseBadRequest, HttpResponse
 from src.tipboard.app.applicationconfig import getRedisPrefix
 from src.tipboard.app.properties import PROJECT_NAME, LAYOUT_CONFIG, REDIS_DB, DEBUG, ALLOWED_TILES
 from src.tipboard.app.cache import getCache, save_tile_ToRedis, update_tile_data_from_redis
@@ -14,7 +14,6 @@ def project_info(request):
                         project_layout_config=LAYOUT_CONFIG,
                         redis_db=REDIS_DB)
         return JsonResponse(response)
-    raise Http404
 
 
 def get_tile(request, tile_key):
@@ -44,7 +43,6 @@ def tile_rest(request, tile_key):
         return delete_tile(request, tile_key)
     if request.method == 'GET':
         return get_tile(request, tile_key)
-    raise Http404
 
 
 def sanity_push_api(request, unsecured):
@@ -71,19 +69,13 @@ def push_api(request, unsecured=False):
         state, HttpData = sanity_push_api(request, unsecured)
         if state is False:
             return HttpData
-        data = HttpData.get('data', None)
+        tile_data = HttpData.get('data', None)
         tile_id = HttpData.get('tile_id', None)
-        if 'data' in json.loads(data):
-            tile_data = json.dumps(json.loads(data)['data'])
-        else:
-            tile_data = data
-        res = save_tile_ToRedis(tile_id=tile_id,
-                                tile_template=HttpData.get('tile_template', None),
-                                tile_data=tile_data)
+        tile_template = HttpData.get('tile_template', None)
+        res = save_tile_ToRedis(tile_id=tile_id, tile_template=tile_template, tile_data=tile_data)
         is_meta_present_in_request(HttpData.get('meta', None), tile_id)
-        if res:
+        if res:  # TODO: handle when there is error in save_tile_redis
             return HttpResponse(f'{tile_id} data updated successfully.')
-    raise Http404
 
 
 def is_meta_present_in_request(meta, tile_id):

@@ -21,6 +21,29 @@ function getUpdateFunction(tileType) {
     return Tipboard.updateFunctions[tileType.toString()];
 }
 
+/**
+ * utils function to wait
+ * @param ms time in millisecond
+ */
+function sleep(ms) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
+/**
+ * Display button to inform user, server is diconnected
+ * @param isRetry
+ */
+function serverDisconnected(isRetry) {
+    let alert = $("#alertDeconnection");
+    let decoMsg = alert.text();
+    if (isRetry === false || decoMsg.includes("...")) {
+        decoMsg = "Deconnected";
+    } else {
+        decoMsg = decoMsg + ".";
+    }
+    alert.text(decoMsg);
+    alert.show();
+}
 
 /**
  * Print a tile to indicate the type of error
@@ -43,7 +66,6 @@ let onTileError = function (err, div, tileId) {
         $("#" + tileId).html(msg);
     });
 };
-
 
 /**
  * Destroy previous tile and create a new to refresh value
@@ -86,22 +108,6 @@ let testApiIsBack = function () {
     };
     Http.send();
 };
-
-function sleep(ms) {
-  return new Promise((resolve) => setTimeout(resolve, ms));
-}
-
-function serverDisconnected(isRetry) {
-    let alert = $("#alertDeconnection");
-    let decoMsg = alert.text();
-    if (isRetry === false || decoMsg.includes("...")) {
-        decoMsg = "Deconnected";
-    } else {
-        decoMsg = decoMsg + ".";
-    }
-    alert.text(decoMsg);
-    alert.show();
-}
 
 /**
  * Config the WebSocket Object & start a connection

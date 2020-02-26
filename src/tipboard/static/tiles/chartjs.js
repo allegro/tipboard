@@ -183,7 +183,7 @@ function buildMeta(tileType, meta) {
             break;
         case "gauge_chart":
             if ("labelFormat" in meta) {
-                meta.markerFormatFn = n => n + "$";
+                meta.markerFormatFn = (n) => n + meta.labelFormat;
             }
             break;
     }

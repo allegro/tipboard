@@ -84,7 +84,8 @@ class TestApp(TestCase):  # TODO: find a way to test the WebSocket inside django
     #
     # def test_0006_parser_getTilesIdFromXml(self):
     #     """ Test XmlParser able to get tiles Id of tiles from /config/layout_config.yml """
-    #     self.assertTrue(len(parseXmlLayout(layout_name=self.test_layout)['tiles_keys']) > 0)  # test if able to parse tile_id
+    # self.assertTrue(len(parseXmlLayout(layout_name=self.test_layout)['tiles_keys']) > 0)
+    # test if able to parse tile_id
 
     def test_0011_cache_redisConnection(self):
         """ Test redis connection """

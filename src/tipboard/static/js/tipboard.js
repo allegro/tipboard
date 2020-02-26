@@ -1,5 +1,5 @@
 jQuery.expr[":"].regex = function(elem, index, match) {
-    var matchParams = match[3].split(","),
+    let matchParams = match[3].split(","),
         validLabels = /^(data|css):/,
         attr = {
             method: matchParams[0].match(validLabels) ?
@@ -73,26 +73,25 @@ function initCardWithFlip() {
  * Get the in the Id of every card(<div>) the weight of the cards, if none default is apply (1)
  */
 function initCardWeight() {
-    //you have to unload maybe
     let listOfDivWithWeight = [];
     let cardWithWeight = $("div:regex(id, .*weight-*)");
-    $.each(cardWithWeight, function (idx, flippingContainer) {
-        let tmp = cardWithWeight[idx];
-        let id = tmp.id;
+    $.each(cardWithWeight, function (idx) {
+        let card = cardWithWeight[idx];
+        let id = card.id;
         listOfDivWithWeight.push(id);
-        $.each(id.split(" "), function (idx, val) {
+        $.each(id.split(" "), function (val) {
             let groups = /weight-(\d+)/.exec(val);
             if (Boolean(groups) && groups.length > 1) {
-                tmp.style["flex-grow"] = groups[1];
+                card.style["flex-grow"] = groups[1];
             }
         });
 
     });
     let cardWithoutWeight = $("div:regex(id, .*col_*)");
-    $.each(cardWithoutWeight, function (idx, flippingContainer) {
-        let tmp = cardWithoutWeight[idx];
-        if (!(listOfDivWithWeight.includes(tmp.id))) {
-            tmp.style["flex-grow"] = 1;
+    $.each(cardWithoutWeight, function (idx) {
+        let card = cardWithoutWeight[idx];
+        if (!(listOfDivWithWeight.includes(card.id))) {
+            card.style["flex-grow"] = 1;
         }
     });
 }
