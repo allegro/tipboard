@@ -172,7 +172,7 @@ class TestApp(TestCase):  # TODO: find a way to test the WebSocket inside django
     def test_0109_api_parseTitleHtmlFromDashboard(self):  # TODO: fix this by testing the flipboard.html
         """ Test if Yaml to dashboard.html know how to parse title """
         reponse = self.fakeClient.get('/dashboard/' + self.test_layout)
-        title = b'__Tipboard exemple'  # need to put __ to test the split methode in template html
+        title = b'__Tipboard exemple'  # TODO: need to put __ to test the split methode in template html
         self.assertTrue(title in reponse.content)  # can't work cause it's made by ws
 
     def test_0110_api_parseConfigHtmlFromDashboard(self):  # test with other file when row_1_of_1

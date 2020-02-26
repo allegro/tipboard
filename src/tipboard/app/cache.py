@@ -8,7 +8,7 @@ from channels.layers import get_channel_layer
 from src.tipboard.app.FakeData.fake_data import buildFakeDataFromTemplate
 from src.tipboard.app.FakeData.datasetbuilder import buildGenericDataset
 
-cache = None
+cache = None  # TODO: remove this by using the django middleware redis
 
 
 def getCache():
@@ -19,7 +19,7 @@ def getCache():
 
 
 def listOfTilesFromLayout(layout_name='layout_config'):
-    """ List all tiles for a specific layout in Config/*.yml"""
+    """ List all tiles for a specific layout in Config/*.yml """
     tmp = parseXmlLayout(layout_name)['tiles_conf']
     return tmp
 
@@ -35,31 +35,45 @@ def update_dataset_from_tiles(value, previousData, key, tile_template):
     previousData[key] = previousData[key][0:len(value)]
 
 
+def update_data_by_type(tile_template, previousData, key, value):
+    """
+    if dict, call again update_tile_data_from_redis in recursif
+    if list, call update for list
+    if not just override the value
+    :param tile_template:
+    :param previousData:
+    :param key:
+    :param value:
+    :return:
+    """
+    if isinstance(value, dict) and key != 'data' and key in previousData:
+        update_tile_data_from_redis(previousData[key], value, tile_template)
+    elif isinstance(value, list) and key == 'datasets':
+        update_dataset_from_tiles(value, previousData, key, tile_template)
+    else:
+        previousData[key] = value
+
+
 def update_tile_data_from_redis(previousData, newData, tile_template):
     """ update value(dict) of tile with new data Recursiv & deep inside the tile """
     if isinstance(newData, str):
         previousData['text'] = newData
         return previousData
     for key, value in newData.items():
-        if isinstance(value, dict) and key != 'data' and key in previousData:
-            update_tile_data_from_redis(previousData[key], value, tile_template)
-        elif isinstance(value, list) and key == 'datasets':
-            update_dataset_from_tiles(value, previousData, key, tile_template)
-        else:
-            previousData[key] = value
+        update_data_by_type(tile_template, previousData, key, value)
     return previousData
 
 
 def save_tile_ToRedis(tile_id, tile_template, tile_data):
-    cache = getCache()
-    tilePrefix = getRedisPrefix(tile_id)
-    if not cache.redis.exists(tilePrefix) and DEBUG:  # if tile don't exist, create it with template, DEBUG mode only
-        buildFakeDataFromTemplate(tile_id, tile_template, cache)
-    cachedTile = json.loads(cache.redis.get(tilePrefix))
+    redis_cache = getCache()
+    tilePrefix = getRedisPrefix(tile_id)  # TODO: if tile don't exist, create it with template, DEBUG mode only
+    if not redis_cache.redis.exists(tilePrefix) and DEBUG:
+        buildFakeDataFromTemplate(tile_id, tile_template, redis_cache)
+    cachedTile = json.loads(redis_cache.redis.get(tilePrefix))
     cachedTile['data'] = update_tile_data_from_redis(cachedTile['data'], json.loads(tile_data), tile_template)
     cachedTile['modified'] = getIsoTime()
     cachedTile['tile_template'] = tile_template
-    cache.set(tilePrefix, json.dumps(cachedTile))
+    redis_cache.set(tilePrefix, json.dumps(cachedTile))
     return True
 
 
