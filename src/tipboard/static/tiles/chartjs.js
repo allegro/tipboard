@@ -158,6 +158,7 @@ function getTypeOfChartJS(tileType) {
             return "tsgauge";
         case "radial_gauge_chart":
             return "radialGauge";
+        case "vlinear_gauge_chart":
         case "linear_gauge_chart":
             return "linearGauge";
     }

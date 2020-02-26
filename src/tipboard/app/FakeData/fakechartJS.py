@@ -261,9 +261,18 @@ def getFakeLinearGaugeChart(tile_id, template_name):
             'options': {
                 'responsive': True,
                 'maintainAspectRatio': False,
+                'scale': {
+                    'horizontal': True
+                }
             }
         }
     }
+
+
+def getFakeVLinearGaugeChart(tile_id, template_name):
+    data = getFakeLinearGaugeChart(tile_id, template_name)
+    data['meta']['options']['scale']['horizontal'] = False
+    return data
 
 
 def getFakeTsGaugeChart(tile_id, template_name):

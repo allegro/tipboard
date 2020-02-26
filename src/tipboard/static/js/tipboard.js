@@ -176,7 +176,7 @@ function loadStyleColor() {
         changeElements("h2", "#212529", "tag");
         changeElements("h3", "#000", "tag");
         changeElements("h6", "#000", "tag");
-        Chart.defaults.global.defaultFontColor = "rgba(89, 0, 0, 0.83)";
+        Chart.defaults.global.defaultFontColor = "#111111";
         Chart.defaults.global.elements.line.backgroundColor = "#FFFFFF";
         Chart.defaults.scale.gridLines.display = true;
         Chart.defaults.scale.gridLines.color = "#212121";
@@ -266,7 +266,7 @@ function initFlipboard() {
 /**
  * Init Global ChartJS value + build updateFunctions array
  */
-function initChartjs() {
+function registerUpdateFuction() {
     Tipboard.updateFunctions["line_chart"] = updateChartjs;
     Tipboard.updateFunctions["radar_chart"] = updateChartjs;
     Tipboard.updateFunctions["norm_chart"] = updateChartjs;
@@ -275,6 +275,7 @@ function initChartjs() {
     Tipboard.updateFunctions["gauge_chart"] = updateChartjs;
     Tipboard.updateFunctions["radial_gauge_chart"] = updateChartjs;
     Tipboard.updateFunctions["linear_gauge_chart"] = updateChartjs;
+    Tipboard.updateFunctions["vlinear_gauge_chart"] = updateChartjs;
     Tipboard.updateFunctions["bar_chart"] = updateChartjs;
     Tipboard.updateFunctions["just_value"] = updateTileTextValue;
     Tipboard.updateFunctions["simple_percentage"] = updateTileTextValue;
@@ -305,7 +306,7 @@ function initTipboardObject() {
 (function ($) {
     $(document).ready(function () {
         initTipboardObject();
-        initChartjs();
+        registerUpdateFuction();
         if (window.location.pathname === "/") {
             initFlipboard();
             getDashboardsByApi();

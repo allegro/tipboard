@@ -8,6 +8,7 @@ from src.tipboard.app.FakeData.fakechartJS import getFakeNormChart, getFakeCumul
 from src.tipboard.app.FakeData.fakechartJS import getFakePolarareaChart, getFakeRadarChart
 from src.tipboard.app.FakeData.fakechartJS import getFakeHalfDoughnutChart, getFakeDoughnutChart
 from src.tipboard.app.FakeData.fakechartJS import getFakeTsGaugeChart, getFakeRadialGaugeChart, getFakeLinearGaugeChart
+from src.tipboard.app.FakeData.fakechartJS import getFakeVLinearGaugeChart
 
 
 def getIframeChart(tile_id, template_name):
@@ -35,6 +36,7 @@ def buildSwicthPythonFfso_o():
                 line_chart=getFakeLineChart,
                 cumulative_flow=getFakeCumulFlow,
                 bar_chart=getFakeBarChart,
+                vbar_chart=getFakeVbarChart,
                 norm_chart=getFakeNormChart,
                 half_doughnut_chart=getFakeHalfDoughnutChart,
                 doughnut_chart=getFakeDoughnutChart,
@@ -42,8 +44,8 @@ def buildSwicthPythonFfso_o():
                 radial_gauge_chart=getFakeRadialGaugeChart,
                 radar_chart=getFakeRadarChart,
                 linear_gauge_chart=getFakeLinearGaugeChart,
+                vlinear_gauge_chart=getFakeVLinearGaugeChart,
                 polararea_chart=getFakePolarareaChart,
-                vbar_chart=getFakeVbarChart,
                 big_value=getFakeBigValue,
                 just_value=getFakeJustValue,
                 simple_percentage=getFakeSimplePercentg,
