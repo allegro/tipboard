@@ -5,7 +5,7 @@
  * @param keysToUse list of key in tile, to update with dataToPut
  */
 function setDataByKeys(tileId, dataToPut, keysToUse) {
-    if (keysToUse === "all") { // keysToUse*: list of keys, or string 'all', if 'all' then all keys used from *dataToPut*
+    if (keysToUse === "all") { // keysToUse*: if 'all' then all keys used from *dataToPut*
         keysToUse = [];
         for (let data in dataToPut) {
             if ({}.hasOwnProperty.call(dataToPut, data)) {
@@ -19,6 +19,9 @@ function setDataByKeys(tileId, dataToPut, keysToUse) {
             let dst = $($("#" + tileId)[0]).find("#" + tileId + "-" + key)[0];
             if (typeof dst !== "undefined") {
                 $(dst).text(value);
+                if ($(dst).hidden) {
+                    $(dst).show();
+                }
             }
         }
     });
@@ -43,7 +46,6 @@ function applyFading(node, color, fading) {
  * Update text tile, font, color & value
  * @param tileId
  * @param data
- * @param meta
  */
 function updateTileText(tileId, data) {
     let parser = new DOMParser();
@@ -52,7 +54,7 @@ function updateTileText(tileId, data) {
     let tags = parsed.getElementsByTagName("body");
     body.innerHTML = "";
     for (const tag of tags) {
-         body.innerText = tag.innerText;
+        body.innerText = tag.innerText;
     }
 }
 
@@ -74,8 +76,6 @@ function appendListingItem(container, itemText) {
  * Update listing tile
  * @param id
  * @param data
- * @param meta
- * @param tileType
  */
 function updateTileListing(id, data) {
     let MAX_ITEMS = 7;
@@ -96,7 +96,6 @@ function updateTileListing(id, data) {
  * Update bigvalue tiles the values & config
  * @param tileId
  * @param data
- * @param tileType
  */
 function updateTileBigValue(tileId, data) {
     if (!("title" in data)) {
@@ -118,29 +117,39 @@ function updateTileIframe(tileId, data) {
     iframe.src = data.url;
 }
 
+function hideElementNotPresent(tileId, tileData) {
+    if (!("title" in tileData)) {
+        $("#" + tileId + "-title").hide();
+    }
+    if (!("description" in tileData)) {
+        $("#" + tileId + "-subtitle").hide();
+    }
+}
+
 /**
- * Control all text_tile update fucntion
+ * Control all text_tile update function
  * @param tileData
- * @param dashboardname
+ * @param dashboard_name
  */
-function updateTileTextValue(tileData, dashboardname) {
-    let id = `${dashboardname}-${tileData['id']}`;
-    if (tileData.tile_template === "iframe") {
+function updateTileTextValue(tileData, dashboard_name) {
+    let id = `${dashboard_name}-${tileData['id']}`;
+    if (tileData["tile_template"] === "iframe") {
         updateTileIframe(id, tileData.data);
         return;
     }
-    if (tileData.tile_template === "listing") {
+    if (tileData["tile_template"] === "listing") {
         updateTileListing(id, tileData.data);
         return;
     }
-    if (tileData.tile_template === "text") {
+    if (tileData["tile_template"] === "text") {
         updateTileText(id, tileData.data);
         return;
     }
-    if (tileData.tile_template === "big_value") {
+    if (tileData["tile_template"] === "big_value") {
         updateTileBigValue(id, tileData.data);
     }
+    hideElementNotPresent(id, tileData.data);
     setDataByKeys(id, tileData.data, "all");
     let body = document.getElementById("body-" + id);
-    applyFading(body, tileData.meta.big_value_color, tileData.meta.fading_background);
+    applyFading(body, tileData.meta["big_value_color"], tileData.meta["fading_background"]);
 }

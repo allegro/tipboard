@@ -1,5 +1,4 @@
 import time
-# from datetime import datetime, timedelta
 from apscheduler.schedulers.blocking import BlockingScheduler
 from src.sensors.sensors1_text import sonde1
 from src.sensors.sensors2_piechart import sonde2
@@ -31,6 +30,7 @@ def test_sensors(tester):
     sonde3(tester, 'line_chart_ex')
     sonde4(tester, 'cfjs_ex')
     sonde5(tester, 'sp_ex')
+    sonde6(tester, 'listing_ex')
     sonde7(tester, 'barjs_ex')
     sonde7(tester, 'vbarjs_ex')
     sonde9(tester, 'bv_ex')
@@ -40,6 +40,9 @@ def test_sensors(tester):
     sonde15(tester, 'polararea_ex')
     sonde16(tester, 'doughnut_ex')
     sonde17(tester, 'half_doughnut_ex')
+    sonde18(tester, 'gauge_ex')
+    sonde19(tester, 'lgauge_ex')
+    sonde20(tester, 'rgauge_ex')
 
 
 def scheduleYourSensors(scheduler=None, tester=None):

@@ -51,7 +51,7 @@ layout:
 #              title: Percentage
 #              classes:
 
-    - row_1_of_2:
+    - row_1_of_1:
 
         - col_1_of_4 flip-time-5:
 

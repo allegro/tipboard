@@ -5,7 +5,7 @@ from src.manage import show_help
 from src.tipboard.templates.template_filter import template_tile_data, template_tile_dashboard
 from src.tipboard.app.properties import ALLOWED_TILES
 from src.tipboard.app.FakeData.fake_data import buildFakeDataFromTemplate
-from src.tipboard.app.parser import getDashboardName, getConfigNames  # , parseXmlLayout
+from src.tipboard.app.parser import getDashboardName, getConfigNames, parseXmlLayout
 from src.tipboard.app.cache import MyCache, getCache
 from src.tipboard.app.utils import checkAccessToken
 from src.tipboard.app.cache import listOfTilesFromLayout
@@ -56,36 +56,37 @@ class TestApp(TestCase):  # TODO: find a way to test the WebSocket inside django
         self.fakeClient = Client()
         self.cache = MyCache()
         self.ALLOWED_TILES = ALLOWED_TILES
-        self.test_layout = 'layout_config'  # TODO: test if the file is present before doing the test
+        self.layout = 'layout_config'  # TODO: test if the file is present before doing the test
 
-    # def test_0001_parse_dashboardXml(self):
-    #     """ Test Parse all tiles, cols, rows from a specific .yaml """
-    #     config = parseXmlLayout(layout_name=self.test_layout)
-    #     self.assertTrue(config is not None)
+    def test_0001_parse_dashboardXml(self):
+        """ Test Parse all tiles, cols, rows from a specific .yaml """
+        config = parseXmlLayout(layout_name=self.layout)
+        self.assertTrue(config is not None)
 
     def test_0002_getAllDashboardFiles(self):
         """ Test all dashboard file name from Config/ """
         config = getConfigNames()
         self.assertTrue(len(config) > 0)
 
-    # def test_0003_parser_getTitleOfDashboard(self):
-    #     """ Test XmlParser is able to get title of /config/layout_config.yml """
-    #     config = parseXmlLayout(layout_name=self.test_layout)
-    #     title = config['details']['page_title']
-    #     self.assertTrue(title == 'Tipboard exemple')
+    def test_0003_parser_getTitleOfDashboard(self):
+        """ Test XmlParser is able to get title of /config/layout_config.yml """
+        config = parseXmlLayout(layout_name=self.layout)
+        title = config['details']['page_title']
+        self.assertTrue(title == 'Tipboard exemple')
 
-    # def test_0004_parser_getDashboardColsFromXml(self):  # test if able to parse row
-    #     """ Test XmlParser able to get cols dashboard of /config/layout_config.yml """
-    #     self.assertTrue(len(parseXmlLayout(layout_name=self.test_layout)['layout']) > 0)
-    #
-    # def test_0005_parser_getTilesNameFromXml(self):  # test if able to parse tiles template
-    #     """ Test XmlParser able to get tiles name of /config/layout_config.yml """
-    #     self.assertTrue(len(parseXmlLayout(layout_name=self.test_layout)['tiles_names']) > 0)
-    #
-    # def test_0006_parser_getTilesIdFromXml(self):
-    #     """ Test XmlParser able to get tiles Id of tiles from /config/layout_config.yml """
-    # self.assertTrue(len(parseXmlLayout(layout_name=self.test_layout)['tiles_keys']) > 0)
-    # test if able to parse tile_id
+    def test_0004_parser_getDashboardColsFromXml(self):  # test if able to parse row
+        """ Test XmlParser able to get cols dashboard of /config/layout_config.yml """
+        self.assertTrue(len(parseXmlLayout(layout_name=self.layout)['layout']) > 0)
+
+    def test_0005_parser_getTilesNameFromXml(self):  # test if able to parse tiles template
+        """ Test XmlParser able to get tiles name of /config/layout_config.yml """
+        tiles_conf = parseXmlLayout(layout_name=self.layout)['tiles_conf']
+        self.assertTrue(tiles_conf[next(iter(tiles_conf))]['title'] is not None)
+
+    def test_0006_parser_getTilesIdFromXml(self):
+        """ Test XmlParser able to get tiles Id of tiles from /config/layout_config.yml """
+        tiles_conf = parseXmlLayout(layout_name=self.layout)['tiles_conf']
+        self.assertTrue((tiles_conf[next(iter(tiles_conf))]['tile_id']) is not None)
 
     def test_0011_cache_redisConnection(self):
         """ Test redis connection """
@@ -119,7 +120,7 @@ class TestApp(TestCase):  # TODO: find a way to test the WebSocket inside django
 
     def test_0101_djangoTemplate_tiles(self):
         """ Test template generation """
-        template_tile_dashboard(tile_id='id', layout_name=self.test_layout)
+        template_tile_dashboard(tile_id='id', layout_name=self.layout)
         for tile in self.ALLOWED_TILES:
             tile_data = dict(title=f'{tile}_ex', tile_template=tile)
             tileTemplate = template_tile_data(('layout', tile_data['title']), tile_data)
@@ -151,7 +152,7 @@ class TestApp(TestCase):  # TODO: find a way to test the WebSocket inside django
 
     def test_0105_api_getHtmlDashboard(self):
         """ Test api getHtmlDashboard """
-        reponse = self.fakeClient.get('/' + self.test_layout)
+        reponse = self.fakeClient.get('/' + self.layout)
         self.assertTrue(reponse.status_code == 200)
 
     def test_0106_api_getHtmlDashboardNotFound(self):
@@ -171,18 +172,18 @@ class TestApp(TestCase):  # TODO: find a way to test the WebSocket inside django
 
     def test_0109_api_parseTitleHtmlFromDashboard(self):  # TODO: fix this by testing the flipboard.html
         """ Test if Yaml to dashboard.html know how to parse title """
-        reponse = self.fakeClient.get('/dashboard/' + self.test_layout)
+        reponse = self.fakeClient.get('/dashboard/' + self.layout)
         title = b'__Tipboard exemple'  # TODO: need to put __ to test the split methode in template html
         self.assertTrue(title in reponse.content)  # can't work cause it's made by ws
 
     def test_0110_api_parseConfigHtmlFromDashboard(self):  # test with other file when row_1_of_1
-        reponse = self.fakeClient.get('/dashboard/' + self.test_layout)
+        reponse = self.fakeClient.get('/dashboard/' + self.layout)
         configInYaml = b'id="row_1_of_2"'
         self.assertTrue(configInYaml in reponse.content)
 
     def test_0111_api_parseConfigHtmlFromDashboard(self):  # TODO: take the tile id by yaml
-        reponse = self.fakeClient.get('/dashboard/' + self.test_layout)
-        IdTilePresenInYaml = b'id="' + bytes(self.test_layout, 'utf-8') + b'-pie_chartjs_ex"'
+        reponse = self.fakeClient.get('/dashboard/' + self.layout)
+        IdTilePresenInYaml = b'id="' + bytes(self.layout, 'utf-8') + b'-pie_chartjs_ex"'
         self.assertTrue(IdTilePresenInYaml in reponse.content)
 
     def test_1011_updatetile_PieChart(self):

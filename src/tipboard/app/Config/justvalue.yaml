@@ -1,0 +1,10 @@
+details:
+    page_title: Dashboard 1
+    color_mode: black
+layout:
+    - row:
+
+        - col:
+            - tile_template: just_value
+              tile_id: jv_ex
+              title: Just value

@@ -7,7 +7,7 @@ layout:
       - col weight-8:
           - tile_template: line_chart
             tile_id: line_chartjs_ex
-            title: line tile's<
+            title: line tile's
 
       - col weight-2:
           - tile_template: linear_gauge_chart
@@ -25,7 +25,6 @@ layout:
           - tile_template: radial_gauge_chart
             tile_id: rgauge_ex
             title: Radial gauge Iframe
-
 
       - col weight-3:
           - tile_template: gauge_chart
