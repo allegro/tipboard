@@ -92,29 +92,53 @@ function updateTileListing(id, data) {
     }
 }
 
-/**
- * Update bigvalue tiles the values & config
- * @param tileId
- * @param data
- */
-function updateTileBigValue(tileId, data) {
-    if (!("title" in data)) {
-        data.title = "montitre";
-    }
-    let description = document.getElementById(tileId + "-description");
-    if (!("description" in data) || data.description.length === 0) {
-        data.description = "0x42";
-        setDataByKeys(tileId, data, "all");
-        description.style.color = "#00414141";
-        description.className = "text";
-    } else {
-        description.className = "text-white";
-    }
-}
-
 function updateTileIframe(tileId, data) {
     let iframe = document.getElementById(tileId + "-iframe");
     iframe.src = data.url;
+}
+
+function updateTileStream(tileId, data) {//TODO: carefull, you dont stop the video -_-, you need to find a way
+    console.log("start stream");
+    if (!(tileId in Tipboard.chartJsTile)) {
+        console.log("create stream");
+        Tipboard.chartJsTile[tileId] = {
+            hls: new Hls(),
+            container: document.getElementById(tileId + "-stream"),
+            video: document.createElement('video')
+        };
+        let stream_tile = Tipboard.chartJsTile[tileId];
+        stream_tile.container.appendChild(stream_tile.video);
+        width = stream_tile.video.parentElement.clientWidth;
+        height = stream_tile.video.parentElement.clientHeight;
+        stream_tile.video.setAttribute('width', width);
+        stream_tile.video.setAttribute('height', height);
+        stream_tile.video.muted = "muted";
+        stream_tile.hls.loadSource(data.url);
+        console.log("create stream::loading(" + data.url + ")");
+        stream_tile.hls.attachMedia(stream_tile.video);
+        stream_tile.hls.on(Hls.Events.MEDIA_ATTACHED, function () {
+            console.log("create stream::play");
+            stream_tile.video.play();
+        });
+    } else {
+        console.log("update stream");
+        let stream_tile = Tipboard.chartJsTile[tileId];
+        Tipboard.chartJsTile[tileId].hls.detachMedia();
+        Tipboard.chartJsTile[tileId].hls.destroy();
+        Tipboard.chartJsTile[tileId].hls = new Hls();
+        console.log("update stream::destroy() previous");
+        console.log("update stream::loading(" + data.url + ")");
+        stream_tile.hls.loadSource(data.url);
+        stream_tile.hls.attachMedia(stream_tile.video);
+        stream_tile.hls.on(Hls.Events.MEDIA_ATTACHED, function () {
+        console.log("update stream::play(" + data.url + ")");
+            stream_tile.video.play();
+        });
+        // stream_tile.hls.on(Hls.Events.MEDIA_DETTACHED, function () {
+        // });
+    }
+
+    console.log("end stream");
 }
 
 function hideElementNotPresent(tileId, tileData) {
@@ -137,6 +161,10 @@ function updateTileTextValue(tileData, dashboard_name) {
         updateTileIframe(id, tileData.data);
         return;
     }
+    if (tileData["tile_template"] === "stream") {
+        updateTileStream(id, tileData.data);
+        return;
+    }
     if (tileData["tile_template"] === "listing") {
         updateTileListing(id, tileData.data);
         return;
@@ -144,9 +172,6 @@ function updateTileTextValue(tileData, dashboard_name) {
     if (tileData["tile_template"] === "text") {
         updateTileText(id, tileData.data);
         return;
-    }
-    if (tileData["tile_template"] === "big_value") {
-        updateTileBigValue(id, tileData.data);
     }
     hideElementNotPresent(id, tileData.data);
     setDataByKeys(id, tileData.data, "all");

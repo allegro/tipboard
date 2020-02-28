@@ -37,7 +37,7 @@ ALLOWED_TILES = ['text', 'simple_percentage', 'listing', 'big_value', 'just_valu
                  'bar_chart', 'vbar_chart', 'gauge_chart', 'radial_gauge_chart', 'linear_gauge_chart',  # ChartJS
                  'vlinear_gauge_chart',
                  'pie_chart', 'polararea_chart', 'radar_chart', 'doughnut_chart', 'half_doughnut_chart',  # ChartJS
-                 'iframe', 'empty']  # misc
+                 'iframe', 'stream', 'empty']  # misc
 
 COLOR_TAB = [  # material color
     'rgba(66, 165, 245, 0.8)',      # blue #42a5f5

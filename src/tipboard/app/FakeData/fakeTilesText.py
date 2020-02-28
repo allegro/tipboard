@@ -12,9 +12,9 @@ def getFakeSimplePercentg(tile_id, template_name):
             'left_label': 'left_label',
             'left_value': 'left_value'
         },
-        'meta': dict(big_value_color='#4CAF50', fading_background=True),
+        'meta': dict(big_value_color='#4CAF50', fading_background=False),
         'tile_template': template_name,
-        'modified': getIsoTime(),
+
         'id': tile_id
     }
 
@@ -32,7 +32,7 @@ def getFakeListing(tile_id, template_name):
         },
         'meta': dict(big_value_color='#4CAF50', fading_background=False),
         'tile_template': template_name,
-        'modified': getIsoTime(),
+
         'id': tile_id
     }
 
@@ -42,7 +42,7 @@ def getFakeText(tile_id, template_name):
         'data': dict(text='Text auto generated'),
         'meta': dict(big_value_color='#4CAF50', fading_background=False),
         'tile_template': template_name,
-        'modified': getIsoTime(),
+
         'id': tile_id
     }
 
@@ -60,7 +60,7 @@ def getFakeBigValue(tile_id, template_name):
         },
         'meta': dict(big_value_color='#4CAF50', fading_background=True),
         'tile_template': template_name,
-        'modified': getIsoTime(),
+
         'id': tile_id
     }
 
@@ -74,6 +74,6 @@ def getFakeJustValue(tile_id, template_name):
         },
         'meta': dict(big_value_color='#d50000', fading_background=True),
         'tile_template': template_name,
-        'modified': getIsoTime(),
+
         'id': tile_id
     }

@@ -11,9 +11,17 @@ from src.tipboard.app.FakeData.fakechartJS import getFakeTsGaugeChart, getFakeRa
 from src.tipboard.app.FakeData.fakechartJS import getFakeVLinearGaugeChart
 
 
-def getIframeChart(tile_id, template_name):
+def getStreamTile(tile_id, template_name):
     return {
-        'id': tile_id, 'tile_template': template_name, 'modified': getIsoTime(),
+        'id': tile_id, 'tile_template': template_name,
+        'data': dict(url="https://video-auth1.iol.pt/beachcam/pourville/playlist.m3u8"),
+        'meta': {}
+    }
+
+
+def getIframeTile(tile_id, template_name):
+    return {
+        'id': tile_id, 'tile_template': template_name,
         'data': dict(url="https://demo.matomo.org/index.php?"
                          "module=Widgetize&action=iframe&disableLink=0&widget=1&"
                          "moduleToWidgetize=Live&actionToWidgetize=getSimpleLastVisitCount&"
@@ -51,7 +59,8 @@ def buildSwicthPythonFfso_o():
                 simple_percentage=getFakeSimplePercentg,
                 text=getFakeText,
                 listing=getFakeListing,
-                iframe=getIframeChart)
+                iframe=getIframeTile,
+                stream=getStreamTile)
 
 
 def buildFakeDataFromTemplate(tile_id, template_name, cache):  # TODO: handle when tile is unknow
