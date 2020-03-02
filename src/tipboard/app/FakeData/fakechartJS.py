@@ -7,7 +7,7 @@ from src.tipboard.app.properties import COLOR_TAB
 
 def getFakeLineChart(tile_id, template_name):
     return {
-        'id': tile_id, 'tile_template': template_name, 'modified': getIsoTime(),
+        'id': tile_id, 'tile_template': template_name,
         'data': {
             'title': {'text': 'LineChart Demo', 'color': '#FFFFFF'},
             'labels': [f'{i if i > 10 else f"0{i}"}h' for i in range(25)],
@@ -49,7 +49,7 @@ def getFakeLineChart(tile_id, template_name):
 
 def getFakeCumulFlow(tile_id, template_name):
     return {
-        'id': tile_id, 'tile_template': template_name, 'modified': getIsoTime(),
+        'id': tile_id, 'tile_template': template_name,
         'data': {
             'title': {'display': True, 'text': 'Cumulative Flow Demo'},
             'labels': [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
@@ -86,7 +86,7 @@ def getFakeCumulFlow(tile_id, template_name):
 
 def getFakeNormChart(tile_id, template_name):
     return {
-        'id': tile_id, 'tile_template': template_name, 'modified': getIsoTime(),
+        'id': tile_id, 'tile_template': template_name,
         'data': {
             'title': {'display': True, 'text': 'Curve Comparaison'},
             'labels': [1, 3, 5, 7, 9, 11],
@@ -111,7 +111,7 @@ def getFakeNormChart(tile_id, template_name):
 
 def getFakeBarChart(tile_id, template_name):
     return {
-        'id': tile_id, 'tile_template': template_name, 'modified': getIsoTime(),
+        'id': tile_id, 'tile_template': template_name,
         'data': {
             'title': {'display': True, 'text': 'Bar Chart Demo'},
             'labels': ['Last (n)', 'n-1', 'n-2'],
@@ -140,7 +140,7 @@ def getFakeVbarChart(tile_id, template_name):
 
 def getFakePieChart(tile_id, template_name):
     return {
-        'id': tile_id, 'tile_template': template_name, 'modified': getIsoTime(),
+        'id': tile_id, 'tile_template': template_name,
         'data': {
             'title': {'display': True, 'text': 'PieChart Demo'},
             'labels': [f'Label {i + 1}' for i in range(5)],
@@ -162,7 +162,7 @@ def getFakePieChart(tile_id, template_name):
 
 def getFakeDoughnutChart(tile_id, template_name):
     return {
-        'id': tile_id, 'tile_template': template_name, 'modified': getIsoTime(),
+        'id': tile_id, 'tile_template': template_name,
         'data': {
             'title': {'display': True, 'text': 'Doughnut Demo'},
             'labels': [f'Label {i + 1}' for i in range(8)],
@@ -186,7 +186,7 @@ def getFakeHalfDoughnutChart(tile_id, template_name):
 
 def getFakeRadialGaugeChart(tile_id, template_name):
     return {
-        'id': tile_id, 'tile_template': template_name, 'modified': getIsoTime(),
+        'id': tile_id, 'tile_template': template_name,
         'data': {
             'title': {'display': True, 'text': 'Radial Gauge Demo'},
             'labels': [f'Label 1'],
@@ -229,7 +229,7 @@ def getFakeRadialGaugeChart(tile_id, template_name):
 
 def getFakeLinearGaugeChart(tile_id, template_name):
     return {
-        'id': tile_id, 'tile_template': template_name, 'modified': getIsoTime(),
+        'id': tile_id, 'tile_template': template_name,
         'data': {
             'title': {'display': True, 'text': 'Linear Gauge Demo'},
             'labels': ['data 1', 'data 2', 'data 3'],
@@ -277,7 +277,7 @@ def getFakeVLinearGaugeChart(tile_id, template_name):
 
 def getFakeTsGaugeChart(tile_id, template_name):
     return {
-        'id': tile_id, 'tile_template': template_name, 'modified': getIsoTime(),
+        'id': tile_id, 'tile_template': template_name,
         'data': {
             'title': {'display': True, 'text': 'Gauge Demo'},
             'datasets': [
@@ -305,7 +305,7 @@ def getFakeTsGaugeChart(tile_id, template_name):
 
 def getFakeRadarChart(tile_id, template_name):
     return {
-        'id': tile_id, 'tile_template': template_name, 'modified': getIsoTime(),
+        'id': tile_id, 'tile_template': template_name,
         'data': {
             'title': {'text': 'Radar Demo', 'borderColor': 'rgba(255, 255, 255, 1)'},
             'labels': [f'Label {i + 1}' for i in range(5)],
@@ -332,7 +332,7 @@ def getFakeRadarChart(tile_id, template_name):
 
 def getFakePolarareaChart(tile_id, template_name):
     return {
-        'id': tile_id, 'tile_template': template_name, 'modified': getIsoTime(),
+        'id': tile_id, 'tile_template': template_name,
         'data': {
             'title': {'display': True, 'text': 'Polar area Demo'},
             'labels': [f'Serie {i + 1}' for i in range(3)],

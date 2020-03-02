@@ -10,8 +10,8 @@ def executeScriptToGetData():
     urv = random.randrange(42, 420)
     lrv = ulv + llv + urv
     return {
-        'title': 'Sensors title',
-        'description': 'Sensors description',
+        'title': random.choice(['Sensors title', None]),
+        'description': random.choice(['Sensors description', None]),
         'big-value': random.randrange(214, 514),
         'upper-left-label': 'Critical:',
         'upper-left-value': ulv,

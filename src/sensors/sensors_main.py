@@ -22,7 +22,7 @@ from src.sensors.utils import end
 
 
 def addSchedule(scheduler, sonde, second=8, args=None):
-    scheduler.add_job(sonde, 'interval', seconds=random.randrange(5, 10), args=args)
+    scheduler.add_job(sonde, 'interval', seconds=random.randrange(5, 13), args=args)
 
 
 def test_sensors(tester):
@@ -70,10 +70,10 @@ def scheduleYourSensors(scheduler=None, tester=None):
         addSchedule(scheduler, sonde21, second=30, args=[tester, 'stream_ex1'])
         addSchedule(scheduler, sonde21, second=30, args=[tester, 'stream_ex2'])
         addSchedule(scheduler, sonde21, second=30, args=[tester, 'stream_ex3'])
-        addSchedule(scheduler, sonde21, second=30, args=[tester, 'stream_ex4'])
-        addSchedule(scheduler, sonde21, second=30, args=[tester, 'stream_ex5'])
-        addSchedule(scheduler, sonde21, second=30, args=[tester, 'stream_ex6'])
-        addSchedule(scheduler, sonde21, second=30, args=[tester, 'stream_ex8'])
+        # addSchedule(scheduler, sonde21, second=30, args=[tester, 'stream_ex4'])
+        # addSchedule(scheduler, sonde21, second=30, args=[tester, 'stream_ex5'])
+        # addSchedule(scheduler, sonde21, second=30, args=[tester, 'stream_ex6'])
+        # addSchedule(scheduler, sonde21, second=30, args=[tester, 'stream_ex8'])
         print(f"(+) Tipboard starting schedul task", flush=True)
         scheduler.start()
     return scheduler

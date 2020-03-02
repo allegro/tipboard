@@ -97,9 +97,9 @@ function updateTileIframe(tileId, data) {
     iframe.src = data.url;
 }
 
-function updateTileStream(tileId, data) {//TODO: carefull, you dont stop the video -_-, you need to find a way
+function updateTileStream(tileId, data) {
     console.log("start stream");
-    if (!(tileId in Tipboard.chartJsTile)) {
+    if (!(tileId in Tipboard.chartJsTile)) { // first created
         console.log("create stream");
         Tipboard.chartJsTile[tileId] = {
             hls: new Hls(),
@@ -120,7 +120,7 @@ function updateTileStream(tileId, data) {//TODO: carefull, you dont stop the vid
             console.log("create stream::play");
             stream_tile.video.play();
         });
-    } else {
+    } else { // updated by sensors
         console.log("update stream");
         let stream_tile = Tipboard.chartJsTile[tileId];
         Tipboard.chartJsTile[tileId].hls.detachMedia();
