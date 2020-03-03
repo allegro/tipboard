@@ -21,3 +21,5 @@ src/tipboard/webserver/__pycache__/
 tipboard2.0.egg-info/
 /.coverage
 /TODO.md
+/src/tipboard/app/Config/tmp/
+/src/tipboard/templates/tmplinear.html
