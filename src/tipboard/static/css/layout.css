@@ -115,31 +115,6 @@ h6 {
     height: 95%;
 }
 
-@keyframes fading-background-color {
-    100% {
-        background-color: transparent;
-    }
-}
-
-@-webkit-keyframes fading-background-color {
-    100% {
-        background-color: transparent;
-    }
-}
-
-.fading-background-color {
-    animation-name: fading-background-color;
-    animation-duration: 1s;
-    animation-iteration-count: infinite;
-    animation-direction: alternate;
-
-    -webkit-animation-name: fading-background-color;
-    -webkit-animation-duration: 1s;
-    -webkit-animation-iteration-count: infinite;
-    -webkit-animation-direction: alternate;
-}
-
-
 /**
     FLIP
  */
@@ -182,16 +157,44 @@ h6 {
 }
 
 /**
-    FLIPBOARD
+    BASE BODY
  */
 body.flipboard {
     overflow: hidden;
 }
 
-iframe {
-    height: 100%;
-    width: 100%;
-    border: 0;
+/*iframe {*/
+/*    height: 100%;*/
+/*    width: 100%;*/
+/*    border: 0;*/
+/*}*/
+
+/**
+    Animation
+ */
+
+@keyframes fading-background-color {
+    100% {
+        background-color: transparent;
+    }
+}
+
+@-webkit-keyframes fading-background-color {
+    100% {
+        background-color: transparent;
+    }
+}
+
+.fading-background-color {
+    animation-name: fading-background-color;
+    animation-duration: 1s;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+
+    -webkit-animation-name: fading-background-color;
+    -webkit-animation-duration: 1s;
+    -webkit-animation-iteration-count: infinite;
+    -webkit-animation-direction: alternate;
 }
 
 @keyframes fadeIn-anim {
@@ -211,7 +214,6 @@ iframe {
         opacity: 1;
     }
 }
-
 
 .fadeIn {
     opacity: 1;
