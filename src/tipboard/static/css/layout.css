@@ -2,8 +2,10 @@
     Project:    Tipboard
     Author:     ...
     Date:       2013/11/28
-    @the-maux: yes, proof this project started in 2013, this guys were freaking awesome, too bad i'm alone
+    @the-maux: yes :) this date is the major proof that this project started in 2013, @allegro team is awesome
+    too bad i'm alone 4 now ...
  */
+
 html, body {
     height: 100%;
 }
@@ -92,19 +94,6 @@ h6 {
     white-space: nowrap;
     font-size: calc(15px + (24 - 15) * ((100vw - 300px) / (1600 - 300)));
     /*color: #1b1e21;*/
-}
-
-.tile > .tile-content {
-    padding: 0 10px;
-}
-
-/*.tile > .tile-content .result {*/
-/*    color: #dcedc8;*/
-/*}*/
-
-.tile > .tile-content .label {
-    text-transform: uppercase;
-    /*color: #dcedc8;*/
 }
 
 /**
