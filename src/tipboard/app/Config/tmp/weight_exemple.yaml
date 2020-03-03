@@ -1,0 +1,33 @@
+details:
+    page_title: Dashboard 1
+    color_mode: black
+layout:
+    - row weight-3:
+
+        - col weight-8:
+            - tile_template: cumulative_flow
+              tile_id: cfjs_ex
+              title: cumulflow
+
+        - col weight-2:
+            - tile_template: bar_chart
+              tile_id: barjs_ex
+              title: bar
+
+    - row weight-2:
+
+        - col flip-time-2 weight-2:
+
+            - tile_template: doughnut_chart
+              tile_id: doughnut_ex
+              title: doughnut
+
+            - tile_template: half_doughnut_chart
+              tile_id: half_doughnut_ex
+              title: half_doughnut
+
+        - col weight-3:
+            - tile_template: radar_chart
+              tile_id: radar_ex
+              title: radar chart
+
