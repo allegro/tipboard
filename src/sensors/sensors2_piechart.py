@@ -1,4 +1,4 @@
-import time, random
+import time  # , random
 from src.sensors.utils import end
 from src.sensors.utils import sendUpdateByApi, updateChartJS
 

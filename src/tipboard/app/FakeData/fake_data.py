@@ -1,5 +1,4 @@
 import json
-from src.tipboard.app.applicationconfig import getIsoTime
 from src.tipboard.app.applicationconfig import getRedisPrefix
 from src.tipboard.app.FakeData.fakeTilesText import getFakeText, getFakeJustValue
 from src.tipboard.app.FakeData.fakeTilesText import getFakeListing, getFakeSimplePercentg, getFakeBigValue

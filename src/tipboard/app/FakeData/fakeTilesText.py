@@ -1,4 +1,3 @@
-from src.tipboard.app.applicationconfig import getIsoTime
 
 
 def getFakeSimplePercentg(tile_id, template_name):

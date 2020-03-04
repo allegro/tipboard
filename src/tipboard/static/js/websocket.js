@@ -74,7 +74,7 @@ let onTileError = function (err_msg, err_stack, div, tileId) {
  * @param dashboardname
  */
 function updateTile(tileData, dashboardname) {
-    let chartId = `${dashboardname}-${tileData['id']}`;
+    let chartId = `${dashboardname}-${tileData["id"]}`;
     let tile = $("#" + chartId)[0];
     try {
         let tileFunction = getUpdateFunction(tileData["tile_template"]);
@@ -87,7 +87,6 @@ function updateTile(tileData, dashboardname) {
             }
         });
     } catch (err) {
-        let msg = err.message;
         onTileError(err.message, err.stack, tile, chartId);
     }
 }
@@ -122,9 +121,7 @@ function initWebSocketManager() {
     };
     websocket.onclose = function () { // Handler to detect when API is back alive to reset websocket connection every 5s
         serverDisconnected(false);
-        if (Tipboard === "undefined") {
-            Tipboard.log("[ERROR] Websocket Tipboard is not build");
-        } else {
+        if (Tipboard !== "undefined") { // Check if Tipboard object is ready
             setTimeout(testApiIsBack, 5000);
         }
     };
