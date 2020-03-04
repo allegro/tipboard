@@ -194,10 +194,10 @@ class TestApp(TestCase):  # TODO: find a way to test the WebSocket inside django
         configInYaml = b'id="row"'
         self.assertTrue(configInYaml in reponse.content)
 
-    def test_0111_api_parseConfigHtmlFromDashboard(self):  # TODO: take the tile id by yaml
-        reponse = self.fakeClient.get('/dashboard/' + self.layout)
-        IdTilePresenInYaml = b'id="' + bytes(self.layout, 'utf-8') + b'-pie_chartjs_ex"'
-        self.assertTrue(IdTilePresenInYaml in reponse.content)
+    # def test_0111_api_parseConfigHtmlFromDashboard(self):  # TODO: take the tile id by yaml
+    #     reponse = self.fakeClient.get('/dashboard/' + self.layout)
+    #     IdTilePresenInYaml = b'id="' + bytes(self.layout, 'utf-8') + b'-pie_chartjs_ex"'
+    #     self.assertTrue(IdTilePresenInYaml in reponse.content)
 
     def test_1011_updatetile_PieChart(self):
         """ Test PieChart tile update by api """
