@@ -38,13 +38,12 @@ def renderDashboardHtmlUniqueDashboard(request, layout_name='layout_config', isF
                     color_mode=color_mode,
                     page_title=title)
         return render(request, 'dashboard.html' if isFlipboard else 'flipboard.html', data)
-    else:
-        if LOG:
-            print(f'{getTimeStr()}: (+)Config file:{layout_name} not found', flush=True)
-        msg = f'<br> <div style="color: red"> ' \
-            f'No config file found for dashboard: {layout_name} ' \
-            f'Make sure that file: "{layout_name}" exists. </div>'
-        return HttpResponse(msg, status=404)
+    if LOG:
+        print(f'{getTimeStr()}: (+)Config file:{layout_name} not found', flush=True)
+    msg = f'<br> <div style="color: red"> ' \
+        f'No config file found for dashboard: {layout_name} ' \
+        f'Make sure that file: "{layout_name}" exists. </div>'
+    return HttpResponse(msg, status=404)
 
 
 def renderDashboardHtmlForFlipboard(request, layout_name='layout_config'):
