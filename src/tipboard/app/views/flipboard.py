@@ -23,8 +23,8 @@ def renderDashboardHtmlUniqueDashboard(request, layout_name='layout_config', isF
         Render Html page for all the tiles needed in layout_name(dashboard .yml)
         with CSS/JS dependency if isFlipboard is false
     """
-    try:
-        config = parseXmlLayout(layout_name)
+    config = parseXmlLayout(layout_name)
+    if config is not None:  # file is present
         title = layout_name
         color_mode = "black"
         if 'details' in config:
@@ -38,12 +38,12 @@ def renderDashboardHtmlUniqueDashboard(request, layout_name='layout_config', isF
                     color_mode=color_mode,
                     page_title=title)
         return render(request, 'dashboard.html' if isFlipboard else 'flipboard.html', data)
-    except FileNotFoundError as e:
+    else:
         if LOG:
             print(f'{getTimeStr()}: (+)Config file:{layout_name} not found', flush=True)
         msg = f'<br> <div style="color: red"> ' \
             f'No config file found for dashboard: {layout_name} ' \
-            f'Make sure that file: "{e.filename}" exists. </div>'
+            f'Make sure that file: "{layout_name}" exists. </div>'
         return HttpResponse(msg, status=404)
 
 

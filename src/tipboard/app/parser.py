@@ -27,20 +27,20 @@ def yamlFileToPythonDict(layout_name='layout_config'):
     """ Parse in yaml the .yaml file to return python object """
     layout_name = layout_name if layout_name else 'layout_config'
     config_path = f'{user_config_dir}{layout_name}'
-    try:
-        with open(config_path, 'r') as layout_config:
-            config = yaml.safe_load(layout_config)
-    except FileNotFoundError:
-        if '.yaml' not in config_path:
-            config_path += '.yaml'
+    if not os.path.isfile(config_path):
+        config_path = config_path + '.yaml'
+        if not os.path.isfile(config_path):
+            return None
         with open(config_path, 'r') as layout_config:
             config = yaml.safe_load(layout_config)
     return config
 
 
 def parseXmlLayout(layout_name='layout_config'):
-    """ Parse all tiles, cols, rows from a specific .yaml """
+    """ Parse all tiles, cols, rows from a specific .yaml, return None if file not present """
     config = yamlFileToPythonDict(layout_name=layout_name)
+    if config is None:
+        return None
     rows = [row for row in [row for row in config['layout']]]
     cols = [col for col in [[col for col in list(row.values())[0]] for row in rows]]
     cols_data = [colsValue for colsList in cols for colsValue in colsList]
