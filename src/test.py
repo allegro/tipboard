@@ -189,7 +189,7 @@ class TestApp(TestCase):  # TODO: find a way to test the WebSocket inside django
         title = b'__'  # TODO: need to put __ to test the split methode in template html
         self.assertTrue(title in reponse.content)  # can't work cause it's made by ws
 
-    def test_0110_api_parseConfigHtmlFromDashboard(self):  # test with other file when row_1_of_1
+    def test_0110_api_parseConfigHtmlFromDashboard(self):  # test with other file when row
         reponse = self.fakeClient.get('/dashboard/' + self.layout)
         configInYaml = b'id="row"'
         self.assertTrue(configInYaml in reponse.content)
