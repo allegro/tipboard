@@ -1,7 +1,7 @@
 from django.http import JsonResponse, HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from src.tipboard.app.parser import parseXmlLayout, getConfigNames, getFlipboardTitles
-from src.tipboard.app.properties import TIPBOARD_CSS_STYLES, FLIPBOARD_INTERVAL, LOG, TIPBOARD_JAVASCRIPTS
+from src.tipboard.app.properties import TIPBOARD_CSS_STYLES, FLIPBOARD_INTERVAL, LOG, TIPBOARD_JAVASCRIPT_FILES
 from src.tipboard.app.utils import getTimeStr
 from src.sensors.sensors_main import scheduleYourSensors, stopTheSensors
 from apscheduler.schedulers.background import BackgroundScheduler
@@ -15,7 +15,7 @@ def renderFlipboardHtml(request):
                   dict(page_title='Tipboard',
                        flipboard_interval=FLIPBOARD_INTERVAL,
                        tipboard_css=TIPBOARD_CSS_STYLES,
-                       tipboard_js=['js/flipboard.js'] + TIPBOARD_JAVASCRIPTS))
+                       tipboard_js=['js/flipboard.js'] + TIPBOARD_JAVASCRIPT_FILES))
 
 
 def renderDashboardHtmlUniqueDashboard(request, layout_name='layout_config', isFlipboard=False):
@@ -34,7 +34,7 @@ def renderDashboardHtmlUniqueDashboard(request, layout_name='layout_config', isF
         data = dict(layout=config['layout'],
                     layout_name=layout_name,
                     tipboard_css=list() if isFlipboard else TIPBOARD_CSS_STYLES,
-                    tipboard_js=list() if isFlipboard else TIPBOARD_JAVASCRIPTS,
+                    tipboard_js=list() if isFlipboard else TIPBOARD_JAVASCRIPT_FILES,
                     color_mode=color_mode,
                     page_title=title)
         return render(request, 'dashboard.html' if isFlipboard else 'flipboard.html', data)

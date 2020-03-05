@@ -59,6 +59,16 @@ function updateTileText(tileId, data) {
 }
 
 /**
+ * Update Custom Tile
+ * @param tileId
+ * @param data
+ */
+function updateTileCustomTile(tileId, data) {
+    let tile = document.getElementById(tileId);
+    tile.innerHTML = data;
+}
+
+/**
  * Add html li for every item text
  * @param container
  * @param itemText
@@ -162,6 +172,9 @@ function updateTileTextValue(tileData, dashboard_name) {
             return;
         case "text":
             updateTileText(id, tileData.data);
+            return;
+        case "custom":
+            updateTileCustomTile(id, tileData.data);
             return;
     }
     hideElementNotPresent(id, tileData.data);

@@ -1,5 +1,5 @@
 import os
-from src.tipboard.app.properties import SUPER_SECRET_KEY, DEBUG, REDIS_HOST, REDIS_PORT, FROM_PIP
+from src.tipboard.app.properties import SUPER_SECRET_KEY, DEBUG, REDIS_HOST, REDIS_PORT, PATH_FOR_PIP
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = SUPER_SECRET_KEY
@@ -15,7 +15,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'channels',
-    FROM_PIP + 'tipboard.app.Config',
+    PATH_FOR_PIP + 'tipboard.app.Config',
 ]
 
 MIDDLEWARE = [
@@ -43,8 +43,8 @@ USE_I18N = True
 USE_L10N = True
 USE_TZ = True
 
-ROOT_URLCONF = FROM_PIP + 'tipboard.webserver.urls'
-WSGI_APPLICATION = FROM_PIP + 'tipboard.webserver.wsgi.application'
+ROOT_URLCONF = PATH_FOR_PIP + 'tipboard.webserver.urls'
+WSGI_APPLICATION = PATH_FOR_PIP + 'tipboard.webserver.wsgi.application'
 
 TEMPLATES = [
     {
@@ -59,7 +59,7 @@ TEMPLATES = [
                 'django.contrib.messages.context_processors.messages',
             ],
             'libraries': {
-                'template_filter': FROM_PIP + 'tipboard.templates.template_filter',
+                'template_filter': PATH_FOR_PIP + 'tipboard.templates.template_filter',
             }
         },
     },
@@ -75,7 +75,7 @@ STATICFILES_DIRS = [
 
 STATIC_URL = '/static/'
 
-ASGI_APPLICATION = FROM_PIP + 'tipboard.webserver.routing.application'
+ASGI_APPLICATION = PATH_FOR_PIP + 'tipboard.webserver.routing.application'
 
 CHANNEL_LAYERS = {
     'default': {

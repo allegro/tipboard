@@ -1,10 +1,10 @@
-from src.tipboard.app.FakeData.datasetbuilder import buildDatasetBar, buildDatasetCumulFlow, buildDatasetDoughnut
-from src.tipboard.app.FakeData.datasetbuilder import buildDatasetLine, buildDatasetNorm, buildDatasetPolararea
-from src.tipboard.app.FakeData.datasetbuilder import buildDatasetRadar, buildDatasetPie
+from src.tipboard.app.DefaultData.chartJsDatasetBuilder import buildDatasetBar, buildDatasetCumulFlow, buildDatasetDoughnut
+from src.tipboard.app.DefaultData.chartJsDatasetBuilder import buildDatasetLine, buildDatasetNorm, buildDatasetPolararea
+from src.tipboard.app.DefaultData.chartJsDatasetBuilder import buildDatasetRadar, buildDatasetPie
 from src.tipboard.app.properties import COLOR_TAB
 
 
-def getFakeLineChart(tile_id, template_name):
+def getDefaultLineChart(tile_id, template_name):
     return {
         'id': tile_id, 'tile_template': template_name,
         'data': {
@@ -46,7 +46,7 @@ def getFakeLineChart(tile_id, template_name):
     }
 
 
-def getFakeCumulFlow(tile_id, template_name):
+def getDefaultCumulFlow(tile_id, template_name):
     return {
         'id': tile_id, 'tile_template': template_name,
         'data': {
@@ -83,7 +83,7 @@ def getFakeCumulFlow(tile_id, template_name):
     }
 
 
-def getFakeNormChart(tile_id, template_name):
+def getDefaultNormChart(tile_id, template_name):
     return {
         'id': tile_id, 'tile_template': template_name,
         'data': {
@@ -108,7 +108,7 @@ def getFakeNormChart(tile_id, template_name):
     }
 
 
-def getFakeBarChart(tile_id, template_name):
+def getDefaultBarChart(tile_id, template_name):
     return {
         'id': tile_id, 'tile_template': template_name,
         'data': {
@@ -133,11 +133,11 @@ def getFakeBarChart(tile_id, template_name):
     }
 
 
-def getFakeVbarChart(tile_id, template_name):
-    return getFakeBarChart(tile_id, template_name)
+def getDefaultVbarChart(tile_id, template_name):
+    return getDefaultBarChart(tile_id, template_name)
 
 
-def getFakePieChart(tile_id, template_name):
+def getDefaultPieChart(tile_id, template_name):
     return {
         'id': tile_id, 'tile_template': template_name,
         'data': {
@@ -159,7 +159,7 @@ def getFakePieChart(tile_id, template_name):
     }
 
 
-def getFakeDoughnutChart(tile_id, template_name):
+def getDefaultDoughnutChart(tile_id, template_name):
     return {
         'id': tile_id, 'tile_template': template_name,
         'data': {
@@ -179,11 +179,11 @@ def getFakeDoughnutChart(tile_id, template_name):
     }
 
 
-def getFakeHalfDoughnutChart(tile_id, template_name):
-    return getFakeDoughnutChart(tile_id, template_name)
+def getDefaultHalfDoughnutChart(tile_id, template_name):
+    return getDefaultDoughnutChart(tile_id, template_name)
 
 
-def getFakeRadialGaugeChart(tile_id, template_name):
+def getDefaultRadialGaugeChart(tile_id, template_name):
     return {
         'id': tile_id, 'tile_template': template_name,
         'data': {
@@ -226,7 +226,7 @@ def getFakeRadialGaugeChart(tile_id, template_name):
     }
 
 
-def getFakeLinearGaugeChart(tile_id, template_name):
+def getDefaultLinearGaugeChart(tile_id, template_name):
     return {
         'id': tile_id, 'tile_template': template_name,
         'data': {
@@ -268,13 +268,13 @@ def getFakeLinearGaugeChart(tile_id, template_name):
     }
 
 
-def getFakeVLinearGaugeChart(tile_id, template_name):
-    data = getFakeLinearGaugeChart(tile_id, template_name)
+def getDefaultVLinearGaugeChart(tile_id, template_name):
+    data = getDefaultLinearGaugeChart(tile_id, template_name)
     data['meta']['options']['scale']['horizontal'] = False
     return data
 
 
-def getFakeTsGaugeChart(tile_id, template_name):
+def getDefaultTsGaugeChart(tile_id, template_name):
     return {
         'id': tile_id, 'tile_template': template_name,
         'data': {
@@ -302,7 +302,7 @@ def getFakeTsGaugeChart(tile_id, template_name):
     }
 
 
-def getFakeRadarChart(tile_id, template_name):
+def getDefaultRadarChart(tile_id, template_name):
     return {
         'id': tile_id, 'tile_template': template_name,
         'data': {
@@ -329,7 +329,7 @@ def getFakeRadarChart(tile_id, template_name):
     }
 
 
-def getFakePolarareaChart(tile_id, template_name):
+def getDefaultPolarareaChart(tile_id, template_name):
     return {
         'id': tile_id, 'tile_template': template_name,
         'data': {

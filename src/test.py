@@ -4,7 +4,7 @@ from apscheduler.schedulers.background import BackgroundScheduler
 from src.manage import show_help
 from src.tipboard.templates.template_filter import template_tile_data, template_tile_dashboard
 from src.tipboard.app.properties import ALLOWED_TILES
-from src.tipboard.app.FakeData.fake_data import buildFakeDataFromTemplate
+from src.tipboard.app.DefaultData.defaultTileControler import buildFakeDataFromTemplate
 from src.tipboard.app.parser import getDashboardName, getConfigNames, parseXmlLayout
 from src.tipboard.app.cache import MyCache, getCache
 from src.tipboard.app.utils import checkAccessToken

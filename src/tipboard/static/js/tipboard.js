@@ -290,6 +290,7 @@ function registerUpdateFuction() {
     Tipboard.updateFunctions["text"] = updateTileTextValue;
     Tipboard.updateFunctions["iframe"] = updateTileTextValue;
     Tipboard.updateFunctions["stream"] = updateTileTextValue;
+    Tipboard.updateFunctions["custom"] = updateTileTextValue;
 }
 
 /**
