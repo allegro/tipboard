@@ -298,11 +298,10 @@ function registerUpdateFuction() {
  */
 function initTipboardObject() {
     window.Tipboard = {
-        DEBUG_MODE: true,  // TODO: with value from tipboard
         updateFunctions: {},
         chartJsTile: {},
         websocket: initWebSocketManager(),
-        stream: [],
+        DEBUG_MODE: true,  // TODO: with value from tipboard
         log(msg) {
             if (this.DEBUG_MODE) {
                 console.log(msg);

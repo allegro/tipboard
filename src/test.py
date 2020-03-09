@@ -26,6 +26,7 @@ from src.sensors.sensors16_dougnutchart import sonde16
 from src.sensors.sensors17_halfdougnutchart import sonde17
 from src.sensors.sensors_main import scheduleYourSensors, test_sensors
 from src.tipboard.app.views.flipboard import demo_controller
+from src.tipboard.app.views.wshandler import WSConsumer
 
 
 def testTileUpdate(tester=None, tileId='test_pie_chart', sonde=None, isChartJS=True):
@@ -258,6 +259,9 @@ class TestApp(TestCase):  # TODO: find a way to test the WebSocket inside django
     def test_1025_updatetile_justValue(self):
         """ Test just_value tile update by api """
         testTileUpdate(tester=self, tileId='test_just_value', sonde=sonde10, isChartJS=False)
+
+    def test_1028_test_websocket(self):
+        consumer = WSConsumer(scope=None)
 
     def test_1026_test_sensors(self):  # TODO: fix this double loads linked to the bug in parser.py at .get()
         tilePrefix = getRedisPrefix('test_simple_percentage')

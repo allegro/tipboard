@@ -32,10 +32,11 @@ def executeScriptToGetData(tile_id='stream_ex'):
         "https://video-auth1.iol.pt/beachcam/capbreton2/chunks.m3u8",
         "https://video-auth1.iol.pt/beachcam/bidart/chunks.m3u8",
         "https://video-auth1.iol.pt/beachcam/cavaliers/chunks.m3u8",
-        ""
     ]
+    c1 = random.choice(webcamArray)
+    c2 = random.choice(webcamArray)
     return {
-        'url': random.choice(webcamArray)
+        'url': random.choice([c1, c2])
     }
 
 

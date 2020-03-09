@@ -8,16 +8,16 @@ def sonde18(tester=None, tile_id='gauge_ex'):
         'title': {'display': True, 'text': 'Gauge Demo'},
         'datasets': [
             {
-                'backgroundColor': [COLOR_TAB[1], COLOR_TAB[4], COLOR_TAB[5]],
                 'borderWidth': 0,
                 'gaugeData': {
-                    'value': random.randrange(5, 100),
+                    'value': 36,
                     'valueColor': COLOR_TAB[5]
                 },
-                'gaugeLimits': [0, 25, 50, 100]
+                'gaugeLimits': [-10, 0, 8, 26, 31, 55],
+                'backgroundColor': [COLOR_TAB[0], COLOR_TAB[8], COLOR_TAB[1], COLOR_TAB[4], COLOR_TAB[5]],
             }
         ]
     }
-    meta = {'labelFormat': '$'}
+    meta = {'labelFormat': '°'}
     tipboardAnswer = sendUpdateByApi(data=data, tileTemplate='gauge_chart', tileId=tile_id, tester=tester, meta=meta)
     end(title=f'sensors gauge_chart -> {tile_id}', startTime=start_time, tipboardAnswer=tipboardAnswer, tileId=tile_id)

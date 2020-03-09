@@ -65,7 +65,7 @@ function updateTileText(tileId, data) {
  */
 function updateTileCustomTile(tileId, data) {
     let tile = document.getElementById(tileId);
-    tile.innerHTML = data;
+    tile.innerHTML = data.text;
 }
 
 /**
