@@ -262,6 +262,7 @@ class TestApp(TestCase):  # TODO: find a way to test the WebSocket inside django
 
     def test_1028_test_websocket(self):
         consumer = WSConsumer(scope=None)
+        print(consumer)  # TODO: improve test
 
     def test_1026_test_sensors(self):  # TODO: fix this double loads linked to the bug in parser.py at .get()
         tilePrefix = getRedisPrefix('test_simple_percentage')
