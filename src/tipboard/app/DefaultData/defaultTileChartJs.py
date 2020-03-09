@@ -1,4 +1,5 @@
-from src.tipboard.app.DefaultData.chartJsDatasetBuilder import buildDatasetBar, buildDatasetCumulFlow, buildDatasetDoughnut
+from src.tipboard.app.DefaultData.chartJsDatasetBuilder import buildDatasetBar, buildDatasetCumulFlow, \
+    buildDatasetDoughnut
 from src.tipboard.app.DefaultData.chartJsDatasetBuilder import buildDatasetLine, buildDatasetNorm, buildDatasetPolararea
 from src.tipboard.app.DefaultData.chartJsDatasetBuilder import buildDatasetRadar, buildDatasetPie
 from src.tipboard.app.properties import COLOR_TAB
@@ -17,29 +18,10 @@ def getDefaultLineChart(tile_id, template_name):
         },
         'meta': {
             'options': {
-                'responsive': True,
-                'maintainAspectRatio': False,
-                'elements': {
-                    'line': {
-                        'tension': 0
-                    }
-                },
+                'responsive': True, 'maintainAspectRatio': False, 'elements': {'line': {'tension': 0}},
                 'scales': {
-                    'xAxes': [{
-                        'display': True,
-                        'gridLines': {
-                            'color': '#626262',
-                        }
-                    }],
-                    'yAxes': [{
-                        'display': True,
-                        'ticks': {
-                            'beginAtZero': True,
-                        },
-                        'gridLines': {
-                            'color': '#626262',
-                        }
-                    }]
+                    'xAxes': [{'display': True, 'gridLines': {'color': '#626262'}}],
+                    'yAxes': [{'display': True, 'ticks': {'beginAtZero': True}, 'gridLines': {'color': '#626262'}}]
                 },
             }
         }
@@ -61,22 +43,10 @@ def getDefaultCumulFlow(tile_id, template_name):
             'options': {
                 'responsive': True,
                 'maintainAspectRatio': False,
-                'elements': {
-                    'line': {
-                        'tension': 0
-                    }
-                },
+                'elements': {'line': {'tension': 0}},
                 'scales': {
-                    'xAxes': [{
-                        'gridLines': {
-                            'color': '#626262',
-                        }
-                    }],
-                    'yAxes': [{
-                        'gridLines': {
-                            'color': '#626262',
-                        }
-                    }]
+                    'xAxes': [{'gridLines': {'color': '#626262'}}],
+                    'yAxes': [{'gridLines': {'color': '#626262'}}]
                 }
             }
         }
@@ -87,8 +57,7 @@ def getDefaultNormChart(tile_id, template_name):
     return {
         'id': tile_id, 'tile_template': template_name,
         'data': {
-            'title': {'display': True, 'text': 'Curve Comparaison'},
-            'labels': [1, 3, 5, 7, 9, 11],
+            'title': {'display': True, 'text': 'Curve Comparaison'}, 'labels': [1, 3, 5, 7, 9, 11],
             'datasets': [
                 buildDatasetNorm(index=0, randomData=True, labelLenght=6),
                 buildDatasetNorm(index=1, randomData=True, labelLenght=6)
@@ -97,8 +66,7 @@ def getDefaultNormChart(tile_id, template_name):
         'meta': {
             'backgroundColor': COLOR_TAB,
             'options': {
-                'responsive': True,
-                'maintainAspectRatio': False,
+                'responsive': True, 'maintainAspectRatio': False,
                 'scales': {
                     'xAxes': [{'gridLines': {'color': '#626262'}}],
                     'yAxes': [{'gridLines': {'color': '#626262'}}]
@@ -121,9 +89,7 @@ def getDefaultBarChart(tile_id, template_name):
         },
         'meta': {
             'options': {
-                'responsive': True,
-                'maintainAspectRatio': False,
-                'legend': {'display': False},
+                'responsive': True, 'maintainAspectRatio': False, 'legend': {'display': False},
                 'scales': {
                     'xAxes': [{'gridLines': {'color': '#626262', 'display': False}}],
                     'yAxes': [{'gridLines': {'color': '#626262'}}]
@@ -141,20 +107,13 @@ def getDefaultPieChart(tile_id, template_name):
     return {
         'id': tile_id, 'tile_template': template_name,
         'data': {
-            'title': {'display': True, 'text': 'PieChart Demo'},
-            'labels': [f'Label {i + 1}' for i in range(5)],
-            'borderColor': '#626262',
-            'datasets': [
-                buildDatasetPie(randomData=True, labelLenght=5)
-            ]
+            'title': {'display': True, 'text': 'PieChart Demo'}, 'labels': [f'Label {i + 1}' for i in range(5)],
+            'borderColor': '#626262', 'datasets': [buildDatasetPie(randomData=True, labelLenght=5)]
         },
         'meta': {
-            'labels': {'fontColor': 'rgba(255, 255, 255, 0.80)'},
-            'tooltips': {'enabled': False},
-            'backgroundColor': COLOR_TAB,
-            'elements': {'arc': {}},
-            'responsive': True,
-            'maintainAspectRatio': False,
+            'responsive': True, 'maintainAspectRatio': False, 'backgroundColor': COLOR_TAB,
+            'labels': {'fontColor': 'rgba(255, 255, 255, 0.80)'}, 'tooltips': {'enabled': False},
+            'elements': {'arc': {}}
         }
     }
 
@@ -165,14 +124,11 @@ def getDefaultDoughnutChart(tile_id, template_name):
         'data': {
             'title': {'display': True, 'text': 'Doughnut Demo'},
             'labels': [f'Label {i + 1}' for i in range(8)],
-            'datasets': [
-                buildDatasetDoughnut(randomData=False, labelLenght=8)
-            ]
+            'datasets': [buildDatasetDoughnut(randomData=False, labelLenght=8)]
         },
         'meta': {
             'options': {
-                'responsive': True,
-                'maintainAspectRatio': False,
+                'responsive': True, 'maintainAspectRatio': False,
                 'elements': {'arc': {'borderWidth': 1.0, 'borderColor': '#626262'}}
             }
         }
@@ -187,39 +143,18 @@ def getDefaultRadialGaugeChart(tile_id, template_name):
     return {
         'id': tile_id, 'tile_template': template_name,
         'data': {
-            'title': {'display': True, 'text': 'Radial Gauge Demo'},
-            'labels': [f'Label 1'],
-            'datasets': [
-                {
-                    'data': [42],
-                    'label': 'Label'
-                }
-            ]
+            'title': {'display': True, 'text': 'Radial Gauge Demo'}, 'labels': [f'Label 1'],
+            'datasets': [{'data': [42], 'label': 'Label'}]
         },
         'meta': {
             'options': {
-                'responsive': True,
-                'maintainAspectRatio': False,
-                'events': list(),
-                'showMarkers': True,
-                'animation': {
-                    'animateRotate': True,
-                    'animateScale': True
-                },
-                'centerPercentage': 80,
+                'responsive': True, 'maintainAspectRatio': False, 'events': list(), 'showMarkers': True,
+                'animation': {'animateRotate': True, 'animateScale': True},
                 #    'rotation': -Math.PI / 2,
-                'trackColor': 'rgb(204, 221, 238)',
-                'domain': [0, 50],
-                'roundedCorners': True,
+                'centerPercentage': 80, 'trackColor': 'rgb(204, 221, 238)', 'domain': [0, 50], 'roundedCorners': True,
                 'centerArea': {
-                    'displayText': True,
-                    'fontFamily': None,
-                    'fontColor': None,
-                    'fontSize': None,
-                    'padding': 4,
-                    'backgroundImage': None,
-                    'backgroundColor': None,
-                    'text': None
+                    'displayText': True, 'fontFamily': None, 'fontColor': None, 'fontSize': None, 'padding': 4,
+                    'backgroundImage': None, 'backgroundColor': None, 'text': None
                 }
             }
         }
@@ -230,40 +165,15 @@ def getDefaultLinearGaugeChart(tile_id, template_name):
     return {
         'id': tile_id, 'tile_template': template_name,
         'data': {
-            'title': {'display': True, 'text': 'Linear Gauge Demo'},
-            'labels': ['data 1', 'data 2', 'data 3'],
+            'title': {'display': True, 'text': 'Linear Gauge Demo'}, 'labels': ['data 1', 'data 2', 'data 3'],
             'datasets': [
-                {
-                    'label': 'data 1',
-                    'data': [370],
-                    'backgroundColor': COLOR_TAB[0],
-                    'offset': 10,
-                    'width': 10
-                },
-                {
-                    'label': 'data 2',
-                    'data': [170],
-                    'backgroundColor': COLOR_TAB[1],
-                    'offset': 21,
-                    'width': 10
-                },
-                {
-                    'label': 'data 3',
-                    'data': [270],
-                    'backgroundColor': COLOR_TAB[2],
-                    'offset': 32,
-                    'width': 10
-                }
+                {'label': 'data 1', 'data': [370], 'backgroundColor': COLOR_TAB[0], 'offset': 10, 'width': 10},
+                {'label': 'data 2', 'data': [170], 'backgroundColor': COLOR_TAB[1], 'offset': 21, 'width': 10},
+                {'label': 'data 3', 'data': [270], 'backgroundColor': COLOR_TAB[2], 'offset': 32, 'width': 10}
             ]
         },
         'meta': {
-            'options': {
-                'responsive': True,
-                'maintainAspectRatio': False,
-                'scale': {
-                    'horizontal': True
-                }
-            }
+            'options': {'responsive': True, 'maintainAspectRatio': False, 'scale': {'horizontal': True}}
         }
     }
 
@@ -281,24 +191,12 @@ def getDefaultTsGaugeChart(tile_id, template_name):
             'title': {'display': True, 'text': 'Gauge Demo'},
             'datasets': [
                 {
-                    'backgroundColor': ['#0fdc63', '#fd9704', '#ff7143'],
-                    'borderWidth': 0,
-                    'gaugeData': {
-                        'value': 7777,
-                        'valueColor': '#ff7143'
-                    },
-                    'gaugeLimits': [0, 3000, 7000, 10000]
+                    'backgroundColor': ['#0fdc63', '#fd9704', '#ff7143'], 'borderWidth': 0,
+                    'gaugeData': {'value': 7777, 'valueColor': '#ff7143'}, 'gaugeLimits': [0, 3000, 7000, 10000]
                 }
             ]
         },
-        'meta': {
-            'options': {
-                'responsive': True,
-                'maintainAspectRatio': False,
-                'events': list(),
-                'showMarkers': True,
-            }
-        }
+        'meta': {'options': {'responsive': True, 'maintainAspectRatio': False, 'events': list(), 'showMarkers': True}}
     }
 
 
@@ -316,14 +214,10 @@ def getDefaultRadarChart(tile_id, template_name):
         'meta': {
             'options': {
                 'scale': {
-                    'gridLines': {
-                        'color': ['#626262' for _ in range(8)]
-                    },
-                    'angleLines': {'color': '#626262'},
-                    'ticks': {'display': False}
+                    'gridLines': {'color': ['#626262' for _ in range(8)]},
+                    'angleLines': {'color': '#626262'}, 'ticks': {'display': False}
                 },
-                'responsive': True,
-                'maintainAspectRatio': False,
+                'responsive': True, 'maintainAspectRatio': False,
             }
         }
     }
@@ -335,19 +229,14 @@ def getDefaultPolarareaChart(tile_id, template_name):
         'data': {
             'title': {'display': True, 'text': 'Polar area Demo'},
             'labels': [f'Serie {i + 1}' for i in range(3)],
-            'datasets': [
-                buildDatasetPolararea(randomData=True, labelLenght=4)
-            ]
+            'datasets': [buildDatasetPolararea(randomData=True, labelLenght=4)]
         },
         'meta': {
             'options': {
-                'responsive': True,
-                'maintainAspectRatio': False,
+                'responsive': True, 'maintainAspectRatio': False,
                 'elements': {'arc': {'borderColor': '#626262', 'borderWidth': 2}},
                 'scale': {
-                    'gridLines': {
-                        'color': ['#626262' for _ in range(8)]
-                    },
+                    'gridLines': {'color': ['#626262' for _ in range(8)]},
                     'angleLines': {'color': '#626262'},
                     'ticks': {'display': False}
                 }
