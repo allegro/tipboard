@@ -153,6 +153,33 @@ function hideElementNotPresent(tileId, tileData) {
     }
 }
 
+function isMiscTile(tileData, tileId) {
+    let isMiscTile = false;
+    switch (tileData["tile_template"]) {
+        case "iframe":
+            document.getElementById(tileId + "-iframe").src = tileData.data.url;
+            isMiscTile = true;
+            break;
+        case "stream":
+            updateTileStream(id, tileData.data);
+            isMiscTile = true;
+            break;
+        case "listing":
+            updateTileListing(id, tileData.data);
+            isMiscTile = true;
+            break;
+        case "text":
+            updateTileText(id, tileData.data);
+            isMiscTile = true;
+            break;
+        case "custom":
+            updateTileCustomTile(id, tileData.data);
+            isMiscTile = true;
+            break;
+    }
+    return isMiscTile;
+}
+
 /**
  * Control all text_tile update function
  * @param tileData
@@ -160,25 +187,10 @@ function hideElementNotPresent(tileId, tileData) {
  */
 function updateTileTextValue(tileData, dashboard_name) {
     let id = `${dashboard_name}-${tileData["id"]}`;
-    switch (tileData["tile_template"]) {
-        case "iframe":
-            document.getElementById(tileId + "-iframe").src = tileData.data.url;
-            return;
-        case "stream":
-            updateTileStream(id, tileData.data);
-            return;
-        case "listing":
-            updateTileListing(id, tileData.data);
-            return;
-        case "text":
-            updateTileText(id, tileData.data);
-            return;
-        case "custom":
-            updateTileCustomTile(id, tileData.data);
-            return;
+    if (isMiscTile(tileData, id) === false) {  // TODO: change by adding a misc.js
+        hideElementNotPresent(id, tileData.data);
+        setDataByKeys(id, tileData.data, "all");
+        let body = document.getElementById("body-" + id);
+        applyFading(body, tileData.meta["big_value_color"], tileData.meta["fading_background"]);
     }
-    hideElementNotPresent(id, tileData.data);
-    setDataByKeys(id, tileData.data, "all");
-    let body = document.getElementById("body-" + id);
-    applyFading(body, tileData.meta["big_value_color"], tileData.meta["fading_background"]);
 }
