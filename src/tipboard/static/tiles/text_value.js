@@ -161,19 +161,19 @@ function isMiscTile(tileData, tileId) {
             isMiscTile = true;
             break;
         case "stream":
-            updateTileStream(id, tileData.data);
+            updateTileStream(tileId, tileData.data);
             isMiscTile = true;
             break;
         case "listing":
-            updateTileListing(id, tileData.data);
+            updateTileListing(tileId, tileData.data);
             isMiscTile = true;
             break;
         case "text":
-            updateTileText(id, tileData.data);
+            updateTileText(tileId, tileData.data);
             isMiscTile = true;
             break;
         case "custom":
-            updateTileCustomTile(id, tileData.data);
+            updateTileCustomTile(tileId, tileData.data);
             isMiscTile = true;
             break;
     }

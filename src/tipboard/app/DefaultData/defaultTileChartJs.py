@@ -228,7 +228,7 @@ def getDefaultPolarareaChart(tile_id, template_name):
         'id': tile_id, 'tile_template': template_name,
         'data': {
             'title': {'display': True, 'text': 'Polar area Demo'},
-            'labels': [f'Serie {i + 1}' for i in range(3)],
+            'labels': [f'Serie {i + 1}' for i in range(4)],
             'datasets': [buildDatasetPolararea(randomData=True, labelLenght=4)]
         },
         'meta': {
