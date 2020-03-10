@@ -1,7 +1,7 @@
 redis==3.4.1
 requests==2.23.0
 apscheduler==3.6.3
-asgiref==3.2.3
+asgiref==3.2.4
 django-cors-headers==3.2.1
 django==3.0.4
 django_prometheus==2.0.0
