@@ -4,7 +4,7 @@
   "SUPER_SECRET_KEY": "8ukir02c$==m07u2icw)#0e7e9=2k2!iiapwga%qgcb*#z#mcf",
   "API_VERSION": "v0.1",
   "PROJECT_NAME": "tipboard-python3",
-
+  "LAYOUT_CONFIG": "all.yaml",
   "CDN_URL": "",
   "SITE_ENV": "preprod",
   "REDIS_HOST": "0.0.0.0",

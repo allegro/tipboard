@@ -10,10 +10,14 @@ FROM_PIP = 'src.'
 # Path of Config directory
 user_config_dir = dir_path + '/Config/'
 
-# Determine which layout config should be used by default
-LAYOUT_CONFIG = os.path.join(user_config_dir, 'tmp/layout_config.yaml')
 
 conf = json.load(open(dir_path + '/Config/properties.json'))
+
+# Determine which layout config should be used by default, from user or by default
+if 'LAYOUT_CONFIG' in conf:
+    LAYOUT_CONFIG = os.path.join(user_config_dir, conf['LAYOUT_CONFIG'])
+else:
+    LAYOUT_CONFIG = os.path.join(user_config_dir, 'layout_config.yaml')
 
 API_VERSION = conf['API_VERSION']
 API_KEY = conf['TIPBOARD_TOKEN']
