@@ -1,5 +1,5 @@
 import glob, os, yaml
-from src.tipboard.app.properties import USER_CONFIG_DIR
+from src.tipboard.app.properties import USER_CONFIG_DIR, LAYOUT_CONFIG
 from src.tipboard.app.utils import getTimeStr
 
 
@@ -56,6 +56,10 @@ def getConfigNames():
         configs_names.append(config_path.split('/')[-1].replace('.yaml', ''))
         if not configs_names:
             raise Exception(f'No config (.yaml) file found in {os.path.join(USER_CONFIG_DIR, "*.yaml")}')
+    simple_layout_name = LAYOUT_CONFIG.split('/')[-1].replace('.yaml', '')
+    if simple_layout_name in configs_names:
+        configs_names.pop(configs_names.index(simple_layout_name))
+        configs_names.insert(0, simple_layout_name)
     return configs_names
 
 
