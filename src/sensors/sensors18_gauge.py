@@ -1,4 +1,4 @@
-import time, random
+import time
 from src.sensors.utils import end, sendUpdateByApi, COLOR_TAB
 
 
