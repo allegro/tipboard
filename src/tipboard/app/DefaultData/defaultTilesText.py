@@ -1,4 +1,5 @@
-def getDefaultBigValue(tile_id, template_name):
+
+def getDefaultBigValue():
     return {
         'data': {
             'title': 'Title',
@@ -10,13 +11,10 @@ def getDefaultBigValue(tile_id, template_name):
             'lower-right-label': 'lower right-label'
         },
         'meta': dict(big_value_color='#4CAF50', fading_background=True),
-        'tile_template': template_name,
-
-        'id': tile_id
     }
 
 
-def getDefaultSimplePercentg(tile_id, template_name):
+def getDefaultSimplePercentg():
     return {
         'data': {
             'title': 'Title',
@@ -28,12 +26,10 @@ def getDefaultSimplePercentg(tile_id, template_name):
             'left_value': 'left_value'
         },
         'meta': dict(big_value_color='#4CAF50', fading_background=False),
-        'tile_template': template_name,
-        'id': tile_id
     }
 
 
-def getDefaultJustValue(tile_id, template_name):
+def getDefaultJustValue():
     return {
         'data': {
             'title': 'Title',
@@ -41,21 +37,17 @@ def getDefaultJustValue(tile_id, template_name):
             'just-value': '51'
         },
         'meta': dict(big_value_color='#d50000', fading_background=True),
-        'tile_template': template_name,
-        'id': tile_id
     }
 
 
-def getDefaultText(tile_id, template_name):
+def getDefaultText():
     return {
         'data': dict(text='Text auto generated'),
         'meta': dict(big_value_color='#4CAF50', fading_background=False),
-        'tile_template': template_name,
-        'id': tile_id
     }
 
 
-def getDefaultListing(tile_id, template_name):
+def getDefaultListing():
     return {
         'data': {
             'items': [
@@ -67,15 +59,11 @@ def getDefaultListing(tile_id, template_name):
             ]
         },
         'meta': dict(big_value_color='#4CAF50', fading_background=False),
-        'tile_template': template_name,
-        'id': tile_id
     }
 
 
-def getDefaultCustomTile(tile_id, template_name):
+def getDefaultCustomTile():
     return {
         'data': dict(text='Text auto generated For custom tile'),
         'meta': dict(big_value_color='#4CAF50', fading_background=False),
-        'tile_template': template_name,
-        'id': tile_id
     }

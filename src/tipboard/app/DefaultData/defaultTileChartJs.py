@@ -5,9 +5,8 @@ from src.tipboard.app.DefaultData.chartJsDatasetBuilder import buildDatasetRadar
 from src.tipboard.app.properties import COLOR_TAB
 
 
-def getDefaultLineChart(tile_id, template_name):
+def getDefaultLineChart():
     return {
-        'id': tile_id, 'tile_template': template_name,
         'data': {
             'title': {'text': 'LineChart Demo', 'color': '#FFFFFF'},
             'labels': [f'{i if i > 10 else f"0{i}"}h' for i in range(25)],
@@ -28,9 +27,8 @@ def getDefaultLineChart(tile_id, template_name):
     }
 
 
-def getDefaultCumulFlow(tile_id, template_name):
+def getDefaultCumulFlow():
     return {
-        'id': tile_id, 'tile_template': template_name,
         'data': {
             'title': {'display': True, 'text': 'Cumulative Flow Demo'},
             'labels': [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
@@ -53,9 +51,8 @@ def getDefaultCumulFlow(tile_id, template_name):
     }
 
 
-def getDefaultNormChart(tile_id, template_name):
+def getDefaultNormChart():
     return {
-        'id': tile_id, 'tile_template': template_name,
         'data': {
             'title': {'display': True, 'text': 'Curve Comparaison'}, 'labels': [1, 3, 5, 7, 9, 11],
             'datasets': [
@@ -76,9 +73,8 @@ def getDefaultNormChart(tile_id, template_name):
     }
 
 
-def getDefaultBarChart(tile_id, template_name):
+def getDefaultBarChart():
     return {
-        'id': tile_id, 'tile_template': template_name,
         'data': {
             'title': {'display': True, 'text': 'Bar Chart Demo'},
             'labels': ['Last (n)', 'n-1', 'n-2'],
@@ -99,13 +95,8 @@ def getDefaultBarChart(tile_id, template_name):
     }
 
 
-def getDefaultVbarChart(tile_id, template_name):
-    return getDefaultBarChart(tile_id, template_name)
-
-
-def getDefaultPieChart(tile_id, template_name):
+def getDefaultPieChart():
     return {
-        'id': tile_id, 'tile_template': template_name,
         'data': {
             'title': {'display': True, 'text': 'PieChart Demo'}, 'labels': [f'Label {i + 1}' for i in range(5)],
             'borderColor': '#626262', 'datasets': [buildDatasetPie(randomData=True, labelLenght=5)]
@@ -118,9 +109,8 @@ def getDefaultPieChart(tile_id, template_name):
     }
 
 
-def getDefaultDoughnutChart(tile_id, template_name):
+def getDefaultDoughnutChart():
     return {
-        'id': tile_id, 'tile_template': template_name,
         'data': {
             'title': {'display': True, 'text': 'Doughnut Demo'},
             'labels': [f'Label {i + 1}' for i in range(8)],
@@ -135,13 +125,8 @@ def getDefaultDoughnutChart(tile_id, template_name):
     }
 
 
-def getDefaultHalfDoughnutChart(tile_id, template_name):
-    return getDefaultDoughnutChart(tile_id, template_name)
-
-
-def getDefaultRadialGaugeChart(tile_id, template_name):
+def getDefaultRadialGaugeChart():
     return {
-        'id': tile_id, 'tile_template': template_name,
         'data': {
             'title': {'display': True, 'text': 'Radial Gauge Demo'}, 'labels': [f'Label 1'],
             'datasets': [{'data': [42], 'label': 'Label'}]
@@ -161,9 +146,8 @@ def getDefaultRadialGaugeChart(tile_id, template_name):
     }
 
 
-def getDefaultLinearGaugeChart(tile_id, template_name):
+def getDefaultLinearGaugeChart():
     return {
-        'id': tile_id, 'tile_template': template_name,
         'data': {
             'title': {'display': True, 'text': 'Linear Gauge Demo'}, 'labels': ['data 1', 'data 2', 'data 3'],
             'datasets': [
@@ -178,15 +162,14 @@ def getDefaultLinearGaugeChart(tile_id, template_name):
     }
 
 
-def getDefaultVLinearGaugeChart(tile_id, template_name):
-    data = getDefaultLinearGaugeChart(tile_id, template_name)
+def getDefaultVLinearGaugeChart():
+    data = getDefaultLinearGaugeChart()
     data['meta']['options']['scale']['horizontal'] = False
     return data
 
 
-def getDefaultTsGaugeChart(tile_id, template_name):
+def getDefaultTsGaugeChart():
     return {
-        'id': tile_id, 'tile_template': template_name,
         'data': {
             'title': {'display': True, 'text': 'Gauge Demo'},
             'datasets': [
@@ -200,9 +183,8 @@ def getDefaultTsGaugeChart(tile_id, template_name):
     }
 
 
-def getDefaultRadarChart(tile_id, template_name):
+def getDefaultRadarChart():
     return {
-        'id': tile_id, 'tile_template': template_name,
         'data': {
             'title': {'text': 'Radar Demo', 'borderColor': 'rgba(255, 255, 255, 1)'},
             'labels': [f'Label {i + 1}' for i in range(5)],
@@ -223,9 +205,8 @@ def getDefaultRadarChart(tile_id, template_name):
     }
 
 
-def getDefaultPolarareaChart(tile_id, template_name):
+def getDefaultPolarareaChart():
     return {
-        'id': tile_id, 'tile_template': template_name,
         'data': {
             'title': {'display': True, 'text': 'Polar area Demo'},
             'labels': [f'Serie {i + 1}' for i in range(4)],
