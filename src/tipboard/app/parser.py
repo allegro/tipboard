@@ -1,5 +1,5 @@
 import glob, os, yaml
-from src.tipboard.app.properties import user_config_dir
+from src.tipboard.app.properties import USER_CONFIG_DIR
 from src.tipboard.app.utils import getTimeStr
 
 
@@ -26,7 +26,7 @@ def getTilesConfigFromXml(cols_data):
 def yamlFileToPythonDict(layout_name='layout_config'):
     """ Parse in yaml the .yaml file to return python object """
     layout_name = layout_name if layout_name else 'layout_config'
-    config_path = f'{user_config_dir}{layout_name}'
+    config_path = f'{USER_CONFIG_DIR}{layout_name}'
     if not os.path.isfile(config_path):
         config_path = config_path + '.yaml'
         if not os.path.isfile(config_path):
@@ -51,11 +51,11 @@ def parseXmlLayout(layout_name='layout_config'):
 def getConfigNames():
     """ Return all dashboard file name from Config/ """
     configs_names = list()
-    configs_dir = os.path.join(user_config_dir, '*.yaml')
+    configs_dir = os.path.join(USER_CONFIG_DIR, '*.yaml')
     for config_path in glob.glob(configs_dir):  # Get all name of different *.yml present in Config/ directory
         configs_names.append(config_path.split('/')[-1].replace('.yaml', ''))
         if not configs_names:
-            raise Exception(f'No config (.yaml) file found in {os.path.join(user_config_dir, "*.yaml")}')
+            raise Exception(f'No config (.yaml) file found in {os.path.join(USER_CONFIG_DIR, "*.yaml")}')
     return configs_names
 
 

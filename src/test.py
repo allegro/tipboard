@@ -4,7 +4,7 @@ from apscheduler.schedulers.background import BackgroundScheduler
 from src.manage import show_help
 from src.tipboard.templates.template_filter import template_tile_data, template_tile_dashboard
 from src.tipboard.app.properties import ALLOWED_TILES
-from src.tipboard.app.FakeData.fake_data import buildFakeDataFromTemplate
+from src.tipboard.app.DefaultData.defaultTileControler import buildFakeDataFromTemplate
 from src.tipboard.app.parser import getDashboardName, getConfigNames, parseXmlLayout
 from src.tipboard.app.cache import MyCache, getCache
 from src.tipboard.app.utils import checkAccessToken
@@ -26,6 +26,7 @@ from src.sensors.sensors16_dougnutchart import sonde16
 from src.sensors.sensors17_halfdougnutchart import sonde17
 from src.sensors.sensors_main import scheduleYourSensors, test_sensors
 from src.tipboard.app.views.flipboard import demo_controller
+from src.tipboard.app.views.wshandler import WSConsumer
 
 
 def testTileUpdate(tester=None, tileId='test_pie_chart', sonde=None, isChartJS=True):
@@ -122,6 +123,7 @@ class TestApp(TestCase):  # TODO: find a way to test the WebSocket inside django
         for tile in self.ALLOWED_TILES:
             if tile != 'empty':
                 tileData = buildFakeDataFromTemplate(tile_id=f'test_{tile}', template_name=tile, cache=self.cache)
+                self.assertTrue(tileData is not None)
                 self.assertTrue('meta' in tileData)
                 self.assertTrue('data' in tileData)
                 self.assertTrue('id' in tileData)
@@ -258,6 +260,10 @@ class TestApp(TestCase):  # TODO: find a way to test the WebSocket inside django
     def test_1025_updatetile_justValue(self):
         """ Test just_value tile update by api """
         testTileUpdate(tester=self, tileId='test_just_value', sonde=sonde10, isChartJS=False)
+
+    def test_1028_test_websocket(self):
+        consumer = WSConsumer(scope=None)
+        print(consumer)  # TODO: improve test
 
     def test_1026_test_sensors(self):  # TODO: fix this double loads linked to the bug in parser.py at .get()
         tilePrefix = getRedisPrefix('test_simple_percentage')

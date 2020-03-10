@@ -1,18 +1,15 @@
 import json
 from django.http import JsonResponse, HttpResponseBadRequest, HttpResponse
 from src.tipboard.app.applicationconfig import getRedisPrefix
-from src.tipboard.app.properties import PROJECT_NAME, LAYOUT_CONFIG, REDIS_DB, DEBUG, ALLOWED_TILES
+from src.tipboard.app.properties import LAYOUT_CONFIG, REDIS_DB, DEBUG, ALLOWED_TILES
 from src.tipboard.app.cache import getCache, save_tile_ToRedis, update_tile_data_from_redis
 from src.tipboard.app.utils import checkAccessToken
 
 
-def project_info(request):
+def project_info(request):  # TODO: add uptime and last update time and redis connected and numnber of tile in redis
     """ Return info of server tipboard """
     if request.method == 'GET':
-        response = dict(tipboard_version='v0.1',
-                        project_name=PROJECT_NAME,
-                        project_layout_config=LAYOUT_CONFIG,
-                        redis_db=REDIS_DB)
+        response = dict(project_layout_config=LAYOUT_CONFIG, redis_db=REDIS_DB)
         return JsonResponse(response)
 
 

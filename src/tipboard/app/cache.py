@@ -5,8 +5,8 @@ from src.tipboard.app.applicationconfig import getRedisPrefix, getIsoTime
 from src.tipboard.app.properties import REDIS_DB, REDIS_PASSWORD, REDIS_HOST, REDIS_PORT, DEBUG
 from src.tipboard.app.utils import getTimeStr
 from channels.layers import get_channel_layer
-from src.tipboard.app.FakeData.fake_data import buildFakeDataFromTemplate
-from src.tipboard.app.FakeData.datasetbuilder import buildGenericDataset
+from src.tipboard.app.DefaultData.defaultTileControler import buildFakeDataFromTemplate
+from src.tipboard.app.DefaultData.chartJsDatasetBuilder import buildGenericDataset
 
 cache = None  # TODO: remove this by using the django middleware redis
 

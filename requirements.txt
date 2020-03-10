@@ -3,7 +3,7 @@ requests==2.22.0
 apscheduler==3.6.3
 asgiref==3.2.3
 django-cors-headers==3.2.1
-django==3.0.3
+django==3.0.4
 django_prometheus==2.0.0
 django-swagger-render==0.1.0
 channels==2.4.0

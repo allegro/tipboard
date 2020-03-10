@@ -4,7 +4,7 @@ from asgiref.sync import async_to_sync
 from src.tipboard.app.applicationconfig import getRedisPrefix
 from src.tipboard.app.cache import getCache
 from src.tipboard.app.properties import LOG
-from src.tipboard.app.FakeData.fake_data import buildFakeDataFromTemplate
+from src.tipboard.app.DefaultData.defaultTileControler import buildFakeDataFromTemplate
 from src.tipboard.app.utils import getTimeStr
 from src.tipboard.app.cache import listOfTilesFromLayout
 
