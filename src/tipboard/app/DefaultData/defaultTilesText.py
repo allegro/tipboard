@@ -3,7 +3,6 @@ def getDefaultBigValue():
     return {
         'data': {
             'title': 'Title',
-            'description': 'Description',
             'big-value': '25%',
             'lower-left-label': 'lower left-label',
             'upper-left-label': 'upper left-label',

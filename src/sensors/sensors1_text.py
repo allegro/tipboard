@@ -6,7 +6,9 @@ from src.tipboard.app.DefaultData.defaultTileControler import getDefaultText
 
 def executeScriptToGetData(tile_id=None, tile_template=None):
     """ Replace getFakeText with your script to GET text tile data """
-    tile = getDefaultText(tile_id=tile_id, template_name=tile_template)
+    tile = getDefaultText()
+    tile['tile_id'] = tile_id
+    tile['tile_template'] = tile_template
     tile['data']['text'] = '\n'.join([lorem.sentence() for _ in range(6)])
     return tile
 

@@ -113,8 +113,8 @@ def getDefaultDoughnutChart():
     return {
         'data': {
             'title': {'display': True, 'text': 'Doughnut Demo'},
-            'labels': [f'Label {i + 1}' for i in range(8)],
-            'datasets': [buildDatasetDoughnut(randomData=False, labelLenght=8)]
+            'datasets': [buildDatasetDoughnut(randomData=False, labelLenght=8)],
+            'labels': [f'Label {i + 1}' for i in range(8)]
         },
         'meta': {
             'options': {
@@ -217,9 +217,9 @@ def getDefaultPolarareaChart():
                 'responsive': True, 'maintainAspectRatio': False,
                 'elements': {'arc': {'borderColor': '#626262', 'borderWidth': 2}},
                 'scale': {
-                    'gridLines': {'color': ['#626262' for _ in range(8)]},
+                    'ticks': {'display': False},
                     'angleLines': {'color': '#626262'},
-                    'ticks': {'display': False}
+                    'gridLines': {'color': ['#626262' for _ in range(8)]}
                 }
             }
         }
