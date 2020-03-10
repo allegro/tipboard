@@ -1,4 +1,4 @@
-import time, datetime, random
+import time, datetime
 from apscheduler.schedulers.blocking import BlockingScheduler
 from src.sensors.sensors1_text import sonde1
 from src.sensors.sensors2_piechart import sonde2
