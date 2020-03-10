@@ -17,10 +17,10 @@ REDIS_PORT = PROPERTIES['REDIS_PORT']
 REDIS_PASSWORD = PROPERTIES['REDIS_PASSWORD']
 REDIS_DB = PROPERTIES['REDIS_DB']
 FLIPBOARD_INTERVAL = 10  # how many seconds dashboard is displayed before is flipped, if 0 than NO FLIPBOARD
-if 'LAYOUT_CONFIG' in conf:
-    LAYOUT_CONFIG = os.path.join(user_config_dir, conf['LAYOUT_CONFIG'])
+if 'LAYOUT_CONFIG' in PROPERTIES:
+    LAYOUT_CONFIG = os.path.join(USER_CONFIG_DIR, PROPERTIES['LAYOUT_CONFIG'])
 else:
-    LAYOUT_CONFIG = os.path.join(user_config_dir, 'layout_config.yaml')
+    LAYOUT_CONFIG = os.path.join(USER_CONFIG_DIR, 'layout_config.yaml')
 TIPBOARD_CSS_STYLES = ['css/layout.css']
 TIPBOARD_JAVASCRIPT_FILES = ['js/websocket.js', 'js/tipboard.js', 'tiles/chartjs.js', 'tiles/text_value.js']
 ALLOWED_TILES = ['text', 'simple_percentage', 'listing', 'big_value', 'just_value',  # Homemade
