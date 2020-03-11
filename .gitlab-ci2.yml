@@ -17,30 +17,30 @@ build_img:
   script:
     - docker build -t tipboard:untested .
 
-test:
-  stage: test
-  script:
-    - docker build -t tipboard:untested .
-    - docker run --entrypoint python tipboard:untested src/manage.py test
-
-ci_github_dev:
-  stage: integration
-  only: ['wip']
-  script:
-    - docker login -u themaux -p ${CI_GITHUB_PACKAGE} docker.pkg.github.com
-    - docker build -t docker.pkg.github.com/the-maux/tipboard/tipboard:latest .
-    - docker push docker.pkg.github.com/the-maux/tipboard/tipboard:latest
-
-ci_github_master:
-  stage: integration
-  only: ['master']
-  script:
-    - docker login -u themaux -p ${CI_GITHUB_PACKAGE} docker.pkg.github.com
-    - docker build -t docker.pkg.github.com/the-maux/tipboard/tipboard:1.6.0 .
-    - docker push docker.pkg.github.com/the-maux/tipboard/tipboard:1.6.0
-
-deploy_aws:
-  stage: deploy
-  only: ['gitlab-cd/aws']
-  script:
-    - docker run --entrypoint python tipboard:untested src/manage.py test
+#test:
+#  stage: test
+#  script:
+#    - docker build -t tipboard:untested .
+#    - docker run --entrypoint python tipboard:untested src/manage.py test
+#
+#ci_github_dev:
+#  stage: integration
+#  only: ['wip']
+#  script:
+#    - docker login -u themaux -p ${CI_GITHUB_PACKAGE} docker.pkg.github.com
+#    - docker build -t docker.pkg.github.com/the-maux/tipboard/tipboard:latest .
+#    - docker push docker.pkg.github.com/the-maux/tipboard/tipboard:latest
+#
+#ci_github_master:
+#  stage: integration
+#  only: ['master']
+#  script:
+#    - docker login -u themaux -p ${CI_GITHUB_PACKAGE} docker.pkg.github.com
+#    - docker build -t docker.pkg.github.com/the-maux/tipboard/tipboard:1.6.0 .
+#    - docker push docker.pkg.github.com/the-maux/tipboard/tipboard:1.6.0
+#
+#deploy_aws:
+#  stage: deploy
+#  only: ['gitlab-cd/aws']
+#  script:
+#    - docker run --entrypoint python tipboard:untested src/manage.py test
