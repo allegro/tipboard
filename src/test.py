@@ -124,7 +124,6 @@ class TestApp(TestCase):  # TODO: find a way to test the WebSocket inside django
             if tile != 'empty':
                 tileData = buildFakeDataFromTemplate(tile_id=f'test_{tile}', template_name=tile, cache=self.cache)
                 self.assertTrue(tileData is not None)
-                self.assertTrue('meta' in tileData)
                 self.assertTrue('data' in tileData)
                 self.assertTrue('id' in tileData)
                 self.assertTrue('tile_template' in tileData)

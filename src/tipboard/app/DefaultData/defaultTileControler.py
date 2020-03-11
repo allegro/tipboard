@@ -24,18 +24,8 @@ def getDefaultIframeTile():
                          'module=Widgetize&action=iframe&disableLink=0&widget=1&'
                          'moduleToWidgetize=Live&actionToWidgetize=getSimpleLastVisitCount&'
                          'idSite=62&period=day&date=yesterday&disableLink=1&widget=1'),
-        'meta': {}
     }
 
-
-# url = https://demo.matomo.org/index.php?module=Widgetize&action=iframe&disableLink=0&widget=1&
-# moduleToWidgetize=UserCountryMap&actionToWidgetize=realtimeMap&idSite=62&period=day&
-# date=yesterday&disableLink=1&widget=1
-
-
-# url = https://demo.matomo.org/index.php?module=Widgetize&action=iframe&disableLink=0&widget=1&
-# moduleToWidgetize=Live&actionToWidgetize=getSimpleLastVisitCount&idSite=62&period=day&
-# date=yesterday&disableLink=1&widget=1
 
 def add_template_and_id(little_dict, tile_id, template_name):
     if little_dict is not None:

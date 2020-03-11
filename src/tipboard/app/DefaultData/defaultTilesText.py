@@ -41,8 +41,7 @@ def getDefaultJustValue():
 
 def getDefaultText():
     return {
-        'data': dict(text='Text auto generated'),
-        'meta': dict(big_value_color='#4CAF50', fading_background=False),
+        'data': dict(text='Text auto generated')
     }
 
 
@@ -56,13 +55,11 @@ def getDefaultListing():
                 'Developer: 1',
                 'U.X: 1'
             ]
-        },
-        'meta': dict(big_value_color='#4CAF50', fading_background=False),
+        }
     }
 
 
 def getDefaultCustomTile():
     return {
-        'data': dict(text='Text auto generated For custom tile'),
-        'meta': dict(big_value_color='#4CAF50', fading_background=False),
+        'data': dict(text='Text auto generated For custom tile')
     }

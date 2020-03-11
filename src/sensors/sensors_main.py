@@ -24,7 +24,7 @@ from src.sensors.utils import end
 
 
 def addSchedule(scheduler, sonde, second=8, args=None):
-    scheduler.add_job(sonde, 'interval', seconds=30, args=args, next_run_time=datetime.datetime.now())
+    scheduler.add_job(sonde, 'interval', seconds=6, args=args, next_run_time=datetime.datetime.now())
 
 
 def test_sensors(tester):
@@ -71,16 +71,17 @@ def scheduleYourSensors(scheduler=None, tester=None):
         addSchedule(scheduler, sonde18, second=30, args=[tester, 'gauge_ex'])
         addSchedule(scheduler, sonde19, second=30, args=[tester, 'lgauge_ex'])
         addSchedule(scheduler, sonde20, second=30, args=[tester, 'rgauge_ex'])
-        addSchedule(scheduler, sonde_iframe, second=30, args=[tester, 'stream_ex'])
-        addSchedule(scheduler, sonde_iframe, second=30, args=[tester, 'stream_ex1'])
-        addSchedule(scheduler, sonde_iframe, second=30, args=[tester, 'stream_ex2'])
-        addSchedule(scheduler, sonde_iframe, second=30, args=[tester, 'stream_ex3'])
-        addSchedule(scheduler, sonde_iframe, second=30, args=[tester, 'stream_ex4'])
-        addSchedule(scheduler, sonde_iframe, second=30, args=[tester, 'stream_ex5'])
-        addSchedule(scheduler, sonde_iframe, second=30, args=[tester, 'stream_ex6'])
-        addSchedule(scheduler, sonde_iframe, second=30, args=[tester, 'stream_ex6'])
-        addSchedule(scheduler, sonde_iframe, second=30, args=[tester, 'stream_ex8'])
+        addSchedule(scheduler, sonde_stream, second=30, args=[tester, 'stream_ex'])
+        addSchedule(scheduler, sonde_stream, second=30, args=[tester, 'stream_ex1'])
+        addSchedule(scheduler, sonde_stream, second=30, args=[tester, 'stream_ex2'])
+        addSchedule(scheduler, sonde_stream, second=30, args=[tester, 'stream_ex3'])
+        addSchedule(scheduler, sonde_stream, second=30, args=[tester, 'stream_ex4'])
+        addSchedule(scheduler, sonde_stream, second=30, args=[tester, 'stream_ex5'])
+        addSchedule(scheduler, sonde_stream, second=30, args=[tester, 'stream_ex6'])
+        addSchedule(scheduler, sonde_stream, second=30, args=[tester, 'stream_ex6'])
         addSchedule(scheduler, sonde_stream, second=30, args=[tester, 'stream_ex8'])
+        addSchedule(scheduler, sonde_stream, second=30, args=[tester, 'stream_ex8'])
+        addSchedule(scheduler, sonde_iframe, second=30, args=[tester, 'iframe_ex'])
         addSchedule(scheduler, sonde22, second=30, args=[tester, 'custom_ex'])
         print(f"(+) Tipboard starting schedul task", flush=True)
         scheduler.start()
