@@ -15,7 +15,7 @@ def renderFlipboardHtml(request):
                   dict(page_title='Tipboard',
                        flipboard_interval=FLIPBOARD_INTERVAL,
                        tipboard_css=TIPBOARD_CSS_STYLES,
-                       tipboard_js=['js/flipboard.js'] + TIPBOARD_JAVASCRIPT_FILES))
+                       tipboard_js=TIPBOARD_JAVASCRIPT_FILES))
 
 
 def renderDashboardHtmlUniqueDashboard(request, layout_name='layout_config', isFlipboard=False):
@@ -54,7 +54,7 @@ def renderDashboardHtmlForFlipboard(request, layout_name='layout_config'):
 def getDashboardsPaths(request):
     """
         Return the path of layout prensent in the ./tipboard/app/Config
-        Used in layout.js with flipboard.js function(getDashboardsByApi) to flip between all dashboard(*.yml) in /Config
+        Used in layout.js function(getDashboardsByApi) to flip between all dashboard(*.yml) in /Config
     """
     paths = ['/' + config_name for config_name in getConfigNames()]
     names = getFlipboardTitles()

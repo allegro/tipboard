@@ -1,10 +1,10 @@
 import json
 import os
-
+# General Configuration
 PATH_FOR_PIP = 'src.'  # Location of Tipboard sources
-PROPERTIES = json.load(open(os.path.dirname(os.path.realpath(__file__)) + '/Config/properties.json'))
-USER_CONFIG_DIR = os.path.dirname(os.path.realpath(__file__)) + '/Config/'  # Path of Config directory
-LAYOUT_CONFIG = os.path.join(USER_CONFIG_DIR, 'layout_config.yaml')  # Default layout config
+CONFIG_DIR = os.path.dirname(os.path.realpath(__file__)) + '/Config/'  # Path of Config directory
+PROPERTIES = json.load(open(CONFIG_DIR + 'properties.json'))
+LAYOUT_CONFIG = os.path.join(CONFIG_DIR, 'layout_config.yaml')  # Default layout config
 API_KEY = PROPERTIES['TIPBOARD_TOKEN']
 SUPER_SECRET_KEY = PROPERTIES['SUPER_SECRET_KEY']
 DEBUG = PROPERTIES['DEBUG']
@@ -16,11 +16,14 @@ REDIS_HOST = PROPERTIES['REDIS_HOST']
 REDIS_PORT = PROPERTIES['REDIS_PORT']
 REDIS_PASSWORD = PROPERTIES['REDIS_PASSWORD']
 REDIS_DB = PROPERTIES['REDIS_DB']
-FLIPBOARD_INTERVAL = 10  # how many seconds dashboard is displayed before is flipped, if 0 than NO FLIPBOARD
+
+# Tipboard Properties
+DEFAULT_LAYOUT = 'layout_config.yaml'
+FLIPBOARD_INTERVAL = PROPERTIES['FLIPBOARD_INTERVAL'] if 'FLIPBOARD_INTERVAL' in PROPERTIES else 10
 if 'LAYOUT_CONFIG' in PROPERTIES:
-    LAYOUT_CONFIG = os.path.join(USER_CONFIG_DIR, PROPERTIES['LAYOUT_CONFIG'])
+    LAYOUT_CONFIG = os.path.join(CONFIG_DIR, PROPERTIES['LAYOUT_CONFIG'])
 else:
-    LAYOUT_CONFIG = os.path.join(USER_CONFIG_DIR, 'layout_config.yaml')
+    LAYOUT_CONFIG = os.path.join(CONFIG_DIR, DEFAULT_LAYOUT)
 TIPBOARD_CSS_STYLES = ['css/layout.css']
 TIPBOARD_JAVASCRIPT_FILES = ['js/websocket.js', 'js/tipboard.js', 'tiles/chartjs.js', 'tiles/text_value.js']
 ALLOWED_TILES = ['text', 'simple_percentage', 'listing', 'big_value', 'just_value',  # Homemade
@@ -29,7 +32,6 @@ ALLOWED_TILES = ['text', 'simple_percentage', 'listing', 'big_value', 'just_valu
                  'vlinear_gauge_chart', 'doughnut_chart', 'half_doughnut_chart',  # ChartJS
                  'pie_chart', 'polararea_chart', 'radar_chart',  # ChartJS
                  'iframe', 'stream', 'custom']  # misc
-
 COLOR_TAB = [  # material color
     'rgba(66, 165, 245, 0.8)',      # blue #42a5f5
     'rgba(114, 191, 68, 0.8)',      # green #72bf44
@@ -46,13 +48,12 @@ COLOR_TAB = [  # material color
     'rgb(48, 79, 254)',             # Indigo #304ffe
     'rgb(33, 33, 33)'               # Black #212121
 ]
+BACKGROUND_TAB = ['#4caf50', '#ff6d00', '#d50000']
 
 if 'COLOR_TAB' in PROPERTIES:  # TODO: documentation if properties present in json override default color
     rcx = 0
     for color in PROPERTIES['COLOR_TAB']:
         COLOR_TAB[rcx] = PROPERTIES['COLOR_TAB'][rcx]
-
-BACKGROUND_TAB = ['#4caf50', '#ff6d00', '#d50000']
 
 if LOG:
     print(f"Tipboard start in DEBUG MODE:{DEBUG} & LOG:{LOG}")

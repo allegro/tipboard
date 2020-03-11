@@ -273,6 +273,7 @@ function initFlipboard() {
  * Init Global ChartJS value + build updateFunctions array
  */
 function registerUpdateFuction() {
+    Tipboard.updateFunctions = {};
     Tipboard.updateFunctions["line_chart"] = updateChartjs;
     Tipboard.updateFunctions["radar_chart"] = updateChartjs;
     Tipboard.updateFunctions["norm_chart"] = updateChartjs;
@@ -298,7 +299,6 @@ function registerUpdateFuction() {
  */
 function initTipboardObject() {
     window.Tipboard = {
-        updateFunctions: {},
         chartJsTile: {},
         websocket: initWebSocketManager(),
         DEBUG_MODE: true,  // TODO: with value from tipboard
