@@ -2,24 +2,21 @@
  * Update the html of tile regarding the key to update
  * @param tileId id of tile in redis
  * @param dataToPut data to update
- * @param keysToUse list of key in tile, to update with dataToPut
+ * @param fieldsToUpdate
  */
-function setDataByKeys(tileId, dataToPut, keysToUse) {
-    if (keysToUse === "all") { // keysToUse*: list of keys, or string 'all', if 'all' then all keys used from *dataToPut*
-        keysToUse = [];
-        for (let data in dataToPut) {
-            if ({}.hasOwnProperty.call(dataToPut, data)) {
-                keysToUse.push(data);
-            }
+function setDataByKeys(tileId, dataToPut) {
+    let fieldsToUpdate = [];
+    for (let data in tileData.data) {
+        if ({}.hasOwnProperty.call(tileData.data, data)) {
+            fieldsToUpdate.push(data);
         }
     }
-    $.each(keysToUse, function (idx, key) {
+    $.each(fieldsToUpdate, function (idx, key) {
         let value = dataToPut[key.toString()];
-        if (typeof (value) !== "undefined") {
-            let dst = $($("#" + tileId)[0]).find("#" + tileId + "-" + key)[0];
-            if (typeof dst !== "undefined") {
-                $(dst).text(value);
-            }
+        let dst = $($("#" + tileId)[0]).find("#" + tileId + "-" + key)[0];
+        $(dst).text(value);
+        if ($(dst).hidden) {
+            $(dst).show();
         }
     });
 }
@@ -43,7 +40,6 @@ function applyFading(node, color, fading) {
  * Update text tile, font, color & value
  * @param tileId
  * @param data
- * @param meta
  */
 function updateTileText(tileId, data) {
     let parser = new DOMParser();
@@ -52,8 +48,20 @@ function updateTileText(tileId, data) {
     let tags = parsed.getElementsByTagName("body");
     body.innerHTML = "";
     for (const tag of tags) {
-         body.innerText = tag.innerText;
+        body.innerText = tag.innerText;
     }
+    return true;
+}
+
+/**
+ * Update Custom Tile
+ * @param tileId
+ * @param data
+ */
+function updateTileCustomTile(tileId, data) {
+    let tile = document.getElementById(tileId);
+    tile.innerHTML = data.text;
+    return true;
 }
 
 /**
@@ -64,7 +72,7 @@ function updateTileText(tileId, data) {
 function appendListingItem(container, itemText) {
     let htmlLabel = [
         "<li class=\"list-group-item text-white\" style=\"background: #212121\">",
-        itemText,
+            itemText,
         "</li>"
     ].join("\n");
     $(container).append(htmlLabel);
@@ -74,8 +82,6 @@ function appendListingItem(container, itemText) {
  * Update listing tile
  * @param id
  * @param data
- * @param meta
- * @param tileType
  */
 function updateTileListing(id, data) {
     let MAX_ITEMS = 7;
@@ -90,57 +96,97 @@ function updateTileListing(id, data) {
             appendListingItem(container, data.items[parseInt(idx, 10)]);
         }
     }
+    return true;
+}
+
+function buildTileStream() {
+    Tipboard.chartJsTile[tileId] = { // first creation of the tile
+        hls: new Hls(),
+        container: document.getElementById(tileId + "-stream"),
+        video: document.createElement("video")
+    };
+    let stream_tile = Tipboard.chartJsTile[tileId];
+    stream_tile.container.appendChild(stream_tile.video);
+    stream_tile.video.setAttribute("width", stream_tile.video.parentElement.clientWidth);
+    stream_tile.video.setAttribute("height", stream_tile.video.parentElement.clientHeight);
+    stream_tile.video.muted = "muted";
 }
 
 /**
- * Update bigvalue tiles the values & config
+ * Update or create tile stream by by loading Source in Hls
  * @param tileId
  * @param data
- * @param tileType
  */
-function updateTileBigValue(tileId, data) {
-    if (!("title" in data)) {
-        data.title = "montitre";
+function updateTileStream(tileId, data) {
+    if (!(tileId in Tipboard.chartJsTile)) {
+        buildTileStream();
+    } else { // update the tile to kill the actual media in order to replace it
+        Tipboard.chartJsTile[tileId].hls.detachMedia();
+        Tipboard.chartJsTile[tileId].hls.destroy();
+        Tipboard.chartJsTile[tileId].hls = new Hls();
     }
-    let description = document.getElementById(tileId + "-description");
-    if (!("description" in data) || data.description.length === 0) {
-        data.description = "0x42";
-        setDataByKeys(tileId, data, "all");
-        description.style.color = "#00414141";
-        description.className = "text";
-    } else {
-        description.className = "text-white";
-    }
-}
-
-function updateTileIframe(tileId, data) {
-    let iframe = document.getElementById(tileId + "-iframe");
-    iframe.src = data.url;
+    Tipboard.chartJsTile[tileId].hls.loadSource(data.url); // start the media
+    Tipboard.chartJsTile[tileId].hls.attachMedia(Tipboard.chartJsTile[tileId].video);
+    Tipboard.chartJsTile[tileId].hls.on(Hls.Events.MEDIA_ATTACHED, function () {
+        Tipboard.chartJsTile[tileId].video.play();
+    });
+    return true;
 }
 
 /**
- * Control all text_tile update fucntion
+ * Hide elemen in tiles with no value, to not let previous value stay
+ * @param tileId
  * @param tileData
- * @param dashboardname
  */
-function updateTileTextValue(tileData, dashboardname) {
-    let id = `${dashboardname}-${tileData['id']}`;
-    if (tileData.tile_template === "iframe") {
-        updateTileIframe(id, tileData.data);
-        return;
+function hideElementNotPresent(tileId, tileData) {
+    if (!("title" in tileData)) {
+        $("#" + tileId + "-title").hide();
     }
-    if (tileData.tile_template === "listing") {
-        updateTileListing(id, tileData.data);
-        return;
+    if (!("description" in tileData)) {
+        $("#" + tileId + "-subtitle").hide();
     }
-    if (tileData.tile_template === "text") {
-        updateTileText(id, tileData.data);
-        return;
+}
+
+/**
+ * Update misc tile if it's one
+ * @param tileData
+ * @param tileId
+ * @returns {boolean}
+ */
+function isMiscTile(tileData, tileId) {
+    let isMiscTile = false;
+    switch (tileData["tile_template"]) {
+        case "iframe":
+            document.getElementById(tileId + "-iframe").src = tileData.data.url;
+            isMiscTile = true;
+            break;
+        case "stream":
+            isMiscTile = updateTileStream(tileId, tileData.data);
+            break;
+        case "listing":
+            isMiscTile = updateTileListing(tileId, tileData.data);
+            break;
+        case "text":
+            isMiscTile = updateTileText(tileId, tileData.data);
+            break;
+        case "custom":
+            isMiscTile = updateTileCustomTile(tileId, tileData.data);
+            break;
     }
-    if (tileData.tile_template === "big_value") {
-        updateTileBigValue(id, tileData.data);
+    return isMiscTile;
+}
+
+/**
+ * Control all text_tile update function
+ * @param tileData
+ * @param dashboard_name
+ */
+function updateTileTextValue(tileData, dashboard_name) {
+    let id = `${dashboard_name}-${tileData["id"]}`;
+    if (isMiscTile(tileData, id) === false) {  // TODO: change by adding a misc.js
+        hideElementNotPresent(id, tileData.data);
+        setDataByKeys(id, tileData.data);
+        let body = document.getElementById("body-" + id);
+        applyFading(body, tileData.meta["big_value_color"], tileData.meta["fading_background"]);
     }
-    setDataByKeys(id, tileData.data, "all");
-    let body = document.getElementById("body-" + id);
-    applyFading(body, tileData.meta.big_value_color, tileData.meta.fading_background);
 }

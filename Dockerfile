@@ -1,11 +1,5 @@
 FROM bitnami/python:3.8
 
-# TODO: make 3 img:
-#   - with redis + SQL
-#   - with redis
-#   - with SQL
-#   - without SQL + without redis
-
 RUN apt-get update \
  && apt-get install redis-server sqlite3 -y --no-install-recommends \
  && apt-get clean \
@@ -25,7 +19,7 @@ RUN chown -R 1001 /home/app
 
 ENV PATH="/home/app/.local/bin:${PATH}"
 USER 1001
-#RUN pip install --upgrade pip
+RUN pip install --upgrade pip
 RUN pip install --user -r requirements.txt
 
 EXPOSE 8080

@@ -1,5 +1,5 @@
 import glob, os, yaml
-from src.tipboard.app.properties import user_config_dir
+from src.tipboard.app.properties import CONFIG_DIR, LAYOUT_CONFIG
 from src.tipboard.app.utils import getTimeStr
 
 
@@ -26,21 +26,21 @@ def getTilesConfigFromXml(cols_data):
 def yamlFileToPythonDict(layout_name='layout_config'):
     """ Parse in yaml the .yaml file to return python object """
     layout_name = layout_name if layout_name else 'layout_config'
-    config_path = f'{user_config_dir}{layout_name}'
-    try:
-        with open(config_path, 'r') as layout_config:
-            config = yaml.safe_load(layout_config)
-    except FileNotFoundError:
-        if '.yaml' not in config_path:
-            config_path += '.yaml'
+    config_path = f'{CONFIG_DIR}{layout_name}'
+    if not os.path.isfile(config_path):
+        config_path = config_path + '.yaml'
+        if not os.path.isfile(config_path):
+            return None
         with open(config_path, 'r') as layout_config:
             config = yaml.safe_load(layout_config)
     return config
 
 
 def parseXmlLayout(layout_name='layout_config'):
-    """ Parse all tiles, cols, rows from a specific .yaml """
+    """ Parse all tiles, cols, rows from a specific .yaml, return None if file not present """
     config = yamlFileToPythonDict(layout_name=layout_name)
+    if config is None:
+        return None
     rows = [row for row in [row for row in config['layout']]]
     cols = [col for col in [[col for col in list(row.values())[0]] for row in rows]]
     cols_data = [colsValue for colsList in cols for colsValue in colsList]
@@ -51,11 +51,15 @@ def parseXmlLayout(layout_name='layout_config'):
 def getConfigNames():
     """ Return all dashboard file name from Config/ """
     configs_names = list()
-    configs_dir = os.path.join(user_config_dir, '*.yaml')
+    configs_dir = os.path.join(CONFIG_DIR, '*.yaml')
     for config_path in glob.glob(configs_dir):  # Get all name of different *.yml present in Config/ directory
         configs_names.append(config_path.split('/')[-1].replace('.yaml', ''))
         if not configs_names:
-            raise Exception(f'No config (.yaml) file found in {os.path.join(user_config_dir, "*.yaml")}')
+            raise Exception(f'No config (.yaml) file found in {os.path.join(CONFIG_DIR, "*.yaml")}')
+    simple_layout_name = LAYOUT_CONFIG.split('/')[-1].replace('.yaml', '')
+    if simple_layout_name in configs_names:
+        configs_names.pop(configs_names.index(simple_layout_name))
+        configs_names.insert(0, simple_layout_name)
     return configs_names
 
 

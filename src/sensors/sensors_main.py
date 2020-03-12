@@ -1,5 +1,4 @@
-import time
-# from datetime import datetime, timedelta
+import time, datetime
 from apscheduler.schedulers.blocking import BlockingScheduler
 from src.sensors.sensors1_text import sonde1
 from src.sensors.sensors2_piechart import sonde2
@@ -18,11 +17,14 @@ from src.sensors.sensors17_halfdougnutchart import sonde17
 from src.sensors.sensors18_gauge import sonde18
 from src.sensors.sensors19_lineargauge import sonde19
 from src.sensors.sensors20_radialgauge import sonde20
+from src.sensors.sensors21_stream import sonde21 as sonde_stream
+from src.sensors.sensors21_iframe import sonde21 as sonde_iframe
+from src.sensors.sensors22_custom import sonde22
 from src.sensors.utils import end
 
 
 def addSchedule(scheduler, sonde, second=8, args=None):
-    scheduler.add_job(sonde, 'interval', seconds=1, args=args)
+    scheduler.add_job(sonde, 'interval', seconds=6, args=args, next_run_time=datetime.datetime.now())
 
 
 def test_sensors(tester):
@@ -31,6 +33,7 @@ def test_sensors(tester):
     sonde3(tester, 'line_chart_ex')
     sonde4(tester, 'cfjs_ex')
     sonde5(tester, 'sp_ex')
+    sonde6(tester, 'listing_ex')
     sonde7(tester, 'barjs_ex')
     sonde7(tester, 'vbarjs_ex')
     sonde9(tester, 'bv_ex')
@@ -40,11 +43,17 @@ def test_sensors(tester):
     sonde15(tester, 'polararea_ex')
     sonde16(tester, 'doughnut_ex')
     sonde17(tester, 'half_doughnut_ex')
+    sonde18(tester, 'gauge_ex')
+    sonde19(tester, 'lgauge_ex')
+    sonde20(tester, 'rgauge_ex')
+    sonde_stream(tester, 'stream_ex')
+    sonde_iframe(tester, 'iframe_ex')
+    sonde22(tester, 'custom_ex  ')
 
 
 def scheduleYourSensors(scheduler=None, tester=None):
     if not scheduler.running:
-        scheduler.add_job(sonde1, 'interval', seconds=5, args=[tester, 'txt_ex'])
+        addSchedule(scheduler, sonde1, second=40, args=[tester, 'txt_ex'])
         addSchedule(scheduler, sonde2, second=40, args=[tester, 'pie_chartjs_ex'])
         addSchedule(scheduler, sonde3, second=3, args=[tester, 'line_chartjs_ex'])
         addSchedule(scheduler, sonde4, second=19, args=[tester, 'cfjs_ex'])
@@ -62,6 +71,18 @@ def scheduleYourSensors(scheduler=None, tester=None):
         addSchedule(scheduler, sonde18, second=30, args=[tester, 'gauge_ex'])
         addSchedule(scheduler, sonde19, second=30, args=[tester, 'lgauge_ex'])
         addSchedule(scheduler, sonde20, second=30, args=[tester, 'rgauge_ex'])
+        addSchedule(scheduler, sonde_stream, second=30, args=[tester, 'stream_ex'])
+        addSchedule(scheduler, sonde_stream, second=30, args=[tester, 'stream_ex1'])
+        addSchedule(scheduler, sonde_stream, second=30, args=[tester, 'stream_ex2'])
+        addSchedule(scheduler, sonde_stream, second=30, args=[tester, 'stream_ex3'])
+        addSchedule(scheduler, sonde_stream, second=30, args=[tester, 'stream_ex4'])
+        addSchedule(scheduler, sonde_stream, second=30, args=[tester, 'stream_ex5'])
+        addSchedule(scheduler, sonde_stream, second=30, args=[tester, 'stream_ex6'])
+        addSchedule(scheduler, sonde_stream, second=30, args=[tester, 'stream_ex6'])
+        addSchedule(scheduler, sonde_stream, second=30, args=[tester, 'stream_ex8'])
+        addSchedule(scheduler, sonde_stream, second=30, args=[tester, 'stream_ex8'])
+        addSchedule(scheduler, sonde_iframe, second=30, args=[tester, 'iframe_ex'])
+        addSchedule(scheduler, sonde22, second=30, args=[tester, 'custom_ex'])
         print(f"(+) Tipboard starting schedul task", flush=True)
         scheduler.start()
     return scheduler

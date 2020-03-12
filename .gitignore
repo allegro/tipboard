@@ -1,16 +1,11 @@
 tipboard.egg-info/
 /.idea/*
-*.pyc
-*.swp
-*/__pycache__/
-# Elastic Beanstalk Files
-.elasticbeanstalk/*
-!.elasticbeanstalk/*.cfg.yml
-!.elasticbeanstalk/*.global.yml
-src/tipboard/app/Config/dev_properties.json
-/tipboard2.0.egg-info/
+/.coverage
 .eggs/
 .idea/
+*TODO.md
+*/__pycache__/
+/tipboard2.0.egg-info/
 src/sensors/__pycache__/
 src/tipboard/__pycache__/
 src/tipboard/app/__pycache__/
@@ -18,6 +13,12 @@ src/tipboard/app/views/__pycache__/
 src/tipboard/db.sqlite3
 src/tipboard/templates/__pycache__/
 src/tipboard/webserver/__pycache__/
+src/tipboard/app/Config/dev_properties.json
+/src/tipboard/app/Config/tmp/
+/src/tipboard/templates/tmplinear.html
 tipboard2.0.egg-info/
-/.coverage
-/TODO.md
+*.pyc
+*.swp
+/coverage_html_report/
+/src/tipboard/templates/videoworking.html
+/src/tipboard/templates/tmplinear_radial.html

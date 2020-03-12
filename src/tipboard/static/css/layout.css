@@ -2,8 +2,10 @@
     Project:    Tipboard
     Author:     ...
     Date:       2013/11/28
-    @the-maux: yes, proof this project started in 2013, this guys were freaking awesome, too bad i'm alone
+    @the-maux: yes :) this date is the major proof that this project started in 2013, @allegro team is awesome
+    too bad i'm alone 4 now ...
  */
+
 html, body {
     height: 100%;
 }
@@ -23,22 +25,54 @@ h6 {
 .grid {
 	display: flex;
 	flex-direction: column;
+    height: 100%
 }
 
 .grid-group {
 	display: flex;
 	flex: 1;
+    width: 100%;
 }
 
 .grid-cell {
 	flex: 1;
     margin: 2px;
+    padding: 1px;
 }
 
+[class='card rounded']{
+    opacity:0.98;
+    overflow: hidden;
+    width: 100%;
+    height: 100%;
+    min-width: 0;
+    min-height: 0;
+}
+
+.flipboard {
+    background-color: #eceff1;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: 65%;
+}
+
+#tipboardIframe {
+    height: 100%;
+}
+
+#alertDeconnection {
+    z-index:2;
+    position:absolute;
+    right:0;
+    opacity: 0.55;
+    margin: 1%;
+    font-weight: bold
+}
 
 /**
     COMPONENTS
  */
+
 .tile {
     height: 100%;
     width: 100%;
@@ -62,19 +96,6 @@ h6 {
     /*color: #1b1e21;*/
 }
 
-.tile > .tile-content {
-    padding: 0 10px;
-}
-
-/*.tile > .tile-content .result {*/
-/*    color: #dcedc8;*/
-/*}*/
-
-.tile > .tile-content .label {
-    text-transform: uppercase;
-    /*color: #dcedc8;*/
-}
-
 /**
     TILES
  */
@@ -82,31 +103,6 @@ h6 {
     position: relative;
     height: 95%;
 }
-
-@keyframes fading-background-color {
-    100% {
-        background-color: transparent;
-    }
-}
-
-@-webkit-keyframes fading-background-color {
-    100% {
-        background-color: transparent;
-    }
-}
-
-.fading-background-color {
-    animation-name: fading-background-color;
-    animation-duration: 1s;
-    animation-iteration-count: infinite;
-    animation-direction: alternate;
-
-    -webkit-animation-name: fading-background-color;
-    -webkit-animation-duration: 1s;
-    -webkit-animation-iteration-count: infinite;
-    -webkit-animation-direction: alternate;
-}
-
 
 /**
     FLIP
@@ -150,16 +146,44 @@ h6 {
 }
 
 /**
-    FLIPBOARD
+    BASE BODY
  */
 body.flipboard {
     overflow: hidden;
 }
 
-iframe {
-    height: 100%;
-    width: 100%;
-    border: 0;
+/*iframe {*/
+/*    height: 100%;*/
+/*    width: 100%;*/
+/*    border: 0;*/
+/*}*/
+
+/**
+    Animation
+ */
+
+@keyframes fading-background-color {
+    100% {
+        background-color: transparent;
+    }
+}
+
+@-webkit-keyframes fading-background-color {
+    100% {
+        background-color: transparent;
+    }
+}
+
+.fading-background-color {
+    animation-name: fading-background-color;
+    animation-duration: 1s;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+
+    -webkit-animation-name: fading-background-color;
+    -webkit-animation-duration: 1s;
+    -webkit-animation-iteration-count: infinite;
+    -webkit-animation-direction: alternate;
 }
 
 @keyframes fadeIn-anim {
@@ -179,7 +203,6 @@ iframe {
         opacity: 1;
     }
 }
-
 
 .fadeIn {
     opacity: 1;

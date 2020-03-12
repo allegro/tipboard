@@ -6,9 +6,9 @@ from src.tipboard.app.properties import BACKGROUND_TAB
 def executeScriptToGetData():
     """ Simulate some actions for text tile exemple """
     return {
-        'title': 'Sensors title',
-        'description': 'Sensors description',
-        'just-value': random.randrange(0, 100)
+        'title': random.choice(['Sensors title', None]),
+        'description': random.choice(['Sensors description', None]),
+        'just-value': f'{random.randrange(0, 100)}%'
     }
 
 

@@ -1,3 +1,7 @@
+/**
+ * amazing and beatufil tool, thanks to @JamesPadolsey
+ * https://j11y.io/javascript/regex-selector-for-jquery/
+ */
 jQuery.expr[":"].regex = function(elem, index, match) {
     let matchParams = match[3].split(","),
         validLabels = /^(data|css):/,
@@ -73,25 +77,27 @@ function initCardWithFlip() {
  * Get the in the Id of every card(<div>) the weight of the cards, if none default is apply (1)
  */
 function initCardWeight() {
+    //you have to unload maybe
     let listOfDivWithWeight = [];
     let cardWithWeight = $("div:regex(id, .*weight-*)");
     $.each(cardWithWeight, function (idx) {
-        let card = cardWithWeight[idx];
-        let id = card.id;
+        let tmp = cardWithWeight[idx];
+        let id = tmp.id;
         listOfDivWithWeight.push(id);
-        $.each(id.split(" "), function (val) {
+        $.each(id.split(" "), function (idx, val) {
             let groups = /weight-(\d+)/.exec(val);
             if (Boolean(groups) && groups.length > 1) {
-                card.style["flex-grow"] = groups[1];
+                tmp.style["flex-grow"] = groups[1];
             }
         });
 
     });
-    let cardWithoutWeight = $("div:regex(id, .*col_*)");
+    let cardWithoutWeight = $("div:regex(id, .*col*)");
     $.each(cardWithoutWeight, function (idx) {
-        let card = cardWithoutWeight[idx];
-        if (!(listOfDivWithWeight.includes(card.id))) {
-            card.style["flex-grow"] = 1;
+        let tmp = cardWithoutWeight[idx];
+        if (!(listOfDivWithWeight.includes(tmp.id)) &&
+            (tmp.class === "grid-group" || tmp.class === "grid-cell")) {
+            tmp.style["flex-grow"] = 1;
         }
     });
 }
@@ -267,6 +273,7 @@ function initFlipboard() {
  * Init Global ChartJS value + build updateFunctions array
  */
 function registerUpdateFuction() {
+    Tipboard.updateFunctions = {};
     Tipboard.updateFunctions["line_chart"] = updateChartjs;
     Tipboard.updateFunctions["radar_chart"] = updateChartjs;
     Tipboard.updateFunctions["norm_chart"] = updateChartjs;
@@ -283,6 +290,8 @@ function registerUpdateFuction() {
     Tipboard.updateFunctions["listing"] = updateTileTextValue;
     Tipboard.updateFunctions["text"] = updateTileTextValue;
     Tipboard.updateFunctions["iframe"] = updateTileTextValue;
+    Tipboard.updateFunctions["stream"] = updateTileTextValue;
+    Tipboard.updateFunctions["custom"] = updateTileTextValue;
 }
 
 /**
@@ -290,10 +299,9 @@ function registerUpdateFuction() {
  */
 function initTipboardObject() {
     window.Tipboard = {
-        DEBUG_MODE: true,  // TOFIX: with value from tipboard
-        updateFunctions: {},
         chartJsTile: {},
         websocket: initWebSocketManager(),
+        DEBUG_MODE: true,  // TODO: with value from tipboard
         log(msg) {
             if (this.DEBUG_MODE) {
                 console.log(msg);
