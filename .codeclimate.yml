@@ -1,8 +1,10 @@
 version: "2"
-
+checks:
+  method-complexity:
+    enabled: false
 plugins:
   duplication:
-    enabled: true
+    enabled: false
     config:
       languages:
         python:
