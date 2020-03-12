@@ -16,6 +16,7 @@ plugins:
         enabled: false
   pylint:
     enabled: true
+    channel: beta
     plugins:
       - django
   pep8:
@@ -39,3 +40,34 @@ exclude_patterns:
   - "src/tipboard/static/js/chartjs-plugin-tsgauge.js"
   - "src/tipboard/static/js/jquery-3.4.1.min.js"
   - "src/tipboard/static/js/popper.min.js"
+
+
+[flake8]
+exclude =
+    .*/,
+    __pycache__/,
+    .pytest_cache/,
+    helm-chart/,
+    */migrations/
+ignore = E401, W605
+max-line-length = 150
+
+[pep8]
+exclude =
+    .*/,
+    __pycache__/,
+    .pytest_cache/,
+    helm-chart/,
+    */migrations/
+ignore = E401, W605
+max-line-length = 150
+
+[pycodestyle]
+exclude =
+    .*/,
+    __pycache__/,
+    .pytest_cache/,
+    helm-chart/,
+    */migrations/
+ignore = E401, W605
+max-line-length = 150
