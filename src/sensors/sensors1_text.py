@@ -17,8 +17,7 @@ def sendDataToTipboard(data=None, tile_template=None, tile_id='', tester=None):
     configTile = dict(tile_id=tile_id, tile_template=tile_template, data=json.dumps(data['data']['text']))
     if tester is None:
         return requests.post(TIPBOARD_URL + '/push', data=configTile)
-    else:
-        return tester.fakeClient.post(TIPBOARD_URL + '/push', data=configTile)
+    return tester.fakeClient.post(TIPBOARD_URL + '/push', data=configTile)
 
 
 def sonde1(tester=None, tile_id='txt_ex', tile_template='text'):

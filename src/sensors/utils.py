@@ -33,8 +33,7 @@ def sendUpdateByApi(tileId=None, data=None, tileTemplate=None, tester=False, met
         configTile['meta'] = json.dumps(meta)
     if tester is None:
         return requests.post(TIPBOARD_URL + '/push', data=configTile)
-    else:
-        return tester.fakeClient.post(TIPBOARD_URL + '/push', data=configTile)
+    return tester.fakeClient.post(TIPBOARD_URL + '/push', data=configTile)
 
 
 def updateChartJS(nbrDataset=None, nbrLabel=None, colorTabIndataset=False, data=None):
