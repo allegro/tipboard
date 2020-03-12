@@ -47,22 +47,20 @@ function serverDisconnected(isRetry) {
 
 /**
  * Print a tile to indicate the type of error
- * @param err_msg Exception Object
- * @param err_stack Exception Object
+ * @param err Exception Object
  * @param div tile_template
  * @param tileId id of tile
  */
-let onTileError = function (err_msg, err_stack, div, tileId) {
+let onTileError = function (err, div, tileId) {
     $.each([".tile-content"], function (idx, klass) {
         let nodes = $(div).find(klass);
         $(nodes[0]).hide();
         $(nodes[1]).show();
-        let stack = err_stack;
         let msg =
             "<div class=\"alert alert-danger\" role=\"alert\" style=\"height: 100%;\">" +
                 "<b>Tile: " + tileId +  "</b>" +
-                " configuration error: " + err_msg + "<br>" +
-                " <p>error message:" + stack +  "</p><br>" +
+                " configuration error: " + err.message + "<br>" +
+                " <p>error message:" + err.stack +  "</p><br>" +
             "</div>";
         $("#" + tileId).html(msg);
     });
@@ -87,7 +85,7 @@ function updateTile(tileData, dashboardname) {
             }
         });
     } catch (err) {
-        onTileError(err.message, err.stack, tile, chartId);
+        onTileError(err, tile, chartId);
     }
 }
 
