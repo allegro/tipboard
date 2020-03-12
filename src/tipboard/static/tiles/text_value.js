@@ -99,6 +99,19 @@ function updateTileListing(id, data) {
     return true;
 }
 
+function buildTileStream() {
+    Tipboard.chartJsTile[tileId] = { // first creation of the tile
+        hls: new Hls(),
+        container: document.getElementById(tileId + "-stream"),
+        video: document.createElement("video")
+    };
+    let stream_tile = Tipboard.chartJsTile[tileId];
+    stream_tile.container.appendChild(stream_tile.video);
+    stream_tile.video.setAttribute("width", stream_tile.video.parentElement.clientWidth);
+    stream_tile.video.setAttribute("height", stream_tile.video.parentElement.clientHeight);
+    stream_tile.video.muted = "muted";
+}
+
 /**
  * Update or create tile stream by by loading Source in Hls
  * @param tileId
@@ -106,16 +119,7 @@ function updateTileListing(id, data) {
  */
 function updateTileStream(tileId, data) {
     if (!(tileId in Tipboard.chartJsTile)) {
-        Tipboard.chartJsTile[tileId] = { // first creation of the tile
-            hls: new Hls(),
-            container: document.getElementById(tileId + "-stream"),
-            video: document.createElement("video")
-        };
-        let stream_tile = Tipboard.chartJsTile[tileId];
-        stream_tile.container.appendChild(stream_tile.video);
-        stream_tile.video.setAttribute("width", stream_tile.video.parentElement.clientWidth);
-        stream_tile.video.setAttribute("height", stream_tile.video.parentElement.clientHeight);
-        stream_tile.video.muted = "muted";
+        buildTileStream();
     } else { // update the tile to kill the actual media in order to replace it
         Tipboard.chartJsTile[tileId].hls.detachMedia();
         Tipboard.chartJsTile[tileId].hls.destroy();
