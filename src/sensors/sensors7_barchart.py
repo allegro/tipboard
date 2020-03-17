@@ -2,45 +2,30 @@ import time, random
 from src.sensors.utils import end, sendUpdateByApi, updateChartJS, COLOR_TAB
 
 
+def buildTicks():
+    return {'min': 0,
+            'stepSize': 1,
+            'fontColor': "#000",
+            'fontSize': 14
+            }
+
+
+def buildGridline(isRandom):
+    return {'color': random.choice(COLOR_TAB),
+            'offsetGridLines': random.choice([False, True]) if isRandom else True,
+            'display': random.choice([False, True]) if isRandom else True,
+            'lineWidth': 2,
+            'zeroLineColor': '#000',
+            'zeroLineWidth': 2
+            }
+
+
 def updateMeta(isRandom=False):
     meta = {
         'legend': {'display': True, 'position': random.choice(['top', 'bottom', 'right', 'left'])},
         'scales': {
-            'xAxes': [{'ticks':
-                           {'min': 0,
-                            'stepSize': 1,
-                            'fontColor': "#000",
-                            'fontSize': 14
-                            },
-                       },
-                      {'gridLines':
-                           {'color': random.choice(COLOR_TAB),
-                            'offsetGridLines': random.choice([False, True]) if isRandom else True,
-                            'display': random.choice([False, True]) if isRandom else True,
-                            'lineWidth': 2,
-                            'zeroLineColor': '#000',
-                            'zeroLineWidth': 2
-                            },
-                       'stacked': True
-                       }],
-            'yAxes': [{'ticks':
-                           {'min': 0,
-                            'stepSize': 1,
-                            'fontColor': "#000",
-                            'fontSize': 14
-                            },
-                       },
-                      {'gridLines':
-                           {'color': random.choice(COLOR_TAB),
-                            'offsetGridLines': random.choice([False, True]) if isRandom else True,
-                            'display': random.choice([False, True]) if isRandom else True,
-                            'lineWidth': 2,
-                            'zeroLineColor': '#000',
-                            'zeroLineWidth': 2
-                            },
-                       'stacked': True,
-                       'labels': ['January', 'February', 'March', 'April', 'May', 'June']
-                       }]
+            'xAxes': [{'ticks': buildTicks()}, {'gridLines': buildGridline(isRandom), 'stacked': True}],
+            'yAxes': [{'ticks': buildTicks()}, {'gridLines': buildGridline(isRandom), 'stacked': True}]
         }
     }
     return meta

@@ -1,8 +1,7 @@
-import json
 from django.http import JsonResponse, HttpResponseBadRequest, HttpResponse
 from src.tipboard.app.applicationconfig import getRedisPrefix
 from src.tipboard.app.properties import DEFAULT_CONFIG, REDIS_DB, DEBUG, ALLOWED_TILES
-from src.tipboard.app.cache import getCache, save_tile, update_tile_data_from_redis
+from src.tipboard.app.cache import getCache, save_tile
 from src.tipboard.app.utils import checkAccessToken
 
 

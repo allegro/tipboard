@@ -106,8 +106,9 @@ class TestApp(TestCase):  # TODO: find a way to test the WebSocket inside django
 
     def test_0012_cache_permissionTest(self):
         """ Test redis cache Handle when GET / SET """
-        self.assertTrue(self.cache.set(tile_id=getRedisPrefix('test'), dumped_value=json.dumps({'testValue': True})))
-        self.assertTrue(json.loads(self.cache.redis.get(getRedisPrefix('test')))['testValue'])
+        tilePrefix = getRedisPrefix('test')
+        self.assertTrue(self.cache.set(tile_fullid=tilePrefix, dumped_value=json.dumps({'testValue': True})))
+        self.assertTrue(json.loads(self.cache.redis.get(tilePrefix))['testValue'])
 
     def test_0013_cache_parsingTile(self):
         """ Test if cache is able to read directly on Config/dashboard.yml """

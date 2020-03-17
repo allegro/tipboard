@@ -62,7 +62,6 @@ def update_meta_if_present(tile_id, meta):
         metaTile = cachedTile['meta']['options'] if 'options' in cachedTile['meta'] else cachedTile['meta']
         update_tile_data_from_redis(metaTile, json.loads(meta), None)
         return cachedTile['meta']
-        #getCache().set(tilePrefix, json.dumps(cachedTile), sendToWebsocket=False)
 
 
 def update_tile_data_from_redis(previousData, newData, tile_template):
