@@ -41,7 +41,7 @@ def getDefaultJustValue():
 
 def getDefaultText():
     return {
-        'data': dict(text='Text auto generated')
+        'data': dict(text='Text auto generated text tile')
     }
 
 

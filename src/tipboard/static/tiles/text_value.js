@@ -1,18 +1,17 @@
 /**
  * Update the html of tile regarding the key to update
  * @param tileId id of tile in redis
- * @param dataToPut data to update
- * @param fieldsToUpdate
+ * @param tileData data to update
  */
-function setDataByKeys(tileId, dataToPut) {
+function setDataByKeys(tileId, tileData) {
     let fieldsToUpdate = [];
-    for (let data in tileData.data) {
-        if ({}.hasOwnProperty.call(tileData.data, data)) {
+    for (let data in tileData) {
+        if ({}.hasOwnProperty.call(tileData, data)) {
             fieldsToUpdate.push(data);
         }
     }
     $.each(fieldsToUpdate, function (idx, key) {
-        let value = dataToPut[key.toString()];
+        let value = tileData[key.toString()];
         let dst = $($("#" + tileId)[0]).find("#" + tileId + "-" + key)[0];
         $(dst).text(value);
         if ($(dst).hidden) {
@@ -99,7 +98,11 @@ function updateTileListing(id, data) {
     return true;
 }
 
-function buildTileStream() {
+/**
+ * Build Tile stream with Hls and save it in Tipboard.chartJsTile object
+ * @param tileId
+ */
+function buildTileStream(tileId) {
     Tipboard.chartJsTile[tileId] = { // first creation of the tile
         hls: new Hls(),
         container: document.getElementById(tileId + "-stream"),
@@ -119,7 +122,7 @@ function buildTileStream() {
  */
 function updateTileStream(tileId, data) {
     if (!(tileId in Tipboard.chartJsTile)) {
-        buildTileStream();
+        buildTileStream(tileId);
     } else { // update the tile to kill the actual media in order to replace it
         Tipboard.chartJsTile[tileId].hls.detachMedia();
         Tipboard.chartJsTile[tileId].hls.destroy();

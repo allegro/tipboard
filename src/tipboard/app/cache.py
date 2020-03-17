@@ -18,7 +18,7 @@ def getCache():
     return cache
 
 
-def listOfTilesFromLayout(layout_name='layout_config'):
+def listOfTilesFromLayout(layout_name='default_config'):
     """ List all tiles for a specific layout in Config/*.yml """
     tmp = parseXmlLayout(layout_name)['tiles_conf']
     return tmp
@@ -54,6 +54,17 @@ def update_data_by_type(tile_template, previousData, key, value):
         previousData[key] = value
 
 
+def update_meta_if_present(tile_id, meta):
+    """ Update the meta(config) of a tile(widget) """
+    if meta is not None:
+        tilePrefix = getRedisPrefix(tile_id)
+        cachedTile = json.loads(getCache().redis.get(tilePrefix))
+        metaTile = cachedTile['meta']['options'] if 'options' in cachedTile['meta'] else cachedTile['meta']
+        update_tile_data_from_redis(metaTile, json.loads(meta), None)
+        return cachedTile['meta']
+        #getCache().set(tilePrefix, json.dumps(cachedTile), sendToWebsocket=False)
+
+
 def update_tile_data_from_redis(previousData, newData, tile_template):
     """ update value(dict) of tile with new data Recursiv & deep inside the tile """
     if isinstance(newData, str):
@@ -64,15 +75,16 @@ def update_tile_data_from_redis(previousData, newData, tile_template):
     return previousData
 
 
-def save_tile_ToRedis(tile_id, tile_template, tile_data):
+def save_tile(tile_id, template, data, meta):
     redis_cache = getCache()
     tilePrefix = getRedisPrefix(tile_id)  # TODO: if tile don't exist, create it with template, DEBUG mode only
     if not redis_cache.redis.exists(tilePrefix) and DEBUG:
-        buildFakeDataFromTemplate(tile_id, tile_template, redis_cache)
+        buildFakeDataFromTemplate(tile_id, template, redis_cache)
     cachedTile = json.loads(redis_cache.redis.get(tilePrefix))
-    cachedTile['data'] = update_tile_data_from_redis(cachedTile['data'], json.loads(tile_data), tile_template)
+    cachedTile['data'] = update_tile_data_from_redis(cachedTile['data'], json.loads(data), template)
     cachedTile['modified'] = getIsoTime()
-    cachedTile['tile_template'] = tile_template
+    cachedTile['tile_template'] = template
+    cachedTile['meta'] = update_meta_if_present(tile_id, meta)
     redis_cache.set(tilePrefix, json.dumps(cachedTile))
     return True
 
@@ -91,18 +103,16 @@ class MyCache:
             self.isRedisConnected = False
 
     def get(self, tile_id):
-        prefix = tile_id
-        if self.isRedisConnected and self.redis.exists(prefix):
-            return json.dumps(self.redis.get(prefix))
+        if self.isRedisConnected and self.redis.exists(tile_id):
+            return json.dumps(self.redis.get(tile_id))
         return None
 
-    def set(self, tile_id, dumped_value, sendToWS=True):
+    def set(self, tile_fullid, dumped_value):
         if self.isRedisConnected:
-            self.redis.set(tile_id, dumped_value)
-            if sendToWS:
-                tile_id = tile_id.split(':')[-1]
-                channel_layer = get_channel_layer()
-                async_to_sync(channel_layer.group_send)('event', dict(type='update.tile', tile_id=tile_id))
+            self.redis.set(tile_fullid, dumped_value)
+            tile_id = tile_fullid.split(':')[-1]  # quick split to get tileIt without prefix
+            channel_layer = get_channel_layer()
+            async_to_sync(channel_layer.group_send)('event', dict(type='update.tile', tile_id=tile_id))
             return True
         return False
 
