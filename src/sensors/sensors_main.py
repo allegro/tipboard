@@ -23,8 +23,8 @@ from src.sensors.sensors22_custom import sonde22
 from src.sensors.utils import end
 
 
-def addSchedule(scheduler, sonde, second=8, args=None):
-    scheduler.add_job(sonde, 'interval', seconds=3, args=args, next_run_time=datetime.datetime.now())
+def addSchedule(scheduler, sonde, second, args=None):
+    scheduler.add_job(sonde, 'interval', seconds=second, args=args, next_run_time=datetime.datetime.now())
     return 1
 
 
