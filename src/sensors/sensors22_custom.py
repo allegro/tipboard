@@ -12,12 +12,12 @@ def returnHttPageExemple():
                   <h4><b>Mister cat</b></h4>
                   <p>Look in my eyes darling</p>
              </div>
-        </div> 
+        </div>
     </div>
     <style>
     #mycontener {
         display: flex;
-        justify-content: center;     
+        justify-content: center;
     }
     </style>
     '''

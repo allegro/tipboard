@@ -271,8 +271,11 @@ class TestApp(TestCase):  # TODO: find a way to test the WebSocket inside django
         beforeUpdate = json.loads(json.loads(lm))
         test_sensors(tester=self)
         scheduler = BackgroundScheduler()
-        scheduleYourSensors(scheduler=scheduler, tester=self)
+        nbrSensors = scheduleYourSensors(scheduler=scheduler, tester=self)
+        self.assertTrue(nbrSensors >= 21)
+        time.sleep(5)
         scheduler.shutdown()
+        time.sleep(3)
         afterUpdate = json.loads(json.loads(getCache().get(tilePrefix)))['data']['big_value']
         isDiff = beforeUpdate != afterUpdate
         self.assertTrue(isDiff)
