@@ -274,16 +274,16 @@ function initFlipboard() {
  */
 function registerUpdateFuction() {
     Tipboard.updateFunctions = {};
-    Tipboard.updateFunctions["line_chart"] = updateChartjs;
-    Tipboard.updateFunctions["radar_chart"] = updateChartjs;
-    Tipboard.updateFunctions["norm_chart"] = updateChartjs;
-    Tipboard.updateFunctions["pie_chart"] = updateChartjs;
-    Tipboard.updateFunctions["polararea_chart"] = updateChartjs;
-    Tipboard.updateFunctions["gauge_chart"] = updateChartjs;
-    Tipboard.updateFunctions["radial_gauge_chart"] = updateChartjs;
-    Tipboard.updateFunctions["linear_gauge_chart"] = updateChartjs;
-    Tipboard.updateFunctions["vlinear_gauge_chart"] = updateChartjs;
-    Tipboard.updateFunctions["bar_chart"] = updateChartjs;
+    Tipboard.updateFunctions["line_chart"] = updateChartjsAndMiscTile;
+    Tipboard.updateFunctions["radar_chart"] = updateChartjsAndMiscTile;
+    Tipboard.updateFunctions["norm_chart"] = updateChartjsAndMiscTile;
+    Tipboard.updateFunctions["pie_chart"] = updateChartjsAndMiscTile;
+    Tipboard.updateFunctions["polararea_chart"] = updateChartjsAndMiscTile;
+    Tipboard.updateFunctions["gauge_chart"] = updateChartjsAndMiscTile;
+    Tipboard.updateFunctions["radial_gauge_chart"] = updateChartjsAndMiscTile;
+    Tipboard.updateFunctions["linear_gauge_chart"] = updateChartjsAndMiscTile;
+    Tipboard.updateFunctions["vlinear_gauge_chart"] = updateChartjsAndMiscTile;
+    Tipboard.updateFunctions["bar_chart"] = updateChartjsAndMiscTile;
     Tipboard.updateFunctions["just_value"] = updateTileTextValue;
     Tipboard.updateFunctions["simple_percentage"] = updateTileTextValue;
     Tipboard.updateFunctions["big_value"] = updateTileTextValue;

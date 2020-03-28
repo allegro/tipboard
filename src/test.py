@@ -52,8 +52,8 @@ def testTileUpdate(tester=None, tileId='test_pie_chart', sonde=None, isChartJS=T
 
 def getConfigFileForTest():
     listOfDashboard = getConfigNames()
-    if 'layout_config' in listOfDashboard:
-        return 'layout_config'
+    if 'default_config' in listOfDashboard:
+        return 'default_config'
     if not listOfDashboard:
         print('Cant do unit test, there is no config file')
         exit(-1)
@@ -81,22 +81,22 @@ class TestApp(TestCase):  # TODO: find a way to test the WebSocket inside django
         self.assertTrue(len(config) > 0)
 
     def test_0003_parser_getTitleOfDashboard(self):
-        """ Test XmlParser is able to get title of /config/layout_config.yml """
+        """ Test XmlParser is able to get title of /config/default_config.yml """
         config = parseXmlLayout(layout_name=self.layout)
         title = config['details']['page_title']
         self.assertTrue(title is not None)
 
     def test_0004_parser_getDashboardColsFromXml(self):  # test if able to parse row
-        """ Test XmlParser able to get cols dashboard of /config/layout_config.yml """
+        """ Test XmlParser able to get cols dashboard of /config/default_config.yml """
         self.assertTrue(len(parseXmlLayout(layout_name=self.layout)['layout']) > 0)
 
     def test_0005_parser_getTilesNameFromXml(self):  # test if able to parse tiles template
-        """ Test XmlParser able to get tiles name of /config/layout_config.yml """
+        """ Test XmlParser able to get tiles name of /config/default_config.yml """
         tiles_conf = parseXmlLayout(layout_name=self.layout)['tiles_conf']
         self.assertTrue(tiles_conf[next(iter(tiles_conf))]['title'] is not None)
 
     def test_0006_parser_getTilesIdFromXml(self):
-        """ Test XmlParser able to get tiles Id of tiles from /config/layout_config.yml """
+        """ Test XmlParser able to get tiles Id of tiles from /config/default_config.yml """
         tiles_conf = parseXmlLayout(layout_name=self.layout)['tiles_conf']
         self.assertTrue((tiles_conf[next(iter(tiles_conf))]['tile_id']) is not None)
 
@@ -106,8 +106,9 @@ class TestApp(TestCase):  # TODO: find a way to test the WebSocket inside django
 
     def test_0012_cache_permissionTest(self):
         """ Test redis cache Handle when GET / SET """
-        self.assertTrue(self.cache.set(tile_id=getRedisPrefix('test'), dumped_value=json.dumps({'testValue': True})))
-        self.assertTrue(json.loads(self.cache.redis.get(getRedisPrefix('test')))['testValue'])
+        tilePrefix = getRedisPrefix('test')
+        self.assertTrue(self.cache.set(tile_fullid=tilePrefix, dumped_value=json.dumps({'testValue': True})))
+        self.assertTrue(json.loads(self.cache.redis.get(tilePrefix))['testValue'])
 
     def test_0013_cache_parsingTile(self):
         """ Test if cache is able to read directly on Config/dashboard.yml """
@@ -270,8 +271,11 @@ class TestApp(TestCase):  # TODO: find a way to test the WebSocket inside django
         beforeUpdate = json.loads(json.loads(lm))
         test_sensors(tester=self)
         scheduler = BackgroundScheduler()
-        scheduleYourSensors(scheduler=scheduler, tester=self)
+        nbrSensors = scheduleYourSensors(scheduler=scheduler, tester=self)
+        self.assertTrue(nbrSensors >= 21)
+        time.sleep(5)
         scheduler.shutdown()
+        time.sleep(3)
         afterUpdate = json.loads(json.loads(getCache().get(tilePrefix)))['data']['big_value']
         isDiff = beforeUpdate != afterUpdate
         self.assertTrue(isDiff)

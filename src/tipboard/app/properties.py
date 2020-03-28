@@ -4,7 +4,7 @@ import os
 PATH_FOR_PIP = 'src.'  # Location of Tipboard sources
 CONFIG_DIR = os.path.dirname(os.path.realpath(__file__)) + '/Config/'  # Path of Config directory
 PROPERTIES = json.load(open(CONFIG_DIR + 'properties.json'))
-LAYOUT_CONFIG = os.path.join(CONFIG_DIR, 'layout_config.yaml')  # Default layout config
+DEFAULT_CONFIG = os.path.join(CONFIG_DIR, 'default_config.yaml')  # Default layout config
 API_KEY = PROPERTIES['TIPBOARD_TOKEN']
 SUPER_SECRET_KEY = PROPERTIES['SUPER_SECRET_KEY']
 DEBUG = PROPERTIES['DEBUG']
@@ -18,12 +18,12 @@ REDIS_PASSWORD = PROPERTIES['REDIS_PASSWORD']
 REDIS_DB = PROPERTIES['REDIS_DB']
 
 # Tipboard Properties
-DEFAULT_LAYOUT = 'layout_config.yaml'
+DEFAULT_LAYOUT = 'default_config.yaml'
 FLIPBOARD_INTERVAL = PROPERTIES['FLIPBOARD_INTERVAL'] if 'FLIPBOARD_INTERVAL' in PROPERTIES else 10
-if 'LAYOUT_CONFIG' in PROPERTIES:
-    LAYOUT_CONFIG = os.path.join(CONFIG_DIR, PROPERTIES['LAYOUT_CONFIG'])
+if 'default_config' in PROPERTIES:
+    DEFAULT_CONFIG = os.path.join(CONFIG_DIR, PROPERTIES['default_config'])
 else:
-    LAYOUT_CONFIG = os.path.join(CONFIG_DIR, DEFAULT_LAYOUT)
+    DEFAULT_CONFIG = os.path.join(CONFIG_DIR, DEFAULT_LAYOUT)
 TIPBOARD_CSS_STYLES = ['css/layout.css']
 TIPBOARD_JAVASCRIPT_FILES = ['js/websocket.js', 'js/tipboard.js', 'tiles/chartjs.js', 'tiles/text_value.js']
 ALLOWED_TILES = ['text', 'simple_percentage', 'listing', 'big_value', 'just_value',  # Homemade

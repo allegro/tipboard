@@ -32,9 +32,23 @@ def sendUpdateByApi(tileId=None, data=None, tileTemplate=None, tester=False, met
     if meta is not None:
         configTile['meta'] = json.dumps(meta)
     if tester is None:
+        print(f'{configTile}')
         return requests.post(TIPBOARD_URL + '/push', data=configTile)
-    else:
-        return tester.fakeClient.post(TIPBOARD_URL + '/push', data=configTile)
+    return tester.fakeClient.post(TIPBOARD_URL + '/push', data=configTile)
+
+
+def buildDataset(index, nbrLabel, data, colorTabIndataset):
+    return dict(label=f'Serie {index + 1}',
+                data=[random.randrange(100, 1000) for _ in range(nbrLabel)] if data is None else data,
+                backgroundColor=COLOR_TAB[index] if colorTabIndataset is False else COLOR_TAB,
+                borderColor=COLOR_TAB[index] if colorTabIndataset is False else '#626262')
+
+
+def buildChartJsTitle(nbrDataset, nbrLabel):
+    return dict(text=f'{nbrDataset} dataset & {nbrLabel} labels',
+                color='#FFFFFF',
+                display=random.choice([True, True]),
+                position=random.choice(['top', 'bottom', 'right', 'left']))
 
 
 def updateChartJS(nbrDataset=None, nbrLabel=None, colorTabIndataset=False, data=None):
@@ -44,17 +58,10 @@ def updateChartJS(nbrDataset=None, nbrLabel=None, colorTabIndataset=False, data=
     """
     nbrDataset = random.randrange(1, 5) if nbrDataset is None else nbrDataset
     nbrLabel = random.randrange(2, 13) if nbrLabel is None else nbrLabel
-    tileData = dict()
-    tileData['title'] = dict(text=f'{nbrDataset} dataset & {nbrLabel - 1} labels',
-                             color='#FFFFFF',
-                             display=random.choice([True, False]))
-    tileData['legend'] = dict(display=False if nbrDataset > 6 else random.choice([True, False]))
-    tileData['labels'] = [f'{i}' for i in range(nbrLabel)]
-    tileData['datasets'] = list()
+    tileData = dict(title=buildChartJsTitle(nbrDataset, nbrLabel),
+                    legend=dict(display=False if nbrDataset > 6 else random.choice([True, False])),
+                    labels=[f'{i}' for i in range(nbrLabel)],
+                    datasets=list())
     for index in range(nbrDataset):
-        tileData['datasets'].append(
-            dict(label=f'Serie {index + 1}',
-                 data=[random.randrange(100, 1000) for _ in range(nbrLabel)] if data is None else data,
-                 backgroundColor=COLOR_TAB[index] if colorTabIndataset is False else COLOR_TAB,
-                 borderColor=COLOR_TAB[index] if colorTabIndataset is False else '#626262'))
+        tileData['datasets'].append(buildDataset(index, nbrLabel, data, colorTabIndataset))
     return tileData

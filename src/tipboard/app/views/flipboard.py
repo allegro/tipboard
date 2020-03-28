@@ -18,7 +18,7 @@ def renderFlipboardHtml(request):
                        tipboard_js=TIPBOARD_JAVASCRIPT_FILES))
 
 
-def renderDashboardHtmlUniqueDashboard(request, layout_name='layout_config', isFlipboard=False):
+def renderDashboardHtmlUniqueDashboard(request, layout_name='default_config', isFlipboard=False):
     """
         Render Html page for all the tiles needed in layout_name(dashboard .yml)
         with CSS/JS dependency if isFlipboard is false
@@ -46,7 +46,7 @@ def renderDashboardHtmlUniqueDashboard(request, layout_name='layout_config', isF
     return HttpResponse(msg, status=404)
 
 
-def renderDashboardHtmlForFlipboard(request, layout_name='layout_config'):
+def renderDashboardHtmlForFlipboard(request, layout_name='default_config'):
     """ Render Html page with CSS/JS dependency for all the tiles needed in layout_name(dashboard .yml) """
     return renderDashboardHtmlUniqueDashboard(request, layout_name, isFlipboard=True)
 

@@ -1,5 +1,5 @@
 import glob, os, yaml
-from src.tipboard.app.properties import CONFIG_DIR, LAYOUT_CONFIG
+from src.tipboard.app.properties import CONFIG_DIR, DEFAULT_CONFIG
 from src.tipboard.app.utils import getTimeStr
 
 
@@ -23,20 +23,20 @@ def getTilesConfigFromXml(cols_data):
     return dash_config
 
 
-def yamlFileToPythonDict(layout_name='layout_config'):
+def yamlFileToPythonDict(layout_name='default_config'):
     """ Parse in yaml the .yaml file to return python object """
-    layout_name = layout_name if layout_name else 'layout_config'
+    layout_name = layout_name if layout_name else 'default_config'
     config_path = f'{CONFIG_DIR}{layout_name}'
     if not os.path.isfile(config_path):
         config_path = config_path + '.yaml'
         if not os.path.isfile(config_path):
             return None
-        with open(config_path, 'r') as layout_config:
-            config = yaml.safe_load(layout_config)
+        with open(config_path, 'r') as default_config:
+            config = yaml.safe_load(default_config)
     return config
 
 
-def parseXmlLayout(layout_name='layout_config'):
+def parseXmlLayout(layout_name='default_config'):
     """ Parse all tiles, cols, rows from a specific .yaml, return None if file not present """
     config = yamlFileToPythonDict(layout_name=layout_name)
     if config is None:
@@ -56,7 +56,7 @@ def getConfigNames():
         configs_names.append(config_path.split('/')[-1].replace('.yaml', ''))
         if not configs_names:
             raise Exception(f'No config (.yaml) file found in {os.path.join(CONFIG_DIR, "*.yaml")}')
-    simple_layout_name = LAYOUT_CONFIG.split('/')[-1].replace('.yaml', '')
+    simple_layout_name = DEFAULT_CONFIG.split('/')[-1].replace('.yaml', '')
     if simple_layout_name in configs_names:
         configs_names.pop(configs_names.index(simple_layout_name))
         configs_names.insert(0, simple_layout_name)

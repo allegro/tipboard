@@ -125,7 +125,7 @@ function updateDataOfChartJS(chart, data, meta) {
     }
     updateData(chart, data);
     if (meta !== "undefined") {
-        updateOptions(chart.config.options, meta);
+        updateOptions(chart.config.options, meta.options);
    }
    chart.update();
 }
@@ -221,12 +221,12 @@ function createChartJSObj(chartId, tileData) {
 /**
  * Create or Update ChartJS tile
  */
-function updateChartjs(tileData, dashboardname) {
+function updateChartjsAndMiscTile(tileData, dashboardname) {
     let data = tileData["data"];
     let chartId = `${dashboardname}-${tileData["id"]}-chart`;
     if (!(chartId in Tipboard.chartJsTile)) { // tile not present in Tipboard cache, so create it
         createChartJSObj(chartId, tileData);
-    } else { // update chart
+    } else { // update tile chart
         if (tileData["tile_template"] === "gauge_chart" || tileData["tile_template"] === "linear_gauge_chart" ||
             tileData["tile_template"] === "radial_gauge_chart") {
             Tipboard.chartJsTile[chartId].destroy();  //ChartPlugin don't update correctly, need to rebuild it
@@ -236,7 +236,7 @@ function updateChartjs(tileData, dashboardname) {
         }
         if (tileData["tile_template"] === "line_chart") {
             data = updateDatasetLine(data, tileData["tile_template"]);
-       }
+        }
         updateDataOfChartJS(Tipboard.chartJsTile[chartId], data, tileData["meta"]);
     }
 }

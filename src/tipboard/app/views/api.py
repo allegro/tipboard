@@ -1,15 +1,14 @@
-import json
 from django.http import JsonResponse, HttpResponseBadRequest, HttpResponse
 from src.tipboard.app.applicationconfig import getRedisPrefix
-from src.tipboard.app.properties import LAYOUT_CONFIG, REDIS_DB, DEBUG, ALLOWED_TILES
-from src.tipboard.app.cache import getCache, save_tile_ToRedis, update_tile_data_from_redis
+from src.tipboard.app.properties import DEFAULT_CONFIG, REDIS_DB, DEBUG, ALLOWED_TILES
+from src.tipboard.app.cache import getCache, save_tile
 from src.tipboard.app.utils import checkAccessToken
 
 
 def project_info(request):  # TODO: add uptime and last update time and redis connected and numnber of tile in redis
     """ Return info of server tipboard """
     if request.method == 'GET':
-        response = dict(project_layout_config=LAYOUT_CONFIG, redis_db=REDIS_DB)
+        response = dict(project_default_config=DEFAULT_CONFIG, redis_db=REDIS_DB)
         return JsonResponse(response)
 
 
@@ -60,26 +59,15 @@ def sanity_push_api(request, unsecured):
     return True, HttpData
 
 
-def push_api(request, unsecured=False):
+def push_api(request, unsecured=False):  # TODO: handle when there is error in save_tile_redis
     """ Update the content of a tile (widget) """
     if request.method == 'POST':
         state, HttpData = sanity_push_api(request, unsecured)
-        if state is False:
-            return HttpData
-        tile_data = HttpData.get('data', None)
-        tile_id = HttpData.get('tile_id', None)
-        tile_template = HttpData.get('tile_template', None)
-        res = save_tile_ToRedis(tile_id=tile_id, tile_template=tile_template, tile_data=tile_data)
-        is_meta_present_in_request(HttpData.get('meta', None), tile_id)
-        if res:  # TODO: handle when there is error in save_tile_redis
-            return HttpResponse(f'{tile_id} data updated successfully.')
-
-
-def is_meta_present_in_request(meta, tile_id):
-    """ Update the meta(config) of a tile(widget) """
-    if meta is not None:
-        tilePrefix = getRedisPrefix(tile_id)
-        cachedTile = json.loads(getCache().redis.get(tilePrefix))
-        metaTile = cachedTile['meta']['options'] if 'options' in cachedTile['meta'] else cachedTile['meta']
-        update_tile_data_from_redis(metaTile, json.loads(meta), None)
-        getCache().set(tilePrefix, json.dumps(cachedTile), sendToWS=False)
+        if state:
+            tile_data = HttpData.get('data', None)
+            tile_id = HttpData.get('tile_id', None)
+            tile_template = HttpData.get('tile_template', None)
+            if save_tile(tile_id=tile_id, template=tile_template, data=tile_data, meta=HttpData.get('meta', None)):
+                return HttpResponse(f'{tile_id} data updated successfully.')
+            HttpData = HttpResponse(f'Error while saving tile with tile_id: {tile_id}')
+        return HttpData
