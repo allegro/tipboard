@@ -11,6 +11,6 @@ def checkAccessToken(method='GET', request=None, unsecured=False):
     if unsecured:
         return True
     if method == 'GET' or method == 'POST' or method == 'DELETE' and \
-            request.GET.get('API_KEY', 'NO_API_KEY_FOUND') == API_KEY:  # TODO: check if it's work with delete:
+            request.GET.get('API_KEY', 'NO_API_KEY_FOUND') == API_KEY:
         return True
     return False

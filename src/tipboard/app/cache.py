@@ -1,4 +1,5 @@
 import json, redis
+from datetime import datetime
 from asgiref.sync import async_to_sync
 from channels.layers import get_channel_layer
 from apscheduler.schedulers.background import BackgroundScheduler
@@ -90,6 +91,8 @@ class MyCache(object):
                 inst.redis.time()
                 inst.isRedisConnected = True
                 inst.scheduler_sensors = BackgroundScheduler()
+                inst.startedTime = datetime.now().strftime("%d %B %Y %T")
+                inst.lastUpdateTime = datetime.now().strftime("%d %B %Y %T")
             except Exception:
                 print(f'{getTimeStr()} (+) Initializing cache: Redis not connected', flush=True)
                 inst.isRedisConnected = False
@@ -107,6 +110,7 @@ class MyCache(object):
             tile_id = tile_fullid.split(':')[-1]  # quick split to get tileId without redis prefix
             channel_layer = get_channel_layer()
             async_to_sync(channel_layer.group_send)('event', dict(type='update.tile', tile_id=tile_id))
+            self.lastUpdateTime = datetime.now().strftime("%d %B %Y %Hh%M")
             return True
         return False
 
@@ -115,6 +119,12 @@ class MyCache(object):
             self.redis.delete(getRedisPrefix(tile_id=tile_id))
             return True
         return False
+
+    def getLastUpdateTime(self):
+        return self.lastUpdateTime
+
+    def getFirstTimeStarter(self):
+        return self.startedTime
 
     def listOfTilesCached(self):
         return [key for key in self.redis.keys(getRedisPrefix())] if self.isRedisConnected else list()

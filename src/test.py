@@ -268,7 +268,7 @@ class TestApp(SimpleTestCase):  # TODO: find a way to test the WebSocket inside 
         consumer = WSConsumer(scope=None)
         print(consumer)  # TODO: improve test
 
-    def test_1026_test_sensors(self):  # TODO: fix this double loads linked to the bug in parser.py at .get()
+    def test_1026_test_sensors(self):
         tilePrefix = getRedisPrefix('test_simple_percentage')
         lm = MyCache().get(tilePrefix)
         beforeUpdate = json.loads(lm)
