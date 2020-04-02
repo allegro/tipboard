@@ -1,10 +1,10 @@
 import json
 import os
-# General Configuration
+
 PATH_FOR_PIP = 'src.'  # Location of Tipboard sources
-CONFIG_DIR = os.path.dirname(os.path.realpath(__file__)) + '/Config/'  # Path of Config directory
-PROPERTIES = json.load(open(CONFIG_DIR + 'properties.json'))
-DEFAULT_CONFIG = os.path.join(CONFIG_DIR, 'default_config.yaml')  # Default layout config
+CONF_DIR = os.path.dirname(os.path.realpath(__file__)) + '/Config/'  # Path of Config directory
+PROPERTIES = json.load(open(CONF_DIR + 'properties.json'))
+BASIC_CONFIG = os.path.join(CONF_DIR, 'default_config.yaml')  # Default layout config
 API_KEY = PROPERTIES['TIPBOARD_TOKEN']
 SUPER_SECRET_KEY = PROPERTIES['SUPER_SECRET_KEY']
 DEBUG = PROPERTIES['DEBUG']
@@ -15,25 +15,20 @@ CDN_URL = PROPERTIES['CDN_URL']  # if you are in production and need a CDN for m
 REDIS_HOST = PROPERTIES['REDIS_HOST']
 REDIS_PORT = PROPERTIES['REDIS_PORT']
 REDIS_PASSWORD = PROPERTIES['REDIS_PASSWORD']
-if 'REDIS_DB' in PROPERTIES:
-    REDIS_DB = PROPERTIES['REDIS_DB']
-else:
-    REDIS_DB = 0
-# Tipboard Properties
-DEFAULT_LAYOUT = 'default_config.yaml'
-FLIPBOARD_INTERVAL = PROPERTIES['FLIPBOARD_INTERVAL'] if 'FLIPBOARD_INTERVAL' in PROPERTIES else 10
-if 'default_config' in PROPERTIES:
-    DEFAULT_CONFIG = os.path.join(CONFIG_DIR, PROPERTIES['default_config'])
-else:
-    DEFAULT_CONFIG = os.path.join(CONFIG_DIR, DEFAULT_LAYOUT)
+REDIS_DB = PROPERTIES['REDIS_DB'] if 'REDIS_DB' in PROPERTIES else 0
+BASIC_LAYOUT = 'default_config.yaml'
+BASIC_CONFIG = os.path.join(CONF_DIR, PROPERTIES['default_config'] if 'default_config' in PROPERTIES else BASIC_LAYOUT)
 TIPBOARD_CSS_STYLES = ['css/layout.css']
 TIPBOARD_JAVASCRIPT_FILES = ['js/websocket.js', 'js/tipboard.js', 'tiles/chartjs.js', 'tiles/text_value.js']
+FLIPBOARD_INTERVAL = PROPERTIES['FLIPBOARD_INTERVAL'] if 'FLIPBOARD_INTERVAL' in PROPERTIES else 10
+
 ALLOWED_TILES = ['text', 'simple_percentage', 'listing', 'big_value', 'just_value',  # Homemade
                  'norm_chart', 'line_chart', 'cumulative_flow',  # ChartJS
                  'bar_chart', 'vbar_chart', 'gauge_chart', 'radial_gauge_chart', 'linear_gauge_chart',  # ChartJS
                  'vlinear_gauge_chart', 'doughnut_chart', 'half_doughnut_chart',  # ChartJS
                  'pie_chart', 'polararea_chart', 'radar_chart',  # ChartJS
                  'iframe', 'stream', 'custom']  # misc
+
 COLOR_TAB = [  # material color
     'rgba(66, 165, 245, 0.8)',      # blue #42a5f5
     'rgba(114, 191, 68, 0.8)',      # green #72bf44
@@ -51,11 +46,4 @@ COLOR_TAB = [  # material color
     'rgb(33, 33, 33)'               # Black #212121
 ]
 BACKGROUND_TAB = ['#4caf50', '#ff6d00', '#d50000']
-
-if 'COLOR_TAB' in PROPERTIES:  # TODO: documentation if properties present in json override default color
-    rcx = 0
-    for color in PROPERTIES['COLOR_TAB']:
-        COLOR_TAB[rcx] = PROPERTIES['COLOR_TAB'][rcx]
-
-if LOG:
-    print(f"Tipboard start in DEBUG MODE:{DEBUG} & LOG:{LOG}")
+print(f"Tipboard start in DEBUG MODE:{DEBUG} & LOG:{LOG}")

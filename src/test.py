@@ -130,6 +130,9 @@ class TestApp(SimpleTestCase):  # TODO: find a way to test the WebSocket inside 
                 self.assertTrue('tile_template' in tileData)
                 isIdCorrect = json.loads(self.cache.redis.get(getRedisPrefix(f'test_{tile}')))['id'] == f'test_{tile}'
                 self.assertTrue(isIdCorrect)
+        testWithoutCache = buildFakeDataFromTemplate(tile_id='faketest', template_name='Fake_tile', cache=None)
+        testWithCache = buildFakeDataFromTemplate(tile_id='faketest', template_name='Fake_tile', cache=self.cache)
+        self.assertTrue(testWithoutCache is None and testWithCache is None)
 
     def test_0101_djangoTemplate_tiles(self):
         """ Test template generation for every ALLOWED_TILES """
@@ -148,8 +151,8 @@ class TestApp(SimpleTestCase):  # TODO: find a way to test the WebSocket inside 
         self.assertTrue(getDashboardName() is not None)
         self.assertTrue(getConfigNames() is not None)
 
-    def test_0103_api_info(self):
-        """ Test api /api/info """
+    def test_0103_api(self):
+        """ Test api /api/info & tests handle errors about API """
         reponse = self.fakeClient.get('/api/info')
         self.assertTrue(reponse.status_code == 200)
 
