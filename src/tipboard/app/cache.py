@@ -101,7 +101,7 @@ class MyCache(object):
 
     def get(self, tile_id):
         if self.isRedisConnected and self.redis.exists(tile_id):
-            return json.dumps(self.redis.get(tile_id))
+            return self.redis.get(tile_id)
         return None
 
     def set(self, tile_fullid, dumped_value):
