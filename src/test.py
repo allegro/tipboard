@@ -1,5 +1,5 @@
 import json, time, os
-from django.test import RequestFactory, TestCase, Client
+from django.test import RequestFactory, SimpleTestCase, Client
 from apscheduler.schedulers.background import BackgroundScheduler
 from src.manage import show_help
 from src.tipboard.templates.template_filter import template_tile_data, template_tile_dashboard
@@ -60,7 +60,7 @@ def getConfigFileForTest():
     return listOfDashboard[0]
 
 
-class TestApp(TestCase):  # TODO: find a way to test the WebSocket inside django
+class TestApp(SimpleTestCase):  # TODO: find a way to test the WebSocket inside django
 
     def setUp(self):
         self.factory = RequestFactory()
