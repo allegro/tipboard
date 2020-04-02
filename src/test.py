@@ -55,7 +55,7 @@ def getConfigFileForTest():
     if 'default_config' in listOfDashboard:
         return 'default_config'
     if not listOfDashboard:
-        print('Cant do unit test, there is no config file')
+        print('[DEBUG] Cant do unit test, there is no config file', flush=True)
         exit(-1)
     return listOfDashboard[0]
 
@@ -68,7 +68,7 @@ class TestApp(SimpleTestCase):  # TODO: find a way to test the WebSocket inside 
         self.cache = MyCache()
         self.ALLOWED_TILES = ALLOWED_TILES
         self.layout = getConfigFileForTest()
-        print("[DEBUG] Choosing file to test:" + self.layout)
+        print("[DEBUG] Choosing file to test:" + self.layout, flush=True)
 
     def test_0001_parse_dashboardXml(self):
         """ Test Parse all tiles, cols, rows from a specific .yaml """
@@ -141,7 +141,7 @@ class TestApp(SimpleTestCase):  # TODO: find a way to test the WebSocket inside 
             tile_data = dict(title=f'{tile}_ex', tile_template=tile)
             tileTemplate = template_tile_data(('layout', tile_data['title']), tile_data)
             if 'role="alert"' in tileTemplate:
-                print(f"[EROR] DETECTED WITH TEMPLATE:{tile}")
+                print(f"[ERROR] DETECTED WITH TEMPLATE:{tile}", flush=True)
             self.assertTrue('class="alert alert-danger text-center" role="alert"' not in tileTemplate)  # detect errors
         tileTemplate = template_tile_data(('layout', 'test_unknown_tile'), dict(title='unknown', tile_template='tile'))
         self.assertTrue(tileTemplate is not None)
@@ -265,8 +265,7 @@ class TestApp(SimpleTestCase):  # TODO: find a way to test the WebSocket inside 
         testTileUpdate(tester=self, tileId='test_just_value', sonde=sonde10, isChartJS=False)
 
     def test_1028_test_websocket(self):
-        consumer = WSConsumer(scope=None)
-        print(consumer)  # TODO: improve test
+        WSConsumer(scope=None)  # TODO: find a way to test websocket
 
     def test_1026_test_sensors(self):
         tilePrefix = getRedisPrefix('test_simple_percentage')

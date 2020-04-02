@@ -2,7 +2,7 @@ from django.http import JsonResponse, HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from apscheduler.schedulers.background import BackgroundScheduler
 from src.tipboard.app.parser import parseXmlLayout, getConfigNames, getFlipboardTitles
-from src.tipboard.app.properties import TIPBOARD_CSS_STYLES, FLIPBOARD_INTERVAL, LOG, TIPBOARD_JAVASCRIPT_FILES
+from src.tipboard.app.properties import TIPBOARD_CSS_STYLES, FLIPBOARD_INTERVAL, TIPBOARD_JAVASCRIPT_FILES
 from src.tipboard.app.cache import MyCache
 from src.sensors.sensors_main import scheduleYourSensors, stopTheSensors
 
@@ -22,18 +22,19 @@ def renderDashboardHtmlUniqueDashboard(request, layout_name='default_config', is
         with CSS/JS dependency if isFlipboard is false
     """
     config = parseXmlLayout(layout_name)
-    color_mode = "black"
-    title = layout_name
-    if 'details' in config:
-        title = config['details']['page_title'] if 'page_title' in config['details'] else layout_name
-        color_mode = config['details']['color_mode'] if 'color_mode' in config['details'] else color_mode
-    if 'layout' in config:
-        data = dict(layout=config['layout'],
-                    layout_name=layout_name, page_title=title,
-                    tipboard_css=list() if isFlipboard else TIPBOARD_CSS_STYLES,
-                    tipboard_js=list() if isFlipboard else TIPBOARD_JAVASCRIPT_FILES,
-                    color_mode=color_mode)
-        return render(request, 'dashboard.html' if isFlipboard else 'flipboard.html', data)
+    if config is not None:
+        color_mode = "black"
+        title = layout_name
+        if 'details' in config:
+            title = config['details']['page_title'] if 'page_title' in config['details'] else layout_name
+            color_mode = config['details']['color_mode'] if 'color_mode' in config['details'] else color_mode
+        if 'layout' in config:
+            data = dict(layout=config['layout'],
+                        layout_name=layout_name, page_title=title,
+                        tipboard_css=list() if isFlipboard else TIPBOARD_CSS_STYLES,
+                        tipboard_js=list() if isFlipboard else TIPBOARD_JAVASCRIPT_FILES,
+                        color_mode=color_mode)
+            return render(request, 'dashboard.html' if isFlipboard else 'flipboard.html', data)
     msg = f'''
     <br> <div style="color: red">
         No config file found for dashboard: {layout_name}

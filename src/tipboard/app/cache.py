@@ -94,7 +94,7 @@ class MyCache(object):
                 inst.startedTime = datetime.now().strftime("%d %B %Y %T")
                 inst.lastUpdateTime = datetime.now().strftime("%d %B %Y %T")
             except Exception:
-                print(f'{getTimeStr()} (+) Initializing cache: Redis not connected', flush=True)
+                print(f'[DEBUG] {getTimeStr()} (+) Initializing cache: Redis not connected', flush=True)
                 inst.isRedisConnected = False
             return inst
         return cls.instance  # if already exist, return the instance already initialized :)

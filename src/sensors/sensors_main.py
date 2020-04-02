@@ -77,7 +77,7 @@ def scheduleYourSensors(scheduler=None, tester=None):
         rax += addSchedule(scheduler, sonde_stream, second=30, args=[tester, 'stream_ex'])
         rax += addSchedule(scheduler, sonde_iframe, second=30, args=[tester, 'iframe_ex'])
         rax += addSchedule(scheduler, sonde22, second=30, args=[tester, 'custom_ex'])
-        print(f"(+) Tipboard starting schedul task", flush=True)
+        print(f"[DEBUG] (+) Tipboard starting schedul task", flush=True)
         scheduler.start()
     return rax
 
@@ -88,7 +88,7 @@ def stopTheSensors(localScheduler):
 
 
 if __name__ == "__main__":
-    print(f"(+) Tipboard  sensors initialisation", flush=True)
+    print(f"[DEBUG] (+) Tipboard  sensors initialisation", flush=True)
     start_time = time.time()
     scheduleYourSensors(BlockingScheduler())  # If you need actualized data :)
     end(title="startUp", startTime=start_time)

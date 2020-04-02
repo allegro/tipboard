@@ -16,7 +16,7 @@ def show_help():
     Usage:
       -h, or help  \t\t=> show help usage
       -r, or runserver\t=> start the tipboard server
-      -s, or sensors \t=> start sensors located in src/sensors ''')
+      -s, or sensors \t=> start sensors located in src/sensors ''', flush=True)
     return 0
 
 

@@ -43,7 +43,6 @@ def executeScriptToGetData(tile_id='stream_ex'):
 def sonde21(tester=None, tile_id='stream_ex'):
     start_time = time.time()
     data = executeScriptToGetData()
-    print(f"updated:{data}")
 
     answer = sendUpdateByApi(tileId=tile_id, data=data, tileTemplate='stream', tester=tester)
     end(title=f'sensor21 -> -> {tile_id}', startTime=start_time, tipboardAnswer=answer, tileId=tile_id)

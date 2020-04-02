@@ -46,4 +46,4 @@ COLOR_TAB = [  # material color
     'rgb(33, 33, 33)'               # Black #212121
 ]
 BACKGROUND_TAB = ['#4caf50', '#ff6d00', '#d50000']
-print(f"Tipboard start in DEBUG MODE:{DEBUG} & LOG:{LOG}")
+print(f"[DEBUG] Tipboard start in DEBUG MODE:{DEBUG} & LOG:{LOG}", flush=True)

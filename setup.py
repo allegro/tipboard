@@ -18,7 +18,7 @@ HERE = pathlib.Path.cwd()
 # The text of the README file
 README = (HERE / 'README.md').read_text()
 
-print(README)
+print(README, flush=True)
 
 with open(HERE / 'requirements.txt') as requirements:
     required = requirements.read().splitlines()

@@ -59,7 +59,7 @@ def buildSwicthPythonFfso_o():
                 custom=getDefaultCustomTile)
 
 
-def buildFakeDataFromTemplate(tile_id, template_name, cache):  # TODO: handle when tile is unknow
+def buildFakeDataFromTemplate(tile_id, template_name, cache):
     ptrToFuncUpdateTile = buildSwicthPythonFfso_o()
     if template_name in ptrToFuncUpdateTile:
         functionTileUpdate = ptrToFuncUpdateTile[template_name]
@@ -68,7 +68,7 @@ def buildFakeDataFromTemplate(tile_id, template_name, cache):  # TODO: handle wh
             tileData = json.dumps(tileData)
             cache.redis.set(name=getRedisPrefix(tile_id), value=tileData)
             return tileData
-        print(f'(-) Error with tile:{template_name}')
+        print(f'[ERROR] (-) with tile:{template_name}', flush=True)
     else:
-        print(f'(-) Error no update function for tile: {template_name}')
+        print(f'[ERROR] (-) Error no update function for tile: {template_name}', flush=True)
     return None
