@@ -1,0 +1,73 @@
+details:
+  page_title: ChartBoard
+  color_mode: black
+layout:
+  - row:
+
+      - col flip-time-3:
+          - tile_template: doughnut_chart
+            tile_id: doughnut_ex
+            title: doughnut
+
+          - tile_template: half_doughnut_chart
+            tile_id: half_doughnut_ex
+            title: half_doughnut
+
+      - col:
+          - tile_template: polararea_chart
+            tile_id: polararea_ex
+            title: polar-area
+
+      - col:
+          - tile_template: radar_chart
+            tile_id: radar_ex
+            title: radar chart
+  - row:
+
+      - col:
+          - tile_template: pie_chart
+            tile_id: pie_chartjs_ex
+            title: pie chart
+
+      - col flip-time-3:
+
+          - tile_template: vlinear_gauge_chart
+            tile_id: vlinear_gauge_chart_ex
+            title: Vertical Linear gauge
+
+          - tile_template: linear_gauge_chart
+            tile_id: linear_gauge_chart_ex
+            title: Radial Linear gauge
+
+      - col flip-time-3:
+          - tile_template: bar_chart
+            tile_id: barjs_ex
+            title: bar chart
+
+          - tile_template: vbar_chart
+            tile_id: vbarjs_ex
+            title: vertical bar
+
+  - row:
+
+      - col flip-time-3:
+          - tile_template: cumulative_flow
+            tile_id: cfjs_ex
+            title: cumulflow
+
+          - tile_template: line_chart
+            tile_id: line_chartjs_ex
+            title: line tile's
+
+          - tile_template: norm_chart
+            tile_id: normjs_ex
+            title: norm tile's
+
+      - col flip-time-3:
+          - tile_template: gauge_chart
+            tile_id: tsgauge_ex
+            title: Gauge Chart
+
+          - tile_template: radial_gauge_chart
+            tile_id: radial_gauge_chart_ex
+            title: Horizontal Linear gauge

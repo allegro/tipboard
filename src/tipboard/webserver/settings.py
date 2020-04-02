@@ -1,5 +1,5 @@
 import os
-from src.tipboard.app.properties import SUPER_SECRET_KEY, DEBUG, REDIS_HOST, REDIS_PORT, PATH_FOR_PIP
+from src.tipboard.app.properties import API_KEY, DEBUG, REDIS_HOST, REDIS_PORT, PATH_FOR_PIP
 
 INSTALLED_APPS = [
     'django.contrib.contenttypes',
@@ -12,6 +12,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.BrokenLinkEmailsMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -20,7 +21,7 @@ MIDDLEWARE = [
 ]
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-SECRET_KEY = SUPER_SECRET_KEY
+SECRET_KEY = API_KEY
 DEBUG = DEBUG
 ALLOWED_HOSTS = ['*']
 TIME_ZONE = 'Europe/Paris'
@@ -52,9 +53,11 @@ STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
 )
-STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
-
-STATIC_URL = '/static/'
+# local directory where to find the static ressources
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static/'), ]
+# local directory where all statics ressources will be regrouped (in prod mode this file are on a CDN)
+STATIC_ROOT = os.path.join(BASE_DIR, 'collectTestStatic/')
+STATIC_URL = '/static/'  # Url asked by the client to get the static ressources by HTTP
 
 CHANNEL_LAYERS = {
     'default': {

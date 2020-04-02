@@ -186,7 +186,8 @@ function isMiscTile(tileData, tileId) {
  */
 function updateTileTextValue(tileData, dashboard_name) {
     let id = `${dashboard_name}-${tileData["id"]}`;
-    if (isMiscTile(tileData, id) === false) {  // TODO: change by adding a misc.js
+    if (isMiscTile(tileData, id) === false) {
+        console.log(id + " was updated");
         hideElementNotPresent(id, tileData.data);
         setDataByKeys(id, tileData.data);
         let body = document.getElementById("body-" + id);

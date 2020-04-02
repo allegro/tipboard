@@ -16,7 +16,7 @@ def show_help():
     Usage:
       -h, or help  \t\t=> show help usage
       -r, or runserver\t=> start the tipboard server
-      -s, or sensors \t=> start sensors located in src/sensors ''')
+      -s, or sensors \t=> start sensors located in src/sensors ''', flush=True)
     return 0
 
 
@@ -31,6 +31,6 @@ if __name__ == '__main__':
     if argv in ('sensors', '-s'):
         from src.sensors.sensors_main import scheduleYourSensors
         scheduleYourSensors(BlockingScheduler())
-    elif argv in ('test', 'runserver', 'migrate', 'shell'):
+    elif argv in ('test', 'runserver', 'migrate', 'shell', 'collectstatic', 'findstatic'):
         exit(startDjango())
     exit(show_help())

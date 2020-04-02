@@ -2,8 +2,7 @@ from django.http import JsonResponse, HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from apscheduler.schedulers.background import BackgroundScheduler
 from src.tipboard.app.parser import parseXmlLayout, getConfigNames, getFlipboardTitles
-from src.tipboard.app.properties import TIPBOARD_CSS_STYLES, FLIPBOARD_INTERVAL, LOG, TIPBOARD_JAVASCRIPT_FILES
-from src.tipboard.app.utils import getTimeStr
+from src.tipboard.app.properties import TIPBOARD_CSS_STYLES, FLIPBOARD_INTERVAL, TIPBOARD_JAVASCRIPT_FILES
 from src.tipboard.app.cache import MyCache
 from src.sensors.sensors_main import scheduleYourSensors, stopTheSensors
 
@@ -23,25 +22,23 @@ def renderDashboardHtmlUniqueDashboard(request, layout_name='default_config', is
         with CSS/JS dependency if isFlipboard is false
     """
     config = parseXmlLayout(layout_name)
-    if config is not None:  # file is present
-        title = layout_name
+    if config is not None:
         color_mode = "black"
+        title = layout_name
         if 'details' in config:
-            title = config['details']['page_title'] if 'page_title' in config['details'] else title
+            title = config['details']['page_title'] if 'page_title' in config['details'] else layout_name
             color_mode = config['details']['color_mode'] if 'color_mode' in config['details'] else color_mode
-        # TODO: handle when layout is not present inside the .yml (will throw error when config['layout'] not found)
-        data = dict(layout=config['layout'],
-                    layout_name=layout_name,
-                    tipboard_css=list() if isFlipboard else TIPBOARD_CSS_STYLES,
-                    tipboard_js=list() if isFlipboard else TIPBOARD_JAVASCRIPT_FILES,
-                    color_mode=color_mode,
-                    page_title=title)
-        return render(request, 'dashboard.html' if isFlipboard else 'flipboard.html', data)
-    if LOG:
-        print(f'{getTimeStr()}: (+)Config file:{layout_name} not found', flush=True)
-    msg = f'<br> <div style="color: red"> ' \
-        f'No config file found for dashboard: {layout_name} ' \
-        f'Make sure that file: "{layout_name}" exists. </div>'
+        if 'layout' in config:
+            data = dict(layout=config['layout'],
+                        layout_name=layout_name, page_title=title,
+                        tipboard_css=list() if isFlipboard else TIPBOARD_CSS_STYLES,
+                        tipboard_js=list() if isFlipboard else TIPBOARD_JAVASCRIPT_FILES,
+                        color_mode=color_mode)
+            return render(request, 'dashboard.html' if isFlipboard else 'flipboard.html', data)
+    msg = f'''
+    <br> <div style="color: red">
+        No config file found for dashboard: {layout_name}
+    Make sure that file: "{layout_name}" exists. </div> '''
     return HttpResponse(msg, status=404)
 
 

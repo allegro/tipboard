@@ -1,83 +1,83 @@
 details:
-    page_title: Tipboard exemple
-    color_mode: white
+  page_title: Tipboard exemple
+  color_mode: white
 layout:
-    - row:
+  - row:
 
-        - col:
-            - tile_template: doughnut_chart
-              tile_id: doughnut_ex
-              title: doughnut
+      - col:
+          - tile_template: doughnut_chart
+            tile_id: doughnut_ex
+            title: doughnut
 
-        - col:
-            - tile_template: polararea_chart
-              tile_id: polararea_ex
-              title: polar-area
+      - col:
+          - tile_template: polararea_chart
+            tile_id: polararea_ex
+            title: polar-area
 
-        - col:
-            - tile_template: radar_chart
-              tile_id: radar_ex
-              title: radar chart
+      - col:
+          - tile_template: radar_chart
+            tile_id: radar_ex
+            title: radar chart
 
-        - col:
-            - tile_template: pie_chart
-              tile_id: pie_chartjs_ex
-              title: pie chart
+      - col:
+          - tile_template: pie_chart
+            tile_id: pie_chartjs_ex
+            title: pie chart
 
-        - col:
-            - tile_template: vbar_chart
-              tile_id: vbarjs_ex
-              title: vertical bar
+      - col:
+          - tile_template: vbar_chart
+            tile_id: vbarjs_ex
+            title: vertical bar
 
-        - col:
-            - tile_template: bar_chart
-              tile_id: barjs_ex
-              title: bar tile's
+      - col:
+          - tile_template: bar_chart
+            tile_id: barjs_ex
+            title: bar tile's
 
-        - col:
-            - tile_template: line_chart
-              tile_id: line_chartjs_ex
-              title: line tile's
+      - col:
+          - tile_template: line_chart
+            tile_id: line_chartjs_ex
+            title: line tile's
 
-    - row:
+  - row:
 
-        - col:
-            - tile_template: cumulative_flow
-              tile_id: cfjs_ex
-              title: cumulflow
+      - col:
+          - tile_template: cumulative_flow
+            tile_id: cfjs_ex
+            title: cumulflow
 
-        - col:
-            - tile_template: norm_chart
-              tile_id: normjs_ex
-              title: norm tile's
+      - col:
+          - tile_template: norm_chart
+            tile_id: normjs_ex
+            title: norm tile's
 
-        - col:
-            - tile_template: simple_percentage
-              tile_id: sp_ex
-              title: Percentage
+      - col:
+          - tile_template: simple_percentage
+            tile_id: sp_ex
+            title: Percentage
 
-        - col:
-            - tile_template: half_doughnut_chart
-              tile_id: half_doughnut_ex
-              title: half_doughnut
+      - col:
+          - tile_template: half_doughnut_chart
+            tile_id: half_doughnut_ex
+            title: half_doughnut
 
-#            - tile_template: listing
-#              tile_id: listing_ex
-#              title: listing
+      #            - tile_template: listing
+      #              tile_id: listing_ex
+      #              title: listing
 
-        - col:
+      - col:
 
-            - tile_template: big_value
-              tile_id: bv_ex
-              title: Big value
+          - tile_template: big_value
+            tile_id: bv_ex
+            title: Big value
 
-        - col :
-            - tile_template: just_value
-              tile_id: jv_ex
-              title: Just value
+      - col:
+          - tile_template: just_value
+            tile_id: jv_ex
+            title: Just value
 
-        - col :
+      - col:
 
-            - tile_template: text
-              tile_id: txt_ex
-              title: text
+          - tile_template: text
+            tile_id: txt_ex
+            title: text

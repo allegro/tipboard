@@ -74,7 +74,7 @@ def getDashboardName():
         else:  # if multiple file, need to have the .yaml displayed for the client
             title = 'Flipboard Mode'
     except KeyError:
-        print(f"{getTimeStr()} (+) config {config_names[0]} has no key: details/page_title'", flush=True)
+        print(f"[DEBUG] {getTimeStr()} (+) config {config_names[0]} has no key: details/page_title'", flush=True)
     return title
 
 

@@ -171,13 +171,6 @@ function loadStyleColor() {
         body_style.backgroundColor = "#eceff1";
         changeElements("tile", "#f5f5f5", "class-backgroundColor");
         changeElements("card", "#f5f5f5", "class-backgroundColor");
-        // changeElements("mx-auto text-white", "mx-auto text", "class-class");
-        // changeElements(".row text-white", ".row text", "class-class");
-        // changeElements(".row center text", ".row center text-white", "class-class");
-        // changeElements("display-3 text", "display-3 text-white", "class-class");
-        // changeElements("display-2 text", "display-2 text-white", "class-class");
-        // changeElements("display-1 text", "display-1 text-white", "class-class");
-        // changeElements("text-white", "text", "class-class");
         changeElements("h1", "#000", "tag");
         changeElements("h2", "#212529", "tag");
         changeElements("h3", "#000", "tag");

@@ -4,18 +4,15 @@ import os
 PATH_FOR_PIP = 'src.'  # Location of Tipboard sources
 CONF_DIR = os.path.dirname(os.path.realpath(__file__)) + '/Config/'  # Path of Config directory
 PROPERTIES = json.load(open(CONF_DIR + 'properties.json'))
-BASIC_CONFIG = os.path.join(CONF_DIR, 'default_config.yaml')  # Default layout config
-API_KEY = PROPERTIES['TIPBOARD_TOKEN']
-SUPER_SECRET_KEY = PROPERTIES['SUPER_SECRET_KEY']
-DEBUG = PROPERTIES['DEBUG']
-LOG = PROPERTIES['LOG']
-VERSION = PROPERTIES['VERSION']
 TIPBOARD_URL = PROPERTIES['TIPBOARD_URL']
-CDN_URL = PROPERTIES['CDN_URL']  # if you are in production and need a CDN for media and static file
 REDIS_HOST = PROPERTIES['REDIS_HOST']
 REDIS_PORT = PROPERTIES['REDIS_PORT']
 REDIS_PASSWORD = PROPERTIES['REDIS_PASSWORD']
 REDIS_DB = PROPERTIES['REDIS_DB'] if 'REDIS_DB' in PROPERTIES else 0
+BASIC_CONFIG = os.path.join(CONF_DIR, 'default_config.yaml')  # Default layout config
+API_KEY = PROPERTIES['TIPBOARD_TOKEN']
+DEBUG = PROPERTIES['DEBUG']
+LOG = PROPERTIES['LOG']
 BASIC_LAYOUT = 'default_config.yaml'
 BASIC_CONFIG = os.path.join(CONF_DIR, PROPERTIES['default_config'] if 'default_config' in PROPERTIES else BASIC_LAYOUT)
 TIPBOARD_CSS_STYLES = ['css/layout.css']
@@ -46,4 +43,4 @@ COLOR_TAB = [  # material color
     'rgb(33, 33, 33)'               # Black #212121
 ]
 BACKGROUND_TAB = ['#4caf50', '#ff6d00', '#d50000']
-print(f"Tipboard start in DEBUG MODE:{DEBUG} & LOG:{LOG}")
+print(f"[DEBUG] Tipboard start in DEBUG MODE:{DEBUG} & LOG:{LOG}", flush=True)
