@@ -2,18 +2,17 @@ import json, redis
 from asgiref.sync import async_to_sync
 from channels.layers import get_channel_layer
 from apscheduler.schedulers.background import BackgroundScheduler
-from src.tipboard.app.parser import parseXmlLayout
-from src.tipboard.app.applicationconfig import getRedisPrefix, getIsoTime
 from src.tipboard.app.properties import REDIS_DB, REDIS_PASSWORD, REDIS_HOST, REDIS_PORT, DEBUG
-from src.tipboard.app.utils import getTimeStr
 from src.tipboard.app.DefaultData.defaultTileControler import buildFakeDataFromTemplate
 from src.tipboard.app.DefaultData.chartJsDatasetBuilder import buildGenericDataset
+from src.tipboard.app.parser import parseXmlLayout
+from src.tipboard.app.applicationconfig import getRedisPrefix
+from src.tipboard.app.utils import getTimeStr
 
 
 def listOfTilesFromLayout(layout_name='default_config'):
     """ List all tiles for a specific layout in Config/*.yml """
-    tmp = parseXmlLayout(layout_name)['tiles_conf']
-    return tmp
+    return parseXmlLayout(layout_name)['tiles_conf']
 
 
 def update_dataset_from_tiles(value, previousData, key, tile_template):
@@ -48,12 +47,11 @@ def update_data_by_type(tile_template, previousData, key, value):
 
 def update_meta_if_present(tile_id, meta):
     """ Update the meta(config) of a tile(widget) """
+    cachedTile = json.loads(MyCache().redis.get(getRedisPrefix(tile_id)))
     if meta is not None:
-        tilePrefix = getRedisPrefix(tile_id)
-        cachedTile = json.loads(MyCache().redis.get(tilePrefix))
         metaTile = cachedTile['meta']['options'] if 'options' in cachedTile['meta'] else cachedTile['meta']
-        update_tile_data_from_redis(metaTile, json.loads(meta), None)
-        return cachedTile['meta']
+        cachedTile['meta'] = update_tile_data_from_redis(metaTile, json.loads(meta), None)
+    return cachedTile['meta']
 
 
 def update_tile_data_from_redis(previousData, newData, tile_template):
@@ -68,13 +66,12 @@ def update_tile_data_from_redis(previousData, newData, tile_template):
 
 def save_tile(tile_id, template, data, meta):
     redis_cache = MyCache()
-    tilePrefix = getRedisPrefix(tile_id)  # TODO: if tile don't exist, create it with template, DEBUG mode only
+    tilePrefix = getRedisPrefix(tile_id)
     if not redis_cache.redis.exists(tilePrefix) and DEBUG:
-        buildFakeDataFromTemplate(tile_id, template, redis_cache)
+        buildFakeDataFromTemplate(tile_id, template, redis_cache)  # Build fake data and save it on redis
     cachedTile = json.loads(redis_cache.redis.get(tilePrefix))
-    cachedTile['data'] = update_tile_data_from_redis(cachedTile['data'], json.loads(data), template)
-    cachedTile['modified'] = getIsoTime()
     cachedTile['tile_template'] = template
+    cachedTile['data'] = update_tile_data_from_redis(cachedTile['data'], json.loads(data), template)
     cachedTile['meta'] = update_meta_if_present(tile_id, meta)
     redis_cache.set(tilePrefix, json.dumps(cachedTile))
     return True

@@ -64,10 +64,11 @@ def push_api(request, unsecured=False):  # TODO: handle when there is error in s
     if request.method == 'POST':
         state, HttpData = sanity_push_api(request, unsecured)
         if state:
-            tile_data = HttpData.get('data', None)
             tile_id = HttpData.get('tile_id', None)
             tile_template = HttpData.get('tile_template', None)
-            if save_tile(tile_id=tile_id, template=tile_template, data=tile_data, meta=HttpData.get('meta', None)):
+            tile_data = HttpData.get('data', None)
+            tile_meta = HttpData.get('meta', None)
+            if save_tile(tile_id=tile_id, template=tile_template, data=tile_data, meta=tile_meta):
                 return HttpResponse(f'{tile_id} data updated successfully.')
             HttpData = HttpResponse(f'Error while saving tile with tile_id: {tile_id}')
         return HttpData

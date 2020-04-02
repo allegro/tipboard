@@ -32,7 +32,6 @@ def sendUpdateByApi(tileId=None, data=None, tileTemplate=None, tester=False, met
     if meta is not None:
         configTile['meta'] = json.dumps(meta)
     if tester is None:
-        print(f'{configTile}')
         return requests.post(TIPBOARD_URL + '/push', data=configTile)
     return tester.fakeClient.post(TIPBOARD_URL + '/push', data=configTile)
 

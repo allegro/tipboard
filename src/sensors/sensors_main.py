@@ -1,6 +1,5 @@
 import time, datetime
 from apscheduler.schedulers.blocking import BlockingScheduler
-from apscheduler.schedulers import SchedulerNotRunningError
 from src.sensors.sensors1_text import sonde1
 from src.sensors.sensors2_piechart import sonde2
 from src.sensors.sensors3_linechart import sonde3
@@ -62,7 +61,7 @@ def scheduleYourSensors(scheduler=None, tester=None):
         rax += addSchedule(scheduler, sonde6, args=[tester, 'listing_ex'])
         rax += addSchedule(scheduler, sonde9, args=[tester, 'bv_ex'])
         rax += addSchedule(scheduler, sonde10, args=[tester, 'jv_ex'])
-        rax += addSchedule(scheduler, sonde2, second=40, args=[tester, 'pie_chartjs_ex'])
+        rax += addSchedule(scheduler, sonde2, second=5, args=[tester, 'pie_chartjs_ex'])
         rax += addSchedule(scheduler, sonde3, second=3, args=[tester, 'line_chartjs_ex'])
         rax += addSchedule(scheduler, sonde4, second=19, args=[tester, 'cfjs_ex'])
         rax += addSchedule(scheduler, sonde7, second=2, args=[tester, 'barjs_ex', True])
@@ -84,11 +83,8 @@ def scheduleYourSensors(scheduler=None, tester=None):
 
 
 def stopTheSensors(localScheduler):
-    try:
-        if localScheduler is not None and localScheduler:
-            localScheduler.shutdown()
-    except SchedulerNotRunningError:
-        print("Sensors was stoped, but it wasn't running...")  # TODO: Fix this
+    if localScheduler is not None and localScheduler:
+        localScheduler.shutdown()
 
 
 if __name__ == "__main__":
