@@ -6,7 +6,7 @@ from src.tipboard.app.utils import checkAccessToken
 from src.tipboard.app.parser import getConfigNames
 
 
-def project_info(request):  # TODO: add uptime and last update time and redis connected and numnber of tile in redis
+def project_info(request):
     """ Return info of server tipboard """
     cache = MyCache()
     return JsonResponse(dict(is_redis_connected=cache.isRedisConnected,
@@ -64,7 +64,7 @@ def sanity_push_api(request, unsecured):
     return True, HttpData
 
 
-def push_api(request, unsecured=False):  # TODO: handle when there is error in save_tile_redis
+def push_api(request, unsecured=False):
     """ Update the content of a tile (widget) """
     if request.method == 'POST':
         state, HttpData = sanity_push_api(request, unsecured)
