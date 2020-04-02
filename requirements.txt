@@ -10,6 +10,6 @@ channels==2.4.0
 channels_redis==2.4.2
 PyYAML==5.3.1
 lorem==0.1.1
-pytest-django==3.8.0
+pytest-django==3.9.0
 pytest==5.4.1
 pytest-asyncio==0.10.0
