@@ -1,41 +1,33 @@
-import json, os
+import json
+import os
 
-dir_path = os.path.dirname(os.path.realpath(__file__))
+PATH_FOR_PIP = 'src.'  # Location of Tipboard sources
+CONF_DIR = os.path.dirname(os.path.realpath(__file__)) + '/Config/'  # Path of Config directory
+PROPERTIES = json.load(open(CONF_DIR + 'properties.json'))
+BASIC_CONFIG = os.path.join(CONF_DIR, 'default_config.yaml')  # Default layout config
+API_KEY = PROPERTIES['TIPBOARD_TOKEN']
+SUPER_SECRET_KEY = PROPERTIES['SUPER_SECRET_KEY']
+DEBUG = PROPERTIES['DEBUG']
+LOG = PROPERTIES['LOG']
+VERSION = PROPERTIES['VERSION']
+TIPBOARD_URL = PROPERTIES['TIPBOARD_URL']
+CDN_URL = PROPERTIES['CDN_URL']  # if you are in production and need a CDN for media and static file
+REDIS_HOST = PROPERTIES['REDIS_HOST']
+REDIS_PORT = PROPERTIES['REDIS_PORT']
+REDIS_PASSWORD = PROPERTIES['REDIS_PASSWORD']
+REDIS_DB = PROPERTIES['REDIS_DB'] if 'REDIS_DB' in PROPERTIES else 0
+BASIC_LAYOUT = 'default_config.yaml'
+BASIC_CONFIG = os.path.join(CONF_DIR, PROPERTIES['default_config'] if 'default_config' in PROPERTIES else BASIC_LAYOUT)
+TIPBOARD_CSS_STYLES = ['css/layout.css']
+TIPBOARD_JAVASCRIPT_FILES = ['js/websocket.js', 'js/tipboard.js', 'tiles/chartjs.js', 'tiles/text_value.js']
+FLIPBOARD_INTERVAL = PROPERTIES['FLIPBOARD_INTERVAL'] if 'FLIPBOARD_INTERVAL' in PROPERTIES else 10
 
-# Location of Tipboard sources
-TIPBOARD_PATH = os.path.dirname(__file__)
-
-FROM_PIP = 'src.'
-
-# Path of Config directory
-user_config_dir = dir_path + '/Config/'
-
-# Determine which layout config should be used by default
-LAYOUT_CONFIG = os.path.join(user_config_dir, 'tmp/layout_config.yaml')
-
-conf = json.load(open(dir_path + '/Config/properties.json'))
-
-API_VERSION = conf['API_VERSION']
-API_KEY = conf['TIPBOARD_TOKEN']
-PROJECT_NAME = conf['PROJECT_NAME']
-SUPER_SECRET_KEY = conf['SUPER_SECRET_KEY']
-
-DEBUG = conf['DEBUG']
-LOG = conf['LOG']
-VERSION = conf['VERSION']
-SITE_ENV = conf['SITE_ENV']
-LOCAL = conf['LOCAL']
-TIPBOARD_URL = conf['TIPBOARD_URL']
-CDN_URL = conf['CDN_URL']  # if you are in production and need a CDN for media and static file
-REDIS_HOST = conf['REDIS_HOST']
-REDIS_PORT = conf['REDIS_PORT']
-REDIS_PASSWORD = conf['REDIS_PASSWORD']
-REDIS_DB = conf['REDIS_DB']
-
-ALLOWED_TILES = ['text', 'fancy_listing', 'simple_percentage', 'listing', 'big_value', 'just_value',  # Homemade
-                 'norm_chart', 'line_chart', 'cumulative_flow', 'bar_chart', 'vbar_chart',  # ChartJS
-                 'half_doughnut_chart', 'doughnut_chart', 'pie_chart', 'radar_chart', 'polararea_chart',  # ChartJS
-                 'empty']  # chartjs lib
+ALLOWED_TILES = ['text', 'simple_percentage', 'listing', 'big_value', 'just_value',  # Homemade
+                 'norm_chart', 'line_chart', 'cumulative_flow',  # ChartJS
+                 'bar_chart', 'vbar_chart', 'gauge_chart', 'radial_gauge_chart', 'linear_gauge_chart',  # ChartJS
+                 'vlinear_gauge_chart', 'doughnut_chart', 'half_doughnut_chart',  # ChartJS
+                 'pie_chart', 'polararea_chart', 'radar_chart',  # ChartJS
+                 'iframe', 'stream', 'custom']  # misc
 
 COLOR_TAB = [  # material color
     'rgba(66, 165, 245, 0.8)',      # blue #42a5f5
@@ -53,16 +45,5 @@ COLOR_TAB = [  # material color
     'rgb(48, 79, 254)',             # Indigo #304ffe
     'rgb(33, 33, 33)'               # Black #212121
 ]
-
-if 'COLOR_TAB' in conf:
-    rcx = 0
-    for color in conf['COLOR_TAB']:
-        COLOR_TAB[rcx] = conf['COLOR_TAB'][rcx]
-
 BACKGROUND_TAB = ['#4caf50', '#ff6d00', '#d50000']
-
-TIPBOARD_CSS_STYLES = ['css/layout.css']
-TIPBOARD_JAVASCRIPTS = ['js/dashboard.js', 'js/websocket.js', 'js/tipboard.js']
-
-# how many seconds dashboard is displayed before is flipped, if 0 than NO FLIPBOARD
-FLIPBOARD_INTERVAL = 10
+print(f"Tipboard start in DEBUG MODE:{DEBUG} & LOG:{LOG}")

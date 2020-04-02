@@ -1,5 +1,5 @@
 import time, random
-from src.sensors.utils import end, sendDataToTipboard, getTimeStr
+from src.sensors.utils import end, sendUpdateByApi
 from src.tipboard.app.properties import BACKGROUND_TAB
 
 
@@ -10,8 +10,8 @@ def executeScriptToGetData():
     urv = random.randrange(42, 420)
     lrv = ulv + llv + urv
     return {
-        'title': 'Sensors title',
-        'description': 'Sensors description',
+        'title': random.choice(['Sensors title', None]),
+        'description': random.choice(['Sensors description', None]),
         'big-value': random.randrange(214, 514),
         'upper-left-label': 'Critical:',
         'upper-left-value': ulv,
@@ -24,12 +24,9 @@ def executeScriptToGetData():
     }
 
 
-def sonde9(isTest=False):
-    TILE_ID = 'bv_ex'
-    print(f'{getTimeStr()} (+) Starting sensors 9', flush=True)
+def sonde9(tester=False, tile_id='bv_ex'):
     start_time = time.time()
     data = executeScriptToGetData()
-    meta = dict(big_value_color=BACKGROUND_TAB[random.randrange(0, 3)],
-                fading_background=random.choice([False, True]))
-    tipboardAnswer = sendDataToTipboard(tile_id=TILE_ID, data=data, tile_template='big_value', isTest=isTest, meta=meta)
-    end(title=f'sensors9 -> {TILE_ID}', start_time=start_time, tipboardAnswer=tipboardAnswer, TILE_ID=TILE_ID)
+    meta = dict(big_value_color=BACKGROUND_TAB[random.randrange(0, 3)], fading_background=random.choice([False, True]))
+    tipboardAnswer = sendUpdateByApi(tileId=tile_id, data=data, tileTemplate='big_value', tester=tester, meta=meta)
+    end(title=f'sensors9 -> {tile_id}', startTime=start_time, tipboardAnswer=tipboardAnswer, tileId=tile_id)

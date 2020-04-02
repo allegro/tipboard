@@ -1,30 +1,29 @@
 import requests, time, random, lorem, json
 from src.tipboard.app.properties import TIPBOARD_URL
-from src.sensors.utils import end, getTimeStr
-from src.tipboard.app.FakeData.fake_data import getFakeText
+from src.sensors.utils import end
+from src.tipboard.app.DefaultData.defaultTileControler import getDefaultText
 
 
 def executeScriptToGetData(tile_id=None, tile_template=None):
     """ Replace getFakeText with your script to GET text tile data """
-    tile = getFakeText(tile_id=tile_id, template_name=tile_template)
-    tile['data']['text'] = '\n'.join([lorem.sentence() for i in range(6)])
+    tile = getDefaultText()
+    tile['tile_id'] = tile_id
+    tile['tile_template'] = tile_template
+    tile['data']['text'] = '\n'.join([lorem.sentence() for _ in range(6)])
     return tile
 
 
-def sendDataToTipboard(data=None, tile_template=None, tile_id='', isTest=False):
+def sendDataToTipboard(data=None, tile_template=None, tile_id='', tester=None):
     configTile = dict(tile_id=tile_id, tile_template=tile_template, data=json.dumps(data['data']['text']))
-    if not isTest:
+    if tester is None:
         return requests.post(TIPBOARD_URL + '/push', data=configTile)
+    return tester.fakeClient.post(TIPBOARD_URL + '/push', data=configTile)
 
 
-def sonde1(isTest=False):
-    TILE_TEMPLATE = 'text'
-    TILE_ID = 'txt_ex'
-    print(f'----------------------------------------------------------------------------------------------', flush=True)
-    print(f'{getTimeStr()} (+) Starting sensors 1', flush=True)
+def sonde1(tester=None, tile_id='txt_ex', tile_template='text'):
     start_time = time.time()
     data = executeScriptToGetData()
     data['text'] = f'Last malware detedted: <br>' \
         f'<h2> {"".join([random.choice("0123456789abcdef") for x in range(32)])}</h2>'
-    tipboardAnswer = sendDataToTipboard(data, tile_template=TILE_TEMPLATE, tile_id=TILE_ID, isTest=isTest)
-    end(title=f'sensors1 -> {TILE_ID}', start_time=start_time, tipboardAnswer=tipboardAnswer, TILE_ID=TILE_ID)
+    tipboardAnswer = sendDataToTipboard(data, tile_template=tile_template, tile_id=tile_id, tester=tester)
+    end(title=f'sensors1 -> {tile_id}', startTime=start_time, tipboardAnswer=tipboardAnswer, tileId=tile_id)

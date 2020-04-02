@@ -1,7 +1,5 @@
-# -*- coding: utf-8 -*-
 import time, datetime
 from django.apps import AppConfig
-from src.tipboard.app.properties import PROJECT_NAME
 
 
 class TipboardConfig(AppConfig):
@@ -17,4 +15,4 @@ def getIsoTime():
 
 
 def getRedisPrefix(tile_id='*'):
-    return f'{PROJECT_NAME}:tile:{tile_id}'
+    return f'tile:{tile_id}'

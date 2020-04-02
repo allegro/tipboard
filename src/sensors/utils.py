@@ -1,25 +1,24 @@
 import datetime, json, requests, time, random
-from src.tipboard.app.properties import TIPBOARD_URL, DEBUG, COLOR_TAB
+from src.tipboard.app.properties import TIPBOARD_URL, COLOR_TAB, LOG
 
 
-def printEndOfTipboardCall(tipboardAnswer, TILE_ID):
-    if tipboardAnswer is not None:
-        print(f'POST tile:{TILE_ID} tipboard/push => ({str(tipboardAnswer)}): ', flush=True)
-    else:
-        print(f'POST tile:{TILE_ID} tipboard/push => (FAILED HTTP CONNECT): ', flush=True)
+def printEndOfTipboardCall(tipboardAnswer, tileId):
+    if tipboardAnswer is None:
+        print(f'POST tile:{tileId} tipboard/push => (FAILED HTTP CONNECT): ', flush=True)
 
 
-def end(title=None, start_time=None, tipboardAnswer=None, TILE_ID=None):
+def end(title=None, startTime=None, tipboardAnswer=None, tileId=None):
     """ Eazy way to end sensors, print the action time & http answer of tipboard """
-    printEndOfTipboardCall(tipboardAnswer, TILE_ID)
-    duration = time.time() - start_time
-    m = str(duration / 60)[:str(duration / 60).index('.')]
-    s = str(duration % 60)[:str(duration % 60).index('.')]
-    if m == '0':
-        print(f'{getTimeStr()}-{title}: executed script in {s} seconds', flush=True)
-    else:
-        print(f'{getTimeStr()}-{title}: executed script in {m}:{s}', flush=True)
-    print(f'----------------------------------------------------------------------------------------------', flush=True)
+    if LOG:
+        printEndOfTipboardCall(tipboardAnswer, tileId)
+        duration = time.time() - startTime
+        m = str(duration / 60)[:str(duration / 60).index('.')]
+        s = str(duration % 60)[:str(duration % 60).index('.')]
+        if m == '0':
+            print(f'{getTimeStr()}-{title}: executed script in {s} seconds', flush=True)
+        else:
+            print(f'{getTimeStr()}-{title}: executed script in {m}:{s}', flush=True)
+        print(f'-----------------------------------------------------------------------------------------', flush=True)
 
 
 def getTimeStr():
@@ -27,44 +26,41 @@ def getTimeStr():
     return datetime.datetime.now().strftime('%Hh%M')
 
 
-def sendBVColor(color, tile_id, fading=False, isTest=False):  # pragma: no cover
-    """ Modify meta of tile: update the color and/or fading of a specific tile """
-    var = dict(value=json.dumps({'big_value_color': color, 'fading_background': fading}))
-    if not isTest:
-        res = requests.post(TIPBOARD_URL + '/tileconfig/' + tile_id, data=var)
-        if DEBUG:
-            print(f'{res}: color -> {tile_id}', flush=True)
-
-
-def testTipboardUpdate(checker, fake_client, TILE_ID, data):
-    configTile = dict(tile_id=TILE_ID, tile_template='pie_chart', data=json.dumps(data))
-    tipboardAnswer = fake_client.post(TIPBOARD_URL + '/push', configTile)
-    checker.assertTrue(tipboardAnswer.status_code == 200)
-
-
-def sendDataToTipboard(tile_id=None, data=None, tile_template=None, isTest=False, meta=None):
-    configTile = dict(tile_id=tile_id, tile_template=tile_template, data=json.dumps(data))
+def sendUpdateByApi(tileId=None, data=None, tileTemplate=None, tester=False, meta=None):
+    """ Send data to url django /push, if it's a test, send the django.UnitTest fake client """
+    configTile = dict(tile_id=tileId, tile_template=tileTemplate, data=json.dumps(data))
     if meta is not None:
         configTile['meta'] = json.dumps(meta)
-    print(f"{configTile}")
-    if not isTest:
+    if tester is None:
         return requests.post(TIPBOARD_URL + '/push', data=configTile)
+    return tester.fakeClient.post(TIPBOARD_URL + '/push', data=configTile)
 
 
-def buildChartUpdateRandomly(nbrDataset=None, nbrLabel=None, colorTabIndataset=False, data=None):
+def buildDataset(index, nbrLabel, data, colorTabIndataset):
+    return dict(label=f'Serie {index + 1}',
+                data=[random.randrange(100, 1000) for _ in range(nbrLabel)] if data is None else data,
+                backgroundColor=COLOR_TAB[index] if colorTabIndataset is False else COLOR_TAB,
+                borderColor=COLOR_TAB[index] if colorTabIndataset is False else '#626262')
+
+
+def buildChartJsTitle(nbrDataset, nbrLabel):
+    return dict(text=f'{nbrDataset} dataset & {nbrLabel} labels',
+                color='#FFFFFF',
+                display=random.choice([True, True]),
+                position=random.choice(['top', 'bottom', 'right', 'left']))
+
+
+def updateChartJS(nbrDataset=None, nbrLabel=None, colorTabIndataset=False, data=None):
+    """
+        Build a full dataset, title, legend for title with random data
+        For the demo, it show the possibility to hide title/legend/label, randomly
+    """
     nbrDataset = random.randrange(1, 5) if nbrDataset is None else nbrDataset
     nbrLabel = random.randrange(2, 13) if nbrLabel is None else nbrLabel
-    tileData = dict()
-    tileData['title'] = dict(text=f'{nbrDataset} dataset & {nbrLabel - 1} labels',
-                             color='#FFFFFF',
-                             display=random.choice([True, False]))
-    tileData['legend'] = dict(display=False if nbrDataset > 6 else random.choice([True, False]))
-    tileData['labels'] = [f'{i}' for i in range(nbrLabel)]
-    tileData['datasets'] = list()
+    tileData = dict(title=buildChartJsTitle(nbrDataset, nbrLabel),
+                    legend=dict(display=False if nbrDataset > 6 else random.choice([True, False])),
+                    labels=[f'{i}' for i in range(nbrLabel)],
+                    datasets=list())
     for index in range(nbrDataset):
-        tileData['datasets'].append(
-            dict(label=f'Serie {index + 1}',
-                 data=[random.randrange(100, 1000) for _ in range(nbrLabel)] if data is None else data,
-                 backgroundColor=COLOR_TAB[index] if colorTabIndataset is False else COLOR_TAB,
-                 borderColor=COLOR_TAB[index] if colorTabIndataset is False else '#525252'))
+        tileData['datasets'].append(buildDataset(index, nbrLabel, data, colorTabIndataset))
     return tileData

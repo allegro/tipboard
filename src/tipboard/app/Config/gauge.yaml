@@ -1,0 +1,10 @@
+details:
+    page_title: Dashboard 1
+    color_mode: white
+layout:
+    - row:
+
+        - col:
+            - tile_template: vlinear_gauge_chart
+              tile_id: radial_gauge_ex2
+              title: Vertical Linear gauge
