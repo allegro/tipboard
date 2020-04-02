@@ -54,6 +54,7 @@ def test_sensors(tester):
 
 
 def scheduleYourSensors(scheduler=None, tester=None):
+    """ Schedule the script tu updates all tiles, rax is here to control by unit-test, that we test all tiles """
     rax = 0
     if not scheduler.running:
         rax += addSchedule(scheduler, sonde1, args=[tester, 'txt_ex'])
@@ -61,22 +62,22 @@ def scheduleYourSensors(scheduler=None, tester=None):
         rax += addSchedule(scheduler, sonde6, args=[tester, 'listing_ex'])
         rax += addSchedule(scheduler, sonde9, args=[tester, 'bv_ex'])
         rax += addSchedule(scheduler, sonde10, args=[tester, 'jv_ex'])
-        # rax += addSchedule(scheduler, sonde2, second=40, args=[tester, 'pie_chartjs_ex'])
-        # rax += addSchedule(scheduler, sonde3, second=3, args=[tester, 'line_chartjs_ex'])
-        # rax += addSchedule(scheduler, sonde4, second=19, args=[tester, 'cfjs_ex'])
-        # rax += addSchedule(scheduler, sonde7, second=2, args=[tester, 'barjs_ex', True])
-        # rax += addSchedule(scheduler, sonde7, second=2, args=[tester, 'vbarjs_ex3', False])
-        # rax += addSchedule(scheduler, sonde12, second=45, args=[tester, 'normjs_ex'])
-        # rax += addSchedule(scheduler, sonde14, second=2, args=[tester, 'radar_ex'])
-        # rax += addSchedule(scheduler, sonde15, second=28, args=[tester, 'polararea_ex'])
-        # rax += addSchedule(scheduler, sonde16, second=30, args=[tester, 'doughnut_ex'])
-        # rax += addSchedule(scheduler, sonde17, second=30, args=[tester, 'half_doughnut_ex'])
-        # rax += addSchedule(scheduler, sonde18, second=30, args=[tester, 'gauge_ex'])
-        # rax += addSchedule(scheduler, sonde19, second=30, args=[tester, 'lgauge_ex'])
-        # rax += addSchedule(scheduler, sonde20, second=30, args=[tester, 'rgauge_ex'])
-        # rax += addSchedule(scheduler, sonde_stream, second=30, args=[tester, 'stream_ex'])
+        rax += addSchedule(scheduler, sonde2, second=40, args=[tester, 'pie_chartjs_ex'])
+        rax += addSchedule(scheduler, sonde3, second=3, args=[tester, 'line_chartjs_ex'])
+        rax += addSchedule(scheduler, sonde4, second=19, args=[tester, 'cfjs_ex'])
+        rax += addSchedule(scheduler, sonde7, second=2, args=[tester, 'barjs_ex', True])
+        rax += addSchedule(scheduler, sonde7, second=2, args=[tester, 'vbarjs_ex3', False])
+        rax += addSchedule(scheduler, sonde12, second=45, args=[tester, 'normjs_ex'])
+        rax += addSchedule(scheduler, sonde14, second=2, args=[tester, 'radar_ex'])
+        rax += addSchedule(scheduler, sonde15, second=28, args=[tester, 'polararea_ex'])
+        rax += addSchedule(scheduler, sonde16, second=30, args=[tester, 'doughnut_ex'])
+        rax += addSchedule(scheduler, sonde17, second=30, args=[tester, 'half_doughnut_ex'])
+        rax += addSchedule(scheduler, sonde18, second=30, args=[tester, 'gauge_ex'])
+        rax += addSchedule(scheduler, sonde19, second=30, args=[tester, 'lgauge_ex'])
+        rax += addSchedule(scheduler, sonde20, second=30, args=[tester, 'rgauge_ex'])
+        rax += addSchedule(scheduler, sonde_stream, second=30, args=[tester, 'stream_ex'])
         rax += addSchedule(scheduler, sonde_iframe, second=30, args=[tester, 'iframe_ex'])
-        # rax += addSchedule(scheduler, sonde22, second=30, args=[tester, 'custom_ex'])
+        rax += addSchedule(scheduler, sonde22, second=30, args=[tester, 'custom_ex'])
         print(f"(+) Tipboard starting schedul task", flush=True)
         scheduler.start()
     return rax
