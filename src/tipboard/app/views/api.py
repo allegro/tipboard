@@ -1,7 +1,7 @@
 from django.http import JsonResponse, HttpResponseBadRequest, HttpResponse
 from src.tipboard.app.applicationconfig import getRedisPrefix
 from src.tipboard.app.properties import DEFAULT_CONFIG, REDIS_DB, DEBUG, ALLOWED_TILES
-from src.tipboard.app.cache import getCache, save_tile
+from src.tipboard.app.cache import MyCache, save_tile
 from src.tipboard.app.utils import checkAccessToken
 
 
@@ -16,7 +16,7 @@ def get_tile(request, tile_key):
     """ Return Json from redis for tile_key """
     if not checkAccessToken(method='GET', request=request, unsecured=True):
         return HttpResponse('API KEY incorrect', status=401)
-    redis = getCache().redis
+    redis = MyCache().redis
     if redis.exists(getRedisPrefix(tile_key)):
         return HttpResponse(redis.get(tile_key))
     return HttpResponseBadRequest(f'{tile_key} key does not exist.')
@@ -26,7 +26,7 @@ def delete_tile(request, tile_key):
     """ Delete in redis """
     if not checkAccessToken(method='DELETE', request=request, unsecured=True):
         return HttpResponse('API KEY incorrect', status=401)
-    redis = getCache().redis
+    redis = MyCache().redis
     if redis.exists(getRedisPrefix(tile_key)):
         redis.delete(tile_key)
         return HttpResponse('Tile\'s data deleted.')
@@ -52,7 +52,7 @@ def sanity_push_api(request, unsecured):
     if HttpData.get('tile_template', None) not in ALLOWED_TILES:
         tile_template = HttpData.get('tile_template', None)
         return False, HttpResponseBadRequest(f'tile_template: {tile_template} is unknow')
-    cache = getCache()
+    cache = MyCache()
     tilePrefix = getRedisPrefix(HttpData.get('tile_id', None))
     if not cache.redis.exists(tilePrefix) and not DEBUG:
         return False, HttpResponseBadRequest(f'tile_id: {tilePrefix} is unknow')

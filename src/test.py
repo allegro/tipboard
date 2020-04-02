@@ -6,7 +6,7 @@ from src.tipboard.templates.template_filter import template_tile_data, template_
 from src.tipboard.app.properties import ALLOWED_TILES
 from src.tipboard.app.DefaultData.defaultTileControler import buildFakeDataFromTemplate
 from src.tipboard.app.parser import getDashboardName, getConfigNames, parseXmlLayout
-from src.tipboard.app.cache import MyCache, getCache
+from src.tipboard.app.cache import MyCache
 from src.tipboard.app.utils import checkAccessToken
 from src.tipboard.app.cache import listOfTilesFromLayout
 from src.tipboard.app.applicationconfig import getRedisPrefix
@@ -38,11 +38,11 @@ def testTileUpdate(tester=None, tileId='test_pie_chart', sonde=None, isChartJS=T
         5 - If there are the same, update tile data is broken :)
     """
     tilePrefix = getRedisPrefix(tileId)
-    beforeUpdate = json.loads(getCache().redis.get(tilePrefix))
+    beforeUpdate = json.loads(MyCache().redis.get(tilePrefix))
     if tileId == 'test_vbar_chart':
         sonde(tester=tester, tile_id=tileId, isHorizontal=True)
     sonde(tester=tester, tile_id=tileId)
-    afterUpdate = json.loads(getCache().redis.get(tilePrefix))
+    afterUpdate = json.loads(MyCache().redis.get(tilePrefix))
     if isChartJS:
         isDiff = beforeUpdate['data']['datasets'][0]['data'] != afterUpdate['data']['datasets'][0]['data']
     else:
@@ -267,7 +267,7 @@ class TestApp(TestCase):  # TODO: find a way to test the WebSocket inside django
 
     def test_1026_test_sensors(self):  # TODO: fix this double loads linked to the bug in parser.py at .get()
         tilePrefix = getRedisPrefix('test_simple_percentage')
-        lm = getCache().get(tilePrefix)
+        lm = MyCache().get(tilePrefix)
         beforeUpdate = json.loads(json.loads(lm))
         test_sensors(tester=self)
         scheduler = BackgroundScheduler()
@@ -276,7 +276,7 @@ class TestApp(TestCase):  # TODO: find a way to test the WebSocket inside django
         time.sleep(5)
         scheduler.shutdown()
         time.sleep(3)
-        afterUpdate = json.loads(json.loads(getCache().get(tilePrefix)))['data']['big_value']
+        afterUpdate = json.loads(json.loads(MyCache().get(tilePrefix)))['data']['big_value']
         isDiff = beforeUpdate != afterUpdate
         self.assertTrue(isDiff)
 
