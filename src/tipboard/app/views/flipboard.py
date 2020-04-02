@@ -3,7 +3,6 @@ from django.shortcuts import render
 from apscheduler.schedulers.background import BackgroundScheduler
 from src.tipboard.app.parser import parseXmlLayout, getConfigNames, getFlipboardTitles
 from src.tipboard.app.properties import TIPBOARD_CSS_STYLES, FLIPBOARD_INTERVAL, LOG, TIPBOARD_JAVASCRIPT_FILES
-from src.tipboard.app.utils import getTimeStr
 from src.tipboard.app.cache import MyCache
 from src.sensors.sensors_main import scheduleYourSensors, stopTheSensors
 
@@ -36,8 +35,8 @@ def renderDashboardHtmlUniqueDashboard(request, layout_name='default_config', is
                     color_mode=color_mode)
         return render(request, 'dashboard.html' if isFlipboard else 'flipboard.html', data)
     msg = f'''
-    <br> <div style="color: red"> 
-        No config file found for dashboard: {layout_name} 
+    <br> <div style="color: red">
+        No config file found for dashboard: {layout_name}
     Make sure that file: "{layout_name}" exists. </div> '''
     return HttpResponse(msg, status=404)
 
