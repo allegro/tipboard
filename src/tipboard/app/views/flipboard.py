@@ -1,12 +1,11 @@
 from django.http import JsonResponse, HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
+from apscheduler.schedulers.background import BackgroundScheduler
 from src.tipboard.app.parser import parseXmlLayout, getConfigNames, getFlipboardTitles
 from src.tipboard.app.properties import TIPBOARD_CSS_STYLES, FLIPBOARD_INTERVAL, LOG, TIPBOARD_JAVASCRIPT_FILES
 from src.tipboard.app.utils import getTimeStr
+from src.tipboard.app.cache import MyCache
 from src.sensors.sensors_main import scheduleYourSensors, stopTheSensors
-from apscheduler.schedulers.background import BackgroundScheduler
-
-scheduler = BackgroundScheduler()
 
 
 def renderFlipboardHtml(request):
@@ -63,12 +62,12 @@ def getDashboardsPaths(request):
 
 def demo_controller(request, flagSensors=None, tester=None):
     """ activate or not the sensors by api  """
-    global scheduler
+    cache = MyCache()
     if flagSensors == 'on':
-        scheduleYourSensors(scheduler, tester)
+        scheduleYourSensors(cache.scheduler_sensors, tester)
     elif flagSensors == 'off':
-        stopTheSensors(scheduler)
-        scheduler = BackgroundScheduler()
+        stopTheSensors(cache.scheduler_sensors)
+        cache.scheduler_sensors = BackgroundScheduler()
     return HttpResponseRedirect('/')
 
 

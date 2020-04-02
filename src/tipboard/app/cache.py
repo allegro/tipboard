@@ -1,27 +1,19 @@
 import json, redis
+from datetime import datetime
 from asgiref.sync import async_to_sync
-from src.tipboard.app.parser import parseXmlLayout
-from src.tipboard.app.applicationconfig import getRedisPrefix, getIsoTime
-from src.tipboard.app.properties import REDIS_DB, REDIS_PASSWORD, REDIS_HOST, REDIS_PORT, DEBUG
-from src.tipboard.app.utils import getTimeStr
 from channels.layers import get_channel_layer
+from apscheduler.schedulers.background import BackgroundScheduler
+from src.tipboard.app.properties import REDIS_DB, REDIS_PASSWORD, REDIS_HOST, REDIS_PORT, DEBUG
 from src.tipboard.app.DefaultData.defaultTileControler import buildFakeDataFromTemplate
 from src.tipboard.app.DefaultData.chartJsDatasetBuilder import buildGenericDataset
-
-cache = None  # TODO: remove this by using the django middleware redis
-
-
-def getCache():
-    global cache
-    if cache is None:
-        cache = MyCache()
-    return cache
+from src.tipboard.app.parser import parseXmlLayout
+from src.tipboard.app.applicationconfig import getRedisPrefix
+from src.tipboard.app.utils import getTimeStr
 
 
 def listOfTilesFromLayout(layout_name='default_config'):
     """ List all tiles for a specific layout in Config/*.yml """
-    tmp = parseXmlLayout(layout_name)['tiles_conf']
-    return tmp
+    return parseXmlLayout(layout_name)['tiles_conf']
 
 
 def update_dataset_from_tiles(value, previousData, key, tile_template):
@@ -56,12 +48,10 @@ def update_data_by_type(tile_template, previousData, key, value):
 
 def update_meta_if_present(tile_id, meta):
     """ Update the meta(config) of a tile(widget) """
-    if meta is not None:
-        tilePrefix = getRedisPrefix(tile_id)
-        cachedTile = json.loads(getCache().redis.get(tilePrefix))
-        metaTile = cachedTile['meta']['options'] if 'options' in cachedTile['meta'] else cachedTile['meta']
-        update_tile_data_from_redis(metaTile, json.loads(meta), None)
-        return cachedTile['meta']
+    cachedTile = json.loads(MyCache().redis.get(getRedisPrefix(tile_id)))
+    metaTile = cachedTile['meta']['options'] if 'options' in cachedTile['meta'] else cachedTile['meta']
+    cachedTile['meta'] = update_tile_data_from_redis(metaTile, json.loads(meta), None)
+    return cachedTile['meta']
 
 
 def update_tile_data_from_redis(previousData, newData, tile_template):
@@ -75,43 +65,52 @@ def update_tile_data_from_redis(previousData, newData, tile_template):
 
 
 def save_tile(tile_id, template, data, meta):
-    redis_cache = getCache()
-    tilePrefix = getRedisPrefix(tile_id)  # TODO: if tile don't exist, create it with template, DEBUG mode only
+    redis_cache = MyCache()
+    tilePrefix = getRedisPrefix(tile_id)
     if not redis_cache.redis.exists(tilePrefix) and DEBUG:
-        buildFakeDataFromTemplate(tile_id, template, redis_cache)
+        buildFakeDataFromTemplate(tile_id, template, redis_cache)  # Build fake data and save it on redis
     cachedTile = json.loads(redis_cache.redis.get(tilePrefix))
-    cachedTile['data'] = update_tile_data_from_redis(cachedTile['data'], json.loads(data), template)
-    cachedTile['modified'] = getIsoTime()
     cachedTile['tile_template'] = template
-    cachedTile['meta'] = update_meta_if_present(tile_id, meta)
+    cachedTile['data'] = update_tile_data_from_redis(cachedTile['data'], json.loads(data), template)
+    if meta is not None:
+        cachedTile['meta'] = update_meta_if_present(tile_id, meta)
     redis_cache.set(tilePrefix, json.dumps(cachedTile))
     return True
 
 
-class MyCache:
-    def __init__(self, isTest=False):
-        try:
-            dbInRedis = "" if isTest else REDIS_DB
-            self.redis = redis.StrictRedis(host=REDIS_HOST, port=REDIS_PORT, password=REDIS_PASSWORD,
-                                           decode_responses=True, db=dbInRedis)
-            self.redis.time()
-            self.isRedisConnected = True
-            self.clientsWS = list()
-        except Exception:
-            print(f'{getTimeStr()} (+) Initializing cache: Redis not connected', flush=True)
-            self.isRedisConnected = False
+class MyCache(object):
+    """ Singleton redis object to handle (de)serialization of tiles and inform the channels to update websocket """
+    instance = None
+
+    def __new__(cls):
+        if cls.instance is None:
+            inst = cls.instance = super(MyCache, cls).__new__(cls)
+            try:
+                inst.redis = redis.StrictRedis(host=REDIS_HOST, port=REDIS_PORT, password=REDIS_PASSWORD,
+                                               decode_responses=True, db=REDIS_DB)
+                inst.redis.time()
+                inst.isRedisConnected = True
+                inst.scheduler_sensors = BackgroundScheduler()
+                inst.startedTime = datetime.now().strftime("%d %B %Y %T")
+                inst.lastUpdateTime = datetime.now().strftime("%d %B %Y %T")
+            except Exception:
+                print(f'{getTimeStr()} (+) Initializing cache: Redis not connected', flush=True)
+                inst.isRedisConnected = False
+            return inst
+        return cls.instance  # if already exist, return the instance already initialized :)
 
     def get(self, tile_id):
         if self.isRedisConnected and self.redis.exists(tile_id):
-            return json.dumps(self.redis.get(tile_id))
+            return self.redis.get(tile_id)
         return None
 
     def set(self, tile_fullid, dumped_value):
         if self.isRedisConnected:
             self.redis.set(tile_fullid, dumped_value)
-            tile_id = tile_fullid.split(':')[-1]  # quick split to get tileIt without prefix
+            tile_id = tile_fullid.split(':')[-1]  # quick split to get tileId without redis prefix
             channel_layer = get_channel_layer()
             async_to_sync(channel_layer.group_send)('event', dict(type='update.tile', tile_id=tile_id))
+            self.lastUpdateTime = datetime.now().strftime("%d %B %Y %Hh%M")
             return True
         return False
 
@@ -120,6 +119,12 @@ class MyCache:
             self.redis.delete(getRedisPrefix(tile_id=tile_id))
             return True
         return False
+
+    def getLastUpdateTime(self):
+        return self.lastUpdateTime
+
+    def getFirstTimeStarter(self):
+        return self.startedTime
 
     def listOfTilesCached(self):
         return [key for key in self.redis.keys(getRedisPrefix())] if self.isRedisConnected else list()

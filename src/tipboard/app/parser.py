@@ -1,5 +1,5 @@
 import glob, os, yaml
-from src.tipboard.app.properties import CONFIG_DIR, DEFAULT_CONFIG
+from src.tipboard.app.properties import CONF_DIR, BASIC_CONFIG
 from src.tipboard.app.utils import getTimeStr
 
 
@@ -26,7 +26,7 @@ def getTilesConfigFromXml(cols_data):
 def yamlFileToPythonDict(layout_name='default_config'):
     """ Parse in yaml the .yaml file to return python object """
     layout_name = layout_name if layout_name else 'default_config'
-    config_path = f'{CONFIG_DIR}{layout_name}'
+    config_path = f'{CONF_DIR}{layout_name}'
     if not os.path.isfile(config_path):
         config_path = config_path + '.yaml'
         if not os.path.isfile(config_path):
@@ -51,12 +51,12 @@ def parseXmlLayout(layout_name='default_config'):
 def getConfigNames():
     """ Return all dashboard file name from Config/ """
     configs_names = list()
-    configs_dir = os.path.join(CONFIG_DIR, '*.yaml')
+    configs_dir = os.path.join(CONF_DIR, '*.yaml')
     for config_path in glob.glob(configs_dir):  # Get all name of different *.yml present in Config/ directory
         configs_names.append(config_path.split('/')[-1].replace('.yaml', ''))
         if not configs_names:
-            raise Exception(f'No config (.yaml) file found in {os.path.join(CONFIG_DIR, "*.yaml")}')
-    simple_layout_name = DEFAULT_CONFIG.split('/')[-1].replace('.yaml', '')
+            raise Exception(f'No config (.yaml) file found in {os.path.join(CONF_DIR, "*.yaml")}')
+    simple_layout_name = BASIC_CONFIG.split('/')[-1].replace('.yaml', '')
     if simple_layout_name in configs_names:
         configs_names.pop(configs_names.index(simple_layout_name))
         configs_names.insert(0, simple_layout_name)

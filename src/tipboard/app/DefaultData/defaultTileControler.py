@@ -23,7 +23,7 @@ def getDefaultIframeTile():
         'data': dict(url='https://demo.matomo.org/index.php?'
                          'module=Widgetize&action=iframe&disableLink=0&widget=1&'
                          'moduleToWidgetize=Live&actionToWidgetize=getSimpleLastVisitCount&'
-                         'idSite=62&period=day&date=yesterday&disableLink=1&widget=1'),
+                         'idSite=62&period=day&date=yesterday&disableLink=1&widget=1')
     }
 
 
@@ -65,7 +65,8 @@ def buildFakeDataFromTemplate(tile_id, template_name, cache):  # TODO: handle wh
         functionTileUpdate = ptrToFuncUpdateTile[template_name]
         tileData = add_template_and_id(functionTileUpdate(), tile_id, template_name)
         if cache is not None:
-            cache.redis.set(name=getRedisPrefix(tile_id), value=json.dumps(tileData))
+            tileData = json.dumps(tileData)
+            cache.redis.set(name=getRedisPrefix(tile_id), value=tileData)
             return tileData
         print(f'(-) Error with tile:{template_name}')
     else:
