@@ -48,9 +48,8 @@ def update_data_by_type(tile_template, previousData, key, value):
 def update_meta_if_present(tile_id, meta):
     """ Update the meta(config) of a tile(widget) """
     cachedTile = json.loads(MyCache().redis.get(getRedisPrefix(tile_id)))
-    if meta is not None:
-        metaTile = cachedTile['meta']['options'] if 'options' in cachedTile['meta'] else cachedTile['meta']
-        cachedTile['meta'] = update_tile_data_from_redis(metaTile, json.loads(meta), None)
+    metaTile = cachedTile['meta']['options'] if 'options' in cachedTile['meta'] else cachedTile['meta']
+    cachedTile['meta'] = update_tile_data_from_redis(metaTile, json.loads(meta), None)
     return cachedTile['meta']
 
 
@@ -72,7 +71,8 @@ def save_tile(tile_id, template, data, meta):
     cachedTile = json.loads(redis_cache.redis.get(tilePrefix))
     cachedTile['tile_template'] = template
     cachedTile['data'] = update_tile_data_from_redis(cachedTile['data'], json.loads(data), template)
-    cachedTile['meta'] = update_meta_if_present(tile_id, meta)
+    if meta is not None:
+        cachedTile['meta'] = update_meta_if_present(tile_id, meta)
     redis_cache.set(tilePrefix, json.dumps(cachedTile))
     return True
 
