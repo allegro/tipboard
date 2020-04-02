@@ -268,7 +268,7 @@ class TestApp(SimpleTestCase):  # TODO: find a way to test the WebSocket inside 
     def test_1026_test_sensors(self):  # TODO: fix this double loads linked to the bug in parser.py at .get()
         tilePrefix = getRedisPrefix('test_simple_percentage')
         lm = MyCache().get(tilePrefix)
-        beforeUpdate = json.loads(json.loads(lm))
+        beforeUpdate = json.loads(lm)
         test_sensors(tester=self)
         scheduler = BackgroundScheduler()
         nbrSensors = scheduleYourSensors(scheduler=scheduler, tester=self)
@@ -276,7 +276,7 @@ class TestApp(SimpleTestCase):  # TODO: find a way to test the WebSocket inside 
         time.sleep(5)
         scheduler.shutdown()
         time.sleep(3)
-        afterUpdate = json.loads(json.loads(MyCache().get(tilePrefix)))['data']['big_value']
+        afterUpdate = json.loads(MyCache().get(tilePrefix))['data']['big_value']
         isDiff = beforeUpdate != afterUpdate
         self.assertTrue(isDiff)
 
