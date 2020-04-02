@@ -85,9 +85,7 @@ class MyCache(object):
     instance = None
 
     def __new__(cls):
-        if cls.instance is not None:
-            return cls.instance
-        else:
+        if cls.instance is None:
             inst = cls.instance = super(MyCache, cls).__new__(cls)
             try:
                 inst.redis = redis.StrictRedis(host=REDIS_HOST, port=REDIS_PORT, password=REDIS_PASSWORD,
@@ -99,6 +97,7 @@ class MyCache(object):
                 print(f'{getTimeStr()} (+) Initializing cache: Redis not connected', flush=True)
                 inst.isRedisConnected = False
             return inst
+        return cls.instance  # if already exist, return the instance already initialized :)
 
     def get(self, tile_id):
         if self.isRedisConnected and self.redis.exists(tile_id):
