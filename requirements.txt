@@ -1,4 +1,4 @@
-redis==3.4.1
+redis==3.5.0
 requests==2.23.0
 apscheduler==3.6.3
 asgiref==3.2.7
