@@ -1,3 +1,7 @@
+  #### This was a w.i.p repo, this project was migrated [here](https://github.com/the-maux/Chartboard)  
+    
+  ____________________
+  
   <p align="center">
   <img alt="Tipboard" src="https://i.ibb.co/Fx6FykP/image-5.png"/>
   <p align="center">
