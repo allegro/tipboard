@@ -1,0 +1,40 @@
+details:
+  page_title: Streamboard
+  color_mode: black
+layout:
+  - row:
+
+      - col:
+          - tile_template: listing
+            tile_id: listing_ex
+            title: listing
+
+      - col:
+          - tile_template: iframe
+            tile_id: iframe_ex
+            title: Exemple Iframe
+
+  - row:
+      - col:
+          - tile_template: just_value
+            tile_id: jv_ex
+            title: Just value
+
+      - col flip-time-60:
+          - tile_template: big_value
+            tile_id: bv_ex
+            title: Big value
+
+          - tile_template: custom
+            tile_id: custom_ex
+            title: Custom
+
+      - col flip-time-60:
+          - tile_template: text
+            tile_id: txt_ex
+            title: text
+
+          - tile_template: simple_percentage
+            tile_id: sp_ex
+            title: Percentage
+

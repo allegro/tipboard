@@ -1,0 +1,19 @@
+config:
+  env: prod
+
+
+tipboard:
+  app: tipboard
+  image: themaux/tipboard
+  version: latest
+  imagePullSecrets:
+    - dockerconfigjson-secret
+  configMaps:
+    - name: tipboard-configmap
+      mountPath: /home/app/tipboard/Config
+  memoryLimit: 2G
+  memoryRequest: 1G
+  cpuRequest: 500m
+  cpuLimit:  2
+  HostDomain: tipboard
+  dockerConfigJson: WW91clRva2VuSGVyZQ==

@@ -1,0 +1,14 @@
+{{- if .Values.volumeName }}
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: {{ .Values.volumeName }}-data
+  labels:
+    app: {{ .Values.app }}
+spec:
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: {{ .Values.volumeCapacity }}
+{{- end }}

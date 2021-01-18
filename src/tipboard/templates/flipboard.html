@@ -1,0 +1,13 @@
+{% extends "base_template.html" %}
+{% load static %}
+{% load template_filter %}
+
+{% block page_title %}{{ page_title }}{% endblock %}
+
+{% block put_body %}
+
+      <div data-fliptime-interval="{{flipboard_interval}}" id="tipboardIframe">
+
+      </div>
+
+{% endblock %}

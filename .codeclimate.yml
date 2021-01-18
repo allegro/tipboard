@@ -1,0 +1,73 @@
+version: "2"
+checks:
+  method-complexity:
+    enabled: false
+plugins:
+  duplication:
+    enabled: false
+    config:
+      languages:
+        python:
+          python_version: 3
+  sonar-python:
+    enabled: true
+    checks:
+      python:S1542:
+        enabled: false
+  pylint:
+    enabled: true
+    channel: beta
+    plugins:
+      - django
+  pep8:
+    enabled: true
+  fixme:
+    enabled: true
+    config:
+      strings:
+      - TOFIX
+      - TODO
+  csslint:
+    enabled: true
+
+exclude_patterns:
+  - "src/tipboard/static/js/bootstrap.js"
+  - "src/tipboard/static/js/chart.bundle.js"
+  - "src/tipboard/static/js/chart-plugin-test-linearradial.js"
+  - "src/tipboard/static/js/chartjs-plugin-labels.min.js"
+  - "src/tipboard/static/js/chartjs-plugin-radialgauge.js"
+  - "src/tipboard/static/js/chartjs-plugin-trendline.min.js"
+  - "src/tipboard/static/js/chartjs-plugin-tsgauge.js"
+  - "src/tipboard/static/js/jquery-3.4.1.min.js"
+  - "src/tipboard/static/js/popper.min.js"
+
+
+[flake8]
+exclude =
+    .*/,
+    __pycache__/,
+    .pytest_cache/,
+    helm-chart/,
+    */migrations/
+ignore = E401, W605
+max-line-length = 150
+
+[pep8]
+exclude =
+    .*/,
+    __pycache__/,
+    .pytest_cache/,
+    helm-chart/,
+    */migrations/
+ignore = E401, W605
+max-line-length = 150
+
+[pycodestyle]
+exclude =
+    .*/,
+    __pycache__/,
+    .pytest_cache/,
+    helm-chart/,
+    */migrations/
+ignore = E401, W605
+max-line-length = 150

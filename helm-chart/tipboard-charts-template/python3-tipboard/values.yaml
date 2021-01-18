@@ -1,0 +1,36 @@
+app: python3-tipboard
+
+version: latest
+
+# Optionally specify an array of imagePullSecrets - ref: https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/
+# imagePullSecrets:
+#   - dockerconfigjson-secret # registry secrets
+
+# Container environment variables
+# env:
+#   - name: MY_ENV
+#     value: MY_VALYE
+
+# Container secret environment variables
+# secretData:
+#   ENCRYPT_KEY: value
+
+
+# configMaps:
+#   - name: python-django-configmap
+#     mountPath: /tmp/config
+
+# ingressHostDomain: my-project-dev.apps.op.acp.adeo.com
+
+# The number of replicas to run
+replicas: 1
+
+# Readiness probe
+# readinessProbePath: /health
+
+## Configure resource requests and limits
+## ref: http://kubernetes.io/docs/user-guide/compute-resources/
+cpuRequest: 100m
+memoryRequest: 256Mi
+cpuLimit: 100m
+memoryLimit: 256Mi

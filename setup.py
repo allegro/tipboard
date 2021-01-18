@@ -1,38 +1,45 @@
- # -*- encoding: utf-8 -*-
-
-import os
-import sys
+import pathlib, sys, os
+import django
 from setuptools import setup, find_packages
+from src import __version__
 
-assert sys.version_info >= (2, 7), "Python 2.7+ required."
+if sys.version_info < (3, 7):
+    print('Python 3.7+ required.', flush=True)
 
-current_dir = os.path.abspath(os.path.dirname(__file__))
-with open(os.path.join(current_dir, 'README.rst')) as readme_file:
-    with open(os.path.join(current_dir, 'CHANGES.rst')) as changes_file:
-        long_description = readme_file.read() + '\n' + changes_file.read()
+sys.path.insert(0, os.getcwd())  # Import project to PYTHONPATH
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'src.tipboard.webserver.settings')
 
-from tipboard import __version__
+django.setup()
 
-with open('requirements.txt') as requirements:
+# The directory containing this file
+HERE = pathlib.Path.cwd()
+
+
+# The text of the README file
+README = (HERE / 'README.md').read_text()
+
+print(README, flush=True)
+
+with open(HERE / 'requirements.txt') as requirements:
     required = requirements.read().splitlines()
 
+
 setup(
-    name='tipboard',
+    name='tipboard2.0',
     version=__version__,
     description='Tipboard - a flexible solution for creating your dashboards.',
-    long_description = long_description,
+    long_description=README,
+    long_description_content_type='text/markdown',
     url='http://tipboard.allegrogroup.com',
-    license='Apache Software License v2.0',
     author='Allegro Group and Contributors',
     author_email='pylabs@allegro.pl',
+    license='Apache Software License v2.0',
     packages=find_packages(),
     include_package_data=True,
-    zip_safe=False,
-    platforms=['any'],
     install_requires=required,
     entry_points={
         'console_scripts': [
-            'tipboard = tipboard.console:main',
+            'tipboard = src.manage:main_as_pkg',
         ],
     },
 )

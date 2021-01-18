@@ -1,0 +1,90 @@
+apiVersion: v1
+kind: DeploymentConfig
+metadata:
+  name: {{ .Values.app }}
+  labels:
+    app: {{ .Values.app }}
+spec:
+  replicas: {{ .Values.replicas }}
+  selector:
+    app: {{ .Values.app }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.app }}
+      {{- if .Values.podAnnotations }}
+      annotations:
+{{ toYaml .Values.podAnnotations | indent 8 }}
+      {{- end }}
+    spec:
+      {{- if .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- range .Values.imagePullSecrets }}
+        - name: {{ . }}
+        {{- end }}
+      {{- end }}
+      containers:
+        - image: "{{ .Values.image }}:{{ .Values.version }}"
+          imagePullPolicy: "Always"
+          name: {{ .Values.app }}
+          ports:
+            - containerPort: 8080
+              protocol: TCP
+          env:
+            {{- if .Values.env}}
+{{ toYaml .Values.env | indent 12 }}
+            {{- end }}
+            {{- range $secretKey, $secretValue := .Values.secretData }}
+            - name: {{ $secretKey }}
+              valueFrom:
+                secretKeyRef:
+                  name: "{{ $.Values.app }}-secret"
+                  key: {{ $secretKey }}
+            {{- end }}
+          readinessProbe:
+            {{- if .Values.readinessProbePath }}
+            failureThreshold: 3
+            httpGet:
+              path: {{ $.Values.readinessProbePath }}
+              port: 8080
+              scheme: HTTP
+            initialDelaySeconds: 160
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 8
+            {{- end }}
+          resources:
+            requests:
+              cpu: {{ .Values.cpuRequest | quote }}
+              memory: {{ .Values.memoryRequest | quote }}
+            limits:
+              cpu: {{ .Values.cpuLimit | quote }}
+              memory: {{ .Values.memoryLimit | quote }}
+          volumeMounts:
+          {{- if .Values.configMaps }}
+            {{- range .Values.configMaps }}
+            - mountPath: "{{ .mountPath }}"
+              name: "{{ .name }}"
+              readOnly: true
+            {{- end }}
+          {{- end }}
+          {{- if .Values.volumeName }}
+            - mountPath: "{{ .Values.mountPath }}"
+              name: "{{ .Values.volumeName }}"
+              readOnly: false
+          {{- end }}
+      restartPolicy: Always
+      volumes:
+      {{- if .Values.configMaps }}
+        {{- range .Values.configMaps }}
+        - name: "{{ .name }}"
+          configMap:
+            defaultMode: 420
+            name: "{{ .name }}"
+         {{- end }}
+      {{- end }}
+      {{- if .Values.volumeName }}
+        - name: {{ .Values.volumeName }}
+          persistentVolumeClaim:
+            claimName: {{ .Values.volumeName }}-data
+      {{- end }}

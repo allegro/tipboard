@@ -1,0 +1,20 @@
+---
+# Source: tipboard-ops/charts/tipboard/templates/04-python3-tipboard-service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: tipboard
+  labels:
+    app: tipboard
+spec:
+  ports:
+    - name: "8080"
+      port: 8080
+      protocol: TCP
+      targetPort: 8080
+  selector:
+    app: tipboard
+  sessionAffinity: None
+  type: ClusterIP
+status:
+  loadBalancer: {}

@@ -1,15 +1,28 @@
+# thanks to @sebleier https://github.com/sebleier/django-redis-cache
+sudo: required
 language: python
 python:
-  - "2.7"
-# command to install dependencies, e.g. pip install -r requirements.txt --use-mirrors
-install:
-    - pip install flake8 --use-mirrors
-    - pip install . --use-mirrors
+  - 3.8
+env:
+  global:
+    - CC_TEST_REPORTER_ID=08b43026fb188b3529d78e39eb5409b45b98a63888802dc8ca854478cd78b67d
+    - CODACY_PROJECT_TOKEN=7594b00e25614e438774aa123448975c
+    - GIT_COMMITTED_AT=$(if [ "$TRAVIS_PULL_REQUEST" == "false" ]; then git log -1 --pretty=format:%ct; else git log -1 --skip 1 --pretty=format:%ct; fi)
+services:
+  - redis
+
 before_script:
-    - flake8 --statistics tipboard
-# command to run tests, e.g. python setup.py test
+  - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+  - chmod +x ./cc-test-reporter
+  - ./cc-test-reporter before-build
+install:
+    - pip install coverage pytest-django pytest-asyncio codacy-coverage
+    - pip install -r requirements.txt
 script:
-    - tipboard test test_config_parser
-    - tipboard test test_console_commands
-    - tipboard test test_rest_api.TestRestApi.test_01_api_key
-    - tipboard test test_rest_api.TestRestApi.test_02_info_resource
+    - coverage run --source='.' --rcfile=.coveragerc src/manage.py test  -v 2
+    - coverage report
+after_script:
+  - coverage xml
+  - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
+  - coverage xml
+  - python-codacy-coverage -r coverage.xml

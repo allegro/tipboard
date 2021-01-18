@@ -1,6 +1,100 @@
 Change Log
 ----------
 
+2.0.6
+~~~~~
+
+2.0.6
+~~~~~
+
+* Update archi of package to be compatible with setup.py
+
+* Fix Manifest.in to support new archi
+
+* Fix travis CI
+
+* Circle-CI Workflow, build and push new pypi release when PR #70
+
+* add Gitlab-Ci to push new package on Github and to push image on docker hub
+
+* Create new package Tipboard2.0 on pypi https://pypi.org/project/tipboard2.0/
+
+* cleaning version
+
+
+2.0.2
+~~~~~
+
+* WIP: Readme add deploy exemple
+
+* WIP: add Badge status in Readme to see status of differents CI and CD
+
+* WIP: adding chart helm support to deploy on kubernets cluster, with or without redis in the stack
+
+* WIP: Azure pipeline CI/CD
+
+* Conditional print log, from the properties.json
+
+* WIP: Unit test to be compatible with django
+
+2.0.0
+~~~~~
+
+* Merging config_data and tile data over new route /update to answer issue #21
+
+* fix websocket latency
+
+* Change color by Material color
+
+
+1.5.0
+~~~~~
+
+* Migrate Python2.7 to Python3.7 and upgrading all python library
+    * Removed libraries:
+        * mock==1.0.1
+        * requests==1.2.3
+        * six>=1.4.1
+        * tornado-redis==2.4.2
+        * tornado==3.0.1
+        * docopt==0.6.1
+        * raven==3.5.2
+        * Sphinx==1.2.2
+        * sphinxcontrib-httpdomain==1.3.0
+
+    * Added libraries:
+        * django>=2.2.1
+        * django-prometheus>=1.0.15
+        * django-cors-headers>=3.0.1
+        * channels>=2.2.0
+        * channels_redis>=2.4.0
+        * asgiref>=3.1.4
+
+* Using Django2.0 over tornado now
+    * Updating tornado template tiles-.html to template django, moving them in templates directory
+    * Using channels_redis.core.RedisChannelLayer over tornadoredis
+    * Using channels.generic.websocket over tornado.websocket.WebSocketHandler
+    * Using static files from django behavior over tornado.web.StaticFileHandler
+    * Moving tornado url routing behavior to the django behavior
+    * removing duplicate inner function to a single file utils.py
+    * reworking of the file redis_utils.py to a cache.py
+    * Config for ASGI_APPLICATION
+
+* Moving the .tipboard directory to ./tipboard/Config/ to make it compatible with bitnami/python
+
+* Adding dockerfile support
+    * Using bitnami image in order to be cloud ready
+    * Using non root image
+
+
+* Adding .gitlab-ci to CI with gitlab
+
+* Adding .travis.yml to CI with github
+
+* Minor fixes, improvements, cleanups etc.
+
+
+
 1.4.1
 ~~~~~
 
