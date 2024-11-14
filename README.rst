@@ -2,6 +2,19 @@
 Tipboard
 ========
 
+
+Project update
+-------------
+
+*This project is no longer actively maintained*
+
+The source code remains accessible for anyone to explore, modify, and adapt as desired. However, we won't be able to merge any patches or address issues.
+
+Feel free to fork, enhance, and enjoy the Open Source spirit.
+
+Thank you for the community's interest and contributions!
+
+
 |docs|
 
 Introduction
